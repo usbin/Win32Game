@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{68e5b080-f229-4a6e-9dde-ced96db9380c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{9439c76d-afe2-4a26-b14b-799861365aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{767daa07-b13c-4dcb-a8be-08284df273bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject">
+      <UniqueIdentifier>{be6d2539-93b8-43a9-ab9a-4c137402308e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{3b59e143-9785-401b-9e06-312e0a55af53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Scene_Title">
+      <UniqueIdentifier>{0366adc8-47df-4d31-842a-f9913cae05cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Scene_01">
+      <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Player">
+      <UniqueIdentifier>{bc361756-1821-4e8e-89b5-0fc72bd62ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Monster">
+      <UniqueIdentifier>{58c26f5a-ba54-4cfb-94a7-56468ec4998f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Missile">
+      <UniqueIdentifier>{97061054-36b9-4c7b-9dba-98c8a435f63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Res">
+      <UniqueIdentifier>{f86d45c8-6efb-443b-a32e-b959ac978083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Res\Texture">
+      <UniqueIdentifier>{42fdc756-a77a-44f6-b20f-2c676e630970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PathManager">
+      <UniqueIdentifier>{64f28712-2a7b-41f3-bec1-10ded5ac78c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{3fbb9305-5a77-4bb2-a6d4-cd6bcda1cf7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\EventManager">
+      <UniqueIdentifier>{6be38a95-9fe9-4d80-a9ee-9a13eeff03da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{a880d863-e2bb-486e-928e-80ee64d95649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Collider">
+      <UniqueIdentifier>{4b7a5320-9758-45b9-85a7-be21a5bb67df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Animator">
+      <UniqueIdentifier>{cc00a0a1-36e5-47f9-a4d6-85db3e86bbef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="macro.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Program.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Title.h">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_01.h">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\GObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GObject.h">
+      <Filter>Game\GObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Game\GObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Game\GObject\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="inline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Game\Res\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>Game\Res</Filter>
+    </ClInclude>
+    <ClInclude Include="ResManager.h">
+      <Filter>Game\Res</Filter>
+    </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>Game\PathManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGdi.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Game\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="function.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Game\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Game\Component\Animator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Default</Filter>
+    </Image>
+    <Image Include="Win32Program.ico">
+      <Filter>Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Win32Program.rc">
+      <Filter>Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Win32Program.cpp" />
+    <ClCompile Include="Core.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Title.cpp">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_01.cpp">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\GObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GObject.cpp">
+      <Filter>Game\GObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Game\GObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Game\GObject\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Game\Res\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Res.cpp">
+      <Filter>Game\Res</Filter>
+    </ClCompile>
+    <ClCompile Include="ResManager.cpp">
+      <Filter>Game\Res</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>Game\PathManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGdi.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Game\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="function.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Game\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Game\Component\Animator</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
