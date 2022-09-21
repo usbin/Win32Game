@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "PathManager.h"
 
 PathManager::PathManager()
@@ -12,8 +11,8 @@ void PathManager::Init()
 	TCHAR current_dir[255] = _T("");
 	GetCurrentDirectory(255, current_dir);
 	//bin또는 bin_debug를 지우고 \bin\content\를 새로 붙임.
-	size_t len = _tcslen(current_dir);
-	for (size_t i = len - 1; i >= 0; i--) {
+	int len = static_cast<int>(_tcslen(current_dir));
+	for (int i = len - 1; i >= 0; i--) {
 		if (current_dir[i] == '\\') {
 			current_dir[i] = '\0';
 			break;

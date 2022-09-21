@@ -1,4 +1,5 @@
 #pragma once
+#include "global.h"
 #include "Scene.h"
 
 class Scene;

@@ -1,4 +1,5 @@
 #pragma once
+#include "global.h"
 #include <set>
 #include "GObject.h"
 
@@ -22,8 +23,9 @@ public:
 	int OnDestroy();
 	bool Progress();
 	inline HDC get_main_hdc() { return hdc_; };
+	inline HWND get_main_hwnd() { return hwnd_; };
 	inline POINT get_pt_resolution() { return pt_resolution_; };
-
+	inline Vector2 get_resolution() { return Vector2{ pt_resolution_ }; };
 	inline HPEN GetPen(PEN_TYPE pen_type) {
 		return pens[static_cast<int>(pen_type)];
 	};

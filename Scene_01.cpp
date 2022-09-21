@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Scene_01.h"
 #include "KeyManager.h"
 #include "Time.h"

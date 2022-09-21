@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Core.h"
 #include "Time.h"
 #include "KeyManager.h"
@@ -6,6 +5,7 @@
 #include "PathManager.h"
 #include "CollisionManager.h"
 #include "EventManager.h"
+#include "Camera.h"
 
 Core::Core()
 	: hwnd_(0)
@@ -82,6 +82,7 @@ bool Core::Progress()
 	SyncResolution();
 	Time::GetInstance()->Update();
 	KeyManager::GetInstance()->Update();
+	Camera::GetInstance()->Update();
 
 	//===============
 	//	메인 루틴

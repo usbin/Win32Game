@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "CollisionManager.h"
 #include "GObject.h"
 #include "SceneManager.h"

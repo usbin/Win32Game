@@ -29,17 +29,38 @@ public:
 	Vector2 operator+(const Vector2& o_v) {
 		return Vector2{ x + o_v.x, y + o_v.y };
 	}
-	Vector2 operator-(const Vector2& o_v) {
-		return Vector2{ x - o_v.x, y - o_v.y };
+	void operator+=(const Vector2& o_v) {
+		x += o_v.x;
+		y += o_v.y;
 	}
+	
 	Vector2 operator+(const Vector2& o_v) const {
 		return Vector2{ x + o_v.x, y + o_v.y };
+	}
+	Vector2 operator-(const Vector2& o_v) {
+		return Vector2{ x - o_v.x, y - o_v.y };
 	}
 	Vector2 operator-(const Vector2& o_v) const {
 		return Vector2{ x - o_v.x, y - o_v.y };
 	}
+	void operator-=(const Vector2& o_v) {
+		x -= o_v.x;
+		y -= o_v.y;
+	}
 	Vector2 operator*(int num) {
 		return Vector2{ x * num, y * num };
+	}
+	Vector2 operator*(float num) {
+		return Vector2{ x * num, y * num };
+	}
+	Vector2 operator/(const Vector2& o_v) {
+		return Vector2{ x / o_v.x, y / o_v.y };
+	}
+	Vector2 operator/(int num) {
+		return Vector2{ x / num, y / num };
+	}
+	Vector2 operator/(float num) {
+		return Vector2{ x / num, y / num };
 	}
 
 };

@@ -55,6 +55,9 @@
     <Filter Include="Game\Component\Animator">
       <UniqueIdentifier>{cc00a0a1-36e5-47f9-a4d6-85db3e86bbef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{97b82e50-64b4-46d0-a5d0-80c00ced8ba1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -63,7 +66,7 @@
     <ClInclude Include="macro.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="global.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -150,6 +153,9 @@
     <ClInclude Include="Animator.h">
       <Filter>Game\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -231,6 +237,9 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Game\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

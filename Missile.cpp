@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Missile.h"
 #include "Time.h"
 #include "Core.h"
@@ -35,11 +34,12 @@ void Missile::Update()
 
 void Missile::Render(HDC hdc)
 {
+	Vector2 render_pos = GetRenderPos(get_pos());
 	Ellipse(hdc
-		, static_cast<int>(get_pos().x - get_scale().x/2.)
-		, static_cast<int>(get_pos().y - get_scale().y / 2.)
-		, static_cast<int>(get_pos().x + get_scale().x / 2.)
-		, static_cast<int>(get_pos().y + get_scale().y / 2.));
+		, static_cast<int>(render_pos.x - get_scale().x/2.)
+		, static_cast<int>(render_pos.y - get_scale().y / 2.)
+		, static_cast<int>(render_pos.x + get_scale().x / 2.)
+		, static_cast<int>(render_pos.y + get_scale().y / 2.));
 	
 }
 

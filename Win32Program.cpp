@@ -1,6 +1,5 @@
 ﻿// Win32Program.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
-#include "pch.h"
 #include "framework.h"
 #include "Win32Program.h"
 #include "Core.h"

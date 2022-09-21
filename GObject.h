@@ -1,4 +1,6 @@
 #pragma once
+
+#include "global.h"
 //게임 안에 존재하는, 그려져야 하는 모든 오브젝트
 //매 렌더링에서 그려줌.
 class Collider;

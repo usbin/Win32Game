@@ -1,6 +1,6 @@
-#include "pch.h"
 #include "KeyManager.h"
 #include "SceneManager.h"
+#include "Core.h"
 
 int g_windows_keys[static_cast<int>(KEY::LAST)] = {
 	VK_LBUTTON,//LBUTTON,
@@ -84,6 +84,11 @@ bool KeyManager::Update()
 				current_key_states_[i].prev_pressed = FALSE;
 			}
 		}
+		POINT pt_mouse_pos;
+		GetCursorPos(&pt_mouse_pos);
+		ScreenToClient(Core::GetInstance()->get_main_hwnd(), &pt_mouse_pos);
+		
+		mouse_pos_ = GetWorldPos(Vector2{ pt_mouse_pos });
 	}
 	//프로그램이 포커싱되어 있지 않음 -> 자연스럽게 키가 떨어진 것처럼 바꿈
 	else {
@@ -100,6 +105,7 @@ bool KeyManager::Update()
 			
 		}
 	}
+
 
 	
 	

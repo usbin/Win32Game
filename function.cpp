@@ -1,8 +1,8 @@
-#include "pch.h"
 #include "function.h"
 #include "GObject.h"
 #include "EventManager.h"
 #include "Time.h"
+#include "Camera.h"
 
 void CreateGObject(GObject* object, GROUP_TYPE type) {
 	Event eve = {};
@@ -35,6 +35,16 @@ float DtF()
 {
 	return static_cast<float>(Time::GetInstance()->dt_f());
 
+}
+
+Vector2 GetRenderPos(Vector2 world_pos)
+{
+	return Camera::GetInstance()->GetRenderPos(world_pos);
+}
+
+Vector2 GetWorldPos(Vector2 render_pos)
+{
+	return Camera::GetInstance()->GetWorldPos(render_pos);
 }
 
 

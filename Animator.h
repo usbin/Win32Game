@@ -1,4 +1,5 @@
 #pragma once
+#include "global.h"
 class Animation;
 class Texture;
 class Animator

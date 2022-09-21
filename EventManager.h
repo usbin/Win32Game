@@ -1,5 +1,5 @@
 #pragma once
-
+#include "global.h"
 
 struct Event {
 	EVENT_TYPE type;

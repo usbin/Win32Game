@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Collider.h"
 #include "GObject.h"
 #include "SelectGDI.h"
@@ -43,11 +42,13 @@ void Collider::Render(HDC hdc)
 	if (collision_count_) pen_type = PEN_TYPE::RED;
 	SelectGdi _(hdc, pen_type);
 	SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
+
+	Vector2 render_pos = GetRenderPos(final_pos_);
 	Rectangle(hdc
-		, static_cast<int>(final_pos_.x - scale_.x / 2)
-		, static_cast<int>(final_pos_.y - scale_.y / 2)
-		, static_cast<int>(final_pos_.x + scale_.x / 2)
-		, static_cast<int>(final_pos_.y + scale_.y / 2));
+		, static_cast<int>(render_pos.x - scale_.x / 2)
+		, static_cast<int>(render_pos.y - scale_.y / 2)
+		, static_cast<int>(render_pos.x + scale_.x / 2)
+		, static_cast<int>(render_pos.y + scale_.y / 2));
 }
 
 void Collider::OnCollisionEnter(const Collider& collider)

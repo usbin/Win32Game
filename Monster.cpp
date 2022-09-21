@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Monster.h"
 #include "Time.h"
 #include "Collider.h"
@@ -25,17 +24,19 @@ void Monster::Update()
 		pos.x = center_pos_.x + direction_ * move_range_;
 		direction_ *= -1;
 	}
-	pos.x = static_cast<float>(static_cast<double>(pos.x) + static_cast<double>(direction_ * move_speed_ * Time::GetInstance()->dt_f()));
+	pos.x = static_cast<float>(static_cast<double>(pos.x) + 
+		static_cast<double>(direction_) * static_cast<double>(move_speed_) * Time::GetInstance()->dt_f());
 	set_pos(pos);
 }
 
 void Monster::Render(HDC hdc) {
 	SelectGdi _(hdc, BRUSH_TYPE::HOLLOW);
+	Vector2 render_pos = GetRenderPos(get_pos());
 
 	Rectangle(hdc
-		, static_cast<int>(get_pos().x - get_scale().x/2.)
-		, static_cast<int>(get_pos().y - get_scale().y / 2.)
-		, static_cast<int>(get_pos().x + get_scale().x / 2.)
-		, static_cast<int>(get_pos().y + get_scale().y / 2.));
+		, static_cast<int>(render_pos.x - get_scale().x/2.)
+		, static_cast<int>(render_pos.y - get_scale().y / 2.)
+		, static_cast<int>(render_pos.x + get_scale().x / 2.)
+		, static_cast<int>(render_pos.y + get_scale().y / 2.));
 
 }

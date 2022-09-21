@@ -1,9 +1,10 @@
-#include "pch.h"
 #include "Texture.h"
 #include "PathManager.h"
 #include "Core.h"
 Texture::Texture()
-{
+	: bit_info_{}
+	, hbitmap_(0)
+	, mem_hdc_(0){
 }
 
 Texture::~Texture()

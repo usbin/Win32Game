@@ -1,8 +1,8 @@
-#include "pch.h"
 #include "Animation.h"
 #include "Animator.h"
 #include "GObject.h"
 #include "Texture.h"
+#include "Camera.h"
 
 Animation::Animation()
 	: name_(_T(""))
@@ -61,7 +61,8 @@ void Animation::Render(HDC hdc)
 {
 
 	//현재 프레임 그리기
-	const Vector2& pos = animator_->get_owner()->get_pos() + offset_;
+	const Vector2& pos = GetRenderPos(animator_->get_owner()->get_pos() + offset_);
+		
 	const AnimationFrame& frame = frames_[frame_index_];
 	TransparentBlt(
 		hdc														//목적지 dc

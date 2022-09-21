@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "GObject.h"
 #include "Collider.h"
 #include "Animator.h"
