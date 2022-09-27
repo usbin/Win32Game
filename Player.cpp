@@ -64,8 +64,9 @@ void Player::Update()
 
 void Player::Render(HDC hdc)
 {
-	
+	ComponentRender(hdc);
 }
+
 
 void Player::CreateCollider()
 {

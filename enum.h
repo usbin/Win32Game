@@ -54,6 +54,7 @@ enum class GROUP_TYPE
 	THING,
 	MISSILE,
 	MONSTER,
+	UI = 31, //맨 마지막에 렌더링
 	END = 32
 };
 enum class SCENE_TYPE

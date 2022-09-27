@@ -25,7 +25,7 @@ private :
 	void set_owner(GObject* owner) { owner_ = owner; };
 
 
-	friend class GObject;
+	friend class RealObject;
 	friend class Player;
 };
 

@@ -15,4 +15,5 @@
 #include "enum.h"
 #include "inline.h"
 #include "function.h"
+#include "SelectGdi.h"
 typedef std::basic_string<TCHAR> tstring;

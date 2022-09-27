@@ -1,7 +1,7 @@
 #pragma once
-#include "GObject.h"
+#include "RealObject.h"
 
-class Monster : public GObject
+class Monster : public RealObject
 {
 private:
 	float move_speed_;

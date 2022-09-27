@@ -35,10 +35,16 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Monster.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PanelUi.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PathManager.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Player.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObject.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Res.cpp"
@@ -66,6 +72,12 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Time.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Ui.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiManager.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Win32Program.cpp"

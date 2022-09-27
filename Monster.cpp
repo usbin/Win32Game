@@ -31,12 +31,14 @@ void Monster::Update()
 
 void Monster::Render(HDC hdc) {
 	SelectGdi _(hdc, BRUSH_TYPE::HOLLOW);
-	Vector2 render_pos = GetRenderPos(get_pos());
+	Vector2 render_pos = WorldToRenderPos(get_pos());
 
 	Rectangle(hdc
 		, static_cast<int>(render_pos.x - get_scale().x/2.)
 		, static_cast<int>(render_pos.y - get_scale().y / 2.)
 		, static_cast<int>(render_pos.x + get_scale().x / 2.)
 		, static_cast<int>(render_pos.y + get_scale().y / 2.));
+
+	ComponentRender(hdc);
 
 }

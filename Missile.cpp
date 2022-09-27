@@ -34,13 +34,14 @@ void Missile::Update()
 
 void Missile::Render(HDC hdc)
 {
-	Vector2 render_pos = GetRenderPos(get_pos());
+	Vector2 render_pos = WorldToRenderPos(get_pos());
 	Ellipse(hdc
 		, static_cast<int>(render_pos.x - get_scale().x/2.)
 		, static_cast<int>(render_pos.y - get_scale().y / 2.)
 		, static_cast<int>(render_pos.x + get_scale().x / 2.)
 		, static_cast<int>(render_pos.y + get_scale().y / 2.));
 	
+	ComponentRender(hdc);
 }
 
 void Missile::OnCollisionEnter(const Collider& collider)

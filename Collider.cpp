@@ -43,7 +43,7 @@ void Collider::Render(HDC hdc)
 	SelectGdi _(hdc, pen_type);
 	SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
 
-	Vector2 render_pos = GetRenderPos(final_pos_);
+	Vector2 render_pos = WorldToRenderPos(final_pos_);
 	Rectangle(hdc
 		, static_cast<int>(render_pos.x - scale_.x / 2)
 		, static_cast<int>(render_pos.y - scale_.y / 2)

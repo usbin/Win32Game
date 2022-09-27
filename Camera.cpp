@@ -18,15 +18,12 @@ void Camera::Update()
 	}
 	//목적지가 지정되었을 때: 해당 목적지로 천천히 이동 
 	else if(remain_second_>0){
-		Vector2 diff = look_pos_dest_ - look_pos_;
-		// 3초 남았는데 거리가 30임
-		// DtF()는 0.1 (1초에 10프레임)
-		// 1초에 10씩 가야함 -> 1프레임에 1씩
-		// 1초에 가야하는 거리*DtF()
-		// 남은 거리/시간 * DtF()
-		look_pos_ += (diff / remain_second_) * DtF();
+		//Vector2 diff = look_pos_dest_ - look_pos_;
+		//// 1초에 가야하는 거리*DtF() = 1프레임에 가야하는 거리
+		//// = 남은 거리/시간 * DtF()
+		//look_pos_ += (diff / remain_second_) * DtF();
 
-		remain_second_ -= DtF();
+		//remain_second_ -= DtF();
 	}
 	//아무 상태도 아닐 때: WASD로 이동
 	else {
@@ -47,31 +44,31 @@ void Camera::Update()
 
 		
 	}
-	if (KEY_DOWN(KEY::LBUTTON)) {
+	if (KEY_DOWN(KEY::LBUTTON) && MOUSE_IN_WINDOW()) {
 		MoveTo(GET_MOUSE_POS(), .5f);
 	}
 	
 	
 }
 
-Vector2 Camera::GetRenderPos(Vector2 obj_pos)
+Vector2 Camera::GetRenderPos(Vector2 world_pos)
 {
 	//카메라 원점(== 해상도/2 지점)
 	Vector2 center_pos = Core::GetInstance()->get_resolution() / 2;
 	//원점에서 카메라가 얼마나 이동했는가
 	Vector2 diff = look_pos_ - center_pos;
 	//카메라 이동량만큼 빼줌.
-	return Vector2{ obj_pos - diff};
+	return Vector2{ world_pos - diff};
 }
 
-Vector2 Camera::GetWorldPos(Vector2 obj_pos)
+Vector2 Camera::GetWorldPos(Vector2 render_pos)
 {
 	//카메라 원점(== 해상도/2 지점)
 	Vector2 center_pos = Core::GetInstance()->get_resolution() / 2;
 	//원점에서 얼마나 이동했는가
 	Vector2 diff = look_pos_ - center_pos;
 	//카메라 이동량만큼 더해줌.
-	return Vector2{ obj_pos + diff};
+	return Vector2{ render_pos + diff};
 }
 
 void Camera::MoveTo(Vector2 dest, float second)

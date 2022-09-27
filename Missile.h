@@ -1,7 +1,7 @@
 #pragma once
-#include "GObject.h"
+#include "RealObject.h"
 
-class Missile : public GObject
+class Missile : public RealObject
 {
 private:
 	Vector2 direction_;

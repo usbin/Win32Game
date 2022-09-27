@@ -169,9 +169,11 @@
     <ClInclude Include="macro.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="PanelUi.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RealObject.h" />
     <ClInclude Include="Res.h" />
     <ClInclude Include="ResManager.h" />
     <ClInclude Include="Resource.h" />
@@ -184,6 +186,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Ui.h" />
+    <ClInclude Include="UiManager.h" />
     <ClInclude Include="Win32Program.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +203,10 @@
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PanelUi.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RealObject.cpp" />
     <ClCompile Include="Res.cpp" />
     <ClCompile Include="ResManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -210,6 +216,8 @@
     <ClCompile Include="SelectGdi.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Ui.cpp" />
+    <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="Win32Program.cpp" />
   </ItemGroup>
   <ItemGroup>

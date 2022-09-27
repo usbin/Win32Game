@@ -61,7 +61,7 @@ void Animation::Render(HDC hdc)
 {
 
 	//현재 프레임 그리기
-	const Vector2& pos = GetRenderPos(animator_->get_owner()->get_pos() + offset_);
+	const Vector2& pos = WorldToRenderPos(animator_->get_owner()->get_pos() + offset_);
 		
 	const AnimationFrame& frame = frames_[frame_index_];
 	TransparentBlt(

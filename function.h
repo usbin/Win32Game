@@ -9,8 +9,8 @@ void CreateGObject(GObject* object, GROUP_TYPE type);
 void DeleteGObject(GObject* object, GROUP_TYPE type);
 void ChangeScene(SCENE_TYPE scene_type);
 
-Vector2 GetRenderPos(Vector2 world_pos);
-Vector2 GetWorldPos(Vector2 render_pos);
+Vector2 WorldToRenderPos(Vector2 world_pos); // 월드좌표 -> 카메라 기준 상대좌표로 변환
+Vector2 RenderToWorldPos(Vector2 render_pos); // 카메라 기준 상대좌표 -> 월드좌표로 변환
 
 template <typename T>
 void SafeDeleteVector(std::vector<T>& cont) {

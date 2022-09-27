@@ -8,3 +8,6 @@ inline bool KEY_UP(KEY key) { return KEY_CHECK(key, KEY_STATE::UP); };
 inline Vector2 GET_MOUSE_POS() {
 	return KeyManager::GetInstance()->GetMousePos();
 }
+inline bool MOUSE_IN_WINDOW() {
+	return KeyManager::GetInstance()->IsMouseInWindow();
+}

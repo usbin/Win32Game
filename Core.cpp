@@ -6,6 +6,7 @@
 #include "CollisionManager.h"
 #include "EventManager.h"
 #include "Camera.h"
+#include "UiManager.h"
 
 Core::Core()
 	: hwnd_(0)
@@ -47,6 +48,8 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	hwnd_ = h_wnd;
 	hdc_ = GetDC(hwnd_);
 	RECT rect{ 0, 0, width, height };
+	pt_resolution_ = POINT{ rect.right - rect.left, rect.bottom - rect.top };
+
 	if (!AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, TRUE)) {
 		return E_FAIL;
 	}
@@ -54,7 +57,7 @@ int Core::Init(HWND h_wnd, int width, int height) {
 		return E_FAIL;
 	}
 	
-	pt_resolution_ = POINT{ rect.right - rect.left, rect.bottom - rect.top };
+	
 	
 	hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
 	hdc_mem_ = CreateCompatibleDC(hdc_);
@@ -88,11 +91,12 @@ bool Core::Progress()
 	//	메인 루틴
 	//===============
 	SceneManager::GetInstance()->Update();
-
+	
 	//===============
 	//	마무리 루틴
 	//===============
 	CollisionManager::GetInstance()->Update();
+	UiManager::GetInstance()->FinalUpdate();
 
 	//===============
 	//	화면 렌더링
@@ -114,12 +118,19 @@ bool Core::Progress()
 
 void Core::SyncResolution()
 {
+	//해상도값과 실제 해상도값 비교(작업영역)
 	RECT window_rect;
 	GetWindowRect(hwnd_, &window_rect);
-	if (pt_resolution_.x != window_rect.right - window_rect.left
-		|| pt_resolution_.y != window_rect.bottom - window_rect.top) {
-		pt_resolution_.x = window_rect.right - window_rect.left;
-		pt_resolution_.y = window_rect.bottom - window_rect.top;
+	RECT resolution_rect{ 0, 0, pt_resolution_.x, pt_resolution_.y };
+	AdjustWindowRect(&resolution_rect, WS_OVERLAPPEDWINDOW, TRUE);
+
+	
+	if (resolution_rect.right - resolution_rect.left != window_rect.right - window_rect.left
+		|| resolution_rect.bottom - resolution_rect.top != window_rect.bottom - window_rect.top) {
+		LONG width_diff = (window_rect.right - window_rect.left) - (resolution_rect.right - resolution_rect.left);
+		LONG height_diff = (window_rect.bottom - window_rect.top) - (resolution_rect.bottom - resolution_rect.top);
+		pt_resolution_.x += width_diff;
+		pt_resolution_.y += height_diff;
 
 		hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
 		HBITMAP org_bitmap = (HBITMAP)SelectObject(hdc_mem_, hbitmap_);

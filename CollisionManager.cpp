@@ -1,5 +1,6 @@
 #include "CollisionManager.h"
 #include "GObject.h"
+#include "RealObject.h"
 #include "SceneManager.h"
 #include "Collider.h"
 
@@ -26,10 +27,13 @@ void CollisionManager::Update()
 	// - (iii) 이전에 충돌했고 지금은 충돌하지 않음 -> OnCollisionExit
 	for (UINT i = 0; i < static_cast<UINT>(GROUP_TYPE::END); i++) {
 		for (UINT j = 0; j < static_cast<UINT>(GROUP_TYPE::END)-i; j++) {
-			// 두 그룹의 충돌여부가 체크돼있을 때에만
-			if (group_collision_bitmap_[i] & (1 << j)) {
-				const std::set<GObject*, GObjectPtCompare>& group1_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(i));
-				const std::set<GObject*, GObjectPtCompare>& group2_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(j));
+			// 두 그룹의 충돌여부가 체크돼있을 때에만 + 둘다 UI가 아닐 때에만
+			if (static_cast<GROUP_TYPE>(i) != GROUP_TYPE::UI
+				&& static_cast<GROUP_TYPE>(j) != GROUP_TYPE::UI
+				&&
+				group_collision_bitmap_[i] & (1 << j)) {
+				const std::vector<GObject*>& group1_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(i));
+				const std::vector<GObject*>& group2_objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(static_cast<GROUP_TYPE>(j));
 				GroupObjectCollision(group1_objs, group2_objs);
 			}
 			
@@ -54,13 +58,15 @@ void CollisionManager::CheckGroupBitmap(GROUP_TYPE group1, GROUP_TYPE group2)
 
 }
 
-void CollisionManager::GroupObjectCollision(const std::set<GObject*, GObjectPtCompare>& group1_objs, const std::set<GObject*, GObjectPtCompare>& group2_objs)
+void CollisionManager::GroupObjectCollision(const std::vector<GObject*>& group1_objs, const std::vector<GObject*>& group2_objs)
 {
-	for (GObject* obj1 : group1_objs) {
+	for (int i = 0; i < group1_objs.size(); i++) {
+		RealObject* obj1 = static_cast<RealObject*>(group1_objs[i]);
 
 		if (obj1->get_collider() == nullptr) continue; //하나라도 콜라이더가 없으면 충돌x
 
-		for (GObject* obj2 : group2_objs) {
+		for (int j = 0; j < group2_objs.size(); j++) {
+			RealObject* obj2 = static_cast<RealObject*>(group2_objs[j]);
 			
 			if (obj2->get_collider() == nullptr) continue; //하나라도 콜라이더가 없으면 충돌x
 			if (obj1 == obj2) continue; //동일 오브젝트끼리는 충돌x
@@ -133,7 +139,7 @@ void CollisionManager::GroupObjectCollision(const std::set<GObject*, GObjectPtCo
 	}
 }
 
-bool CollisionManager::IsCollision(GObject* obj1, GObject* obj2)
+bool CollisionManager::IsCollision(RealObject* obj1, RealObject* obj2)
 {
 	//충돌 여부: obj1과 obj2의 범위가 겹친다.
 	// = x좌표간 거리가 둘의 가로 길이의 합의 절반보다 작고

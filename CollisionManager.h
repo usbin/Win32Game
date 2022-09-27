@@ -1,5 +1,7 @@
 #pragma once
-#include "GObject.h"
+#include "global.h"
+class GObject;
+class RealObject;
 
 //매 프레임 충돌 체크를 하는 충돌 매니저
 class CollisionManager
@@ -15,8 +17,8 @@ public:
 	void Init();
 	void Update();
 	void CheckGroupBitmap(GROUP_TYPE group1, GROUP_TYPE group2);
-	void GroupObjectCollision(const std::set<GObject*, GObjectPtCompare>& group1_objs, const std::set<GObject*, GObjectPtCompare>& group2_objs);
-	bool IsCollision(GObject* obj1, GObject* obj2);
+	void GroupObjectCollision(const std::vector<GObject*>& group1_objs, const std::vector<GObject*>& group2_objs);
+	bool IsCollision(RealObject* obj1, RealObject* obj2);
 	void ResetGroupBitmap(); //충돌 관계 비트맵 초기화
 };
 

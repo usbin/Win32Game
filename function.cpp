@@ -37,12 +37,12 @@ float DtF()
 
 }
 
-Vector2 GetRenderPos(Vector2 world_pos)
+Vector2 WorldToRenderPos(Vector2 static_pos)
 {
-	return Camera::GetInstance()->GetRenderPos(world_pos);
+	return Camera::GetInstance()->GetRenderPos(static_pos);
 }
 
-Vector2 GetWorldPos(Vector2 render_pos)
+Vector2 RenderToWorldPos(Vector2 render_pos)
 {
 	return Camera::GetInstance()->GetWorldPos(render_pos);
 }

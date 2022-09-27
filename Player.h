@@ -1,8 +1,8 @@
 #pragma once
-#include "GObject.h"
+#include "RealObject.h"
 class Texture;
 
-class Player : public GObject
+class Player : public RealObject
 {
 private:
 	float speed_;
@@ -18,8 +18,8 @@ public:
 
 	//}
 	virtual ~Player() override {};
-	void Update() override;
-	void Render(HDC hdc) override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
 	virtual void OnCollisionEnter(const Collider& collider) override;
 	virtual void OnCollisionStay(const Collider& collider) override;
 	virtual void OnCollisionExit(const Collider& collider) override;

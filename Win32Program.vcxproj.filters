@@ -22,15 +22,6 @@
     <Filter Include="Game\Scene\Scene_01">
       <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\Player">
-      <UniqueIdentifier>{bc361756-1821-4e8e-89b5-0fc72bd62ac3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Monster">
-      <UniqueIdentifier>{58c26f5a-ba54-4cfb-94a7-56468ec4998f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Missile">
-      <UniqueIdentifier>{97061054-36b9-4c7b-9dba-98c8a435f63c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Res">
       <UniqueIdentifier>{f86d45c8-6efb-443b-a32e-b959ac978083}</UniqueIdentifier>
     </Filter>
@@ -57,6 +48,21 @@
     </Filter>
     <Filter Include="Game\Camera">
       <UniqueIdentifier>{97b82e50-64b4-46d0-a5d0-80c00ced8ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject">
+      <UniqueIdentifier>{681b6fc7-da2e-4e93-acf0-9e1ca3910add}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\Missile">
+      <UniqueIdentifier>{97061054-36b9-4c7b-9dba-98c8a435f63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\Monster">
+      <UniqueIdentifier>{58c26f5a-ba54-4cfb-94a7-56468ec4998f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\Player">
+      <UniqueIdentifier>{bc361756-1821-4e8e-89b5-0fc72bd62ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Ui">
+      <UniqueIdentifier>{44bca9a2-f64d-4ce7-9d66-fe871fc3fbcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +106,7 @@
       <Filter>Game\Scene\Scene_01</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game\GObject\Player</Filter>
+      <Filter>Game\GObject\RealObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="GObject.h">
       <Filter>Game\GObject</Filter>
@@ -109,10 +115,10 @@
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Game\GObject\Monster</Filter>
+      <Filter>Game\GObject\RealObject\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>Game\GObject\Missile</Filter>
+      <Filter>Game\GObject\RealObject\Missile</Filter>
     </ClInclude>
     <ClInclude Include="inline.h">
       <Filter>Header</Filter>
@@ -156,6 +162,18 @@
     <ClInclude Include="Camera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="RealObject.h">
+      <Filter>Game\GObject\RealObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Ui.h">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="UiManager.h">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelUi.h">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -188,7 +206,7 @@
       <Filter>Game\Scene\Scene_01</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\GObject\Player</Filter>
+      <Filter>Game\GObject\RealObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="GObject.cpp">
       <Filter>Game\GObject</Filter>
@@ -197,10 +215,10 @@
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Game\GObject\Monster</Filter>
+      <Filter>Game\GObject\RealObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>Game\GObject\Missile</Filter>
+      <Filter>Game\GObject\RealObject\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Game\Res\Texture</Filter>
@@ -240,6 +258,18 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="RealObject.cpp">
+      <Filter>Game\GObject\RealObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Ui.cpp">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="UiManager.cpp">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelUi.cpp">
+      <Filter>Game\GObject\Ui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

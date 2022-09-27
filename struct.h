@@ -9,6 +9,9 @@ public:
 	Vector2(float _x, float _y)
 		: x(_x)
 		, y(_y) {};
+	Vector2(double _x, double _y)
+		: x(static_cast<float>(_x))
+		, y(static_cast<float>(_y)) {};
 	Vector2(int _x, int _y)
 		: x(static_cast<float>(_x))
 		, y(static_cast<float>(_y)) {};
@@ -59,8 +62,23 @@ public:
 	Vector2 operator/(int num) {
 		return Vector2{ x / num, y / num };
 	}
-	Vector2 operator/(float num) {
+	Vector2 operator/(double num) const {
 		return Vector2{ x / num, y / num };
+	}
+	Vector2 operator/(float num) const {
+		return Vector2{ x / num, y / num };
+	}
+	bool operator<(const Vector2& o_v) {
+		return x < o_v.x&& y < o_v.y;
+	}
+	bool operator<=(const Vector2& o_v) {
+		return x <= o_v.x&& y <= o_v.y;
+	}
+	bool operator>(const Vector2& o_v) {
+		return x > o_v.x && y > o_v.y;
+	}
+	bool operator>=(const Vector2& o_v) {
+		return x >= o_v.x && y >= o_v.y;
 	}
 
 };

@@ -8,7 +8,7 @@ class Scene
 {
 	//현재 씬의 오브젝트 리스트
 private:
-	std::set<GObject*, GObjectPtCompare> gobjects_[static_cast<int>(GROUP_TYPE::END)];
+	std::vector<GObject*> gobjects_[static_cast<int>(GROUP_TYPE::END)];
 	std::queue<std::pair<GObject*, GROUP_TYPE>> delete_queue_;
 	tstring name_;
 
@@ -27,7 +27,8 @@ public:
 	void AddGObject(GObject* object, GROUP_TYPE type);
 	void DeleteGroupObjects(GROUP_TYPE type);
 	void DeleteAllObjects();
-	const std::set<GObject*, GObjectPtCompare>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };
+	inline const std::vector<GObject*>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };
+	void ObjectToTop(GROUP_TYPE group_type, GObject* target_iter);
 	inline HDC get_hdc() { return hdc_; };
 	inline void set_name(tstring name) { name_ = name; }
 	inline tstring get_name() { return name_; }

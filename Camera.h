@@ -16,8 +16,8 @@ private:
 
 public:
 	void Update();
-	Vector2 GetRenderPos(Vector2 obj_pos);	//카메라 기준 좌표
-	Vector2 GetWorldPos(Vector2 obj_pos);	//전체 월드 기준 좌표
+	Vector2 GetRenderPos(Vector2 world_pos);	//카메라 기준 좌표
+	Vector2 GetWorldPos(Vector2 render_pos);	//월드 좌표
 	void MoveTo(Vector2 dest, float second);	//second에 걸쳐 dest에 도착
 	void set_look_pos(Vector2 look_pos) { look_pos_ = look_pos; };
 	Vector2 get_look_pos() { return look_pos_; };
