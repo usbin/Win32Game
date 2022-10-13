@@ -18,6 +18,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK    ChangeTilecellSize(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -35,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_WIN32PROGRAM, szWindowClass, 
         MAX_LOADSTRING);
     MyRegisterClass(hInstance);
-
+    
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -163,6 +164,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+            case IDM_CHANGE_TILECELL_SIZE:
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_CHANGE_TILECELL_SIZE), hWnd, ChangeTilecellSize);
+                break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
@@ -190,6 +194,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
+
+// 타일셀 크기 변경 메시지 처리기
+INT_PTR CALLBACK ChangeTilecellSize(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(lParam);
+    switch (message)
+    {
+    case WM_INITDIALOG:
+        return (INT_PTR)TRUE;
+
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDOK_BTN)
+        {
+            UINT x_size = GetDlgItemInt(hDlg, IDC_WIDTH_TF, nullptr, false);
+            UINT y_size = GetDlgItemInt(hDlg, IDC_HEIGHT_TF, nullptr, false);
+            EndDialog(hDlg, LOWORD(wParam));
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDCANCEL_BTN) {
+            EndDialog(hDlg, LOWORD(wParam));
+            return (INT_PTR)TRUE;
+        }
+        break;
+        
+    }
+    return (INT_PTR)FALSE;
+}
+
 
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

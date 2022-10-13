@@ -5,6 +5,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Animator.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ButtonUi.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Camera.cpp"
 
 
@@ -17,6 +20,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Core.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_Title.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
 
 
@@ -24,6 +30,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObject.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"
@@ -65,10 +74,31 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Scene_Title.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Scene_Tool.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_Tool.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SelectGdi.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Sprite.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Texture.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Tile.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileEditUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileCell.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Time.cpp"

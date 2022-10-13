@@ -20,6 +20,7 @@ public:
 	bool Render(HDC hdc);
 	void ClearView(HDC hdc);
 
+
 	friend class EventManager;
 };
 

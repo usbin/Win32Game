@@ -23,7 +23,7 @@ void Camera::Update()
 		//// = 남은 거리/시간 * DtF()
 		//look_pos_ += (diff / remain_second_) * DtF();
 
-		//remain_second_ -= DtF();
+		remain_second_ -= DtF();
 	}
 	//아무 상태도 아닐 때: WASD로 이동
 	else {
@@ -44,9 +44,10 @@ void Camera::Update()
 
 		
 	}
-	if (KEY_DOWN(KEY::LBUTTON) && MOUSE_IN_WINDOW()) {
+	//클릭한 곳으로 이동
+	/*if (KEY_DOWN(KEY::LBUTTON) && MOUSE_IN_WINDOW()) {
 		MoveTo(GET_MOUSE_POS(), .5f);
-	}
+	}*/
 	
 	
 }

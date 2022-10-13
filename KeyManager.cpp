@@ -13,6 +13,7 @@ int g_windows_keys[static_cast<int>(KEY::LAST)] = {
 	VK_CONTROL,//CTRL,
 	VK_MENU,//ALT,
 	VK_SPACE, //SPACE
+	VK_TAB,	//TAB
 	'Q',//Q,
 	'W',//W,
 	'E',//E,

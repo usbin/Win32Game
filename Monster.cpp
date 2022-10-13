@@ -30,6 +30,8 @@ void Monster::Update()
 }
 
 void Monster::Render(HDC hdc) {
+	RealObject::Render(hdc);
+
 	SelectGdi _(hdc, BRUSH_TYPE::HOLLOW);
 	Vector2 render_pos = WorldToRenderPos(get_pos());
 

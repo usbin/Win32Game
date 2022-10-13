@@ -2,14 +2,25 @@
 #include "SceneManager.h"
 #include "Ui.h"
 
-UiManager::UiManager() {
+UiManager::UiManager() 
+	:prev_downed_target_(nullptr){
 
 }
 
 UiManager::~UiManager() {
 
 }
-
+void UiManager::Dfs(const std::vector<Ui*>& uis, std::vector<Ui*>& ui_heap) {
+	if (uis.size() == 0) {
+		return;
+	}
+	else {
+		for (int i = 0; i < uis.size(); i++) {
+			ui_heap.push_back(uis[i]);
+			Dfs(static_cast<Ui*>(uis[i])->get_children(), ui_heap);
+		}
+	}
+}
 void UiManager::FinalUpdate()
 {
 	//[1] 타깃 ui의 루트 ui를 맨 위로 올리기
@@ -20,17 +31,20 @@ void UiManager::FinalUpdate()
 	// - 현재 씬의 모든 Ui에서 가져옴.
 
 	const std::vector<GObject*>& uis = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::UI);
-	std::vector<GObject*> ui_heap = uis; // bfs 탐색용 힙(모든 자식들 계층 순서(너비 우선)대로 탐색)
+	std::vector<Ui*> ui_heap;// dfs 탐색용 힙(모든 자식들 계층 순서(깊이 우선)대로 탐색)
+	//uis의 첫 항목부터 모든 자식을 탐색하며 체크하고 다음 항목으로 넘어감.
+	for (int i = 0; i < uis.size(); i++) {
+		Ui* ui = static_cast<Ui*>(uis[i]);
+		ui_heap.push_back(ui);
+		Dfs(ui->get_children(), ui_heap);
+	}
+
 	Ui* target_ui = nullptr;
 	for (int i = 0; i < ui_heap.size(); i++) {
 		Ui* ui = static_cast<Ui*>(ui_heap[i]);
-		
-		for (int j = 0; j < ui->get_children().size(); j++) {
-			ui_heap.push_back(ui->get_children()[j]);
-		}
 		//이번 프레임에 target_ui가 확실히 아닌 것은 전부 lbutton_hold를 false로 설정해줌. 
 		if (ui->get_mouse_on()) {
-			if (target_ui != nullptr) {
+			if (target_ui != nullptr && target_ui != ui) {
 				target_ui -> set_lbutton_hold(false);
 			}
 			target_ui = ui;
@@ -55,17 +69,17 @@ void UiManager::FinalUpdate()
 		target_ui->MouseOn();
 		// 이번 프레임의 마우스 상태가 DOWN임 = MOUSE_DOWN
 		if (KEY_DOWN(KEY::LBUTTON)) {
-			target_ui->MouseDown();
-			prev_downed_target = target_ui;
+			target_ui->LbuttonDown();
+			prev_downed_target_ = target_ui;
 			SceneManager::GetInstance()->get_current_scene()->ObjectToTop(GROUP_TYPE::UI, dynamic_cast<GObject*>(target_ui_root));
 		}
 		// 이번 프레임의 마우스 상태가 UP임 = MOUSE_UP
 		else if (KEY_UP(KEY::LBUTTON)) {
-			target_ui->MouseUp();
-			if (prev_downed_target == target_ui) {
-				target_ui->MouseClick();
+			target_ui->LbuttonUp();
+			if (prev_downed_target_ == target_ui) {
+				target_ui->LbuttonClick();
 			}
-			prev_downed_target = nullptr;
+			prev_downed_target_ = nullptr;
 		}
 
 		target_ui->set_lbutton_hold(KEY_HOLD(KEY::LBUTTON));
@@ -73,7 +87,7 @@ void UiManager::FinalUpdate()
 	}
 	// ui가 아닌 곳에서 마우스가 떼어졌을 경우 -> prev_downed_target 초기화
 	else if (KEY_UP(KEY::LBUTTON)) {
-		prev_downed_target = nullptr;
+		prev_downed_target_ = nullptr;
 	}
 	
 	

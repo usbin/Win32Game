@@ -6,7 +6,9 @@ class UiManager
 {
 	SINGLETON(UiManager);
 private:
-	Ui* prev_downed_target;		//최근에 DOWN된 Ui를 저장하고 있다가 UP 시점에 일치하면 CLICK 이벤트로 간주.
+	Ui* prev_downed_target_;		//최근에 DOWN된 Ui를 저장하고 있다가 UP 시점에 일치하면 CLICK 이벤트로 간주.
+
+	void Dfs(const std::vector<Ui*>& uis, std::vector<Ui*>& ui_heap);
 public:
 	void FinalUpdate();
 

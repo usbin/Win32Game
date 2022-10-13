@@ -12,28 +12,31 @@ private:
 	std::vector<Ui*> children_;	// 이 ui 위에 있는 child ui. 
 
 
-	bool mouse_on_;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
+	bool mouse_on_check_;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
 
 	bool lbutton_hold_;			// 가장 위에서 실제로 이벤트를 받았을 때에만 체크됨.
+
 
 
 
 public:
 	virtual void Update() override;
 	virtual void FinalUpdate() override;
-	virtual void Render(HDC hdc) = 0;
+	virtual void Render(HDC hdc);
 protected:
 	virtual void ChildrenUpdate() final;
 	virtual void ChildrenFinalUpdate() final;
 	virtual void ChildrenRender(HDC hdc) final;
 
 
+	inline std::vector<Ui*>& get_children_unsafe() { return children_; };
+
 
 public:
-	virtual void MouseOn()=0;
-	virtual void MouseClick()=0;
-	virtual void MouseDown()=0;
-	virtual void MouseUp()=0;
+	virtual void MouseOn() {};
+	virtual void LbuttonClick() {};
+	virtual void LbuttonDown() {};
+	virtual void LbuttonUp() {};
 
 
 	inline void AddChild(Ui* child) { children_.push_back(child); };
@@ -42,7 +45,7 @@ public:
 	inline const Vector2& get_final_pos() { return final_pos_; };
 	inline Ui* get_parent() { return parent_; };
 	inline void set_parent(Ui* parent) { parent_ = parent; };
-	inline bool get_mouse_on() { return mouse_on_; };
+	inline bool get_mouse_on() { return mouse_on_check_; };
 	inline bool get_lbutton_hold() { return lbutton_hold_; };
 	inline void set_lbutton_hold(bool b) { lbutton_hold_ = b; };
 };

@@ -80,3 +80,21 @@ void Scene::ObjectToTop(GROUP_TYPE group_type, GObject* target)
 		gobjects_[static_cast<UINT>(group_type)].push_back(target);
 	}
 }
+
+void Scene::ObjectToPrev(GROUP_TYPE group_type, GObject* target)
+{
+	auto iter = std::find(gobjects_[static_cast<UINT>(group_type)].begin(), gobjects_[static_cast<UINT>(group_type)].end(), target);
+	if (iter != gobjects_[static_cast<UINT>(group_type)].end()) {
+		gobjects_[static_cast<UINT>(group_type)].erase(iter);
+		gobjects_[static_cast<UINT>(group_type)].insert(iter-1, target);
+	}
+}
+
+void Scene::ObjectToNext(GROUP_TYPE group_type, GObject* target)
+{
+	auto iter = std::find(gobjects_[static_cast<UINT>(group_type)].begin(), gobjects_[static_cast<UINT>(group_type)].end(), target);
+	if (iter != gobjects_[static_cast<UINT>(group_type)].end()) {
+		gobjects_[static_cast<UINT>(group_type)].erase(iter);
+		gobjects_[static_cast<UINT>(group_type)].insert(iter +1, target);
+	}
+}

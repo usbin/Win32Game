@@ -15,6 +15,7 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 	CTRL,
 	ALT,
 	SPACE,
+	TAB,
 	Q,
 	W,
 	E,
@@ -49,11 +50,14 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 
 enum class GROUP_TYPE
 {
-	DEFAULT,
+	DEFAULT=0,
+	BACKGROUND=1,
+	TILE=2,
 	PLAYER,
 	THING,
 	MISSILE,
 	MONSTER,
+	DIRECTOR,
 	UI = 31, //맨 마지막에 렌더링
 	END = 32
 };
@@ -61,10 +65,11 @@ enum class SCENE_TYPE
 {
 	TITLE,
 	SCENE_01,
+	SCENE_TOOL,
 	END
 };
 
-enum class PEN_TYPE {
+enum class PEN_TYPE {//void Core::InitPenAndBrush()에도 초기화 구문 추가해야함
 	BLACK,
 	WHITE,
 	RED,
@@ -73,13 +78,14 @@ enum class PEN_TYPE {
 	END
 };
 
-enum class BRUSH_TYPE {
+enum class BRUSH_TYPE { 
 	WHITE,
 	BLACK,
 	RED,
 	GREEN,
 	BLUE,
 	HOLLOW,
+	MAGENTA,
 	END
 };
 

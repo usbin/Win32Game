@@ -9,6 +9,7 @@
 #include <utility>
 #include <cmath>
 #include <map>
+#include <cassert>
 #pragma comment(lib, "Msimg32.lib")
 #include "macro.h"
 #include "struct.h"

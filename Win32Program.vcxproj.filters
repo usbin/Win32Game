@@ -64,6 +64,27 @@
     <Filter Include="Game\GObject\Ui">
       <UniqueIdentifier>{44bca9a2-f64d-4ce7-9d66-fe871fc3fbcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GObject\Ui\PanelUi">
+      <UniqueIdentifier>{950cde15-c276-4593-8d11-da9ef2eac4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Ui\ButtonUi">
+      <UniqueIdentifier>{330bca74-1c3c-4727-bda3-3742a15344bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\Ui\ImageUi">
+      <UniqueIdentifier>{2138d5b0-98d0-40fc-9a82-c0dcb6748750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Scene_Tool">
+      <UniqueIdentifier>{83cafd75-b0fe-4d8e-8129-c40ec8820069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Sprite">
+      <UniqueIdentifier>{fc988637-1dca-415b-80ee-20677f53ba86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\Director">
+      <UniqueIdentifier>{1ae17db6-4919-44b1-9cb1-1b986140ea7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\Tile">
+      <UniqueIdentifier>{18be5378-0dcb-4796-b05d-dc2dc6afdf0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -172,7 +193,37 @@
       <Filter>Game\GObject\Ui</Filter>
     </ClInclude>
     <ClInclude Include="PanelUi.h">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\GObject\Ui\PanelUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonUi.h">
+      <Filter>Game\GObject\Ui\ButtonUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUi.h">
+      <Filter>Game\GObject\Ui\ImageUi</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Tool.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Director_Scene_Tool.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="TileEditUi.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Director_Scene_Title.h">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TileUi.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Game\GObject\RealObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="TileCell.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +320,37 @@
       <Filter>Game\GObject\Ui</Filter>
     </ClCompile>
     <ClCompile Include="PanelUi.cpp">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\GObject\Ui\PanelUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonUi.cpp">
+      <Filter>Game\GObject\Ui\ButtonUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUi.cpp">
+      <Filter>Game\GObject\Ui\ImageUi</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Tool.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Director_Scene_Tool.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="TileEditUi.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Director_Scene_Title.cpp">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TileUi.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Game\GObject\RealObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="TileCell.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

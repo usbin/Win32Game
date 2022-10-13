@@ -34,6 +34,8 @@ void Missile::Update()
 
 void Missile::Render(HDC hdc)
 {
+	RealObject::Render(hdc);
+
 	Vector2 render_pos = WorldToRenderPos(get_pos());
 	Ellipse(hdc
 		, static_cast<int>(render_pos.x - get_scale().x/2.)

@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Scene_Title.h"
 #include "Scene_01.h"
+#include "Scene_Tool.h"
 #include "KeyManager.h"
 #include "Core.h"
 
@@ -23,9 +24,12 @@ bool SceneManager::Init(HDC hdc)
 	hdc_ = hdc;
 	//모든 씬 생성, 초기화
 	scenes_[static_cast<int>(SCENE_TYPE::TITLE)] = new Scene_Title( hdc_ );
-	scenes_[static_cast<int>(SCENE_TYPE::TITLE)]->set_name(_T("Title Scene"));
+	scenes_[static_cast<int>(SCENE_TYPE::TITLE)]->set_name(_T("Scene Title"));
 	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)] = new Scene_01{ hdc_ };
-	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)]->set_name(_T("Scene01"));
+	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)]->set_name(_T("Scene 01"));
+	scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)] = new Scene_Tool{ hdc_ };
+	scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)]->set_name(_T("Scene Tool"));
+
 
 	//시작 씬 설정
 	p_current_scene_ = scenes_[static_cast<int>(SCENE_TYPE::TITLE)];

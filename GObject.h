@@ -5,6 +5,7 @@
 //매 렌더링에서 그려줌.
 class Collider;
 class Animator;
+class Sprite;
 
 class GObject
 {
@@ -17,10 +18,9 @@ private:
 	GROUP_TYPE group_type_;
 	bool is_dead_;
 
+	Sprite* sprite_;
 
-private:
-	virtual void CreateCollider();
-	virtual void CreateAnimator();
+
 public:
 	GObject();
 	GObject(const GObject& origin); //복사 생성자
@@ -33,6 +33,7 @@ public:
 	virtual void OnCollisionExit(const Collider& collider) {};
 
 	unsigned long long get_id() { return id_; };
+	inline const tstring& get_name() { return name_; };
 	inline void set_name(const tstring& name) { name_ = name; };
 	inline void set_group_type(GROUP_TYPE type) { group_type_ = type; };
 	inline GROUP_TYPE get_group_type() { return group_type_; };
@@ -48,6 +49,8 @@ public:
 	
 	}
 	inline GROUP_TYPE get_type() { return group_type_; };
+	inline Sprite* get_sprite() { return sprite_; };
+	void ChangeSprite(Sprite* sprite);
 
 	inline void SetDead() { is_dead_ = true; };
 	inline bool IsDead() { return is_dead_; };

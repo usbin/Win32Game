@@ -40,8 +40,8 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	
 	//메모리 누수 체크
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(414);
-	//_CrtSetBreakAlloc(430);
+	//_CrtSetBreakAlloc(11059);
+	//_CrtSetBreakAlloc(1446);
 
 
 
@@ -155,5 +155,6 @@ void Core::InitPenAndBrush()
 	brushes[static_cast<int>(BRUSH_TYPE::GREEN)] = (HBRUSH)CreateSolidBrush(RGB(0, 255, 0));
 	brushes[static_cast<int>(BRUSH_TYPE::BLUE)] = (HBRUSH)CreateSolidBrush(RGB(0, 0, 255));
 	brushes[static_cast<int>(BRUSH_TYPE::HOLLOW)] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+	brushes[static_cast<int>(BRUSH_TYPE::MAGENTA)] = (HBRUSH)CreateSolidBrush(RGB(255, 0, 255));
 }
 
