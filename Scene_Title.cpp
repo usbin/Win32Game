@@ -25,27 +25,27 @@ bool Scene_Title::Enter()
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
-	Ui* ui1 = new PanelUi();
-	ui1->set_pos(Vector2{ 0, 0 });
-	ui1->set_scale(Vector2{ 200, 400 });
-	ui1->set_group_type(GROUP_TYPE::UI);
-	ui1->set_name(_T("UI1"));
-	CreateGObject(ui1, GROUP_TYPE::UI);
+	Ui* parent_ui1 = new PanelUi();
+	parent_ui1->set_pos(Vector2{ 0, 0 });
+	parent_ui1->set_scale(Vector2{ 200, 400 });
+	parent_ui1->set_group_type(GROUP_TYPE::UI);
+	parent_ui1->set_name(_T("UI1"));
+	CreateGObject(parent_ui1, GROUP_TYPE::UI);
 
-	Ui* ui2 = new PanelUi();
-	ui2->set_pos(Vector2{ 0, 0 });
-	ui2->set_scale(Vector2{ 200, 400 });
-	ui2->set_group_type(GROUP_TYPE::UI);
-	ui2->set_name(_T("UI2"));
-	CreateGObject(ui2, GROUP_TYPE::UI);
+	Ui* parent_ui2 = new PanelUi();
+	parent_ui2->set_pos(Vector2{ 0, 0 });
+	parent_ui2->set_scale(Vector2{ 200, 400 });
+	parent_ui2->set_group_type(GROUP_TYPE::UI);
+	parent_ui2->set_name(_T("UI2"));
+	CreateGObject(parent_ui2, GROUP_TYPE::UI);
 
 	Ui* child_panel1 = new PanelUi();
 	child_panel1->set_pos(Vector2{ 0, 0 });
 	child_panel1->set_scale(Vector2{ 150, 50 });
 	child_panel1->set_group_type(GROUP_TYPE::UI);
-	child_panel1->set_parent(ui1);
+	child_panel1->set_parent(parent_ui1);
 	child_panel1->set_name(_T("child_ui1"));
-	ui1->AddChild(child_panel1);
+	parent_ui1->AddChild(child_panel1);
 
 	ButtonUi* button_ui = new ButtonUi(true);
 	button_ui->set_pos(Vector2{ 0, 0 });
@@ -62,21 +62,21 @@ bool Scene_Title::Enter()
 	child_panel2->set_pos(Vector2{ 150, 150 });
 	child_panel2->set_scale(Vector2{ 50, 50 });
 	child_panel2->set_group_type(GROUP_TYPE::UI);
-	child_panel2->set_parent(ui1);
+	child_panel2->set_parent(parent_ui1);
 	child_panel2->set_name(_T("child_ui2"));
-	ui1->AddChild(child_panel2);
+	parent_ui1->AddChild(child_panel2);
 
 	ImageUi* image_ui = new ImageUi(true);
 	image_ui->set_pos(Vector2{ 50, 300 });
 	image_ui->set_scale(Vector2{ 100, 100 });
 	image_ui->set_group_type(GROUP_TYPE::UI);
-	image_ui->set_parent(ui1);
+	image_ui->set_parent(parent_ui1);
 	image_ui->set_name(_T("image_ui"));
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Image Background"), _T("texture\\sample.bmp"));
 	Sprite* sprite = new Sprite();
 	sprite->QuickSet(texture, image_ui, 0, 0, 1, 1);
 	image_ui->ChangeSprite(sprite);
-	ui1->AddChild(image_ui);
+	parent_ui1->AddChild(image_ui);
 
 	Camera::GetInstance()->set_target(gobj);
 

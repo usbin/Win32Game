@@ -6,7 +6,11 @@
 #include "TileUi.h"
 #include "Director_Scene_Tool.h"
 #include "Tile.h"
-
+#include "SceneManager.h"
+#include "InvisibleWall.h"
+#include "Collider.h"
+#include "UiManager.h"
+#include "InvisibleWallEditFrame.h"
 
 #define TILE_UI_BASE_POS_X 5
 #define TILE_UI_BASE_POS_Y 50
@@ -16,13 +20,33 @@
 TileEditUi::TileEditUi()
 	:PanelUi()
 	, page_(0)
+	, mode_(TILE_EDIT_MODE::ADD)
+	, director_(nullptr)
+	, mode_buttons_{}
+	, picked_tile_ui_(nullptr)
+	, dragging_(false)
+	, wall_edit_frames_{}
 {
+	std::vector<GObject*> walls = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::INVISIBLE_WALL);
+	for (int i = 0; i < walls.size(); i++) {
+		InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();
+		frame->set_content(static_cast<InvisibleWall*>(walls[i]));
+		frame->set_name(_T("Invisible Wall Frame"));
+		frame->set_group_type(GROUP_TYPE::UI);
+		frame->set_is_selectable(true);
+		CreateGObject(frame, GROUP_TYPE::UI);
+		wall_edit_frames_.push_back(frame);
+	}
 }
 
 TileEditUi::~TileEditUi()
 {
-	SafeDeleteVector<Ui*>(get_children_unsafe());
+	UiManager::GetInstance()->ResetSelection();
 	SafeDeleteVector<Sprite*>(tile_ui_sprites_);
+	for (int i = 0; i < wall_edit_frames_.size(); i++) {
+		DeleteGObject(wall_edit_frames_[i], GROUP_TYPE::UI);
+	}
+	wall_edit_frames_.clear();
 }
 
 void TileEditUi::CreateExitBtn()
@@ -49,7 +73,6 @@ void TileEditUi::CreateExitBtn()
 void TileEditUi::CreateAddModeBtn()
 {
 	ButtonUi* add_btn = new ButtonUi(true);
-	add_btn->set_pos(Vector2{ 0, 25 });
 	add_btn->set_scale(Vector2{ 20, 20 });
 	add_btn->set_group_type(GROUP_TYPE::UI);
 	add_btn->set_name(_T("Add Button"));
@@ -63,19 +86,37 @@ void TileEditUi::CreateAddModeBtn()
 	add_btn->AddOnClickHandler([](DWORD_PTR window, DWORD_PTR _director) {
 		TileEditUi* tile_edit_window = reinterpret_cast<TileEditUi*>(window);
 		if (tile_edit_window != nullptr) {
-			Director_Scene_Tool* director = reinterpret_cast<Director_Scene_Tool*>(_director);
-			if (director != nullptr) {
-				director->ChangeMode(TILE_EDIT_MODE::ADD);
-			}
+			tile_edit_window->ChangeMode(TILE_EDIT_MODE::ADD);
 		}
 		}, reinterpret_cast<DWORD_PTR>(this), reinterpret_cast<DWORD_PTR>(director_));
 	mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::ADD)] = add_btn;
 }
 
+void TileEditUi::CreateRemoveModeBtn()
+{
+	ButtonUi* remove_btn = new ButtonUi(true);
+	remove_btn->set_scale(Vector2{ 20, 20 });
+	remove_btn->set_group_type(GROUP_TYPE::UI);
+	remove_btn->set_name(_T("Remove Button"));
+	Texture* remove_texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+	Sprite* remove_sprite = new Sprite();
+	remove_sprite->QuickSet(remove_texture, remove_btn, 0, 0, 1, 1);
+	remove_btn->ChangeSprite(remove_sprite);
+	remove_btn->set_parent(this);
+	this->AddChild(remove_btn);
+	//이벤트 등록
+	remove_btn->AddOnClickHandler([](DWORD_PTR window, DWORD_PTR _director) {
+		TileEditUi* tile_edit_window = reinterpret_cast<TileEditUi*>(window);
+		if (tile_edit_window != nullptr) {
+			tile_edit_window->ChangeMode(TILE_EDIT_MODE::REMOVE);
+		}
+		}, reinterpret_cast<DWORD_PTR>(this), reinterpret_cast<DWORD_PTR>(director_));
+	mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::REMOVE)] = remove_btn;
+}
+
 void TileEditUi::CreateColliderModeBtn()
 {
 	ButtonUi* collider_btn = new ButtonUi(true);
-	collider_btn->set_pos(Vector2{ 25, 25 });
 	collider_btn->set_scale(Vector2{ 20, 20 });
 	collider_btn->set_group_type(GROUP_TYPE::UI);
 	collider_btn->set_name(_T("Collider Button"));
@@ -89,10 +130,7 @@ void TileEditUi::CreateColliderModeBtn()
 	collider_btn->AddOnClickHandler([](DWORD_PTR window, DWORD_PTR _director) {
 		TileEditUi* tile_edit_window = reinterpret_cast<TileEditUi*>(window);
 		if (tile_edit_window != nullptr) {
-			Director_Scene_Tool* director = reinterpret_cast<Director_Scene_Tool*>(_director);
-			if (director != nullptr) {
-				director->ChangeMode(TILE_EDIT_MODE::EDIT_COLLIDER);
-			}
+			tile_edit_window->ChangeMode(TILE_EDIT_MODE::EDIT_COLLIDER);
 		}
 		}, reinterpret_cast<DWORD_PTR>(this), reinterpret_cast<DWORD_PTR>(director_));
 	mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::EDIT_COLLIDER)] = collider_btn;
@@ -139,9 +177,9 @@ void TileEditUi::CreateArrowBtns()
 void TileEditUi::CreateEmptyTileUis()
 {
 
-	int max_row = (get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X;
-	int max_col = (get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y;
-	for (UINT i = 0; i < max_row * max_col; i++) {
+	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+	for (UINT i = 0; i < static_cast<UINT>(max_row * max_col); i++) {
 		TileUi* tile_ui = new TileUi(true);
 		tile_ui->set_group_type(GROUP_TYPE::UI);
 		tile_ui->set_scale(Vector2{ TILE_UI_SCALE_X, TILE_UI_SCALE_Y });
@@ -150,15 +188,21 @@ void TileEditUi::CreateEmptyTileUis()
 		tile_ui->set_director(director_);
 		tile_ui->set_parent(this);
 		this->AddChild(tile_ui);
+		tile_ui->AddOnClickHandler([](DWORD_PTR tile_editor_p, DWORD_PTR tile_ui_idx_p) {
+			TileEditUi* tile_edit_ui = reinterpret_cast<TileEditUi*>(tile_editor_p);
+			int tile_ui_idx = static_cast<int>(tile_ui_idx_p);
+			if(tile_edit_ui->get_mode() == TILE_EDIT_MODE::ADD)
+				tile_edit_ui->PickTileUi(tile_ui_idx);
+			}, reinterpret_cast<DWORD_PTR>(this), static_cast<DWORD_PTR>(i));
 		tile_uis_.push_back(tile_ui);
 	}
 }
 
 void TileEditUi::AddTileListFromTexture(Texture* texture, const Vector2& texture_base_pos, const Vector2& texture_scale, const Vector2& sprite_scale, const Vector2& interval, int count)
 {
-	int count_in_row_texture = texture_scale.x / sprite_scale.x;
-	int max_row = (get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X;
-	int max_col = (get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y;
+	int count_in_row_texture = static_cast<int>(texture_scale.x / sprite_scale.x);
+	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
 	for (int i = 0; i < count; i++) {
 		Sprite* sprite = new Sprite();
 		sprite->QuickSet(texture
@@ -174,9 +218,9 @@ void TileEditUi::LoadTileListFromTexture(UINT page)
 	//n page에 올라가는 타일 수는
 	// MIN(max_row * max_col, (전체타일ui수 - (page)*(max_row *max_col)))
 	// 
-	int max_row = (get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X;
-	int max_col = (get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y;
-	for (UINT tile_ui_i = 0; tile_ui_i < min((tile_ui_sprites_.size() - (page) * max_row * max_col), max_row * max_col); tile_ui_i++) {
+	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+	for (UINT tile_ui_i = 0; tile_ui_i < min((tile_ui_sprites_.size() - page * max_row * max_col), max_row * max_col); tile_ui_i++) {
 		tile_uis_[tile_ui_i] ->ChangeSprite(new Sprite(*tile_ui_sprites_[page*max_col*max_row+tile_ui_i]));
 		tile_ui_sprites_[page * max_col * max_row + tile_ui_i]->set_owner(tile_uis_[tile_ui_i]);
 	}
@@ -186,9 +230,9 @@ void TileEditUi::LoadTileListFromTexture(UINT page)
 
 void TileEditUi::ChangePage(UINT page)
 {
-	int max_row = (get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X;
-	int max_col = (get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y;
-	UINT max_page = tile_ui_sprites_.size()/(max_row * max_col);
+	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+	UINT max_page = static_cast<UINT>(tile_ui_sprites_.size()/(max_row * max_col));
 	if (page < 0 || page > (max_page)) return;
 	page_ = page;
 	LoadTileListFromTexture(page);
@@ -201,8 +245,15 @@ void TileEditUi::Init()
 
 	// 모드 버튼들: 클릭됨/클릭되지 않음에 따라 다른 모습으로 구분되게 보여줘야함.
 	CreateAddModeBtn(); //추가 버튼
+	CreateRemoveModeBtn(); //삭제 버튼
 	CreateColliderModeBtn();// 콜라이더 버튼
-	
+	int pos_idx = 0;
+	for (int i = 0; i < static_cast<int>(TILE_EDIT_MODE::END); i++) {
+		if (mode_buttons_[i]) {
+			mode_buttons_[i]->set_pos(Vector2{ pos_idx++ * 25, 25 });
+		}
+	}
+	mode_buttons_[0]->set_selected(true);
 	
 	//이 윈도우 위에 타일 Ui들 얹기
 	//모든 타일 Ui에 대해서 클릭 이벤트 등록
@@ -211,7 +262,6 @@ void TileEditUi::Init()
 	// - Add: 배치된 타일 드래그로 이동/타일Ui 윈도우에서 드래그해서 배치 가능
 	// - Increase priority: 배치된 타일의 우선순위 올림. 최대값 존재.
 	// - Decrease priority: 배치된 타일의 우선순위 내림. 최소 0.
-
 	
 	//타일셋은 texture에서 부분부분 불러옴.
 	Texture* crop_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Crops"), _T("texture\\Harvest-Moon_Crops.bmp"));
@@ -235,11 +285,158 @@ void TileEditUi::Init()
 	CreateArrowBtns();
 }
 
-void TileEditUi::PickTileUi(TileUi* tile_ui)
+void TileEditUi::Update()
 {
-	if (picked_tile_ui_ != nullptr) {
-		picked_tile_ui_->Unpick();
+	PanelUi::Update();
+
+	switch (mode_) {
+	case TILE_EDIT_MODE::ADD: {
+		if (KEY_HOLD(KEY::LBUTTON)) {
+			if (picked_tile_ui_) {
+				Tile* tile = SceneManager::GetInstance()->get_current_scene()->GetTile(GET_MOUSE_POS());
+				if (tile) tile->SetTile(picked_tile_ui_);
+			}
+		}
+		if (KEY_DOWN(KEY::RBUTTON)) {
+			picked_tile_ui_ = nullptr;
+		}
 	}
-	tile_ui->Pick();
-	picked_tile_ui_ = tile_ui;
+	break;
+	case TILE_EDIT_MODE::REMOVE: {
+		if (KEY_HOLD(KEY::LBUTTON)) {
+			Tile* tile = SceneManager::GetInstance()->get_current_scene()->GetTile(GET_MOUSE_POS());
+			if (tile) tile->ResetTile();
+		}
+	}
+
+	break;
+	case TILE_EDIT_MODE::EDIT_COLLIDER: {
+		if (KEY_DOWN(KEY::LBUTTON) && UiManager::GetInstance()->focus_nothing()){
+			dragging_ = true;
+			drag_start_pos_ = GET_MOUSE_POS();
+		}
+		else if (KEY_HOLD(KEY::LBUTTON) && dragging_ && UiManager::GetInstance()->focus_nothing()) {
+			prev_drag_pos_ = GET_MOUSE_POS();
+
+		}
+		else if (KEY_UP(KEY::LBUTTON) && dragging_) {
+			//drag_start_pos_ <===> 현재 위치를 잇는 네모난 InvisibleWall 생성
+			// 크기가 최소한 16x16일 때만 
+			Vector2 drag_end_pos_ = GET_MOUSE_POS();
+			Vector2 scale{ abs(drag_end_pos_.x - drag_start_pos_.x), abs(drag_end_pos_.y - drag_start_pos_.y) };
+			if (scale.x >= 16.f && scale.y >= 16.f) {
+				InvisibleWall* wall = new InvisibleWall();
+				wall->set_pos(Vector2{ min(drag_start_pos_.x, drag_end_pos_.x), min(drag_start_pos_.y, drag_end_pos_.y) });
+				wall->set_scale(scale);
+				wall->set_group_type(GROUP_TYPE::INVISIBLE_WALL);
+				wall->set_name(_T("Invisible Wall"));
+				CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
+
+				/*Collider* collider = new Collider();
+				collider->set_owner(wall);
+				collider->set_pos_offset(wall->get_scale() / 2.f);
+				collider->set_scale(wall->get_scale());
+				wall->set_collider(collider);*/
+
+				InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();
+				frame->set_content(wall);
+				frame->set_name(_T("Invisible Wall Frame"));
+				frame->set_group_type(GROUP_TYPE::UI);
+				frame->set_is_selectable(true);
+				CreateGObject(frame, GROUP_TYPE::UI);
+				wall_edit_frames_.push_back(frame);
+
+			}
+			dragging_ = false;
+
+		}
+	}
+	break;
+	}
+
+
+	ChildrenUpdate();
+}
+
+void TileEditUi::Render(HDC hdc)
+{
+	PanelUi::Render(hdc);
+	ChildrenRender(hdc);
+	switch (mode_) {
+	case TILE_EDIT_MODE::ADD: {
+		if (picked_tile_ui_) {
+			Sprite* sprite = picked_tile_ui_->get_sprite();
+			Vector2 tile_ui_scale = picked_tile_ui_->get_scale();
+			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
+			TransparentBlt(hdc
+				, static_cast<int>(mouse_pos.x - tile_ui_scale.x / 2.f)
+				, static_cast<int>(mouse_pos.y - tile_ui_scale.y / 2.f)
+				, static_cast<int>(tile_ui_scale.x)
+				, static_cast<int>(tile_ui_scale.y)
+				, sprite->get_texture()->get_hdc()
+				, static_cast<int>(sprite->get_base_pos().x)
+				, static_cast<int>(sprite->get_base_pos().y)
+				, static_cast<int>(sprite->get_scale().x)
+				, static_cast<int>(sprite->get_scale().y)
+				, RGB(255, 0, 255));
+		}
+	}
+	break;
+	case TILE_EDIT_MODE::REMOVE: {
+		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+		if (texture) {
+			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
+			TransparentBlt(hdc
+				, static_cast<int>(mouse_pos.x)
+				, static_cast<int>(mouse_pos.y)
+				, static_cast<int>(texture->get_width())
+				, static_cast<int>(texture->get_height())
+				, texture->get_hdc()
+				, static_cast<int>(0)
+				, static_cast<int>(0)
+				, static_cast<int>(texture->get_width())
+				, static_cast<int>(texture->get_height())
+				, RGB(255, 0, 255));
+		}
+		
+	}
+	break;
+	case TILE_EDIT_MODE::EDIT_COLLIDER: {
+		if (KEY_HOLD(KEY::LBUTTON) && dragging_) {
+			Vector2 start_pos = WorldToRenderPos(drag_start_pos_);
+			Vector2 end_pos = WorldToRenderPos(prev_drag_pos_);
+			SelectGdi _(hdc, PEN_TYPE::BLACK_DASH);
+			SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
+			Rectangle(hdc
+				, static_cast<int>(start_pos.x)
+				, static_cast<int>(start_pos.y)
+				, static_cast<int>(end_pos.x)
+				, static_cast<int>(end_pos.y));
+			
+
+		}
+	}
+	break;
+
+	}
+}
+
+void TileEditUi::ChangeMode(TILE_EDIT_MODE mode)
+{
+	picked_tile_ui_ = nullptr;
+	for (int i = 0; i < wall_edit_frames_.size(); i++) {
+		wall_edit_frames_[i]->set_is_selectable(mode==TILE_EDIT_MODE::EDIT_COLLIDER);
+	}
+	UiManager::GetInstance()->ResetSelection();
+	mode_buttons_[static_cast<ULONGLONG>(mode_)]->set_selected(false);
+	mode_buttons_[static_cast<ULONGLONG>(mode)]->set_selected(true);
+	mode_ = mode;
+}
+
+void TileEditUi::PickTileUi(int tile_ui_idx)
+{
+	if (tile_ui_idx < 0 || tile_ui_idx >= tile_uis_.size()) {
+		return;
+	}
+	picked_tile_ui_ = tile_uis_[tile_ui_idx];
 }

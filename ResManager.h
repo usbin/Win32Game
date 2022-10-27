@@ -14,5 +14,6 @@ private:
 
 public:
 	Texture* LoadTexture(const tstring& key, const tstring& relative_path);
+	
 };
 

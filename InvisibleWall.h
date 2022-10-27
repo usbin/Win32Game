@@ -1,18 +1,16 @@
 #pragma once
+#include "global.h"
 #include "RealObject.h"
-class TileUi;
 
-class Tile : public RealObject
+class InvisibleWall : public RealObject
 {
 public:
-	Tile();
-	~Tile();
+	InvisibleWall();
+	virtual ~InvisibleWall();
 private:
 
 public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
-	void SetTile(TileUi* tile_ui);
-	void ResetTile();
 };
 

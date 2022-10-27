@@ -5,6 +5,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Animator.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Background.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ButtonUi.cpp"
 
 
@@ -33,6 +36,12 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWall.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWallEditFrame.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"

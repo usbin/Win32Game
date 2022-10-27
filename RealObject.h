@@ -6,7 +6,7 @@ class RealObject : public GObject
 public:
 	RealObject();
 	RealObject(const RealObject& origin);
-	~RealObject();
+	virtual ~RealObject();
 	
 private:
 

@@ -1,10 +1,19 @@
 #pragma once
 #include "GObject.h"
+#include "UiManager.h"
+
+typedef void (*OnClickHandler)(DWORD_PTR param1, DWORD_PTR param2);
+struct OnClickHandlerParams {
+	OnClickHandler on_click;
+	DWORD_PTR param1;
+	DWORD_PTR param2;
+};
+
 class Ui : public GObject
 {
 public:
 	Ui(bool is_static_pos);
-	~Ui();
+	virtual ~Ui();
 private:
 	bool is_static_pos_;		// 카메라에 영향받지 않는 좌표계를 쓰는가(일반적인 Ui처럼 위치 고정)
 	Vector2 final_pos_;
@@ -13,10 +22,12 @@ private:
 
 
 	bool mouse_on_check_;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
-
 	bool lbutton_hold_;			// 가장 위에서 실제로 이벤트를 받았을 때에만 체크됨.
 
+	bool selectable_;			// "선택됨" 상태가 가능한지
+	bool is_selected_;
 
+	bool enabled_;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
 
 
 public:
@@ -37,7 +48,8 @@ public:
 	virtual void LbuttonClick() {};
 	virtual void LbuttonDown() {};
 	virtual void LbuttonUp() {};
-
+	virtual void Select() {};
+	virtual void Unselect() {};
 
 	inline void AddChild(Ui* child) { children_.push_back(child); };
 	inline const std::vector<Ui*>& get_children() { return children_; };
@@ -48,5 +60,14 @@ public:
 	inline bool get_mouse_on() { return mouse_on_check_; };
 	inline bool get_lbutton_hold() { return lbutton_hold_; };
 	inline void set_lbutton_hold(bool b) { lbutton_hold_ = b; };
+	inline bool get_is_selectable() { return selectable_; };
+	inline void set_is_selectable(bool b) { selectable_ = b; };
+	inline bool get_selected() { return is_selected_; };
+	inline bool get_enabled() { return enabled_; };
+	inline void set_enabled(bool b) { enabled_ = b; };
+private:
+	inline void set_selected(bool b) { is_selected_ = b; };
+
+	friend class UiManager;
 };
 

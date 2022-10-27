@@ -85,6 +85,12 @@
     <Filter Include="Game\GObject\RealObject\Tile">
       <UniqueIdentifier>{18be5378-0dcb-4796-b05d-dc2dc6afdf0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GObject\RealObject\Background">
+      <UniqueIdentifier>{d8b3d3cf-2c52-42a7-9188-5f74c01b1aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\InvisibleWall">
+      <UniqueIdentifier>{1468aee8-04b6-4632-bfc9-25a4f292dfa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -225,6 +231,15 @@
     <ClInclude Include="TileCell.h">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Game\GObject\RealObject\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="InvisibleWall.h">
+      <Filter>Game\GObject\RealObject\InvisibleWall</Filter>
+    </ClInclude>
+    <ClInclude Include="InvisibleWallEditFrame.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -350,6 +365,15 @@
       <Filter>Game\GObject\RealObject\Tile</Filter>
     </ClCompile>
     <ClCompile Include="TileCell.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Game\GObject\RealObject\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="InvisibleWall.cpp">
+      <Filter>Game\GObject\RealObject\InvisibleWall</Filter>
+    </ClCompile>
+    <ClCompile Include="InvisibleWallEditFrame.cpp">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,7 +24,11 @@ void TileCell::Render(HDC hdc)
 	Vector2 scale = get_scale();
 	if (sprite == nullptr) {
 		//스프라이트가 없으면 마젠타 네모 그리기
-		Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+		Rectangle(hdc
+			, static_cast<int>(pos.x)
+			, static_cast<int>(pos.y)
+			, static_cast<int>(pos.x + scale.x)
+			, static_cast<int>(pos.y + scale.y));
 	}
 	else {
 		Texture* texture = sprite->get_texture();

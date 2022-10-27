@@ -51,13 +51,14 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 enum class GROUP_TYPE
 {
 	DEFAULT=0,
-	BACKGROUND=1,
-	TILE=2,
+	BACKGROUND=2,
+	TILE=3,
 	PLAYER,
 	THING,
 	MISSILE,
 	MONSTER,
 	DIRECTOR,
+	INVISIBLE_WALL = 30,
 	UI = 31, //맨 마지막에 렌더링
 	END = 32
 };
@@ -75,12 +76,14 @@ enum class PEN_TYPE {//void Core::InitPenAndBrush()에도 초기화 구문 추가해야함
 	RED,
 	GREEN,
 	BLUE,
+	BLACK_DASH,
 	END
 };
 
 enum class BRUSH_TYPE { 
 	WHITE,
 	BLACK,
+	BRIGHT_GRAY,
 	RED,
 	GREEN,
 	BLUE,

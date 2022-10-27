@@ -3,10 +3,19 @@
 #include "framework.h"
 #include "Win32Program.h"
 #include "Core.h"
+#include "SceneManager.h"
+#include "Scene_Tool.h"
+#include "commdlg.h"
+#include "PathManager.h"
+#include "ResManager.h"
+#include "Sprite.h"
+#include "Texture.h"
+#include "Background.h"
 
 #define MAX_LOADSTRING 100
 #define INITIAL_WINDOW_WIDTH 1024
 #define INITIAL_WINDOW_HEIGHT 768
+
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -167,6 +176,71 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_CHANGE_TILECELL_SIZE:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_CHANGE_TILECELL_SIZE), hWnd, ChangeTilecellSize);
                 break;
+            case IDM_LOAD_BACKGROUND:
+            {
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+                    TCHAR initial_path[256];
+                    _tcscpy_s(initial_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("Bitmap\0*.bmp\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+                    ofn.lpstrInitialDir = initial_path;
+
+                    if (GetOpenFileName(&ofn)) {
+                        //1. 텍스쳐를 content\texture 폴더로 복사하기
+                        TCHAR file_name[256] = _T("");
+                        for (int i = static_cast<int>(_tcsclen(file_path))-1; i >= 0; i--) {
+                            if (file_path[i] == _T('\\')) {
+                                _tcscpy_s(file_name, &file_path[i + 1]);
+                                break;
+                            }
+                        }
+                        TCHAR relative_path[256] = _T("");
+                        _tcscat_s(relative_path, _T("texture\\"));
+                        _tcscat_s(relative_path, file_name);
+
+                        TCHAR dest_path[256] = _T("");
+                        _tcscat_s(dest_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+                        _tcscat_s(dest_path, relative_path);
+                        CopyFile(file_path, dest_path, true);
+                        //2. 복사한 텍스쳐를 불러와서, 이 텍스쳐를 1x1 스프라이트로 가지는 BACKGROUND 오브젝트 생성.
+                        //이미 BACKGROUND 오브젝트가 있다면 스프라이트만 교체
+                        GObject* bg_object;
+                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND);
+                        if (objs.empty()) {
+                            bg_object = new Background();
+                            CreateGObject(bg_object, GROUP_TYPE::BACKGROUND);
+                        }
+                        else bg_object = objs[0];
+                        Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
+                        Sprite* bg_sprite = new Sprite();
+                        bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
+                        bg_object->ChangeSprite(bg_sprite);
+                        bg_object->set_group_type(GROUP_TYPE::BACKGROUND);
+                        bg_object->set_pos(Vector2{ 0, 0 });
+                        bg_object->set_scale(Vector2{ texture->get_width()*BACKGROUND_RATIO_X, texture->get_height()*BACKGROUND_RATIO_Y });
+                        EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_ENABLED);
+                    }
+                }
+                
+            }
+                break;
+            case IDM_REMOVE_BACKGROUND: {
+                GObject* bg_object;
+                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND);
+                if (!objs.empty()) {
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND);
+                }
+                EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_DISABLED);
+            }
+                break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
@@ -195,6 +269,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
+
 // 타일셀 크기 변경 메시지 처리기
 INT_PTR CALLBACK ChangeTilecellSize(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -209,6 +284,8 @@ INT_PTR CALLBACK ChangeTilecellSize(HWND hDlg, UINT message, WPARAM wParam, LPAR
         {
             UINT x_size = GetDlgItemInt(hDlg, IDC_WIDTH_TF, nullptr, false);
             UINT y_size = GetDlgItemInt(hDlg, IDC_HEIGHT_TF, nullptr, false);
+            Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+            if (current_scene) current_scene->CreateTile(x_size, y_size);
             EndDialog(hDlg, LOWORD(wParam));
             return (INT_PTR)TRUE;
         }

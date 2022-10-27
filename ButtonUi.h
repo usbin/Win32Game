@@ -2,12 +2,7 @@
 //ButtonUi는 외부에서 클릭 이벤트 핸들러 등록 가능.
 #include "global.h"
 #include "Ui.h"
-typedef void (*OnClickHandler)(DWORD_PTR param1, DWORD_PTR param2);
-struct OnClickHandlerParams {
-	OnClickHandler on_click;
-	DWORD_PTR param1;
-	DWORD_PTR param2;
-};
+
 class ButtonUi : public Ui
 {
 public:

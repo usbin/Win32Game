@@ -1,17 +1,19 @@
 #include "EventManager.h"
 #include "SceneManager.h"
 
-EventManager::EventManager() {}
+EventManager::EventManager()
+	: events_{}
+	, dead_objects_{}{}
 
-EventManager::~EventManager() {}
+EventManager::~EventManager() {
+	SafeDeleteVector<GObject*>(dead_objects_);
+}
 
 
 void EventManager::Update()
 {
 	//삭제 작업2: 데드 오브젝트 삭제하기
 	SafeDeleteVector<GObject*>(dead_objects_);
-
-
 
 	//이벤트 일괄 실행(*이벤트 실행 도중 이벤트 대기열이 찰 수 있으므로 foreach 사용x)
 	for (size_t i = 0; i < events_.size(); i++) {
@@ -42,9 +44,13 @@ void EventManager::ExecuteEvent(Event _event)
 		//param1: 오브젝트 포인터
 		//param2: 오브젝트 타입
 		//삭제 작업1: 데드 상태로 만들기
+		
 		GObject* p_obj = (GObject*)_event.param1;
-		p_obj->SetDead();
-		dead_objects_.push_back(p_obj);
+		if (p_obj && !p_obj->IsDead()) {
+
+			p_obj->SetDead();
+			dead_objects_.push_back(p_obj);
+		}
 
 	}
 	break;

@@ -5,6 +5,7 @@
 ButtonUi::ButtonUi(bool is_static_pos)
 	: Ui(is_static_pos)
 	, on_click_handler{}
+	, is_selected_(false)
 {
 }
 

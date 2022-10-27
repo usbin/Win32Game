@@ -6,7 +6,7 @@ class ImageUi : public Ui
 {
 public:
 	ImageUi(bool is_static_pos);
-	~ImageUi();
+	virtual ~ImageUi();
 
 	virtual void Render(HDC hdc) override;
 };

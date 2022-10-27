@@ -18,6 +18,9 @@ public:
 	Vector2(const POINT& pt)
 		: x(static_cast<float>(pt.x))
 		, y(static_cast<float>(pt.y)) {};
+	Vector2(UINT _x, UINT _y)
+		: x(static_cast<float>(_x))
+		, y(static_cast<float>(_y)){};
 	float Length() {
 		return sqrtf(x * x + y * y);
 	}
