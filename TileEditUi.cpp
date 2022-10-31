@@ -136,6 +136,26 @@ void TileEditUi::CreateColliderModeBtn()
 	mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::EDIT_COLLIDER)] = collider_btn;
 }
 
+void TileEditUi::CreateColliderDeleteModeBtn() {
+	ButtonUi* collider_delete_btn = new ButtonUi(true);
+	collider_delete_btn->set_scale(Vector2{ 20,20 });
+	collider_delete_btn->set_group_type(GROUP_TYPE::UI);
+	collider_delete_btn->set_name(_T("Collider Delete Button"));
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Collider Delete Button"), _T("texture\\collider-delete-btn.bmp"));
+	Sprite* sprite = new Sprite();
+	sprite->QuickSet(texture, collider_delete_btn, 0, 0, 1, 1);
+	collider_delete_btn->ChangeSprite(sprite);
+	collider_delete_btn->set_parent(this);
+	this->AddChild(collider_delete_btn);
+	collider_delete_btn->AddOnClickHandler([](DWORD_PTR window, DWORD_PTR _director) {
+		TileEditUi* tile_edit_window = reinterpret_cast<TileEditUi*>(window);
+		if (tile_edit_window != nullptr) {
+			tile_edit_window->ChangeMode(TILE_EDIT_MODE::DELETE_COLLIDER);
+		}
+		}, reinterpret_cast<DWORD_PTR>(this), reinterpret_cast<DWORD_PTR>(director_));
+	mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::DELETE_COLLIDER)] = collider_delete_btn;
+}
+
 void TileEditUi::CreateArrowBtns()
 {
 	ButtonUi* left_arrow_btn = new ButtonUi(true);
@@ -247,6 +267,7 @@ void TileEditUi::Init()
 	CreateAddModeBtn(); //추가 버튼
 	CreateRemoveModeBtn(); //삭제 버튼
 	CreateColliderModeBtn();// 콜라이더 버튼
+	CreateColliderDeleteModeBtn(); //콜라이더 삭제 버튼
 	int pos_idx = 0;
 	for (int i = 0; i < static_cast<int>(TILE_EDIT_MODE::END); i++) {
 		if (mode_buttons_[i]) {
@@ -325,18 +346,18 @@ void TileEditUi::Update()
 			Vector2 drag_end_pos_ = GET_MOUSE_POS();
 			Vector2 scale{ abs(drag_end_pos_.x - drag_start_pos_.x), abs(drag_end_pos_.y - drag_start_pos_.y) };
 			if (scale.x >= 16.f && scale.y >= 16.f) {
+				// InvisibleWall과 collider는 pos가 중앙, InvisibleWallFrame은 기준점이 좌상단임.
 				InvisibleWall* wall = new InvisibleWall();
-				wall->set_pos(Vector2{ min(drag_start_pos_.x, drag_end_pos_.x), min(drag_start_pos_.y, drag_end_pos_.y) });
+				wall->set_pos(Vector2{ min(drag_start_pos_.x+scale.x/2.f, drag_end_pos_.x+scale.x/2.f), min(drag_start_pos_.y+scale.y/2.f, drag_end_pos_.y+scale.y/2.f) });
 				wall->set_scale(scale);
 				wall->set_group_type(GROUP_TYPE::INVISIBLE_WALL);
 				wall->set_name(_T("Invisible Wall"));
 				CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 
-				/*Collider* collider = new Collider();
+				Collider* collider = new Collider();
 				collider->set_owner(wall);
-				collider->set_pos_offset(wall->get_scale() / 2.f);
 				collider->set_scale(wall->get_scale());
-				wall->set_collider(collider);*/
+				wall->set_collider(collider);
 
 				InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();
 				frame->set_content(wall);
@@ -350,6 +371,17 @@ void TileEditUi::Update()
 			dragging_ = false;
 
 		}
+	}
+	break;
+	case TILE_EDIT_MODE::DELETE_COLLIDER : {
+		//클릭된 위치의 collider를 찾아서 삭제함.
+		Ui* selected_ui = UiManager::GetInstance()->get_selected_target();
+		InvisibleWallEditFrame* frame = dynamic_cast<InvisibleWallEditFrame*>(selected_ui);
+		if (frame) {
+			DeleteGObject(frame->get_content(), GROUP_TYPE::UI);
+			frame->set_content(nullptr);
+		}
+
 	}
 	break;
 	}
@@ -417,6 +449,24 @@ void TileEditUi::Render(HDC hdc)
 		}
 	}
 	break;
+	case TILE_EDIT_MODE::DELETE_COLLIDER: {
+		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+		if (texture) {
+			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
+			TransparentBlt(hdc
+				, static_cast<int>(mouse_pos.x)
+				, static_cast<int>(mouse_pos.y)
+				, static_cast<int>(texture->get_width())
+				, static_cast<int>(texture->get_height())
+				, texture->get_hdc()
+				, static_cast<int>(0)
+				, static_cast<int>(0)
+				, static_cast<int>(texture->get_width())
+				, static_cast<int>(texture->get_height())
+				, RGB(255, 0, 255));
+		}
+	}
+	break;
 
 	}
 }
@@ -425,7 +475,7 @@ void TileEditUi::ChangeMode(TILE_EDIT_MODE mode)
 {
 	picked_tile_ui_ = nullptr;
 	for (int i = 0; i < wall_edit_frames_.size(); i++) {
-		wall_edit_frames_[i]->set_is_selectable(mode==TILE_EDIT_MODE::EDIT_COLLIDER);
+		wall_edit_frames_[i]->set_is_selectable(mode==TILE_EDIT_MODE::EDIT_COLLIDER||mode==TILE_EDIT_MODE::DELETE_COLLIDER);
 	}
 	UiManager::GetInstance()->ResetSelection();
 	mode_buttons_[static_cast<ULONGLONG>(mode_)]->set_selected(false);

@@ -29,6 +29,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FrameSizer.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\function.cpp"
 
 

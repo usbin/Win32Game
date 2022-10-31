@@ -59,6 +59,9 @@ public:
 	Vector2 operator*(float num) {
 		return Vector2{ x * num, y * num };
 	}
+	Vector2 operator*(const Vector2& o_v) {
+		return Vector2{ x * o_v.x, y * o_v.y };
+	}
 	Vector2 operator/(const Vector2& o_v) {
 		return Vector2{ x / o_v.x, y / o_v.y };
 	}
@@ -68,7 +71,7 @@ public:
 	Vector2 operator/(double num) const {
 		return Vector2{ x / num, y / num };
 	}
-	Vector2 operator/(float num) const {
+	Vector2 operator/(float num) {
 		return Vector2{ x / num, y / num };
 	}
 	bool operator<(const Vector2& o_v) {

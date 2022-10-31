@@ -16,6 +16,7 @@ enum class TILE_EDIT_MODE {
 	INCREASE_PRIORITY,
 	DECREASE_PRIORITY,
 	EDIT_COLLIDER,
+	DELETE_COLLIDER,
 	END
 };
 class TileEditUi : public PanelUi
@@ -51,6 +52,7 @@ private:
 	void CreateAddModeBtn();
 	void CreateRemoveModeBtn();
 	void CreateColliderModeBtn();
+	void CreateColliderDeleteModeBtn();
 	void CreateArrowBtns();
 	void CreateEmptyTileUis();
 	void AddTileListFromTexture(Texture* texture, const Vector2& texture_base_pos, const Vector2& texture_scale

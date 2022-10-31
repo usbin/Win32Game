@@ -43,8 +43,6 @@ public:
 	inline float get_height() { return scale_.y; };
 	inline const Vector2& get_pos() const { return pos_; }
 	inline void set_pos(Vector2 v) { //rect도 동기화
-		float x_axis_dist = v.x - get_pos().x;
-		float y_axis_dist = v.y - get_pos().y;
 		pos_ = v;
 	
 	}

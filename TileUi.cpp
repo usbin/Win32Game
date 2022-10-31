@@ -30,7 +30,6 @@ void TileUi::Render(HDC hdc)
 {
 	Ui::Render(hdc);
 	
-	
 
 	ChildrenRender(hdc);
 }

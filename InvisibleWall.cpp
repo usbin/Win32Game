@@ -1,6 +1,7 @@
 #include "InvisibleWall.h"
 #include "SceneManager.h"
 #include "Scene_Tool.h"
+#include "Collider.h"
 InvisibleWall::InvisibleWall()
 {
 }
@@ -11,8 +12,7 @@ InvisibleWall::~InvisibleWall()
 
 void InvisibleWall::Update()
 {
-	
-
+	get_collider()->set_scale(get_scale());
 }
 
 void InvisibleWall::Render(HDC hdc)
@@ -23,10 +23,10 @@ void InvisibleWall::Render(HDC hdc)
 		SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
 		Vector2 pos = WorldToRenderPos(get_pos());
 		Rectangle(hdc
-			, static_cast<int>(pos.x)
-			, static_cast<int>(pos.y)
-			, static_cast<int>(pos.x + get_scale().x)
-			, static_cast<int>(pos.y + get_scale().y));
+			, static_cast<int>(pos.x - get_scale().x/2.f)
+			, static_cast<int>(pos.y - get_scale().y/2.f)
+			, static_cast<int>(pos.x + get_scale().x/2.f)
+			, static_cast<int>(pos.y + get_scale().y/2.f));
 	}
 	ComponentRender(hdc);
 	//그 외엔 아무것도 그리지 않음.

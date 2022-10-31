@@ -139,11 +139,8 @@ Tile* Scene::GetTile(Vector2 world_pos)
 	for (int i = 0; i < tile_map_.size(); i++) {
 		Vector2 tile_pos = tile_map_[i]->get_pos();
 		Vector2 tile_scale = tile_map_[i]->get_scale();
-		if (tile_pos.x < world_pos.x && world_pos.x < tile_pos.x + tile_scale.x
-			&& tile_pos.y < world_pos.y && world_pos.y < tile_pos.y + tile_scale.y) {
-			if (tile_map_[i] == nullptr) {
-				int a = 0;
-			}
+		if (tile_pos.x - tile_scale.x / 2.f < world_pos.x && world_pos.x < tile_pos.x + tile_scale.x/2.f
+			&& tile_pos.y - tile_scale.y/2.f < world_pos.y && world_pos.y < tile_pos.y + tile_scale.y/2.f) {
 			return tile_map_[i];
 		}
 	}

@@ -1,7 +1,7 @@
 #pragma once
 #include "Ui.h"
 class InvisibleWall;
-class ImageUi;
+class FrameSizer;
 /// <summary>
 /// InvisibleWall의 테두리에 부착되어 클릭되었을 때 크기 조정, 이동 등의 동작을 처리
 /// </summary>
@@ -14,13 +14,18 @@ public:
 private:
 	InvisibleWall* content_;
 
-	ImageUi* left_top_sizer_;
-	ImageUi* right_top_sizer_;
-	ImageUi* left_bottom_sizer_;
-	ImageUi* right_bottom_sizer_;
-
 	bool dragging_;
 	Vector2 prev_dragged_pos_;
+
+	FrameSizer* left_top_sizer_;
+	FrameSizer* right_top_sizer_;
+	FrameSizer* left_bottom_sizer_;
+	FrameSizer* right_bottom_sizer_;
+
+	bool left_top_sizing_;
+	bool right_top_sizing_;
+	bool left_bottom_sizing_;
+	bool right_bottom_sizing_;
 
 public:
 	virtual void Update() override;
@@ -29,8 +34,8 @@ public:
 	virtual void Select() override;
 	virtual void Unselect() override;
 	virtual void LbuttonDown() override;
-	virtual void LbuttonUp() override;
 
+	inline InvisibleWall* get_content() { return content_; };
 	inline void set_content(InvisibleWall* content) { content_ = content; };
 };
 

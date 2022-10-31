@@ -240,6 +240,9 @@
     <ClInclude Include="InvisibleWallEditFrame.h">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClInclude>
+    <ClInclude Include="FrameSizer.h">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -374,6 +377,9 @@
       <Filter>Game\GObject\RealObject\InvisibleWall</Filter>
     </ClCompile>
     <ClCompile Include="InvisibleWallEditFrame.cpp">
+      <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameSizer.cpp">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
   </ItemGroup>

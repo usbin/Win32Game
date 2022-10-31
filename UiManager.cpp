@@ -109,13 +109,18 @@ void UiManager::FinalUpdate()
 		prev_downed_target_ = nullptr;
 	}
 
+	// selected_target_이 DEAD일 경우 해제된 다음 참조하지 않도록 참조 해제
+	if (selected_target_ && selected_target_->IsDead()) {
+		selected_target_ = nullptr;
+	}
+
 	
 }
+
 
 void UiManager::ResetSelection()
 {
 	if (selected_target_) {
-
 		selected_target_->set_selected(false);
 		selected_target_->Unselect();
 		selected_target_ = nullptr;
