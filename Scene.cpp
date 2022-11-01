@@ -122,7 +122,7 @@ void Scene::CreateTile(UINT column_count, UINT row_count)
 	for (UINT i = 0; i < row_count; i++) {
 		for (UINT j = 0; j < column_count; j++) {
 			Tile* tile = new Tile();
-			tile->set_pos(Vector2{ (static_cast<int>(j * TILE_WIDTH)) % static_cast<int>(column_count * TILE_WIDTH), static_cast<int>((i * TILE_HEIGHT)) });
+			tile->set_pos(Vector2{ (static_cast<int>(j * TILE_WIDTH)) % static_cast<int>(column_count * TILE_WIDTH) + TILE_WIDTH/2.f, static_cast<int>((i * TILE_HEIGHT)) + TILE_HEIGHT/2.f });
 			tile->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
 			tile->set_group_type(GROUP_TYPE::TILE);
 			tile->set_name(_T("Tile"));
