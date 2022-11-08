@@ -36,5 +36,8 @@ public:
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline Animator* get_animator() { return animator_; };
 
+	virtual void SaveToFile(FILE* p_file) override;
+	virtual void LoadFromFile(FILE* p_file) override;
+
 };
 

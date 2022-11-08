@@ -86,3 +86,39 @@ void RealObject::ComponentRender(HDC hdc)
 	if (collider_ != nullptr) collider_->Render(hdc);
 	if (animator_ != nullptr) animator_->Render(hdc);
 }
+
+void RealObject::SaveToFile(FILE* p_file)
+{
+	GObject::SaveToFile(p_file);
+
+	fwrite(&collider_, sizeof(DWORD_PTR), 1, p_file);
+	if(collider_) collider_->SaveToFile(p_file);
+
+	fwrite(&animator_, sizeof(DWORD_PTR), 1, p_file);
+	if(animator_) animator_->SaveToFile(p_file);
+
+	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
+}
+
+void RealObject::LoadFromFile(FILE* p_file)
+{
+	GObject::LoadFromFile(p_file);
+
+	fread(&collider_, sizeof(DWORD_PTR), 1, p_file);
+	if (collider_) {
+		collider_ = new Collider();
+		collider_->SaveToFile(p_file);
+		collider_->set_owner(this);
+
+	}
+
+	fread(&animator_, sizeof(DWORD_PTR), 1, p_file);
+	if (animator_) {
+		animator_ = new Animator();
+		animator_->SaveToFile(p_file);
+		animator_->set_owner(this);
+	}
+
+	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
+
+}

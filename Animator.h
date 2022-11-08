@@ -1,8 +1,9 @@
 #pragma once
 #include "global.h"
+#include "ISavable.h"
 class Animation;
 class Texture;
-class Animator
+class Animator : public ISavable
 {
 public:
 	Animator();
@@ -27,5 +28,13 @@ private :
 
 	friend class RealObject;
 	friend class Player;
+
+
+
+	// ISavable을(를) 통해 상속됨
+	virtual void SaveToFile(FILE* p_file) override;
+
+	// ISavable을(를) 통해 상속됨
+	virtual void LoadFromFile(FILE* p_file) override;
 };
 

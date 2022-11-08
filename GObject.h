@@ -1,13 +1,14 @@
 #pragma once
 
 #include "global.h"
+#include "ISavable.h"
 //게임 안에 존재하는, 그려져야 하는 모든 오브젝트
 //매 렌더링에서 그려줌.
 class Collider;
 class Animator;
 class Sprite;
 
-class GObject
+class GObject : public ISavable
 {
 private:
 	static unsigned int id_counter_;
@@ -53,6 +54,7 @@ public:
 	inline void SetDead() { is_dead_ = true; };
 	inline bool IsDead() { return is_dead_; };
 
+	virtual void SaveToFile(FILE* p_file) override;
 	
 	bool operator== (const GObject& o) const {
 		return this->id_ == o.id_;
@@ -60,4 +62,7 @@ public:
 	
 	
 	friend class EventManager;
+
+	// ISavable을(를) 통해 상속됨
+	virtual void LoadFromFile(FILE* p_file) override;
 };

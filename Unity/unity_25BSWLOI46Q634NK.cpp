@@ -29,6 +29,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FileManager.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FrameSizer.cpp"
 
 
@@ -45,6 +48,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWallEditFrame.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ISavable.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"

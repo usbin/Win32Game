@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "Background.h"
+#include "FileManager.h"
 
 #define MAX_LOADSTRING 100
 #define INITIAL_WINDOW_WIDTH 1024
@@ -241,6 +242,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_DISABLED);
             }
                 break;
+            case IDM_SAVE_MAPFILE: {
+                //BACKGROUND, TILE, INVISIBLEWALL을 .map 파일로 저장
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                //툴씬에서만 동작
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("Map File\0*.map\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+
+
+                    if (GetSaveFileName(&ofn)) {
+                        _tcscat_s(file_path, _T(".map"));
+                        FileManager::GetInstance()->SaveMap(file_path);
+
+                    }
+                }
+            }
+                                 break;
+
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;

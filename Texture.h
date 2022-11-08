@@ -19,5 +19,6 @@ public:
 	inline UINT get_height() { return bit_info_.bmHeight; };
 	inline HDC get_hdc() { return mem_hdc_; };
 	friend class ResManager;
+
 };
 

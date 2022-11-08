@@ -91,6 +91,9 @@
     <Filter Include="Game\GObject\RealObject\InvisibleWall">
       <UniqueIdentifier>{1468aee8-04b6-4632-bfc9-25a4f292dfa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\FileManager">
+      <UniqueIdentifier>{ecb93ac5-4ead-4970-ba29-76f6445e4d86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -243,6 +246,12 @@
     <ClInclude Include="FrameSizer.h">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Game\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ISavable.h">
+      <Filter>Game\FileManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -381,6 +390,12 @@
     </ClCompile>
     <ClCompile Include="FrameSizer.cpp">
       <Filter>Game\Scene\Scene_Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Game\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ISavable.cpp">
+      <Filter>Game\FileManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

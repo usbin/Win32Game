@@ -23,7 +23,12 @@ bool Time::Update() {
 	QueryPerformanceCounter(&current_count);
 	dt_ = static_cast<double>(current_count.QuadPart - prev_tick_count_.QuadPart) / query_performance_frequency_.QuadPart;
 #ifdef _DEBUG
-	dt_ = min(dt_, 1. / 60.); //ms단위
+	// dt는 이전 프레임에서 현재 프레임까지 걸린 시간.
+	// dt가 작아지면=컴퓨터가 빠른 것=곱할 속도계수가 줄어듦.
+	// dt가 커지면=컴퓨터가 느린 것=곱할 속도계수가 늘어남.
+	// dt가 너무 커지면(ex: 디버깅 중 브레이크 포인트에 걸려있을 때 등) 속도계수가 너무 커지는 문제가 생김.
+	// 따라서 dt가 너무 커져도 어느정도 이상 오르지 않도록 해야함.
+	dt_ = min(dt_, 1.); //ms단위
 #endif
 	acc_dt_ += dt_;
 	fps_++;

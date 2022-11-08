@@ -1,8 +1,9 @@
 #pragma once
 #include "global.h"
+#include "ISavable.h"
 class GObject;
 
-class Collider
+class Collider : public ISavable
 {
 public:
 	Collider();
@@ -35,6 +36,11 @@ public:
 	void OnCollisionExit(const Collider& collider);
 
 	Collider& operator=(const Collider& o_c) = delete;
+
+
+	// ISavable을(를) 통해 상속됨
+	virtual void SaveToFile(FILE* p_file) override;
+	virtual void LoadFromFile(FILE* p_file) override;
 
 };
 

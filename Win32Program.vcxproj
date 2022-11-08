@@ -164,6 +164,7 @@
     <ClInclude Include="Director_Scene_Title.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="FrameSizer.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="function.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="inline.h" />
     <ClInclude Include="InvisibleWall.h" />
     <ClInclude Include="InvisibleWallEditFrame.h" />
+    <ClInclude Include="ISavable.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Missile.h" />
@@ -215,12 +217,14 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="GObject.cpp" />
     <ClCompile Include="ImageUi.cpp" />
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
+    <ClCompile Include="ISavable.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />

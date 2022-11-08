@@ -1,11 +1,12 @@
 #pragma once
 #include "global.h"
+#include "ISavable.h"
 class Texture;
 class GObject;
 /// <summary>
 /// GObject가 포인터로 갖고 있는 이미지 정보.
 /// </summary>
-class Sprite
+class Sprite : public ISavable
 {
 public:
 	Sprite();
@@ -30,5 +31,15 @@ public:
 	inline const Vector2& get_scale() { return scale_; };
 	inline void set_owner(GObject* owner) { owner_ = owner; };
 	inline GObject* get_owner() { return owner_; };
+
+
+
+	// ISavable을(를) 통해 상속됨
+	virtual void SaveToFile(FILE* p_file) override;
+
+
+	// ISavable을(를) 통해 상속됨
+	virtual void LoadFromFile(FILE* p_file) override;
+
 };
 

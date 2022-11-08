@@ -20,7 +20,7 @@ bool Scene_Title::Enter()
 	CreateGObject(dst, GROUP_TYPE::DIRECTOR);
 
 	GObject* gobj = new Player();
-	gobj->set_pos(Vector2{ 100, 100 });
+	gobj->set_pos(Vector2{ 0, 0 });
 	gobj->set_scale(Vector2{ 50, 50 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);

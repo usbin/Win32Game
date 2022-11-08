@@ -14,5 +14,6 @@ public:
 	virtual void Render(HDC hdc) override;
 	void SetTile(TileUi* tile_ui);
 	void ResetTile();
+	virtual void SaveToFile(FILE* p_file) override;
 };
 
