@@ -35,20 +35,14 @@ void Collider::FinalUpdate()
 }
 
 
-void Collider::Render(HDC hdc)
+void Collider::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	//테두리 그리기
-	PEN_TYPE pen_type = PEN_TYPE::GREEN;
-	if (collision_count_) pen_type = PEN_TYPE::RED;
-	SelectGdi _(hdc, pen_type);
-	SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
-
+	
 	Vector2 render_pos = WorldToRenderPos(final_pos_);
-	Rectangle(hdc
-		, static_cast<int>(render_pos.x - scale_.x / 2)
-		, static_cast<int>(render_pos.y - scale_.y / 2)
-		, static_cast<int>(render_pos.x + scale_.x / 2)
-		, static_cast<int>(render_pos.y + scale_.y / 2));
+#ifdef _DEBUG
+	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), 0xff00ff00);
+#endif
+	
 }
 
 void Collider::OnCollisionEnter(const Collider& collider)

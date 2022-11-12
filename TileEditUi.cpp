@@ -390,11 +390,11 @@ void TileEditUi::Update()
 	ChildrenUpdate();
 }
 
-void TileEditUi::Render(HDC hdc)
+void TileEditUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	PanelUi::Render(hdc);
-	ChildrenRender(hdc);
-	switch (mode_) {
+	PanelUi::Render(p_d3d_device);
+	ChildrenRender(p_d3d_device);
+	/*switch (mode_) {
 	case TILE_EDIT_MODE::ADD: {
 		if (picked_tile_ui_) {
 			Sprite* sprite = picked_tile_ui_->get_sprite();
@@ -468,7 +468,7 @@ void TileEditUi::Render(HDC hdc)
 	}
 	break;
 
-	}
+	}*/
 }
 
 void TileEditUi::ChangeMode(TILE_EDIT_MODE mode)

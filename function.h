@@ -12,6 +12,14 @@ void ChangeScene(SCENE_TYPE scene_type);
 Vector2 WorldToRenderPos(Vector2 world_pos); // 월드좌표 -> 카메라 기준 상대좌표로 변환
 Vector2 RenderToWorldPos(Vector2 render_pos); // 카메라 기준 상대좌표 -> 월드좌표로 변환
 
+
+//====================
+// 그리기 함수
+//====================
+void DrawRectangle(LPDIRECT3DDEVICE9 p_d3d_device, const Vector2& base_pos, const Vector2& scale, DWORD line_color);
+void DrawRectangle(LPDIRECT3DDEVICE9 p_d3d_device, const Vector2& base_pos, const Vector2& scale, DWORD line_color, DWORD plane_color);
+
+
 template <typename T>
 void SafeDeleteVector(std::vector<T>& cont) {
 	for (auto item : cont) {
@@ -27,3 +35,4 @@ void SafeDeleteMap(std::map<T1, T2>& map) {
 	}
 	map.clear();
 }
+

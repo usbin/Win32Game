@@ -66,7 +66,7 @@ private:
 public:
 	void Init();
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
 
 	void ChangeMode(TILE_EDIT_MODE mode);
 

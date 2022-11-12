@@ -62,11 +62,11 @@ void Player::Update()
 
 }
 
-void Player::Render(HDC hdc)
+void Player::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	RealObject::Render(hdc);
+	RealObject::Render(p_d3d_device);
 
-	ComponentRender(hdc);
+	ComponentRender(p_d3d_device);
 }
 
 

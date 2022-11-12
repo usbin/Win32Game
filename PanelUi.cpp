@@ -40,9 +40,9 @@ void PanelUi::FinalUpdate()
 	ChildrenFinalUpdate();
 }
 
-void PanelUi::Render(HDC hdc)
+void PanelUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	Ui::Render(hdc);
+	Ui::Render(p_d3d_device);
 
 
 	Vector2 pos = get_final_pos();
@@ -51,15 +51,14 @@ void PanelUi::Render(HDC hdc)
 	if (!is_static_pos()) pos = WorldToRenderPos(pos);
 
 	if (dragging_) {
-		SelectGdi _(hdc, PEN_TYPE::GREEN);
-		Rectangle(hdc, static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(pos.x + scale.x), static_cast<int>(pos.y + scale.y));
+		DrawRectangle(p_d3d_device, pos, scale, 0xff00ff00, 0xffffffff);
 
 	}
 	else {
-		Rectangle(hdc, static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(pos.x + scale.x), static_cast<int>(pos.y + scale.y));
+		DrawRectangle(p_d3d_device, pos, scale, 0xff000000, 0xffffffff);
 	}
 
-	ChildrenRender(hdc);
+	ChildrenRender(p_d3d_device);
 
 }
 

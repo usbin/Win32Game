@@ -12,8 +12,8 @@ Scene_Tool::Scene_Tool()
 {
 }
 
-Scene_Tool::Scene_Tool(HDC hdc)
-	: hdc_(hdc)
+Scene_Tool::Scene_Tool(LPDIRECT3DDEVICE9 p_d3d_device)
+	: Scene(p_d3d_device)
 {
 }
 

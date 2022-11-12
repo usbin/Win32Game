@@ -10,10 +10,10 @@ ImageUi::~ImageUi()
 {
 }
 
-void ImageUi::Render(HDC hdc)
+void ImageUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	Ui::Render(hdc);
+	Ui::Render(p_d3d_device);
 
 
-	ChildrenRender(hdc);
+	ChildrenRender(p_d3d_device);
 }

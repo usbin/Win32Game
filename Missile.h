@@ -10,7 +10,7 @@ public:
 	Missile();
 	virtual ~Missile() override {};
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
 	virtual void OnCollisionEnter(const Collider& collider) override;
 
 	inline void set_direction(const Vector2& v) { direction_ = v; };

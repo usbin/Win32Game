@@ -6,13 +6,7 @@
 #define _INC_MALLOC
 #include <stdlib.h>
 #include <crtdbg.h>	
-#ifdef _DEBUG
-#define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#define malloc(s) _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
-#else
-#define new new
-#define malloc malloc
-#endif
+
 
 #include <Windows.h>
 #include <tchar.h>
@@ -25,6 +19,9 @@
 #include <map>
 #include <cassert>
 #include <memory>
+#pragma comment(lib, "d3d9.lib")
+#include <d3d9.h>
+#include <d3dx9.h>
 #pragma comment(lib, "Msimg32.lib")
 
 #include "macro.h"

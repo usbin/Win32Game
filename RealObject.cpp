@@ -48,7 +48,7 @@ void RealObject::CreateAnimator()
 {
 }
 
-void RealObject::Render(HDC hdc)
+void RealObject::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 	Sprite* sprite = get_sprite();
 	const Vector2& pos = WorldToRenderPos(get_pos());
@@ -57,7 +57,7 @@ void RealObject::Render(HDC hdc)
 		Texture* texture = sprite->get_texture();
 		const Vector2& sprite_base_pos = sprite->get_base_pos();
 		const Vector2& sprite_scale = sprite->get_scale();
-		TransparentBlt(hdc
+		/*TransparentBlt(hdc
 			, static_cast<int>(pos.x-scale.x/2.f)
 			, static_cast<int>(pos.y-scale.y/2.f)
 			, static_cast<int>(scale.x)
@@ -67,7 +67,7 @@ void RealObject::Render(HDC hdc)
 			, static_cast<int>(sprite_base_pos.y)
 			, static_cast<int>(sprite_scale.x					   )
 			, static_cast<int>(sprite_scale.y					   )
-			, RGB(255, 0, 255));
+			, RGB(255, 0, 255));*/
 	}
 }
 
@@ -80,11 +80,11 @@ void RealObject::FinalUpdate() {
 
 
 }
-void RealObject::ComponentRender(HDC hdc)
+void RealObject::ComponentRender(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 	// 컴포넌트들에 대한 렌더링
-	if (collider_ != nullptr) collider_->Render(hdc);
-	if (animator_ != nullptr) animator_->Render(hdc);
+	if (collider_ != nullptr) collider_->Render(p_d3d_device);
+	if (animator_ != nullptr) animator_->Render(p_d3d_device);
 }
 
 void RealObject::SaveToFile(FILE* p_file)

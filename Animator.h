@@ -19,7 +19,7 @@ public:
 	void Play(const tstring& name);
 	Animation* FindAnimation(const tstring& name);
 	void Update();
-	void Render(HDC hdc);
+	void Render(LPDIRECT3DDEVICE9 p_d3d_device);
 
 	GObject* get_owner() { return owner_; };
 private :

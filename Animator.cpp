@@ -52,10 +52,10 @@ void Animator::Update()
 	current_anim_->Update();
 }
 
-void Animator::Render(HDC hdc)
+void Animator::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 	if (current_anim_ == nullptr) return;
-	current_anim_->Render(hdc);
+	current_anim_->Render(p_d3d_device);
 }
 
 

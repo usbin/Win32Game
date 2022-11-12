@@ -178,16 +178,16 @@ void InvisibleWallEditFrame::FinalUpdate()
 	ChildrenFinalUpdate();
 }
 
-void InvisibleWallEditFrame::Render(HDC hdc)
+void InvisibleWallEditFrame::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 
 	Vector2 pos = WorldToRenderPos(get_final_pos());
 	Vector2 scale = get_scale();
 	if (get_selected()) {
-		SelectGdi _(hdc, BRUSH_TYPE::BRIGHT_GRAY);
-		Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+		/*SelectGdi _(hdc, BRUSH_TYPE::BRIGHT_GRAY);
+		Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);*/
 	}
-	ChildrenRender(hdc);
+	ChildrenRender(p_d3d_device);
 }
 
 void InvisibleWallEditFrame::Select()

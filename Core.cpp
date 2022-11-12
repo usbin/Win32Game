@@ -16,6 +16,8 @@ Core::Core()
 	, pt_resolution_(POINT{ 1024, 768 })
 	, brushes{}
 	, pens{}
+	, p_d3d_{nullptr}
+	, p_d3d_device_{nullptr}
 	{
 
 }
@@ -28,12 +30,12 @@ Core::~Core() {
 int Core::OnDestroy() {
 	SceneManager::GetInstance()->get_current_scene()->~Scene();
 	
+	if (p_d3d_device_ != NULL) p_d3d_device_->Release();
+	if (p_d3d_ != NULL) p_d3d_->Release();
 
-	
-
-	ReleaseDC(hwnd_, hdc_);
-	DeleteDC(hdc_mem_);
-	DeleteObject(hbitmap_);
+	//ReleaseDC(hwnd_, hdc_);
+	//DeleteDC(hdc_mem_);
+	//DeleteObject(hbitmap_);
 	//pen과 brush 삭제
 	for (int i = 0; i < static_cast<int>(PEN_TYPE::END); i++) DeleteObject(pens[i]);
 	for (int i = 0; i < static_cast<int>(BRUSH_TYPE::END); i++) DeleteObject(brushes[i]);
@@ -62,18 +64,43 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	}
 	
 	
+	//=================
+	// Direct X 초기화
+	//=================
+	if (( p_d3d_ = Direct3DCreate9(D3D_SDK_VERSION) ) == NULL) {
+		return E_FAIL;
+	}
+
+	D3DPRESENT_PARAMETERS d3d_params;
+	ZeroMemory(&d3d_params, sizeof(d3d_params));
+	d3d_params.Windowed = true;
+	d3d_params.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3d_params.BackBufferFormat = D3DFMT_UNKNOWN;
+	//d3d_params.EnableAutoDepthStencil = TRUE;
+	//d3d_params.AutoDepthStencilFormat = D3DFMT_D16;
+
+	if(FAILED(p_d3d_->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd_, 
+									D3DCREATE_MIXED_VERTEXPROCESSING, &d3d_params, 
+									&p_d3d_device_)))
+	{
+		p_d3d_->Release();
+		return E_FAIL;
+	}
+
 	
-	hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
+	
+
+	/*hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
 	hdc_mem_ = CreateCompatibleDC(hdc_);
 	HBITMAP org_bitmap = (HBITMAP) SelectObject(hdc_mem_, hbitmap_);
-	DeleteObject(org_bitmap);
+	DeleteObject(org_bitmap);*/
 
-
+	
 	InitPenAndBrush();
 	Time::GetInstance()->Init(h_wnd);
 	KeyManager::GetInstance()->Init();
 	PathManager::GetInstance()->Init();
-	SceneManager::GetInstance()->Init( hdc_mem_);
+	SceneManager::GetInstance()->Init( p_d3d_device_);
 	CollisionManager::GetInstance()->Init();
 
 	return S_OK;
@@ -105,9 +132,12 @@ bool Core::Progress()
 	//===============
 	//	화면 렌더링
 	//===============
-	SceneManager::GetInstance()->ClearView(hdc_mem_);
-	SceneManager::GetInstance()->Render(hdc_mem_);
-	BitBlt(hdc_, 0, 0, pt_resolution_.x, pt_resolution_.y, hdc_mem_, 0, 0, SRCCOPY);
+	p_d3d_device_->BeginScene();
+	SceneManager::GetInstance()->ClearView(p_d3d_device_);
+	SceneManager::GetInstance()->Render(p_d3d_device_);
+	p_d3d_device_->EndScene();
+	p_d3d_device_->Present(0, 0, 0/*기본값:d3d_params의 멤버 hwnd*/, 0);
+	//BitBlt(hdc_, 0, 0, pt_resolution_.x, pt_resolution_.y, hdc_mem_, 0, 0, SRCCOPY);
 
 
 	//===============

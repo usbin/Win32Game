@@ -13,9 +13,9 @@ void Background::Update()
 {
 }
 
-void Background::Render(HDC hdc)
+void Background::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	if (get_sprite()) {
+	/*if (get_sprite()) {
 		const Vector2& pos = WorldToRenderPos(get_pos());
 		const Vector2& scale = get_scale();
 
@@ -34,5 +34,5 @@ void Background::Render(HDC hdc)
 			, static_cast<int>(sprite_scale.x)
 			, static_cast<int>(sprite_scale.y)
 			, RGB(255, 0, 255));
-	}
+	}*/
 }

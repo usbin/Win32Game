@@ -57,25 +57,25 @@ void Animation::Update()
 	}
 }
 
-void Animation::Render(HDC hdc)
+void Animation::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 
 	//현재 프레임 그리기
 	const Vector2& pos = WorldToRenderPos(animator_->get_owner()->get_pos() + offset_);
 		
 	const AnimationFrame& frame = frames_[frame_index_];
-	TransparentBlt(
-		hdc														//목적지 dc
-		, static_cast<int>(pos.x - frame.img_size.x / 2.)		//left 좌표
-		, static_cast<int>(pos.y - frame.img_size.y / 2.)		//top 좌표
-		, static_cast<int>(frame.img_size.x)					//가로 길이
-		, static_cast<int>(frame.img_size.y)					//세로 좌표
-		, texture_->get_hdc()					//소스 dc(=비트맵이 선택된 메모리dc)
-		, static_cast<int>(frame.base_pos.x)	//비트맵의 left 좌표
-		, static_cast<int>(frame.base_pos.y)	//비트맵의 top 좌표
-		, static_cast<int>(frame.img_size.x)	//비트맵의 가로 길이
-		, static_cast<int>(frame.img_size.y)	//비트맵의 세로 길이
-		, RGB(255, 0, 255));
+	//TransparentBlt(
+	//	hdc														//목적지 dc
+	//	, static_cast<int>(pos.x - frame.img_size.x / 2.)		//left 좌표
+	//	, static_cast<int>(pos.y - frame.img_size.y / 2.)		//top 좌표
+	//	, static_cast<int>(frame.img_size.x)					//가로 길이
+	//	, static_cast<int>(frame.img_size.y)					//세로 좌표
+	//	, texture_->get_hdc()					//소스 dc(=비트맵이 선택된 메모리dc)
+	//	, static_cast<int>(frame.base_pos.x)	//비트맵의 left 좌표
+	//	, static_cast<int>(frame.base_pos.y)	//비트맵의 top 좌표
+	//	, static_cast<int>(frame.img_size.x)	//비트맵의 가로 길이
+	//	, static_cast<int>(frame.img_size.y)	//비트맵의 세로 길이
+	//	, RGB(255, 0, 255));
 	//무시할 픽셀 색상
 
 }

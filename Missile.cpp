@@ -32,18 +32,18 @@ void Missile::Update()
 
 }
 
-void Missile::Render(HDC hdc)
+void Missile::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	RealObject::Render(hdc);
+	RealObject::Render(p_d3d_device);
 
-	Vector2 render_pos = WorldToRenderPos(get_pos());
+	/*Vector2 render_pos = WorldToRenderPos(get_pos());
 	Ellipse(hdc
 		, static_cast<int>(render_pos.x - get_scale().x/2.)
 		, static_cast<int>(render_pos.y - get_scale().y / 2.)
 		, static_cast<int>(render_pos.x + get_scale().x / 2.)
 		, static_cast<int>(render_pos.y + get_scale().y / 2.));
-	
-	ComponentRender(hdc);
+	*/
+	ComponentRender(p_d3d_device);
 }
 
 void Missile::OnCollisionEnter(const Collider& collider)

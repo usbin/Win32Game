@@ -33,11 +33,11 @@ private:
 public:
 	virtual void Update() override;
 	virtual void FinalUpdate() override;
-	virtual void Render(HDC hdc);
+	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device);
 protected:
 	virtual void ChildrenUpdate() final;
 	virtual void ChildrenFinalUpdate() final;
-	virtual void ChildrenRender(HDC hdc) final;
+	virtual void ChildrenRender(LPDIRECT3DDEVICE9 p_d3d_device) final;
 
 
 	inline std::vector<Ui*>& get_children_unsafe() { return children_; };

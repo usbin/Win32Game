@@ -26,12 +26,12 @@ void TileUi::Update()
 	ChildrenUpdate();
 }
 
-void TileUi::Render(HDC hdc)
+void TileUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	Ui::Render(hdc);
+	Ui::Render(p_d3d_device);
 	
 
-	ChildrenRender(hdc);
+	ChildrenRender(p_d3d_device);
 }
 
 

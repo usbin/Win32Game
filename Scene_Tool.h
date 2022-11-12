@@ -6,7 +6,7 @@ class Scene_Tool : public Scene
 {
 public:
 	Scene_Tool();
-	Scene_Tool(HDC hdc);
+	Scene_Tool(LPDIRECT3DDEVICE9 p_d3d_device);
 	~Scene_Tool();
 
 private:

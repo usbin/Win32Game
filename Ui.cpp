@@ -62,9 +62,9 @@ void Ui::FinalUpdate()
 	ChildrenFinalUpdate();
 }
 
-void Ui::Render(HDC hdc)
+void Ui::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
-	if (enabled_) {
+	/*if (enabled_) {
 		Sprite* sprite = get_sprite();
 		Vector2 pos = get_final_pos();
 		if (!is_static_pos()) pos = WorldToRenderPos(pos);
@@ -85,10 +85,10 @@ void Ui::Render(HDC hdc)
 				, static_cast<int>(sprite_scale.y)
 				, RGB(255, 0, 255));
 		}
-	}
+	}*/
 	
 
-	ChildrenRender(hdc);
+	ChildrenRender(p_d3d_device);
 }
 
 
@@ -113,9 +113,9 @@ void Ui::ChildrenFinalUpdate()
 }
 
 
-void Ui::ChildrenRender(HDC hdc)
+void Ui::ChildrenRender(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 	for (auto iter = children_.begin(); iter != children_.end(); iter++) {
-		(*iter)->Render(hdc);
+		(*iter)->Render(p_d3d_device);
 	}
 }

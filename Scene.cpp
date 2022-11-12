@@ -6,9 +6,9 @@
 #define TILE_WIDTH 32
 #define TILE_HEIGHT 32
 
-Scene::Scene(HDC hdc)
+Scene::Scene(LPDIRECT3DDEVICE9 p_d3d_device)
 	: name_(_T(""))
-	, hdc_(hdc)
+	, p_d3d_device_(p_d3d_device)
 {
 
 }
@@ -41,13 +41,13 @@ void Scene::Update()
 
 	
 }
-void Scene::Render(HDC hdc)
+void Scene::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 {
 	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
 		auto iter = gobjects_[group].begin();
 		while (iter != gobjects_[group].end()) {
 			if (!(*iter)->IsDead()) {
-				(*iter)->Render(hdc);
+				(*iter)->Render(p_d3d_device);
 				iter++;
 			}
 			else {
