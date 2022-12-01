@@ -28,7 +28,7 @@ public:
 	virtual ~GObject();
 	virtual void Update()=0;
 	virtual void FinalUpdate() {};
-	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device)=0;
+	virtual void Render(ID3D11Device* p_d3d_device)=0;
 	virtual void OnCollisionEnter(const Collider& collider) {};
 	virtual void OnCollisionStay(const Collider& collider) {};
 	virtual void OnCollisionExit(const Collider& collider) {};

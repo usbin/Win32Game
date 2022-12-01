@@ -12,7 +12,7 @@ Scene_Tool::Scene_Tool()
 {
 }
 
-Scene_Tool::Scene_Tool(LPDIRECT3DDEVICE9 p_d3d_device)
+Scene_Tool::Scene_Tool(ID3D11Device* p_d3d_device)
 	: Scene(p_d3d_device)
 {
 }
@@ -37,7 +37,7 @@ bool Scene_Tool::Enter()
 	
 
 	GObject* gobj = new Player();
-	gobj->set_pos(Vector2{ 100, 100 });
+	gobj->set_pos(Vector2{ 0, 0 });
 	gobj->set_scale(Vector2{ 50, 50 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);

@@ -52,7 +52,7 @@ void Animator::Update()
 	current_anim_->Update();
 }
 
-void Animator::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Animator::Render(ID3D11Device* p_d3d_device)
 {
 	if (current_anim_ == nullptr) return;
 	current_anim_->Render(p_d3d_device);

@@ -189,7 +189,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     memset(&ofn, 0, sizeof(OPENFILENAME));
                     ofn.lStructSize = sizeof(OPENFILENAME);
                     ofn.hwndOwner = hWnd;
-                    ofn.lpstrFilter = _T("Bitmap\0*.bmp\0");
+                    ofn.lpstrFilter = _T("PNG\0*.png\0");
                     ofn.lpstrFile = file_path;
                     ofn.nMaxFile = 256;
                     ofn.lpstrInitialDir = initial_path;

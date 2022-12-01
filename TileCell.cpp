@@ -17,7 +17,7 @@ void TileCell::Update()
 {
 }
 
-void TileCell::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void TileCell::Render(ID3D11Device* p_d3d_device)
 {
 	Sprite* sprite = get_sprite();
 	Vector2 pos = WorldToRenderPos(get_pos());

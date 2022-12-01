@@ -17,9 +17,10 @@ Missile::Missile()
 void Missile::Update()
 {
 	Vector2 pos = get_pos();
+	Vector2 render_pos = WorldToRenderPos(pos);
 	//È­¸éÀ» ¹þ¾î³ª¸é ¼Ò¸ê
-	if (pos.x < 0 || pos.y < 0
-		|| Core::GetInstance()->get_pt_resolution().x < pos.x || Core::GetInstance()->get_pt_resolution().y < pos.y) {
+	if (render_pos.x < 0 || render_pos.y < 0
+		|| Core::GetInstance()->get_pt_resolution().x < render_pos.x || Core::GetInstance()->get_pt_resolution().y < render_pos.y) {
 		DeleteGObject(this, get_group_type());
 	}
 
@@ -28,21 +29,15 @@ void Missile::Update()
 	pos.y += static_cast<float>(static_cast<double>(direction_.y) * speed_ * Time::GetInstance()->dt_f());
 	set_pos(pos);
 	
-
-
 }
 
-void Missile::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Missile::Render(ID3D11Device* p_d3d_device)
 {
 	RealObject::Render(p_d3d_device);
 
-	/*Vector2 render_pos = WorldToRenderPos(get_pos());
-	Ellipse(hdc
-		, static_cast<int>(render_pos.x - get_scale().x/2.)
-		, static_cast<int>(render_pos.y - get_scale().y / 2.)
-		, static_cast<int>(render_pos.x + get_scale().x / 2.)
-		, static_cast<int>(render_pos.y + get_scale().y / 2.));
-	*/
+	Vector2 render_pos = WorldToRenderPos(get_pos());
+	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF000000));
+	
 	ComponentRender(p_d3d_device);
 }
 

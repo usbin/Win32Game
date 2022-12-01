@@ -18,8 +18,14 @@ void PathManager::Init()
 			break;
 		}
 	}
-	_tcsncat_s(current_dir, _T("\\bin\\content\\"), _tcslen(_T("\\bin\\content\\")));
-	content_path_ = tstring(current_dir);
+	TCHAR content_path[255] = _T("");
+	_tcsncat_s(content_path, current_dir, _tcslen(current_dir));
+	_tcsncat_s(content_path, _T("\\bin\\content\\"), _tcslen(_T("\\bin\\content\\")));
+	content_path_ = tstring(content_path);
+
+
+
+
 
 }
 

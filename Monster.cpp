@@ -29,17 +29,12 @@ void Monster::Update()
 	set_pos(pos);
 }
 
-void Monster::Render(LPDIRECT3DDEVICE9 p_d3d_device) {
+void Monster::Render(ID3D11Device* p_d3d_device) {
 	RealObject::Render(p_d3d_device);
 
-	/*SelectGdi _(hdc, BRUSH_TYPE::HOLLOW);
 	Vector2 render_pos = WorldToRenderPos(get_pos());
 
-	Rectangle(hdc
-		, static_cast<int>(render_pos.x - get_scale().x/2.)
-		, static_cast<int>(render_pos.y - get_scale().y / 2.)
-		, static_cast<int>(render_pos.x + get_scale().x / 2.)
-		, static_cast<int>(render_pos.y + get_scale().y / 2.));*/
+	DrawRectangle(p_d3d_device, render_pos-get_scale()/2.f, get_scale(), ARGB(0xFF000000));
 
 	ComponentRender(p_d3d_device);
 

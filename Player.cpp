@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Collider.h"
 #include "Animator.h"
+#include "PathManager.h"
 
 Player::Player()
 	: speed_(200.f) {
@@ -62,7 +63,7 @@ void Player::Update()
 
 }
 
-void Player::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Player::Render(ID3D11Device* p_d3d_device)
 {
 	RealObject::Render(p_d3d_device);
 
@@ -80,7 +81,7 @@ void Player::CreateCollider()
 
 void Player::CreateAnimator()
 {
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\MapleStory_Kino-Smaller.bmp"));
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\MapleStory_Kino-Smaller.png"));
 	Animator* animator = new Animator();
 	animator->CreateAnimation(
 		_T("Idle")

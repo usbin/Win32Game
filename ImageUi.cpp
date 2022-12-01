@@ -10,7 +10,7 @@ ImageUi::~ImageUi()
 {
 }
 
-void ImageUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void ImageUi::Render(ID3D11Device* p_d3d_device)
 {
 	Ui::Render(p_d3d_device);
 

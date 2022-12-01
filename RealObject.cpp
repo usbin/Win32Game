@@ -48,7 +48,7 @@ void RealObject::CreateAnimator()
 {
 }
 
-void RealObject::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void RealObject::Render(ID3D11Device* p_d3d_device)
 {
 	Sprite* sprite = get_sprite();
 	const Vector2& pos = WorldToRenderPos(get_pos());
@@ -80,7 +80,7 @@ void RealObject::FinalUpdate() {
 
 
 }
-void RealObject::ComponentRender(LPDIRECT3DDEVICE9 p_d3d_device)
+void RealObject::ComponentRender(ID3D11Device* p_d3d_device)
 {
 	// 컴포넌트들에 대한 렌더링
 	if (collider_ != nullptr) collider_->Render(p_d3d_device);
@@ -107,7 +107,7 @@ void RealObject::LoadFromFile(FILE* p_file)
 	fread(&collider_, sizeof(DWORD_PTR), 1, p_file);
 	if (collider_) {
 		collider_ = new Collider();
-		collider_->SaveToFile(p_file);
+		collider_->LoadFromFile(p_file);
 		collider_->set_owner(this);
 
 	}
@@ -115,10 +115,10 @@ void RealObject::LoadFromFile(FILE* p_file)
 	fread(&animator_, sizeof(DWORD_PTR), 1, p_file);
 	if (animator_) {
 		animator_ = new Animator();
-		animator_->SaveToFile(p_file);
+		animator_->LoadFromFile(p_file);
 		animator_->set_owner(this);
 	}
 
-	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
+	fread(&direction_, sizeof(DIRECTION), 1, p_file);
 
 }

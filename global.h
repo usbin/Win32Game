@@ -19,11 +19,19 @@
 #include <map>
 #include <cassert>
 #include <memory>
-#pragma comment(lib, "d3d9.lib")
-#include <d3d9.h>
-#include <d3dx9.h>
-#pragma comment(lib, "Msimg32.lib")
+//Direct3D 11 »ç¿ë
+#pragma comment(lib, "D3D11.lib")
+#pragma comment(lib, "D3DX11.lib")
+#pragma comment(lib, "D3dCompiler.lib")
+#include <d3d11.h>
+#include <D3DX11.h>
+#include <D3DX10tex.h>
+#include <d3dcompiler.h>
+#include <D3DX11async.h>
+#include <DirectXMath.h>
+using namespace DirectX;
 
+#pragma comment(lib, "Msimg32.lib")
 #include "macro.h"
 #include "struct.h"
 #include "enum.h"

@@ -31,7 +31,7 @@ public:
 	void Init(tstring name, Texture* texture, Vector2 base_pos, Vector2 img_size, Vector2 img_distance, Vector2 offset
 		, float duration, int img_count, bool is_repeat);
 	void Update();
-	void Render(LPDIRECT3DDEVICE9 p_d3d_device);
+	void Render(ID3D11Device* p_d3d_device);
 	void ResetFrame();	//프레임을 0번째로 되돌리는 함수(재시작)
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline tstring& get_name() { return name_; };

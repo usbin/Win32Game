@@ -22,11 +22,11 @@ private:
 public:
 
 	virtual void Update() override = 0;
-	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
+	virtual void Render(ID3D11Device* p_d3d_device) override;
 	virtual void FinalUpdate() override final;				// 충돌체 등 추가적인 컴포넌트들의 Update 작업 정의
 															// 무조건 GObject의 FinalUpdate가 호출되어야 함.
 															// 오버라이딩 방지.
-	virtual void ComponentRender(LPDIRECT3DDEVICE9 p_d3d_device) final;
+	virtual void ComponentRender(ID3D11Device* p_d3d_device) final;
 
 
 	inline const DIRECTION get_direction() { return direction_; };

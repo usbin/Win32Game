@@ -1,5 +1,6 @@
 #include "ResManager.h"
 #include "Texture.h"
+#include "DXClass.h"
 
 ResManager::ResManager() {}
 
@@ -23,5 +24,4 @@ Texture* ResManager::LoadTexture(const tstring& key, const tstring& relative_pat
 
     return texture;
 
-    
 }

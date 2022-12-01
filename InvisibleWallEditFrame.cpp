@@ -178,7 +178,7 @@ void InvisibleWallEditFrame::FinalUpdate()
 	ChildrenFinalUpdate();
 }
 
-void InvisibleWallEditFrame::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void InvisibleWallEditFrame::Render(ID3D11Device* p_d3d_device)
 {
 
 	Vector2 pos = WorldToRenderPos(get_final_pos());

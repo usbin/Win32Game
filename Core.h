@@ -15,9 +15,8 @@ private:
 	HBITMAP hbitmap_;
 	HPEN pens[static_cast<int>(PEN_TYPE::END)];
 	HBRUSH brushes[static_cast<int>(BRUSH_TYPE::END)];
-	//Direct X
-	LPDIRECT3D9 p_d3d_;
-	LPDIRECT3DDEVICE9 p_d3d_device_;
+
+
 
 	void SyncResolution();
 	void InitPenAndBrush();

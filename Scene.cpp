@@ -6,7 +6,7 @@
 #define TILE_WIDTH 32
 #define TILE_HEIGHT 32
 
-Scene::Scene(LPDIRECT3DDEVICE9 p_d3d_device)
+Scene::Scene(ID3D11Device* p_d3d_device)
 	: name_(_T(""))
 	, p_d3d_device_(p_d3d_device)
 {
@@ -41,7 +41,7 @@ void Scene::Update()
 
 	
 }
-void Scene::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Scene::Render(ID3D11Device* p_d3d_device)
 {
 	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
 		auto iter = gobjects_[group].begin();

@@ -8,6 +8,6 @@ public:
 	ImageUi(bool is_static_pos);
 	virtual ~ImageUi();
 
-	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
+	virtual void Render(ID3D11Device* p_d3d_device) override;
 };
 

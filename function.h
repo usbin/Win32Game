@@ -2,7 +2,7 @@
 #include "global.h"
 
 class GObject;
-
+class Texture;
 float DtF();
 
 void CreateGObject(GObject* object, GROUP_TYPE type);
@@ -16,9 +16,9 @@ Vector2 RenderToWorldPos(Vector2 render_pos); // Ä«¸Þ¶ó ±âÁØ »ó´ëÁÂÇ¥ -> ¿ùµåÁÂÇ
 //====================
 // ±×¸®±â ÇÔ¼ö
 //====================
-void DrawRectangle(LPDIRECT3DDEVICE9 p_d3d_device, const Vector2& base_pos, const Vector2& scale, DWORD line_color);
-void DrawRectangle(LPDIRECT3DDEVICE9 p_d3d_device, const Vector2& base_pos, const Vector2& scale, DWORD line_color, DWORD plane_color);
-
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color);
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color);
+void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture);
 
 template <typename T>
 void SafeDeleteVector(std::vector<T>& cont) {
@@ -36,3 +36,4 @@ void SafeDeleteMap(std::map<T1, T2>& map) {
 	map.clear();
 }
 
+XMFLOAT4 ARGB_TO_XMFLOAT(ARGB argb);

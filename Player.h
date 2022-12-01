@@ -19,7 +19,7 @@ public:
 	//}
 	virtual ~Player() override {};
 	virtual void Update() override;
-	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
+	virtual void Render(ID3D11Device* p_d3d_device) override;
 	virtual void OnCollisionEnter(const Collider& collider) override;
 	virtual void OnCollisionStay(const Collider& collider) override;
 	virtual void OnCollisionExit(const Collider& collider) override;

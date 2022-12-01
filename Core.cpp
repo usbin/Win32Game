@@ -7,6 +7,7 @@
 #include "EventManager.h"
 #include "Camera.h"
 #include "UiManager.h"
+#include "DXClass.h"
 
 Core::Core()
 	: hwnd_(0)
@@ -16,8 +17,6 @@ Core::Core()
 	, pt_resolution_(POINT{ 1024, 768 })
 	, brushes{}
 	, pens{}
-	, p_d3d_{nullptr}
-	, p_d3d_device_{nullptr}
 	{
 
 }
@@ -30,12 +29,8 @@ Core::~Core() {
 int Core::OnDestroy() {
 	SceneManager::GetInstance()->get_current_scene()->~Scene();
 	
-	if (p_d3d_device_ != NULL) p_d3d_device_->Release();
-	if (p_d3d_ != NULL) p_d3d_->Release();
+	
 
-	//ReleaseDC(hwnd_, hdc_);
-	//DeleteDC(hdc_mem_);
-	//DeleteObject(hbitmap_);
 	//pen과 brush 삭제
 	for (int i = 0; i < static_cast<int>(PEN_TYPE::END); i++) DeleteObject(pens[i]);
 	for (int i = 0; i < static_cast<int>(BRUSH_TYPE::END); i++) DeleteObject(brushes[i]);
@@ -45,7 +40,11 @@ int Core::OnDestroy() {
 
 
 int Core::Init(HWND h_wnd, int width, int height) {
-	
+
+	//==============
+	// 윈도우 초기화
+	//==============
+
 	//메모리 누수 체크
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(8808);
@@ -62,49 +61,33 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	if (!SetWindowPos(h_wnd, nullptr, 100, 100, rect.right - rect.left, rect.bottom - rect.top, 0)) {
 		return E_FAIL;
 	}
-	
-	
+
 	//=================
-	// Direct X 초기화
+	// 선행 초기화 작업
 	//=================
-	if (( p_d3d_ = Direct3DCreate9(D3D_SDK_VERSION) ) == NULL) {
-		return E_FAIL;
-	}
 
-	D3DPRESENT_PARAMETERS d3d_params;
-	ZeroMemory(&d3d_params, sizeof(d3d_params));
-	d3d_params.Windowed = true;
-	d3d_params.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3d_params.BackBufferFormat = D3DFMT_UNKNOWN;
-	//d3d_params.EnableAutoDepthStencil = TRUE;
-	//d3d_params.AutoDepthStencilFormat = D3DFMT_D16;
-
-	if(FAILED(p_d3d_->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd_, 
-									D3DCREATE_MIXED_VERTEXPROCESSING, &d3d_params, 
-									&p_d3d_device_)))
-	{
-		p_d3d_->Release();
-		return E_FAIL;
-	}
-
-	
-	
-
-	/*hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
-	hdc_mem_ = CreateCompatibleDC(hdc_);
-	HBITMAP org_bitmap = (HBITMAP) SelectObject(hdc_mem_, hbitmap_);
-	DeleteObject(org_bitmap);*/
-
-	
 	InitPenAndBrush();
 	Time::GetInstance()->Init(h_wnd);
 	KeyManager::GetInstance()->Init();
 	PathManager::GetInstance()->Init();
-	SceneManager::GetInstance()->Init( p_d3d_device_);
+
+	//=================
+	// Direct X 초기화
+	//=================
+	if (FAILED(DXClass::GetInstance()->Init(h_wnd, Vector2(pt_resolution_)))) {
+		return E_FAIL;
+	}
+
+	//================
+	// 후행 초기화 작업
+	//=================
+	SceneManager::GetInstance()->Init(DXClass::GetInstance()->get_d3d_device());
 	CollisionManager::GetInstance()->Init();
 
 	return S_OK;
 }
+
+
 
 
 
@@ -132,11 +115,10 @@ bool Core::Progress()
 	//===============
 	//	화면 렌더링
 	//===============
-	p_d3d_device_->BeginScene();
-	SceneManager::GetInstance()->ClearView(p_d3d_device_);
-	SceneManager::GetInstance()->Render(p_d3d_device_);
-	p_d3d_device_->EndScene();
-	p_d3d_device_->Present(0, 0, 0/*기본값:d3d_params의 멤버 hwnd*/, 0);
+	SceneManager::GetInstance()->ClearView(DXClass::GetInstance()->get_d3d_device());
+	SceneManager::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
+	
+	DXClass::GetInstance()->get_swap_chain()->Present(0, 0);
 	//BitBlt(hdc_, 0, 0, pt_resolution_.x, pt_resolution_.y, hdc_mem_, 0, 0, SRCCOPY);
 
 
@@ -169,6 +151,12 @@ void Core::SyncResolution()
 		hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
 		HBITMAP org_bitmap = (HBITMAP)SelectObject(hdc_mem_, hbitmap_);
 		DeleteObject(org_bitmap);
+
+
+
+		//파라미터 버퍼에 해상도 입력
+		//Constant Buffer 생성
+		DXClass::GetInstance()->WriteConstantBufferOnResize(pt_resolution_);
 
 	}
 

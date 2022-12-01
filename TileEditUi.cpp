@@ -56,7 +56,7 @@ void TileEditUi::CreateExitBtn()
 	exit_btn->set_scale(Vector2{ 20, 20 });
 	exit_btn->set_group_type(GROUP_TYPE::UI);
 	exit_btn->set_name(_T("Exit Button"));
-	Texture* exit_texture = ResManager::GetInstance()->LoadTexture(_T("Exit Button"), _T("texture\\Exit_Btn.bmp"));
+	Texture* exit_texture = ResManager::GetInstance()->LoadTexture(_T("Exit Button"), _T("texture\\Exit_Btn.png"));
 	Sprite* sprite = new Sprite();
 	sprite->QuickSet(exit_texture, exit_btn, 0, 0, 1, 1);
 	exit_btn->ChangeSprite(sprite);
@@ -76,7 +76,7 @@ void TileEditUi::CreateAddModeBtn()
 	add_btn->set_scale(Vector2{ 20, 20 });
 	add_btn->set_group_type(GROUP_TYPE::UI);
 	add_btn->set_name(_T("Add Button"));
-	Texture* add_texture = ResManager::GetInstance()->LoadTexture(_T("Add Button"), _T("texture\\plus-btn.bmp"));
+	Texture* add_texture = ResManager::GetInstance()->LoadTexture(_T("Add Button"), _T("texture\\plus-btn.png"));
 	Sprite* add_sprite = new Sprite();
 	add_sprite->QuickSet(add_texture, add_btn, 0, 0, 1, 1);
 	add_btn->ChangeSprite(add_sprite);
@@ -98,7 +98,7 @@ void TileEditUi::CreateRemoveModeBtn()
 	remove_btn->set_scale(Vector2{ 20, 20 });
 	remove_btn->set_group_type(GROUP_TYPE::UI);
 	remove_btn->set_name(_T("Remove Button"));
-	Texture* remove_texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+	Texture* remove_texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
 	Sprite* remove_sprite = new Sprite();
 	remove_sprite->QuickSet(remove_texture, remove_btn, 0, 0, 1, 1);
 	remove_btn->ChangeSprite(remove_sprite);
@@ -120,7 +120,7 @@ void TileEditUi::CreateColliderModeBtn()
 	collider_btn->set_scale(Vector2{ 20, 20 });
 	collider_btn->set_group_type(GROUP_TYPE::UI);
 	collider_btn->set_name(_T("Collider Button"));
-	Texture* collider_texture = ResManager::GetInstance()->LoadTexture(_T("Collider Button"), _T("texture\\collider-btn.bmp"));
+	Texture* collider_texture = ResManager::GetInstance()->LoadTexture(_T("Collider Button"), _T("texture\\collider-btn.png"));
 	Sprite* collider_sprite = new Sprite();
 	collider_sprite->QuickSet(collider_texture, collider_btn, 0, 0, 1, 1);
 	collider_btn->ChangeSprite(collider_sprite);
@@ -141,7 +141,7 @@ void TileEditUi::CreateColliderDeleteModeBtn() {
 	collider_delete_btn->set_scale(Vector2{ 20,20 });
 	collider_delete_btn->set_group_type(GROUP_TYPE::UI);
 	collider_delete_btn->set_name(_T("Collider Delete Button"));
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Collider Delete Button"), _T("texture\\collider-delete-btn.bmp"));
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Collider Delete Button"), _T("texture\\collider-delete-btn.png"));
 	Sprite* sprite = new Sprite();
 	sprite->QuickSet(texture, collider_delete_btn, 0, 0, 1, 1);
 	collider_delete_btn->ChangeSprite(sprite);
@@ -163,7 +163,7 @@ void TileEditUi::CreateArrowBtns()
 	left_arrow_btn->set_scale(Vector2{ 40, 40 });
 	left_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	left_arrow_btn->set_name(_T("Left Arrow Button"));
-	Texture* left_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Left Arrow Button"), _T("texture\\left-arrow-btn.bmp"));
+	Texture* left_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Left Arrow Button"), _T("texture\\left-arrow-btn.png"));
 	Sprite* left_arrow_sprite = new Sprite();
 	left_arrow_sprite->QuickSet(left_arrow_texture, left_arrow_btn, 0, 0, 1, 1);
 	left_arrow_btn->ChangeSprite(left_arrow_sprite);
@@ -180,7 +180,7 @@ void TileEditUi::CreateArrowBtns()
 	right_arrow_btn->set_scale(Vector2{ 40, 40 });
 	right_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	right_arrow_btn->set_name(_T("Right Arrow Button"));
-	Texture* right_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Right Arrow Button"), _T("texture\\right-arrow-btn.bmp"));
+	Texture* right_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Right Arrow Button"), _T("texture\\right-arrow-btn.png"));
 	Sprite* right_arrow_sprite = new Sprite();
 	right_arrow_sprite->QuickSet(right_arrow_texture, right_arrow_btn, 0, 0, 1, 1);
 	right_arrow_btn->ChangeSprite(right_arrow_sprite);
@@ -285,9 +285,9 @@ void TileEditUi::Init()
 	// - Decrease priority: 배치된 타일의 우선순위 내림. 최소 0.
 	
 	//타일셋은 texture에서 부분부분 불러옴.
-	Texture* crop_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Crops"), _T("texture\\Harvest-Moon_Crops.bmp"));
+	Texture* crop_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Crops"), _T("texture\\Harvest-Moon_Crops.png"));
 
-	Texture* farm_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Farm"), _T("texture\\Harvest-Moon_Farm-Full.bmp"));
+	Texture* farm_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Farm"), _T("texture\\Harvest-Moon_Farm-Full.png"));
 
 	//빈 밭 sprite
 	// - 범위 (32,41) ~(66, 57)
@@ -390,7 +390,7 @@ void TileEditUi::Update()
 	ChildrenUpdate();
 }
 
-void TileEditUi::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void TileEditUi::Render(ID3D11Device* p_d3d_device)
 {
 	PanelUi::Render(p_d3d_device);
 	ChildrenRender(p_d3d_device);

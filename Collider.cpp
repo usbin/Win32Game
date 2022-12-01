@@ -35,12 +35,16 @@ void Collider::FinalUpdate()
 }
 
 
-void Collider::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Collider::Render(ID3D11Device* p_d3d_device)
 {
 	
 	Vector2 render_pos = WorldToRenderPos(final_pos_);
+
+
+
 #ifdef _DEBUG
-	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), 0xff00ff00);
+
+	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF0000FF));
 #endif
 	
 }

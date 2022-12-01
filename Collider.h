@@ -29,7 +29,7 @@ public:
 	inline const Vector2& get_pos() { return final_pos_; };
 
 	void FinalUpdate();		//매 프레임 업데이트가 끝난 후 owner의 위치를 따라감.
-	void Render(LPDIRECT3DDEVICE9 p_d3d_device);
+	void Render(ID3D11Device* p_d3d_device);
 
 	void OnCollisionEnter(const Collider& collider);
 	void OnCollisionStay(const Collider& collider);

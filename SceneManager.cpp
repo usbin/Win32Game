@@ -3,7 +3,7 @@
 #include "Scene_01.h"
 #include "Scene_Tool.h"
 #include "KeyManager.h"
-#include "Core.h"
+#include "DXClass.h"
 
 SceneManager::SceneManager()
 	: p_current_scene_(nullptr)
@@ -19,7 +19,7 @@ SceneManager::~SceneManager() {
 	}
 }
 
-bool SceneManager::Init(LPDIRECT3DDEVICE9 p_d3d_device)
+bool SceneManager::Init(ID3D11Device* p_d3d_device)
 {
 //	hdc_ = hdc;
 //	//모든 씬 생성, 초기화
@@ -58,7 +58,7 @@ bool SceneManager::Update() {
 	return TRUE;
 }
 
-bool SceneManager::Render(LPDIRECT3DDEVICE9 p_d3d_device) {
+bool SceneManager::Render(ID3D11Device* p_d3d_device) {
 	p_current_scene_->Render(p_d3d_device);
 	return TRUE;
 }
@@ -69,8 +69,9 @@ bool SceneManager::ChangeScene(SCENE_TYPE type)
 	p_current_scene_->Enter();
 	return TRUE;
 }
-void SceneManager::ClearView(LPDIRECT3DDEVICE9 p_d3d_device) {
-	p_d3d_device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
-
-	//Rectangle(hdc, -1, -1, Core::GetInstance()->get_pt_resolution().x + 1, Core::GetInstance()->get_pt_resolution().y + 1);
+void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
+	ID3D11DeviceContext* context;
+	p_d3d_device->GetImmediateContext(&context);
+	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
 }

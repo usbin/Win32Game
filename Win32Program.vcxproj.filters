@@ -252,6 +252,9 @@
     <ClInclude Include="ISavable.h">
       <Filter>Game\FileManager</Filter>
     </ClInclude>
+    <ClInclude Include="DXClass.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -396,6 +399,9 @@
     </ClCompile>
     <ClCompile Include="ISavable.cpp">
       <Filter>Game\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DXClass.cpp">
+      <Filter>Module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

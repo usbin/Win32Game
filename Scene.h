@@ -13,17 +13,17 @@ private:
 	tstring name_;
 
 	HDC hdc_;
-	LPDIRECT3DDEVICE9 p_d3d_device_;
+	ID3D11Device* p_d3d_device_;
 
 	std::vector<Tile*> tile_map_;
 public:
 	Scene()
 		: hdc_{ 0 } {};
-	Scene(LPDIRECT3DDEVICE9 p_d3d_device);
+	Scene(ID3D11Device* p_d3d_device);
 	virtual ~Scene(); //자식 쪽의 상속자 호출을 위함
 	virtual bool Enter() = 0; //씬이 시작할 때 실행
 	void Update();//매 프레임마다 동작할 구문
-	void Render(LPDIRECT3DDEVICE9 p_d3d_device);
+	void Render(ID3D11Device* p_d3d_device);
 	virtual bool Exit() = 0;//씬이 종료될 때 실행
 
 	void AddGObject(GObject* object, GROUP_TYPE type);

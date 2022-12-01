@@ -6,18 +6,20 @@ class Texture : public Res
 {
 
 private:
-	HDC mem_hdc_;
-	HBITMAP hbitmap_;
-	BITMAP bit_info_;
+
+	//DX11 »ç¿ë
+	ID3D11ShaderResourceView* p_resource_view_;
+	D3D11_TEXTURE2D_DESC texture_desc_;
 
 	Texture();
 	virtual ~Texture() override;
 
 public:
 	void Load();
-	inline UINT get_width() { return bit_info_.bmWidth; };
-	inline UINT get_height() { return bit_info_.bmHeight; };
-	inline HDC get_hdc() { return mem_hdc_; };
+	inline UINT get_width() { return texture_desc_.Width; };
+	inline UINT get_height() { return texture_desc_.Height; };
+	inline const Vector2& get_size() { return Vector2{ get_width(), get_height() }; };
+	inline ID3D11ShaderResourceView* get_resource_view() { return p_resource_view_; };
 	friend class ResManager;
 
 };

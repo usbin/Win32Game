@@ -62,7 +62,7 @@ public:
 	Vector2 operator*(const Vector2& o_v) {
 		return Vector2{ x * o_v.x, y * o_v.y };
 	}
-	Vector2 operator/(const Vector2& o_v) {
+	Vector2 operator/(const Vector2& o_v) const {
 		return Vector2{ x / o_v.x, y / o_v.y };
 	}
 	Vector2 operator/(int num) {
@@ -112,6 +112,22 @@ struct Rect2 {
 
 };
 
+union ARGB {
+	struct {
+		BYTE a;
+		BYTE r;
+		BYTE g;
+		BYTE b;
+	};
+
+	ARGB(DWORD _argb) {
+		b = _argb & 0xFF;
+		g = _argb >> 8 & 0xFF;
+		r = _argb >> 16 & 0xFF;
+		a = _argb >> 24 & 0xFF;
+	};
+};
+
 
 union CollisionId {
 	struct {
@@ -121,9 +137,31 @@ union CollisionId {
 	ULONGLONG Id;
 };
 
-struct CUSTOMVERTEX {
-	FLOAT x, y, z, rhw;
-	DWORD color;
+//=======================
+// 쉐이더에 쓰이는 구조체
+//========================
+//struct ColoredVertex {
+//	XMFLOAT3 position;
+//	XMFLOAT4 color;
+//};
+//struct TexturedVertex {
+//	XMFLOAT3 position;
+//	XMFLOAT2 texture_position;
+//};
+
+//Shader에서 읽을 때 16byte씩 맞춰줘야 함.
+struct CustomVertex {
+	XMFLOAT3 position;
+	XMFLOAT2 texture_position;
 };
 
-#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW|D3DFVF_DIFFUSE)
+// Constant Buffer들
+struct ChangeOnResizeBuffer {
+	XMMATRIX projection;
+};
+struct ChangeOnRenderBuffer {
+	XMFLOAT4 mesh_color;
+	BOOL use_texture;
+};
+
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1)

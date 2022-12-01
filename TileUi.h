@@ -20,7 +20,7 @@ private:
 
 public:
 	virtual void Update() override;
-	virtual void Render(LPDIRECT3DDEVICE9 p_d3d_device) override;
+	virtual void Render(ID3D11Device* p_d3d_device) override;
 
 
 	void IncreasePriority();

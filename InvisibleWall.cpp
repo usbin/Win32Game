@@ -15,7 +15,7 @@ void InvisibleWall::Update()
 	get_collider()->set_scale(get_scale());
 }
 
-void InvisibleWall::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void InvisibleWall::Render(ID3D11Device* p_d3d_device)
 {
 	//툴 씬에서만 점선 표시
 	if (dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene())) {

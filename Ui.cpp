@@ -62,9 +62,9 @@ void Ui::FinalUpdate()
 	ChildrenFinalUpdate();
 }
 
-void Ui::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Ui::Render(ID3D11Device* p_d3d_device)
 {
-	/*if (enabled_) {
+	if (enabled_) {
 		Sprite* sprite = get_sprite();
 		Vector2 pos = get_final_pos();
 		if (!is_static_pos()) pos = WorldToRenderPos(pos);
@@ -73,19 +73,9 @@ void Ui::Render(LPDIRECT3DDEVICE9 p_d3d_device)
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();
-			TransparentBlt(hdc
-				, static_cast<int>(pos.x)
-				, static_cast<int>(pos.y)
-				, static_cast<int>(scale.x)
-				, static_cast<int>(scale.y)
-				, texture->get_hdc()
-				, static_cast<int>(sprite_base_pos.x)
-				, static_cast<int>(sprite_base_pos.y)
-				, static_cast<int>(sprite_scale.x)
-				, static_cast<int>(sprite_scale.y)
-				, RGB(255, 0, 255));
+			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
 		}
-	}*/
+	}
 	
 
 	ChildrenRender(p_d3d_device);
@@ -113,7 +103,7 @@ void Ui::ChildrenFinalUpdate()
 }
 
 
-void Ui::ChildrenRender(LPDIRECT3DDEVICE9 p_d3d_device)
+void Ui::ChildrenRender(ID3D11Device* p_d3d_device)
 {
 	for (auto iter = children_.begin(); iter != children_.end(); iter++) {
 		(*iter)->Render(p_d3d_device);

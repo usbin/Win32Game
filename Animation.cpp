@@ -57,13 +57,14 @@ void Animation::Update()
 	}
 }
 
-void Animation::Render(LPDIRECT3DDEVICE9 p_d3d_device)
+void Animation::Render(ID3D11Device* p_d3d_device)
 {
 
 	//현재 프레임 그리기
 	const Vector2& pos = WorldToRenderPos(animator_->get_owner()->get_pos() + offset_);
 		
 	const AnimationFrame& frame = frames_[frame_index_];
+	DrawTexture(p_d3d_device, pos- animator_->get_owner()->get_scale()/2.f, animator_->get_owner()->get_scale(), frame.base_pos, frame.img_size, texture_);
 	//TransparentBlt(
 	//	hdc														//목적지 dc
 	//	, static_cast<int>(pos.x - frame.img_size.x / 2.)		//left 좌표
