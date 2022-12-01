@@ -155,7 +155,7 @@ void Core::SyncResolution()
 
 
 		//파라미터 버퍼에 해상도 입력
-		//Constant Buffer 생성
+		DXClass::GetInstance()->ResetResolution(Vector2(pt_resolution_));
 		DXClass::GetInstance()->WriteConstantBufferOnResize(pt_resolution_);
 
 	}

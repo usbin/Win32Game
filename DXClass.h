@@ -30,6 +30,7 @@ public:
 	void WriteIndexBuffer(UINT* indices, UINT index_count);
 	void WriteConstantBufferOnResize(Vector2 resolution);
 	void WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color);
+	void ResetResolution(Vector2 new_resolution);
 
 	inline ID3D11Device* get_d3d_device() { return p_d3d_device_; };
 	inline ID3D11DeviceContext* get_immediate_context() { return p_immediate_context_; };

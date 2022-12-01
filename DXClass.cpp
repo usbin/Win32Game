@@ -165,7 +165,14 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	p_immediate_context_->PSSetConstantBuffers(0, 1, &p_const_buffer_on_render_);
 
 	//해상도를 프로젝션으로 변환해서 상수 버퍼에 쓰기
-	XMMATRIX projection = XMMatrixOrthographicLH(viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth);
+	XMMATRIX projection = XMMATRIX
+	{
+		2/viewport.Width ,		0,						0,	0,
+		0,						2/viewport.Height ,		0,	0,
+		0,						0,						0,	0,
+		0,						0,						0,	1
+
+	};
 	D3D11_MAPPED_SUBRESOURCE mapped_resource;
 	if (FAILED(p_immediate_context_->Map(p_const_buffer_on_resize_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_resource)))
 	{
@@ -217,7 +224,7 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	// 텍스쳐 샘플러 설정
 	D3D11_SAMPLER_DESC sample_desc;
 	ZeroMemory(&sample_desc, sizeof(sample_desc));
-	sample_desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sample_desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
 	sample_desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	sample_desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	sample_desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -239,8 +246,8 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	blendStateDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	blendStateDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 	blendStateDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
-	blendStateDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_DEST_ALPHA;
+	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendStateDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 	blendStateDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	blendStateDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
@@ -320,4 +327,35 @@ void DXClass::WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color)
 	p_const_data->use_texture = use_texture;
 	p_const_data->mesh_color = mesh_color;
 	p_immediate_context_->Unmap(p_const_buffer_on_render_, NULL);
+}
+
+void DXClass::ResetResolution(Vector2 new_resolution)
+{
+	p_render_target_view_->Release();
+	p_swap_chain_->ResizeBuffers(1, new_resolution.x, new_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+
+	// Render Target View 생성
+	ID3D11Texture2D* p_back_buffer;
+	if (FAILED(p_swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&p_back_buffer))) {
+		return;
+	}
+
+	if (FAILED(p_d3d_device_->CreateRenderTargetView(p_back_buffer, NULL, &p_render_target_view_))) {
+		p_back_buffer->Release();
+		return;
+	}
+	p_back_buffer->Release();
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
+
+
+	// Viewport 초기화
+	D3D11_VIEWPORT viewport;
+
+	viewport.Width = new_resolution.x;
+	viewport.Height = new_resolution.y;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	p_immediate_context_->RSSetViewports(1, &viewport);
 }
