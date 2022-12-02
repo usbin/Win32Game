@@ -31,7 +31,7 @@ void Sprite::QuickSet(Texture* texture, GObject* owner, int row, int column, int
 	scale_ = Vector2{ texture->get_width() / static_cast<double>(max_column), texture_->get_height() / static_cast<double>(max_row) };
 }
 
-void Sprite::QuickSet(Texture* texture, GObject* owner, const Vector2& base_pos, const Vector2& scale)
+void Sprite::QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector2 scale)
 {
 	texture_ = texture;
 	owner_ = owner;

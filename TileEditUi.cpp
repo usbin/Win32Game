@@ -66,6 +66,7 @@ void TileEditUi::CreateExitBtn()
 	exit_btn->AddOnClickHandler([](DWORD_PTR param1, DWORD_PTR param2) {
 		//클릭하면 이 오브젝트 삭제
 		DeleteGObject(reinterpret_cast<GObject*>(param1), GROUP_TYPE::UI);
+	
 		}, reinterpret_cast<DWORD_PTR>(this), 0);
 
 }
@@ -394,41 +395,24 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 {
 	PanelUi::Render(p_d3d_device);
 	ChildrenRender(p_d3d_device);
-	/*switch (mode_) {
+	switch (mode_) {
 	case TILE_EDIT_MODE::ADD: {
 		if (picked_tile_ui_) {
 			Sprite* sprite = picked_tile_ui_->get_sprite();
+			Vector2 sprite_base_pos = sprite->get_base_pos();
+			Vector2 sprite_size = sprite->get_scale();
 			Vector2 tile_ui_scale = picked_tile_ui_->get_scale();
 			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
-			TransparentBlt(hdc
-				, static_cast<int>(mouse_pos.x - tile_ui_scale.x / 2.f)
-				, static_cast<int>(mouse_pos.y - tile_ui_scale.y / 2.f)
-				, static_cast<int>(tile_ui_scale.x)
-				, static_cast<int>(tile_ui_scale.y)
-				, sprite->get_texture()->get_hdc()
-				, static_cast<int>(sprite->get_base_pos().x)
-				, static_cast<int>(sprite->get_base_pos().y)
-				, static_cast<int>(sprite->get_scale().x)
-				, static_cast<int>(sprite->get_scale().y)
-				, RGB(255, 0, 255));
+
+			DrawTexture(p_d3d_device, mouse_pos-tile_ui_scale/2.f, tile_ui_scale, sprite_base_pos, sprite_size, sprite->get_texture());
 		}
 	}
 	break;
 	case TILE_EDIT_MODE::REMOVE: {
-		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
 		if (texture) {
 			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
-			TransparentBlt(hdc
-				, static_cast<int>(mouse_pos.x)
-				, static_cast<int>(mouse_pos.y)
-				, static_cast<int>(texture->get_width())
-				, static_cast<int>(texture->get_height())
-				, texture->get_hdc()
-				, static_cast<int>(0)
-				, static_cast<int>(0)
-				, static_cast<int>(texture->get_width())
-				, static_cast<int>(texture->get_height())
-				, RGB(255, 0, 255));
+			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture);
 		}
 		
 	}
@@ -437,38 +421,23 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 		if (KEY_HOLD(KEY::LBUTTON) && dragging_) {
 			Vector2 start_pos = WorldToRenderPos(drag_start_pos_);
 			Vector2 end_pos = WorldToRenderPos(prev_drag_pos_);
-			SelectGdi _(hdc, PEN_TYPE::BLACK_DASH);
-			SelectGdi __(hdc, BRUSH_TYPE::HOLLOW);
-			Rectangle(hdc
-				, static_cast<int>(start_pos.x)
-				, static_cast<int>(start_pos.y)
-				, static_cast<int>(end_pos.x)
-				, static_cast<int>(end_pos.y));
+			DrawRectangle(p_d3d_device, start_pos, end_pos - start_pos, ARGB(0xFF000000));
 			
 
 		}
 	}
 	break;
 	case TILE_EDIT_MODE::DELETE_COLLIDER: {
-		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.bmp"));
+		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
 		if (texture) {
 			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
-			TransparentBlt(hdc
-				, static_cast<int>(mouse_pos.x)
-				, static_cast<int>(mouse_pos.y)
-				, static_cast<int>(texture->get_width())
-				, static_cast<int>(texture->get_height())
-				, texture->get_hdc()
-				, static_cast<int>(0)
-				, static_cast<int>(0)
-				, static_cast<int>(texture->get_width())
-				, static_cast<int>(texture->get_height())
-				, RGB(255, 0, 255));
+			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture);
+			
 		}
 	}
 	break;
 
-	}*/
+	}
 }
 
 void TileEditUi::ChangeMode(TILE_EDIT_MODE mode)

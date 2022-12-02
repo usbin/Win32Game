@@ -18,7 +18,6 @@ private:
 
 
 
-	void SyncResolution();
 	void InitPenAndBrush();
 public:
 	int Init(HWND hwnd, int width, int height);
@@ -34,4 +33,6 @@ public:
 	inline HBRUSH GetBrush(BRUSH_TYPE brush_type) {
 		return brushes[static_cast<int>(brush_type)];
 	}
+
+	void SyncResolution();
 };

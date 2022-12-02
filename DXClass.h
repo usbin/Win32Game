@@ -19,8 +19,6 @@ private:
 	ID3D11Buffer* p_const_buffer_on_render_;//텍스쳐 사용 여부와 color를 갖고 있는 파라미터 버퍼
 	DXGI_FORMAT idx_format_;
 
-	ID3D11InputLayout* p_colored_vertex_input_layout_;
-	ID3D11InputLayout* p_textured_vertex_input_layout_;
 	//이미지 렌더링
 	ID3D11SamplerState* p_sampler_linear_;
 

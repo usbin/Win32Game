@@ -25,5 +25,6 @@ void Texture::Load()
 	res->QueryInterface<ID3D11Texture2D>(&p_texture_interface);
 	p_texture_interface->GetDesc(&texture_desc_);
 
+	res->Release();
 
 }

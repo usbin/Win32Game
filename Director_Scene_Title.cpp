@@ -13,7 +13,7 @@ Director_Scene_Title::~Director_Scene_Title()
 
 void Director_Scene_Title::Update()
 {
-	if (KEY_DOWN(KEY::TAB)) {
+	if (KEY_DOWN(KEY::F11)) {
 		ChangeScene(SCENE_TYPE::SCENE_TOOL);
 	}
 	if (KEY_DOWN(KEY::R)) {
@@ -36,4 +36,8 @@ void Director_Scene_Title::Update()
             FileManager::GetInstance()->LoadMap(file_path);
         }
 	}
+
+    if (KEY_DOWN(KEY::F1)) {
+        ChangeScene(SCENE_TYPE::SCENE_01);
+    }
 }

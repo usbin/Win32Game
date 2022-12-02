@@ -38,11 +38,11 @@ public:
 	inline void set_name(const tstring& name) { name_ = name; };
 	inline void set_group_type(GROUP_TYPE type) { group_type_ = type; };
 	inline GROUP_TYPE get_group_type() { return group_type_; };
-	inline const Vector2& get_scale() { return scale_; };
+	inline Vector2 get_scale() { return scale_; };
 	inline void set_scale(Vector2 scale) { scale_ = scale; };
 	inline float get_width() { return scale_.x; };
 	inline float get_height() { return scale_.y; };
-	inline const Vector2& get_pos() const { return pos_; }
+	inline Vector2 get_pos() { return pos_; }
 	inline void set_pos(Vector2 v) { //rect도 동기화
 		pos_ = v;
 	
@@ -50,8 +50,6 @@ public:
 	inline GROUP_TYPE get_type() { return group_type_; };
 	inline Sprite* get_sprite() { return sprite_; };
 	void ChangeSprite(Sprite* sprite);
-
-	inline void SetDead() { is_dead_ = true; };
 	inline bool IsDead() { return is_dead_; };
 
 	virtual void SaveToFile(FILE* p_file) override;
@@ -61,8 +59,14 @@ public:
 	}
 	
 	
-	friend class EventManager;
 
 	// ISavable을(를) 통해 상속됨
 	virtual void LoadFromFile(FILE* p_file) override;
+
+
+private:
+	inline void SetDead() { is_dead_ = true; }; //EventManager를 통해서만 호출해야 함. 절대 단독호출x.
+	//단독호출 할 시 EventManager의 dead_objects_에 추가되지 않고 메인루틴에서도 제외되므로 영원히 삭제되지 않음.
+
+	friend class EventManager;
 };

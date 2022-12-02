@@ -21,6 +21,9 @@ public:
 	Vector2(UINT _x, UINT _y)
 		: x(static_cast<float>(_x))
 		, y(static_cast<float>(_y)){};
+	Vector2(LONG _x, LONG _y)
+		: x(static_cast<int>(_x))
+		, y(static_cast<int>(_y)) {};
 	float Length() {
 		return sqrtf(x * x + y * y);
 	}

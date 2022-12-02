@@ -281,11 +281,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     break;
     case WM_SIZE:
-        {
-            int a=10;
-        }
+    {
+        Core::GetInstance()->SyncResolution();
+    }
 
-        break;
+    break;
     case WM_DESTROY: // WM_CLOSE -> WM_QUIT -> WM_DESTROY 순서로 발생
         PostQuitMessage(0);
         break;
@@ -304,6 +304,7 @@ INT_PTR CALLBACK ChangeTilecellSize(HWND hDlg, UINT message, WPARAM wParam, LPAR
     {
     case WM_INITDIALOG:
         return (INT_PTR)TRUE;
+
 
     case WM_COMMAND:
         if (LOWORD(wParam) == IDOK_BTN)

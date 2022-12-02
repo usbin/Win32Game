@@ -74,4 +74,5 @@ void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
 	p_d3d_device->GetImmediateContext(&context);
 	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
+	context->Release();
 }

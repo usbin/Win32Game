@@ -42,6 +42,13 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 	B,
 	N,
 	M,
+	F1,
+	F2,
+	F3,
+	F4,
+	F5,
+	F11,
+	F12,
 	LAST, //마지막 체크용
 };
 
@@ -104,4 +111,12 @@ enum class DIRECTION {
 	RIGHT,
 	UP,
 	DOWN
+};
+
+enum class GAME_STATE
+{
+	PLAYING,		// 시간이 흘러가고 플레이어가 움직일 수 있는 상태
+	TIME_STOPPED,	// 시간만 멈추고 플레이어는 움직이는 상태(자유 움직임이 동반되는 이벤트 발생 중일 때 등)
+	PLAYER_FREEZED,	// 시간은 흘러가고 플레이어만 멈춘 상태
+	FREEZED			// 시간도 멈추고 플레이어도 움직일 수 없는 상태
 };

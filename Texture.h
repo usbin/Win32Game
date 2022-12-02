@@ -18,7 +18,7 @@ public:
 	void Load();
 	inline UINT get_width() { return texture_desc_.Width; };
 	inline UINT get_height() { return texture_desc_.Height; };
-	inline const Vector2& get_size() { return Vector2{ get_width(), get_height() }; };
+	inline Vector2 get_size() { return Vector2{ get_width(), get_height() }; };
 	inline ID3D11ShaderResourceView* get_resource_view() { return p_resource_view_; };
 	friend class ResManager;
 

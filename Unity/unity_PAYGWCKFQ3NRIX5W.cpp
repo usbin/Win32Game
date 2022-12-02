@@ -41,6 +41,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\function.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Game.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObject.cpp"
 
 
@@ -123,6 +126,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Time.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TimerUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Ui.cpp"

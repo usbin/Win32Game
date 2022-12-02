@@ -21,6 +21,8 @@ DXClass::~DXClass() {
 	if(p_const_buffer_on_resize_) p_const_buffer_on_resize_->Release();
 	if (p_const_buffer_on_render_) p_const_buffer_on_render_->Release();
 	if(p_vertex_buffer_) p_vertex_buffer_->Release();
+	if (p_idx_buffer_) p_idx_buffer_->Release();
+	if (p_immediate_context_) p_immediate_context_->Release();
 };
 
 int DXClass::Init(HWND hwnd, Vector2 resolution)
@@ -303,7 +305,14 @@ void DXClass::WriteIndexBuffer(UINT* indices, UINT index_count)
 }
 void DXClass::WriteConstantBufferOnResize(Vector2 resolution)
 {
-	XMMATRIX projection = XMMatrixOrthographicLH(resolution.x, resolution.y, 0, 1);
+	XMMATRIX projection = XMMATRIX
+	{
+		2 / resolution.x ,		0,						0,	0,
+		0,						2 / resolution.y ,		0,	0,
+		0,						0,						0,	0,
+		0,						0,						0,	1
+
+	};
 	D3D11_MAPPED_SUBRESOURCE mapped_resource;
 	if (FAILED(p_immediate_context_->Map(p_const_buffer_on_resize_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_resource)))
 	{
@@ -350,7 +359,6 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 
 	// Viewport √ ±‚»≠
 	D3D11_VIEWPORT viewport;
-
 	viewport.Width = new_resolution.x;
 	viewport.Height = new_resolution.y;
 	viewport.MinDepth = 0.0f;

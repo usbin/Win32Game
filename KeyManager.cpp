@@ -40,6 +40,13 @@ int g_windows_keys[static_cast<int>(KEY::LAST)] = {
 	'B',//B,
 	'N',//N,
 	'M',//M,
+	VK_F1,
+	VK_F2,
+	VK_F3,
+	VK_F4,
+	VK_F5,
+	VK_F11,
+	VK_F12
 };
 KeyManager::KeyManager() {}
 KeyManager::~KeyManager() {}

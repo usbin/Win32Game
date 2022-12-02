@@ -35,5 +35,3 @@ void SafeDeleteMap(std::map<T1, T2>& map) {
 	}
 	map.clear();
 }
-
-XMFLOAT4 ARGB_TO_XMFLOAT(ARGB argb);

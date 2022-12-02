@@ -18,6 +18,10 @@ Director_Scene_Tool::~Director_Scene_Tool()
 
 void Director_Scene_Tool::Update()
 {
+	if (tile_edit_ui_ && tile_edit_ui_->IsDead()) {
+		tile_edit_ui_ = nullptr;
+	}
+
 	if (KEY_DOWN(KEY::T)) {
 		//T 눌리면 타일 UI 열기/닫기
 		if (tile_edit_ui_ == nullptr
@@ -39,7 +43,7 @@ void Director_Scene_Tool::Update()
 			
 		}
 	}
-	if (KEY_DOWN(KEY::TAB)) {
+	if (KEY_DOWN(KEY::F12)) {
 		ChangeScene(SCENE_TYPE::TITLE);
 	}
 }

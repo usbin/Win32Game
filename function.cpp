@@ -51,9 +51,9 @@ Vector2 RenderToWorldPos(Vector2 render_pos)
 
 void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color)
 {
+
 	ID3D11DeviceContext* p_immediate_context;
 	p_d3d_device->GetImmediateContext(&p_immediate_context);
-
 
 	//Á¡ ÁÂÇ¥
 	const int vertice_count = 4;
@@ -83,6 +83,8 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
+
+	p_immediate_context->Release();
 }
 
 void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color)
@@ -142,7 +144,7 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
 
-
+	p_immediate_context->Release();
 
 }
 
@@ -184,11 +186,7 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 	// Set primitive topology
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	p_immediate_context->DrawIndexed(plane_indices_count, 0, 0);
+
+	p_immediate_context->Release();
 }
 
-
-XMFLOAT4 ARGB_TO_XMFLOAT(ARGB argb)
-{
-	return XMFLOAT4(argb.r / 255.f, argb.g / 255.f, argb.b / 255.f, argb.a / 255.f);
-
-}

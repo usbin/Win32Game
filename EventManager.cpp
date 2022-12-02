@@ -47,7 +47,6 @@ void EventManager::ExecuteEvent(Event _event)
 		
 		GObject* p_obj = (GObject*)_event.param1;
 		if (p_obj && !p_obj->IsDead()) {
-
 			p_obj->SetDead();
 			dead_objects_.push_back(p_obj);
 		}

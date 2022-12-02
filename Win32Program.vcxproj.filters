@@ -255,6 +255,12 @@
     <ClInclude Include="DXClass.h">
       <Filter>Module</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerUi.h">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -402,6 +408,12 @@
     </ClCompile>
     <ClCompile Include="DXClass.cpp">
       <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerUi.cpp">
+      <Filter>Game\Scene\Scene_01</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

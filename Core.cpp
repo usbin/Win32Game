@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "UiManager.h"
 #include "DXClass.h"
+#include "Game.h"
 
 Core::Core()
 	: hwnd_(0)
@@ -55,12 +56,7 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	RECT rect{ 0, 0, width, height };
 	pt_resolution_ = POINT{ rect.right - rect.left, rect.bottom - rect.top };
 
-	if (!AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, TRUE)) {
-		return E_FAIL;
-	}
-	if (!SetWindowPos(h_wnd, nullptr, 100, 100, rect.right - rect.left, rect.bottom - rect.top, 0)) {
-		return E_FAIL;
-	}
+
 
 	//=================
 	// 선행 초기화 작업
@@ -84,6 +80,15 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	SceneManager::GetInstance()->Init(DXClass::GetInstance()->get_d3d_device());
 	CollisionManager::GetInstance()->Init();
 
+
+
+	if (!AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, TRUE)) {
+		return E_FAIL;
+	}
+	if (!SetWindowPos(h_wnd, nullptr, 100, 100, rect.right - rect.left, rect.bottom - rect.top, 0)) {
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
@@ -100,6 +105,7 @@ bool Core::Progress()
 	Time::GetInstance()->Update();
 	KeyManager::GetInstance()->Update();
 	Camera::GetInstance()->Update();
+	Game::GetInstance()->Update();
 
 	//===============
 	//	메인 루틴
@@ -136,22 +142,19 @@ void Core::SyncResolution()
 {
 	//해상도값과 실제 해상도값 비교(작업영역)
 	RECT window_rect;
+	ZeroMemory(&window_rect, sizeof(window_rect));
 	GetWindowRect(hwnd_, &window_rect);
 	RECT resolution_rect{ 0, 0, pt_resolution_.x, pt_resolution_.y };
 	AdjustWindowRect(&resolution_rect, WS_OVERLAPPEDWINDOW, TRUE);
 
-	
-	if (resolution_rect.right - resolution_rect.left != window_rect.right - window_rect.left
-		|| resolution_rect.bottom - resolution_rect.top != window_rect.bottom - window_rect.top) {
-		LONG width_diff = (window_rect.right - window_rect.left) - (resolution_rect.right - resolution_rect.left);
-		LONG height_diff = (window_rect.bottom - window_rect.top) - (resolution_rect.bottom - resolution_rect.top);
-		pt_resolution_.x += width_diff;
-		pt_resolution_.y += height_diff;
-
-		hbitmap_ = CreateCompatibleBitmap(hdc_, pt_resolution_.x, pt_resolution_.y);
-		HBITMAP org_bitmap = (HBITMAP)SelectObject(hdc_mem_, hbitmap_);
-		DeleteObject(org_bitmap);
-
+	Vector2 old_window_size( resolution_rect.right-resolution_rect.left, resolution_rect.bottom-resolution_rect.top );
+	Vector2 new_window_size(window_rect.right - window_rect.left, window_rect.bottom - window_rect.top);
+	Vector2 new_resolution(new_window_size-(old_window_size - pt_resolution_));
+	if (new_resolution.x > 0 && new_resolution.y > 0) {
+		LONG width_diff = new_window_size.x - old_window_size.x;
+		LONG height_diff = new_window_size.y - old_window_size.y;
+		pt_resolution_.x = new_resolution.x;
+		pt_resolution_.y = new_resolution.y;
 
 
 		//파라미터 버퍼에 해상도 입력
@@ -159,6 +162,7 @@ void Core::SyncResolution()
 		DXClass::GetInstance()->WriteConstantBufferOnResize(pt_resolution_);
 
 	}
+	
 
 
 }

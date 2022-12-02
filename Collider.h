@@ -21,12 +21,12 @@ private:
 
 public:
 	inline UINT get_id() { return id_; };
-	inline void set_pos_offset(const Vector2& pos) { pos_offset_ = pos; };
-	inline const Vector2& get_pos_offset() { return pos_offset_; };
-	inline void set_scale(const Vector2& scale) { scale_ = scale; };
-	inline const Vector2& get_scale() { return scale_; };
+	inline void set_pos_offset(Vector2 pos) { pos_offset_ = pos; };
+	inline Vector2 get_pos_offset() { return pos_offset_; };
+	inline void set_scale(Vector2 scale) { scale_ = scale; };
+	inline Vector2 get_scale() { return scale_; };
 	inline void set_owner(GObject* owner) { owner_ = owner; };
-	inline const Vector2& get_pos() { return final_pos_; };
+	inline Vector2 get_pos() { return final_pos_; };
 
 	void FinalUpdate();		//매 프레임 업데이트가 끝난 후 owner의 위치를 따라감.
 	void Render(ID3D11Device* p_d3d_device);

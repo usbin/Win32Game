@@ -32,8 +32,6 @@ bool Time::Update() {
 #endif
 	acc_dt_ += dt_;
 	fps_++;
-	//dt_ = 1000 / fps_;
-	//acc_dt_ += dt_;
 	if (acc_dt_ >= 1.f) {
 		TCHAR buffer[100];
 		_stprintf_s(buffer, _T("ÇöÀç FPS: %d, DT: %.10f"), fps_, dt_);
