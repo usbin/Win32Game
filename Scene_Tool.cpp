@@ -7,6 +7,7 @@
 #include "ResManager.h"
 #include "Sprite.h"
 #include "CollisionManager.h"
+#include "Core.h"
 Scene_Tool::Scene_Tool()
 	:hdc_(0)
 {
@@ -42,7 +43,19 @@ bool Scene_Tool::Enter()
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
-	
+	//글씨 쓰기 테스트 코드
+	ButtonUi* draw_text_btn = new ButtonUi(true);
+	draw_text_btn->set_pos(Vector2(0, 100));
+	draw_text_btn->set_scale(Vector2(200, 100));
+	draw_text_btn->set_group_type(GROUP_TYPE::UI);
+	draw_text_btn->AddOnClickHandler([](DWORD_PTR param1, DWORD_PTR param2) {
+		//클릭했을 때 동작
+
+		}, 0, 0);
+	CreateGObject(draw_text_btn, GROUP_TYPE::UI);
+
+
+
 
 	//Camera::GetInstance()->set_target(gobj);
 	return true;

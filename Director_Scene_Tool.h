@@ -15,8 +15,11 @@ public:
 private:
 	TileEditUi* tile_edit_ui_;
 
+
+
 public:
 	virtual void Update();
+	virtual void Render(ID3D11Device* p_d3d_device);
 
 };
 

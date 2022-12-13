@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "DXClass.h"
 #include "Texture.h"
+#include "DXClass.h"
 
 void CreateGObject(GObject* object, GROUP_TYPE type) {
 	Event eve = {};
@@ -190,3 +191,27 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 	p_immediate_context->Release();
 }
 
+void DrawFixedsizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT length, tstring font_name, UINT font_size, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight, DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment)
+{
+	DXClass::GetInstance()->SetTextFormat(font_name, _T("ko-kr"), font_size, font_style, font_weight, text_alighment, paragraph_alignment);
+	DXClass::GetInstance()->DrawTextW(text, length, base_pos, scale, font_color);
+}
+
+void DrawAutosizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT length, tstring font_name, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight, DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment, UINT max_font_size, UINT min_font_size, UINT max_lines)
+{
+	UINT font_size = min_font_size;
+	//CASE 1 : 그리려는 영역이 필요로 하는 영역보다 클 경우 -> 폰트 사이즈 키움
+	if (scale.x > font_size * length && scale.y > font_size) {
+		font_size = min(min(scale.x/length, scale.y), max_font_size);
+	}
+	//CASE 2 : 그리려는 영역이 필요로 하는 영역보다 작을 경우 -> 폰트 사이즈 줄임
+	//			(1) min font 까지 줄이고,
+	//			(2) 그래도 부족하면 줄바꿈.
+	else if (scale.x < font_size * length || scale.y < font_size) {
+		font_size = max(min(scale.x/length, scale.y), min_font_size);
+		
+	}
+
+	DXClass::GetInstance()->SetTextFormat(font_name, _T("ko-kr"), font_size, font_style, font_weight, text_alighment, paragraph_alignment);
+	DXClass::GetInstance()->RenderText(text, length, base_pos, scale, font_color);
+}

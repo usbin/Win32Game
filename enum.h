@@ -120,3 +120,18 @@ enum class GAME_STATE
 	PLAYER_FREEZED,	// 시간은 흘러가고 플레이어만 멈춘 상태
 	FREEZED			// 시간도 멈추고 플레이어도 움직일 수 없는 상태
 };
+
+
+//====================
+// 텍스트 출력용
+//=====================
+enum class TEXT_BRUSHES {
+	BLACK,
+	END
+};
+enum class FONT
+{
+	Arial,
+	DUNGGEONMO,
+	END
+};

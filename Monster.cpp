@@ -36,6 +36,13 @@ void Monster::Render(ID3D11Device* p_d3d_device) {
 
 	DrawRectangle(p_d3d_device, render_pos-get_scale()/2.f, get_scale(), ARGB(0xFF000000));
 
+
+	const TCHAR* text = _T("Hello, world!");
+	DrawAutosizeText(p_d3d_device, render_pos, Vector2(10, 10), text, _tcslen(text), _T("µÕ±Ù¸ð²Ã"), D2D1::ColorF::Black, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT_FAR,
+		30, 15, 3);
+	//DrawFixedsizeText(p_d3d_device, pos, scale, text, _tcslen(text), _T("µÕ±Ù¸ð²Ã"), 20, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_LEADING, DWRITE_PARAGRAPH_ALIGNMENT_FAR);
+
+
 	ComponentRender(p_d3d_device);
 
 }

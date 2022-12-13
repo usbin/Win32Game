@@ -73,6 +73,7 @@ int Core::Init(HWND h_wnd, int width, int height) {
 	if (FAILED(DXClass::GetInstance()->Init(h_wnd, Vector2(pt_resolution_)))) {
 		return E_FAIL;
 	}
+	DXClass::GetInstance()->InitD2D1();
 
 	//================
 	// 후행 초기화 작업

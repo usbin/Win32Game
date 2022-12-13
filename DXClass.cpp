@@ -1,5 +1,6 @@
 #include "DXClass.h"
 #include "PathManager.h"
+#include "Core.h"
 
 DXClass::DXClass()
 	: p_d3d_device_(nullptr)
@@ -12,7 +13,12 @@ DXClass::DXClass()
 	, p_const_buffer_on_render_(nullptr)
 	, p_vertex_buffer_(nullptr)
 	, p_idx_buffer_(nullptr)
-	, idx_format_{} {};
+	, idx_format_{} {
+
+	trim_options_ = {
+		DWRITE_TRIMMING_GRANULARITY_CHARACTER
+	}; 
+};
 
 DXClass::~DXClass() {
 	if (p_d3d_device_ != NULL) p_d3d_device_->Release();
@@ -23,6 +29,11 @@ DXClass::~DXClass() {
 	if(p_vertex_buffer_) p_vertex_buffer_->Release();
 	if (p_idx_buffer_) p_idx_buffer_->Release();
 	if (p_immediate_context_) p_immediate_context_->Release();
+
+	if (p_d2d1_factory_) p_d2d1_factory_->Release();
+	if (p_dwrite_factory_) p_dwrite_factory_->Release();
+	if(p_d2d_rt_) p_d2d_rt_->Release();
+	if(p_text_render_target_) p_text_render_target_->Release();
 };
 
 int DXClass::Init(HWND hwnd, Vector2 resolution)
@@ -52,7 +63,7 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	swap_desc.BufferDesc.RefreshRate.Denominator = 1;
 	swap_desc.Windowed = TRUE;
 
-	if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, featureLevels, numFeatureLevels,
+	if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_BGRA_SUPPORT, featureLevels, numFeatureLevels,
 		D3D11_SDK_VERSION, &swap_desc, &p_swap_chain_, &p_d3d_device_, NULL, &p_immediate_context_))) {
 		return E_FAIL;
 	}
@@ -340,6 +351,9 @@ void DXClass::WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color)
 
 void DXClass::ResetResolution(Vector2 new_resolution)
 {
+	//==============================
+	// 메인 Render Target View 재초기화
+	//===============================
 	p_render_target_view_->Release();
 	p_swap_chain_->ResizeBuffers(1, new_resolution.x, new_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 
@@ -366,4 +380,130 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
 	p_immediate_context_->RSSetViewports(1, &viewport);
+
+	//==========================================
+	// 텍스트 렌더링용 Render Target View 재초기화
+	//==========================================
+	if (p_d2d_rt_) {
+		p_d2d_rt_->Release();
+		p_d2d_rt_ = nullptr;
+	}
+	if (p_text_render_target_) {
+		p_text_render_target_->Release();
+		p_text_render_target_ = nullptr;
+	}
+	if (FAILED(p_swap_chain_->GetBuffer(0, IID_PPV_ARGS(&p_d2d_rt_)))) {
+		return;
+	};
+	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
+	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
+		return;
+	}
+
+
+}
+
+void DXClass::InitD2D1()
+{
+
+	//Release로 해제해줘야 하는 리소스임.
+	if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, D2D1_FACTORY_OPTIONS(), &p_d2d1_factory_))) {
+		return;
+	}
+
+	if (FAILED(DWriteCreateFactory(
+		DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(IDWriteFactory),
+		reinterpret_cast<IUnknown**>(&p_dwrite_factory_)
+	)))
+	{
+		return;
+	}
+
+	if (FAILED(p_swap_chain_->GetBuffer(0, IID_PPV_ARGS(&p_d2d_rt_)))) {
+		return;
+	};
+	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
+	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
+		return;
+	}
+
+
+	//폰트 기본값 설정
+	SetTextFormat(_T("둥근모꼴"), _T("ko-kr"), 20.0f, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_REGULAR,
+		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+	
+}
+
+void DXClass::SetTextFormat(tstring font_name, tstring font_locale, UINT font_size,
+	DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight,
+	DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment)
+{
+	if (p_text_format_) {
+		p_text_format_->Release();
+		p_text_format_ = nullptr;
+	}
+	if (p_trim_sign_) {
+		p_trim_sign_->Release();
+		p_trim_sign_ = nullptr;
+	}
+	//글꼴, 두께, 스트레치, 스타일 및 로캘 지정
+	if (FAILED(p_dwrite_factory_->CreateTextFormat
+	(	font_name.c_str()
+		, NULL
+		, font_weight
+		, font_style
+		, DWRITE_FONT_STRETCH_NORMAL
+		, font_size
+		, font_locale.c_str()
+		, &p_text_format_
+	)
+	)) {
+		return;
+	}
+	//정렬 설정
+	if (FAILED(p_text_format_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER))) {
+		return;
+	}
+	if (FAILED(p_text_format_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER))) {
+		return;
+	}
+
+	p_dwrite_factory_->CreateEllipsisTrimmingSign(p_text_format_, &p_trim_sign_);
+	p_text_format_->SetTrimming(&trim_options_, p_trim_sign_);
+}
+
+void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 scale, D2D1::ColorF color)
+{
+	D2D1_RECT_F layout_rect;
+
+	ID2D1SolidColorBrush* p_brush;
+	if (FAILED(p_text_render_target_->CreateSolidColorBrush(
+		D2D1::ColorF(color),
+		&p_brush
+	))) {
+		return;
+	}
+	FLOAT dpi_scale_x = 1;
+	FLOAT dpi_scale_y = 1;
+	layout_rect = D2D1::RectF(
+		static_cast<FLOAT>(pos.x - scale.x/2.f) / dpi_scale_x,
+		static_cast<FLOAT>(pos.y - scale.y/2.f) / dpi_scale_y,
+		static_cast<FLOAT>(pos.x+scale.x/2.f) / dpi_scale_x,
+		static_cast<FLOAT>(pos.y+scale.y/2.f) / dpi_scale_y
+	);
+
+	p_text_render_target_->BeginDraw();
+	p_text_render_target_->SetTransform(D2D1::IdentityMatrix());
+	p_text_render_target_->DrawTextW(
+		text,
+		length,
+		p_text_format_,
+		layout_rect,
+		p_brush
+	);
+	p_text_render_target_->EndDraw();
+
+
+	p_brush->Release();
 }

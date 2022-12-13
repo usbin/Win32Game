@@ -4,12 +4,14 @@
 #include "TileCell.h"
 #include "TileUi.h"
 #include "Sprite.h"
+#include "Core.h"
 
 #define TILE_WINDOW_WIDTH 300
 #define TILE_WINDOW_HEIGHT 550
 Director_Scene_Tool::Director_Scene_Tool()
 	: tile_edit_ui_(nullptr)
 {
+
 }
 
 Director_Scene_Tool::~Director_Scene_Tool()
@@ -18,6 +20,13 @@ Director_Scene_Tool::~Director_Scene_Tool()
 
 void Director_Scene_Tool::Update()
 {
+	
+
+	
+	
+
+
+
 	if (tile_edit_ui_ && tile_edit_ui_->IsDead()) {
 		tile_edit_ui_ = nullptr;
 	}
@@ -46,4 +55,11 @@ void Director_Scene_Tool::Update()
 	if (KEY_DOWN(KEY::F12)) {
 		ChangeScene(SCENE_TYPE::TITLE);
 	}
+}
+
+void Director_Scene_Tool::Render(ID3D11Device* p_d3d_device)
+{
+	RealObject::Render(p_d3d_device);
+	
+	ComponentRender(p_d3d_device);
 }
