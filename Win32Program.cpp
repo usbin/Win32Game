@@ -275,10 +275,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_MOVE:
-    {
-        int b = 10;
-    }
     break;
     case WM_SIZE:
     {
@@ -286,6 +282,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
 
     break;
+    case WM_GETMINMAXINFO :
+    {
+        //=====================
+        // 해상도 변경 막기
+        //=====================
+        RECT resolution_rect{ 0, 0, 1024, 768 };
+        AdjustWindowRect(&resolution_rect, WS_OVERLAPPEDWINDOW, TRUE);
+        ((MINMAXINFO*)lParam)->ptMaxTrackSize = POINT{ resolution_rect.right - resolution_rect.left, resolution_rect.bottom - resolution_rect.top };
+        ((MINMAXINFO*)lParam)->ptMinTrackSize = POINT{ resolution_rect.right - resolution_rect.left, resolution_rect.bottom - resolution_rect.top };
+        break;
+    }
     case WM_DESTROY: // WM_CLOSE -> WM_QUIT -> WM_DESTROY 순서로 발생
         PostQuitMessage(0);
         break;

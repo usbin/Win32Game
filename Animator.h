@@ -19,16 +19,14 @@ public:
 	void Play(const tstring& name);
 	Animation* FindAnimation(const tstring& name);
 	void Update();
-	void Render(ID3D11Device* p_d3d_device);
+	void Render(ID3D11Device*  p_d3d_device);
 
 	GObject* get_owner() { return owner_; };
-private :
 	void set_owner(GObject* owner) { owner_ = owner; };
+private :
 
 
 	friend class RealObject;
-	friend class Player;
-
 
 
 	// ISavable을(를) 통해 상속됨

@@ -22,7 +22,6 @@ private:
 public:
 	void QuickSet(Texture* texture, GObject* owner, int row, int column, int max_row, int max_column);
 	void QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector2 scale);
-
 	inline void set_texture(Texture* texture) { texture_ = texture; };
 	inline Texture* get_texture() { return texture_; };
 	inline void set_base_pos(Vector2 pos) { base_pos_ = pos; };

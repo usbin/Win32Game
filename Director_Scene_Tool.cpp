@@ -20,12 +20,6 @@ Director_Scene_Tool::~Director_Scene_Tool()
 
 void Director_Scene_Tool::Update()
 {
-	
-
-	
-	
-
-
 
 	if (tile_edit_ui_ && tile_edit_ui_->IsDead()) {
 		tile_edit_ui_ = nullptr;
@@ -52,8 +46,11 @@ void Director_Scene_Tool::Update()
 			
 		}
 	}
-	if (KEY_DOWN(KEY::F12)) {
+	if (KEY_DOWN(KEY::F1)) {
 		ChangeScene(SCENE_TYPE::TITLE);
+	}
+	if (KEY_DOWN(KEY::F2)) {
+		ChangeScene(SCENE_TYPE::SCENE_01);
 	}
 }
 

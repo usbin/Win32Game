@@ -261,6 +261,12 @@
     <ClInclude Include="TimerUi.h">
       <Filter>Game\Scene\Scene_01</Filter>
     </ClInclude>
+    <ClInclude Include="Background_Title.h">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleText_Title.h">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -414,6 +420,12 @@
     </ClCompile>
     <ClCompile Include="TimerUi.cpp">
       <Filter>Game\Scene\Scene_01</Filter>
+    </ClCompile>
+    <ClCompile Include="Background_Title.cpp">
+      <Filter>Game\Scene\Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleText_Title.cpp">
+      <Filter>Game\Scene\Scene_Title</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

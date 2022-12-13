@@ -152,6 +152,7 @@ void Core::SyncResolution()
 	Vector2 new_window_size(window_rect.right - window_rect.left, window_rect.bottom - window_rect.top);
 	Vector2 new_resolution(new_window_size-(old_window_size - pt_resolution_));
 	if (new_resolution.x > 0 && new_resolution.y > 0) {
+		//========== 해상도 변경 막아놓음 ==================
 		LONG width_diff = new_window_size.x - old_window_size.x;
 		LONG height_diff = new_window_size.y - old_window_size.y;
 		pt_resolution_.x = new_resolution.x;
@@ -161,6 +162,9 @@ void Core::SyncResolution()
 		//파라미터 버퍼에 해상도 입력
 		DXClass::GetInstance()->ResetResolution(Vector2(pt_resolution_));
 		DXClass::GetInstance()->WriteConstantBufferOnResize(pt_resolution_);
+		//=====================================================
+
+
 
 	}
 	

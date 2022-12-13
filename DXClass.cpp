@@ -462,10 +462,10 @@ void DXClass::SetTextFormat(tstring font_name, tstring font_locale, UINT font_si
 		return;
 	}
 	//정렬 설정
-	if (FAILED(p_text_format_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER))) {
+	if (FAILED(p_text_format_->SetTextAlignment(text_alighment))) {
 		return;
 	}
-	if (FAILED(p_text_format_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER))) {
+	if (FAILED(p_text_format_->SetParagraphAlignment(paragraph_alignment))) {
 		return;
 	}
 
@@ -487,10 +487,10 @@ void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 sc
 	FLOAT dpi_scale_x = 1;
 	FLOAT dpi_scale_y = 1;
 	layout_rect = D2D1::RectF(
-		static_cast<FLOAT>(pos.x - scale.x/2.f) / dpi_scale_x,
-		static_cast<FLOAT>(pos.y - scale.y/2.f) / dpi_scale_y,
-		static_cast<FLOAT>(pos.x+scale.x/2.f) / dpi_scale_x,
-		static_cast<FLOAT>(pos.y+scale.y/2.f) / dpi_scale_y
+		static_cast<FLOAT>(pos.x) / dpi_scale_x,
+		static_cast<FLOAT>(pos.y) / dpi_scale_y,
+		static_cast<FLOAT>(pos.x+scale.x) / dpi_scale_x,
+		static_cast<FLOAT>(pos.y+scale.y) / dpi_scale_y
 	);
 
 	p_text_render_target_->BeginDraw();

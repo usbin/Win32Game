@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "Sprite.h"
 #include "Texture.h"
+#include "Animator.h"
 
 Ui::Ui(bool is_static_pos)
 	: is_static_pos_(is_static_pos)
@@ -12,11 +13,13 @@ Ui::Ui(bool is_static_pos)
 	, enabled_(true)
 	, selectable_(false)
 	, is_selected_(false)
+	, animator_ (nullptr)
 {
 }
 
 Ui::~Ui()
 {
+	if (animator_) delete animator_;
 	SafeDeleteVector<Ui*>(children_);
 }
 
@@ -25,6 +28,7 @@ Ui::~Ui()
 void Ui::Update()
 {
 	if (enabled_) {
+
 		POINT pt;
 		GetCursorPos(&pt);
 		ScreenToClient(Core::GetInstance()->get_main_hwnd(), &pt);
@@ -53,11 +57,16 @@ void Ui::Update()
 
 void Ui::FinalUpdate()
 {
-	final_pos_ = get_pos();
-	//자식일 경우: 부모의 0,0을 기준으로 한 상대좌표임.
-	if (get_parent() != nullptr) {
-		final_pos_ += get_parent()->get_final_pos();
+	if (enabled_) {
+
+		if (animator_) animator_->Update();
+		final_pos_ = get_pos();
+		//자식일 경우: 부모의 0,0을 기준으로 한 상대좌표임.
+		if (get_parent() != nullptr) {
+			final_pos_ += get_parent()->get_final_pos();
+		}
 	}
+	
 
 	ChildrenFinalUpdate();
 }
@@ -65,11 +74,15 @@ void Ui::FinalUpdate()
 void Ui::Render(ID3D11Device* p_d3d_device)
 {
 	if (enabled_) {
-		Sprite* sprite = get_sprite();
 		Vector2 pos = get_final_pos();
 		if (!is_static_pos()) pos = WorldToRenderPos(pos);
 		const Vector2& scale = get_scale();
-		if (sprite != nullptr) {
+
+		Sprite* sprite = get_sprite();
+		if (animator_) {
+			animator_->Render(p_d3d_device);
+		}
+		else if (sprite != nullptr) {
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();

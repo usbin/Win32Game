@@ -38,7 +38,6 @@ void Sprite::QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector
 	base_pos_ = base_pos;
 	scale_ = scale;
 }
-
 void Sprite::SaveToFile(FILE* p_file)
 {
 	texture_->SaveToFile(p_file);

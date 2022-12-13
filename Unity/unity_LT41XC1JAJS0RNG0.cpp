@@ -8,6 +8,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Background.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Background_Title.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ButtonUi.cpp"
 
 
@@ -129,6 +132,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TimerUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TitleText_Title.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Ui.cpp"
