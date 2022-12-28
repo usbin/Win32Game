@@ -11,7 +11,8 @@ GObject::GObject()
 	, id_(id_counter_++)
 	, group_type_(GROUP_TYPE::DEFAULT)
 	, is_dead_(false)
-	, sprite_(nullptr){
+	, sprite_(nullptr)
+	, visible_(true){
 
 }
 GObject::GObject(const GObject& origin) //복사 생성자
@@ -21,7 +22,8 @@ GObject::GObject(const GObject& origin) //복사 생성자
 	, id_(id_counter_++)
 	, group_type_(origin.group_type_)
 	, is_dead_(false)
-	, sprite_(nullptr){
+	, sprite_(nullptr)
+	, visible_(true){
 	//sprite 복사해야함.
 }
 GObject::~GObject(){

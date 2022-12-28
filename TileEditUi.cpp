@@ -358,6 +358,7 @@ void TileEditUi::Update()
 				Collider* collider = new Collider();
 				collider->set_owner(wall);
 				collider->set_scale(wall->get_scale());
+				collider->set_is_physical_collider(true);
 				wall->set_collider(collider);
 
 				InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();

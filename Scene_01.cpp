@@ -8,8 +8,14 @@
 #include "Sprite.h"
 #include "Monster.h"
 #include "Game.h"
+#include "Director_Scene_01.h"
 bool Scene_01::Enter()
 {
+	Director_Scene_01* director = new Director_Scene_01();
+	director->set_group_type(GROUP_TYPE::DIRECTOR);
+	CreateGObject(director, GROUP_TYPE::DIRECTOR);
+
+
 	GObject* gobj = new Player();
 	gobj->set_pos(Vector2{ 500, 500 });
 	gobj->set_scale(Vector2{ 50, 50 });

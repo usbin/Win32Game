@@ -29,6 +29,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Core.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_01.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_Title.cpp"
 
 

@@ -167,6 +167,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ControlComponent.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Director_Scene_01.h" />
     <ClInclude Include="Director_Scene_Title.h" />
     <ClInclude Include="DXClass.h" />
     <ClInclude Include="enum.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ControlComponent.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Director_Scene_01.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="EventManager.cpp" />

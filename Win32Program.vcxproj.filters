@@ -306,6 +306,9 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Game\Component\PhysicsComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Director_Scene_01.h">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -495,6 +498,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Game\Component\PhysicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Director_Scene_01.cpp">
+      <Filter>Game\Scene\Scene_01</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
