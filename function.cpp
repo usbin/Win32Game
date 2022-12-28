@@ -168,6 +168,13 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y + normalized_texture_scale.y)},
 		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y + normalized_texture_scale.y)}
 	};
+	//DX는 반드시 시계방향으로 그려야 함. scale이 음수면 좌우 반전이 된 것이므로 반시계방향으로 그려지게 됨. 따라서 시계방향으로 그려지도록 정점 순서 변경.
+	if (scale.x < 0) {
+		CustomVertex tmp = vertices[1];
+		vertices[1] = vertices[3];
+		vertices[3] = tmp;
+	}
+	
 	//면 인덱스
 	const int plane_indices_count = 6;
 	UINT plane_indices[] = {

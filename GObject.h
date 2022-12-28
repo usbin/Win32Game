@@ -20,6 +20,7 @@ private:
 	bool is_dead_;
 	bool visible_;
 	Sprite* sprite_;
+	DIRECTION direction_;		//바라보고 있는 방향
 
 
 public:
@@ -54,6 +55,8 @@ public:
 	inline bool IsDead() { return is_dead_; };
 	inline void set_visible(bool b) { visible_ = b; };
 	inline bool get_visible() { return visible_; };
+	inline const DIRECTION get_direction() { return direction_; };
+	inline void set_direction(DIRECTION direction) { direction_ = direction; };
 
 	virtual void SaveToFile(FILE* p_file) override;
 	

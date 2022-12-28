@@ -34,11 +34,9 @@ void Player::Update()
 	}
 	if (KEY_HOLD(KEY::UP)) {
 		move_direction.y = -1;
-		set_direction(DIRECTION::UP);
 	}
 	else if (KEY_HOLD(KEY::DOWN)) {
 		move_direction.y = 1;
-		set_direction(DIRECTION::DOWN);
 	}
 
 	v.x += static_cast<float>(move_direction.Normalize().x * speed_ * Time::GetInstance()->dt_f());

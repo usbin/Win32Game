@@ -109,9 +109,7 @@ enum class EVENT_TYPE {
 
 enum class DIRECTION {
 	LEFT,
-	RIGHT,
-	UP,
-	DOWN
+	RIGHT
 };
 
 enum class GAME_STATE

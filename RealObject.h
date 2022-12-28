@@ -15,7 +15,6 @@ private:
 	Animator* animator_;
 	Interactor* interactor_;	//상호작용체.
 
-	DIRECTION direction_;		//바라보고 있는 방향
 
 
 private:
@@ -32,8 +31,6 @@ public:
 	virtual void ComponentRender(ID3D11Device* p_d3d_device) final;
 
 
-	inline const DIRECTION get_direction() { return direction_; };
-	inline void set_direction(DIRECTION direction) { direction_ = direction; };
 	inline void set_collider(Collider* collider) { collider_ = collider; };
 	inline Collider* get_collider() { return collider_; };
 	inline void set_interactor(Interactor* interactor) { interactor_ = interactor; };

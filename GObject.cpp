@@ -46,6 +46,7 @@ void GObject::SaveToFile(FILE* p_file)
 	if (sprite_) {
 		sprite_->SaveToFile(p_file);
 	}
+	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
 
 }
 
@@ -66,6 +67,7 @@ void GObject::LoadFromFile(FILE* p_file)
 		sprite_->LoadFromFile(p_file);
 		sprite_->set_owner(this);
 	}
+	fread(&direction_, sizeof(DIRECTION), 1, p_file);
 	
 }
 

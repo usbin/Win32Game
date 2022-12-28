@@ -7,13 +7,11 @@ RealObject::RealObject()
 	: GObject()
 	, animator_(nullptr)
 	, collider_(nullptr)
-	, direction_(DIRECTION::DOWN)
 {
 }
 
 RealObject::RealObject(const RealObject& origin)
 	: GObject(origin)
-	, direction_(DIRECTION::DOWN)
 	, collider_(nullptr)
 	, animator_(nullptr)
 
@@ -62,17 +60,7 @@ void RealObject::Render(ID3D11Device* p_d3d_device)
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();
-			/*TransparentBlt(hdc
-				, static_cast<int>(pos.x-scale.x/2.f)
-				, static_cast<int>(pos.y-scale.y/2.f)
-				, static_cast<int>(scale.x)
-				, static_cast<int>(scale.y)
-				, texture->get_hdc()
-				, static_cast<int>(sprite_base_pos.x)
-				, static_cast<int>(sprite_base_pos.y)
-				, static_cast<int>(sprite_scale.x					   )
-				, static_cast<int>(sprite_scale.y					   )
-				, RGB(255, 0, 255));*/
+			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
 		}
 	}
 	
@@ -99,14 +87,12 @@ void RealObject::SaveToFile(FILE* p_file)
 	GObject::SaveToFile(p_file);
 
 	fwrite(&collider_, sizeof(DWORD_PTR), 1, p_file);
-	if(collider_) collider_->SaveToFile(p_file);
+	if (collider_) collider_->SaveToFile(p_file);
 
 	fwrite(&animator_, sizeof(DWORD_PTR), 1, p_file);
-	if(animator_) animator_->SaveToFile(p_file);
+	if (animator_) animator_->SaveToFile(p_file);
 
-	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
 }
-
 void RealObject::LoadFromFile(FILE* p_file)
 {
 	GObject::LoadFromFile(p_file);
@@ -126,6 +112,5 @@ void RealObject::LoadFromFile(FILE* p_file)
 		animator_->set_owner(this);
 	}
 
-	fread(&direction_, sizeof(DIRECTION), 1, p_file);
 
 }

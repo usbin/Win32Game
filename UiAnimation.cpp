@@ -20,7 +20,7 @@ void UiAnimation::Render(ID3D11Device* p_d3d_device)
 		if (!owner->is_static_pos()) pos = WorldToRenderPos(pos);
 
 		const AnimationFrame& frame = frames_[frame_index_];
-		DrawTexture(p_d3d_device, pos, animator_->get_owner()->get_scale(), frame.base_pos, frame.img_size, texture_);
+		DrawTexture(p_d3d_device, pos, (animator_->get_owner()->get_scale()), frame.base_pos, frame.img_size, texture_);
 	}
 	
 
