@@ -2,13 +2,9 @@
 #include "Core.h"
 TitleText_Title::TitleText_Title()
 	: Ui(true)
+	, effect_state_(EFFECT_STATE::PREVIOUS)
 {
-	//초기 위치 : 화면 밖
-	Vector2 scale = Vector2(1000, 200);
-	Vector2 resolution = Core::GetInstance()->get_resolution();
-	set_pos(Vector2(resolution.x, resolution.y/4.f));
-	set_scale(scale);
-	dest_pos_ = get_pos();
+
 }
 
 TitleText_Title::~TitleText_Title()
@@ -20,17 +16,29 @@ void TitleText_Title::Update()
 {
 	Ui::Update();
 
-	Vector2 current_pos = get_pos();
-	if (dest_pos_.x-current_pos.x > std::numeric_limits<float>::epsilon()) {
-		// 우측에서 나타나 중앙으로 이동
-		Vector2 scale = get_scale();
-		Vector2 dist((dest_pos_.x / 2.f - scale.x / 2.f) - current_pos.x, 0.f);
-		current_pos += dist / remain_duration_;
-		remain_duration_ -= DtF();
-		set_pos(current_pos);
-	}
 	
 	ChildrenUpdate();
+}
+
+void TitleText_Title::FinalUpdate()
+{
+	Ui::FinalUpdate();
+
+	Vector2 current_pos = get_final_pos();
+	if (remain_duration_ < 0) {
+		effect_state_ = EFFECT_STATE::DONE;
+		current_pos = dest_pos_;
+	}
+	else if (effect_state_ == EFFECT_STATE::PLAYING) {
+		Vector2 scale = get_scale();
+		Vector2 dist(dest_pos_.x - current_pos.x, 0.f);
+		current_pos += (dist * DtF() / remain_duration_);
+		remain_duration_ -= DtF();
+	}
+
+	set_pos(current_pos);
+
+	ChildrenFinalUpdate();
 }
 
 void TitleText_Title::Render(ID3D11Device* p_d3d_device)
@@ -41,4 +49,12 @@ void TitleText_Title::Render(ID3D11Device* p_d3d_device)
 		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER, 200, 20, 2);
 
 	ChildrenRender(p_d3d_device);
+}
+
+inline void TitleText_Title::StartEffect(Vector2 dest_pos, float duration)
+{
+	dest_pos_ = dest_pos;
+	duration_ = duration;
+	remain_duration_ = duration;
+	effect_state_ = EFFECT_STATE::PLAYING;
 }

@@ -13,6 +13,8 @@ void CollisionManager::Init()
 	CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	//Missile-Monster
 	CheckGroupBitmap(GROUP_TYPE::MISSILE, GROUP_TYPE::MONSTER);
+	//Interactor-Interactor
+	CheckGroupBitmap(GROUP_TYPE::INTERACTOR, GROUP_TYPE::INTERACTOR);
 	
 }
 
@@ -26,7 +28,7 @@ void CollisionManager::Update()
 	// - (ii) 이전에 충돌했고 지금도 충돌함 -> OnCollisionStay
 	// - (iii) 이전에 충돌했고 지금은 충돌하지 않음 -> OnCollisionExit
 	for (UINT i = 0; i < static_cast<UINT>(GROUP_TYPE::END); i++) {
-		for (UINT j = 0; j < static_cast<UINT>(GROUP_TYPE::END)-i; j++) {
+		for (UINT j = i; j < static_cast<UINT>(GROUP_TYPE::END); j++) {
 			// 두 그룹의 충돌여부가 체크돼있을 때에만 + 둘다 UI가 아닐 때에만
 			if (static_cast<GROUP_TYPE>(i) != GROUP_TYPE::UI
 				&& static_cast<GROUP_TYPE>(j) != GROUP_TYPE::UI
@@ -98,8 +100,8 @@ void CollisionManager::GroupObjectCollision(const std::vector<GObject*>& group1_
 					// 둘다 삭제 예정이 아닐 때에만
 					if (!obj1->IsDead() && !obj2->IsDead()) {
 						prev_collision_.insert(std::make_pair(cls_id.Id, true));
-						obj1->get_collider()->OnCollisionEnter(*obj2->get_collider());
-						obj2->get_collider()->OnCollisionEnter(*obj1->get_collider());
+						obj1->get_collider()->OnCollisionEnter(obj2->get_collider());
+						obj2->get_collider()->OnCollisionEnter(obj1->get_collider());
 
 						it->second = true;
 					}
@@ -110,15 +112,15 @@ void CollisionManager::GroupObjectCollision(const std::vector<GObject*>& group1_
 				else{
 					//둘다 삭제 예정이 아닐 때에만
 					if (!obj1->IsDead() && !obj2->IsDead()) {
-						obj1->get_collider()->OnCollisionStay(*obj2->get_collider());
-						obj2->get_collider()->OnCollisionStay(*obj1->get_collider());
+						obj1->get_collider()->OnCollisionStay(obj2->get_collider());
+						obj2->get_collider()->OnCollisionStay(obj1->get_collider());
 
 						it->second = true;
 					}
 					//하나라도 삭제 예정이면 자연스럽게 Exit 처리
 					else {
-						obj1->get_collider()->OnCollisionExit(*obj2->get_collider());
-						obj2->get_collider()->OnCollisionExit(*obj1->get_collider());
+						obj1->get_collider()->OnCollisionExit(obj2->get_collider());
+						obj2->get_collider()->OnCollisionExit(obj1->get_collider());
 
 						it->second = false;
 					}
@@ -130,8 +132,8 @@ void CollisionManager::GroupObjectCollision(const std::vector<GObject*>& group1_
 			else {
 				//(3) TRUE임 -> 충돌에서 빠져나옴.
 				if (it->second) {
-					obj1->get_collider()->OnCollisionExit(*obj2->get_collider());
-					obj2->get_collider()->OnCollisionExit(*obj1->get_collider());
+					obj1->get_collider()->OnCollisionExit(obj2->get_collider());
+					obj2->get_collider()->OnCollisionExit(obj1->get_collider());
 				}
 				it->second = false;
 			}

@@ -2,6 +2,7 @@
 #include "Time.h"
 #include "Collider.h"
 #include "SelectGdi.h"
+#include "Interactor.h"
 
 Monster::Monster()
 	: move_speed_(200.f)
@@ -12,8 +13,18 @@ Monster::Monster()
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 20, 20 });
 	set_collider(collider);
+	CreateInteractor();
 }
-Monster::~Monster() {};
+Monster::~Monster() {}
+void Monster::CreateInteractor()
+{
+
+	Interactor* interactor = new Interactor();
+	interactor->Init(this, Vector2(0, 0), Vector2(100, 100));
+	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
+	set_interactor(interactor);
+}
+;
 void Monster::Update()
 {
 	//매 프레임 center-100에 도달할 때까지 pos.x-= move_speed_*dt
@@ -37,5 +48,10 @@ void Monster::Render(ID3D11Device* p_d3d_device) {
 	DrawRectangle(p_d3d_device, render_pos-get_scale()/2.f, get_scale(), ARGB(0xFF000000));
 
 	ComponentRender(p_d3d_device);
+
+}
+
+void Monster::OnInteract(const GObject* req_obj)
+{
 
 }

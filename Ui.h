@@ -31,6 +31,7 @@ private:
 	bool enabled_;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
 
 
+
 public:
 	virtual void Update() override;
 	virtual void FinalUpdate() override;

@@ -12,7 +12,7 @@ class Animation : public ISavable
 public:
 	Animation();
 	~Animation();
-private:
+protected:
 	tstring name_;
 	Texture* texture_;
 	float duration_;
@@ -27,11 +27,12 @@ private:
 
 	std::vector<AnimationFrame> frames_;
 
+	
 public:
 	void Init(tstring name, Texture* texture, Vector2 base_pos, Vector2 img_size, Vector2 img_distance, Vector2 offset
 		, float duration, int img_count, bool is_repeat);
 	void Update();
-	void Render(ID3D11Device* p_d3d_device);
+	virtual void Render(ID3D11Device* p_d3d_device) = 0;
 	void ResetFrame();	//프레임을 0번째로 되돌리는 함수(재시작)
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline tstring& get_name() { return name_; };

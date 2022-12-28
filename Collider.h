@@ -17,7 +17,7 @@ private:
 	Vector2 scale_;			//크기
 	Vector2 final_pos_;		//FinalUpdate에서 업데이트하는 pos
 	GObject* owner_;		//속한 오브젝트
-	int collision_count_;
+
 
 public:
 	inline UINT get_id() { return id_; };
@@ -26,14 +26,15 @@ public:
 	inline void set_scale(Vector2 scale) { scale_ = scale; };
 	inline Vector2 get_scale() { return scale_; };
 	inline void set_owner(GObject* owner) { owner_ = owner; };
+	inline GObject* get_owner() const { return owner_; };
 	inline Vector2 get_pos() { return final_pos_; };
 
 	void FinalUpdate();		//매 프레임 업데이트가 끝난 후 owner의 위치를 따라감.
 	void Render(ID3D11Device* p_d3d_device);
 
-	void OnCollisionEnter(const Collider& collider);
-	void OnCollisionStay(const Collider& collider);
-	void OnCollisionExit(const Collider& collider);
+	void OnCollisionEnter(Collider* collider);
+	void OnCollisionStay(Collider* collider);
+	void OnCollisionExit(Collider* collider);
 
 	Collider& operator=(const Collider& o_c) = delete;
 

@@ -5,6 +5,7 @@
 #include "PathManager.h"
 #include "Background_Title.h"
 #include "TitleText_Title.h"
+#include "NewGameBtn_Title.h"
 Director_Scene_Title::Director_Scene_Title()
 {
 }
@@ -13,19 +14,26 @@ Director_Scene_Title::~Director_Scene_Title()
 {
 }
 
-void Director_Scene_Title::Init(Background_Title* bg, TitleText_Title* title)
+void Director_Scene_Title::Init(Background_Title* bg, TitleText_Title* title, NewGameBtn_Title* new_game_btn)
 {
     bg_ = bg;
     title_ = title;
+    new_game_btn_ = new_game_btn;
 }
 
 void Director_Scene_Title::Update()
 {
-    if (bg_ && bg_->IsAnimationDone() && 
-        title_ && !title_->IsAnimationDone()) {
-        Vector2 resolution = Core::GetInstance()->get_resolution();
-        title_->set_dest_pos(Vector2(resolution.x / 2.f - title_->get_scale().x / 2.f, resolution.y / 4.f));
-        title_->set_duration(3);
+    
+    if (bg_ && bg_->IsAnimationDone()) {
+        if (title_ && title_->get_effect_state() == EFFECT_STATE::PREVIOUS) {
+            Vector2 resolution = Core::GetInstance()->get_resolution();
+            title_->StartEffect(Vector2(resolution.x / 2.f - title_->get_scale().x / 2.f, resolution.y / 4.f), 1);
+        }
+        if (new_game_btn_ && new_game_btn_->get_effect_state() == EFFECT_STATE::PREVIOUS) {
+            new_game_btn_->StartEffect();
+            new_game_btn_->set_visible(true);
+            new_game_btn_->set_enabled(true);
+        }
     }
 
 

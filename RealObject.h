@@ -1,6 +1,7 @@
 #pragma once
 #include "GObject.h"
 
+class Interactor;
 class RealObject : public GObject
 {
 public:
@@ -12,6 +13,7 @@ private:
 
 	Collider* collider_;		//충돌체. 없으면 nullptr
 	Animator* animator_;
+	Interactor* interactor_;	//상호작용체.
 
 	DIRECTION direction_;		//바라보고 있는 방향
 
@@ -19,6 +21,7 @@ private:
 private:
 	virtual void CreateCollider();
 	virtual void CreateAnimator();
+	virtual void CreateInteractor();
 public:
 
 	virtual void Update() override = 0;
@@ -33,11 +36,15 @@ public:
 	inline void set_direction(DIRECTION direction) { direction_ = direction; };
 	inline void set_collider(Collider* collider) { collider_ = collider; };
 	inline Collider* get_collider() { return collider_; };
+	inline void set_interactor(Interactor* interactor) { interactor_ = interactor; };
+	inline Interactor* get_interactor() { return interactor_; };
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline Animator* get_animator() { return animator_; };
 
 	virtual void SaveToFile(FILE* p_file) override;
 	virtual void LoadFromFile(FILE* p_file) override;
+
+
 
 };
 

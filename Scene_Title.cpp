@@ -14,7 +14,7 @@
 #include "Director_Scene_Title.h"
 #include "Background_Title.h"
 #include "TitleText_Title.h"
-
+#include "NewGameBtn_Title.h"
 bool Scene_Title::Enter()
 {
 	Director_Scene_Title* dst = new Director_Scene_Title();
@@ -30,12 +30,32 @@ bool Scene_Title::Enter()
 	bg->set_scale(bg_size);
 	bg->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(bg, GROUP_TYPE::UI);
-	
-	TitleText_Title* title_text = new TitleText_Title();
+
+
+	TitleText_Title* title_text = new TitleText_Title();	
+	//초기 위치 : 화면 밖
+	Vector2 resolution = Core::GetInstance()->get_resolution();
+	title_text->set_pos(Vector2(resolution.x, resolution.y / 4.f));
+	title_text->set_scale(Vector2(resolution.x, 200.f));
 	title_text->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(title_text, GROUP_TYPE::UI);
 
-	dst->Init(bg, title_text);
+	NewGameBtn_Title* new_game_btn = new NewGameBtn_Title();
+	Vector2 scale(150, 50);
+
+	new_game_btn->set_pos(Vector2(resolution.x / 2.f - scale.x / 2.f, resolution.y * 2.f / 4.f));
+	new_game_btn->set_scale(scale);
+	new_game_btn->set_group_type(GROUP_TYPE::UI);
+	new_game_btn->set_visible(false);
+	new_game_btn->set_enabled(false);
+	CreateGObject(new_game_btn, GROUP_TYPE::UI);
+	
+	new_game_btn->AddOnClickHandler([](DWORD_PTR _, DWORD_PTR __) {
+		ChangeScene(SCENE_TYPE::SCENE_01);
+		}, 0, 0);
+
+
+	dst->Init(bg, title_text, new_game_btn);
 
 	//GObject* gobj = new Player();
 	//gobj->set_pos(Vector2{ 0, 0 });

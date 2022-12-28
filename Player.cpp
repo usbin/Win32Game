@@ -6,14 +6,15 @@
 #include "SceneManager.h"
 #include "Texture.h"
 #include "Collider.h"
-#include "Animator.h"
+#include "RealObjectAnimator.h"
 #include "PathManager.h"
-
+#include "Interactor.h"
 Player::Player()
 	: speed_(200.f) {
 	
 	CreateCollider();
 	CreateAnimator();
+	CreateInteractor();
 	//애니메이션 시작
 	get_animator()->Play(_T("Idle"));
 
@@ -46,14 +47,13 @@ void Player::Update()
 	set_pos(v);
 
 	if (KEY_DOWN(KEY::SPACE)) {
-		Missile* m = new Missile();
-		Vector2 pos = get_pos();
-		m->set_pos(pos);
-		m->set_scale(Vector2{ 4, 4 });
-		m->set_speed(200.f);
-		m->set_direction(Vector2{0, -1});
-		m->set_group_type(GROUP_TYPE::MISSILE);
-		CreateGObject(m, GROUP_TYPE::MISSILE);
+		
+		//상호작용
+		const std::vector<Interactor*>& interactors = get_interactor()->get_interactors();
+		if (!interactors.empty()) {
+			GObject* obj = interactors[0]->get_owner();
+			obj->OnInteract(this);
+		}
 	}
 
 	if (KEY_DOWN(KEY::Q)) {
@@ -82,7 +82,7 @@ void Player::CreateCollider()
 void Player::CreateAnimator()
 {
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\MapleStory_Kino-Smaller.png"));
-	Animator* animator = new Animator();
+	Animator* animator = new RealObjectAnimator();
 	animator->CreateAnimation(
 		_T("Idle")
 		, texture
@@ -97,15 +97,24 @@ void Player::CreateAnimator()
 	set_animator(animator);
 }
 
-void Player::OnCollisionEnter(const Collider& collider)
+void Player::CreateInteractor()
+{
+	Interactor* interactor = new Interactor();
+	interactor->Init(this, Vector2(0, 0), Vector2(100, 100));
+	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
+	set_interactor(interactor);
+	
+}
+
+void Player::OnCollisionEnter(Collider* collider)
 {
 }
 
-void Player::OnCollisionStay(const Collider& collider)
+void Player::OnCollisionStay(Collider* collider)
 {
 }
 
-void Player::OnCollisionExit(const Collider& collider)
+void Player::OnCollisionExit(Collider* collider)
 {
 }
 

@@ -1,6 +1,7 @@
 #include "UiManager.h"
 #include "SceneManager.h"
 #include "Ui.h"
+#include "PanelUi.h"
 
 UiManager::UiManager() 
 	:prev_downed_target_(nullptr){
@@ -75,7 +76,11 @@ void UiManager::FinalUpdate()
 		if (KEY_DOWN(KEY::LBUTTON)) {
 			target_ui_->LbuttonDown();
 			prev_downed_target_ = target_ui_;
-			SceneManager::GetInstance()->get_current_scene()->ObjectToTop(GROUP_TYPE::UI, dynamic_cast<GObject*>(target_ui_root));
+			//Panel일 경우 Top으로 올림.
+			if (dynamic_cast<PanelUi*>(target_ui_root)) {
+				SceneManager::GetInstance()->get_current_scene()->ObjectToTop(GROUP_TYPE::UI, dynamic_cast<GObject*>(target_ui_root));
+			}
+			
 		}
 		// 이번 프레임의 마우스 상태가 UP임 = MOUSE_UP
 		else if (KEY_UP(KEY::LBUTTON)) {

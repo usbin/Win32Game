@@ -9,6 +9,7 @@ private:
 	
 	virtual void CreateCollider() override;
 	virtual void CreateAnimator() override;
+	virtual void CreateInteractor() override;
 
 public:
 	Player();
@@ -20,9 +21,9 @@ public:
 	virtual ~Player() override {};
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
-	virtual void OnCollisionEnter(const Collider& collider) override;
-	virtual void OnCollisionStay(const Collider& collider) override;
-	virtual void OnCollisionExit(const Collider& collider) override;
+	virtual void OnCollisionEnter(Collider* collider) override;
+	virtual void OnCollisionStay(Collider* collider) override;
+	virtual void OnCollisionExit(Collider* collider) override;
 
 };
 

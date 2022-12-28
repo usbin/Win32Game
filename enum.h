@@ -65,6 +65,7 @@ enum class GROUP_TYPE
 	MISSILE,
 	MONSTER,
 	DIRECTOR,
+	INTERACTOR = 29,
 	INVISIBLE_WALL = 30,
 	UI = 31, //맨 마지막에 렌더링
 	END = 32
@@ -121,6 +122,12 @@ enum class GAME_STATE
 	FREEZED			// 시간도 멈추고 플레이어도 움직일 수 없는 상태
 };
 
+enum class EFFECT_STATE
+{
+	PREVIOUS,	//아직 효과 시작 전
+	PLAYING,	//효과 실행 중
+	DONE		//효과 끝남
+};
 
 //====================
 // 텍스트 출력용
@@ -135,3 +142,5 @@ enum class FONT
 	DUNGGEONMO,
 	END
 };
+
+

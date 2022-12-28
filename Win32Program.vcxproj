@@ -170,6 +170,7 @@
     <ClInclude Include="DXClass.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="ExitBtn.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FrameSizer.h" />
     <ClInclude Include="framework.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="GObject.h" />
     <ClInclude Include="ImageUi.h" />
     <ClInclude Include="inline.h" />
+    <ClInclude Include="Interactor.h" />
     <ClInclude Include="InvisibleWall.h" />
     <ClInclude Include="InvisibleWallEditFrame.h" />
     <ClInclude Include="ISavable.h" />
@@ -185,11 +187,14 @@
     <ClInclude Include="macro.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NewGameBtn_Title.h" />
     <ClInclude Include="PanelUi.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RealObject.h" />
+    <ClInclude Include="RealObjectAnimation.h" />
+    <ClInclude Include="RealObjectAnimator.h" />
     <ClInclude Include="Res.h" />
     <ClInclude Include="ResManager.h" />
     <ClInclude Include="Resource.h" />
@@ -212,6 +217,8 @@
     <ClInclude Include="TimerUi.h" />
     <ClInclude Include="TitleText_Title.h" />
     <ClInclude Include="Ui.h" />
+    <ClInclude Include="UiAnimation.h" />
+    <ClInclude Include="UiAnimator.h" />
     <ClInclude Include="UiManager.h" />
     <ClInclude Include="Win32Program.h" />
   </ItemGroup>
@@ -228,22 +235,27 @@
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="ExitBtn.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GObject.cpp" />
     <ClCompile Include="ImageUi.cpp" />
+    <ClCompile Include="Interactor.cpp" />
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
     <ClCompile Include="ISavable.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="NewGameBtn_Title.cpp" />
     <ClCompile Include="PanelUi.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RealObject.cpp" />
+    <ClCompile Include="RealObjectAnimation.cpp" />
+    <ClCompile Include="RealObjectAnimator.cpp" />
     <ClCompile Include="Res.cpp" />
     <ClCompile Include="ResManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -263,6 +275,8 @@
     <ClCompile Include="TimerUi.cpp" />
     <ClCompile Include="TitleText_Title.cpp" />
     <ClCompile Include="Ui.cpp" />
+    <ClCompile Include="UiAnimation.cpp" />
+    <ClCompile Include="UiAnimator.cpp" />
     <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="Win32Program.cpp" />
   </ItemGroup>

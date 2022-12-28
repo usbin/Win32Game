@@ -35,6 +35,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ExitBtn.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FileManager.cpp"
 
 
@@ -51,6 +54,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Interactor.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWall.cpp"
@@ -71,6 +77,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Monster.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NewGameBtn_Title.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PanelUi.cpp"
 
 
@@ -81,6 +90,12 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObject.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObjectAnimation.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObjectAnimator.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Res.cpp"
@@ -138,6 +153,12 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Ui.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiAnimation.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiAnimator.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiManager.cpp"

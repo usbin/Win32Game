@@ -73,7 +73,7 @@ void Ui::FinalUpdate()
 
 void Ui::Render(ID3D11Device* p_d3d_device)
 {
-	if (enabled_) {
+	if (enabled_ && get_visible()) {
 		Vector2 pos = get_final_pos();
 		if (!is_static_pos()) pos = WorldToRenderPos(pos);
 		const Vector2& scale = get_scale();

@@ -10,7 +10,6 @@ Collider::Collider()
 	, pos_offset_{}
 	, scale_{}
 	, owner_(nullptr)
-	, collision_count_(0)
 {
 }
 
@@ -23,7 +22,6 @@ Collider::Collider(const Collider& org)
 	, pos_offset_{org.pos_offset_}
 	, scale_{org.scale_}
 	, owner_(nullptr)
-	, collision_count_(0)
 {
 }
 
@@ -49,20 +47,18 @@ void Collider::Render(ID3D11Device* p_d3d_device)
 	
 }
 
-void Collider::OnCollisionEnter(const Collider& collider)
+void Collider::OnCollisionEnter(Collider* collider)
 {
-	collision_count_++;
 	owner_->OnCollisionEnter(collider);
 }
 
-void Collider::OnCollisionStay(const Collider& collider)
+void Collider::OnCollisionStay(Collider* collider)
 {
 	owner_->OnCollisionStay(collider);
 }
 
-void Collider::OnCollisionExit(const Collider& collider)
+void Collider::OnCollisionExit(Collider* collider)
 {
-	collision_count_--;
 	owner_->OnCollisionExit(collider);
 }
 

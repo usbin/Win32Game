@@ -11,8 +11,10 @@ private:
 public:
 	Monster();
 	virtual ~Monster() override;
+	virtual void CreateInteractor() override;
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
+	virtual void OnInteract(const GObject* req_obj) override;
 	inline void set_move_speed(float speed) { move_speed_ = speed; };
 	inline void set_center_pos(Vector2 pos) { center_pos_ = pos; };
 	inline void set_move_range(float range) { move_range_ = range; };

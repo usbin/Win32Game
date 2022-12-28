@@ -1,5 +1,5 @@
 #include "Background_Title.h"
-#include "Animator.h"
+#include "UiAnimator.h"
 #include "Animation.h"
 #include "Core.h"
 #include "ResManager.h"
@@ -13,10 +13,10 @@ Background_Title::Background_Title()
 	Texture* bg_texture = ResManager::GetInstance()->LoadTexture(_T("Title Background"), _T("texture\\title_bg.png"));
 	Vector2 bg_img_size = bg_texture->get_size();
 
-	Animator* animator = new Animator();
+	Animator* animator = new UiAnimator();
 	animator->set_owner(this);
 	set_animator(animator);
-	animator->CreateAnimation(_T("Title Background Animation"), bg_texture, Vector2(0, 0), Vector2(bg_img_size.x, ((bg_size.y / bg_size.x) * bg_img_size.x)), Vector2(0, 1), bg_size / 2.f, 0.025f, 200, false);
+	animator->CreateAnimation(_T("Title Background Animation"), bg_texture, Vector2(0, 0), Vector2(bg_img_size.x, ((bg_size.y / bg_size.x) * bg_img_size.x)), Vector2(0, 1), Vector2(0, 0), 0.025f, 200, false);
 	animator->Play(_T("Title Background Animation"));
 
 	Sprite* sprite = new Sprite();

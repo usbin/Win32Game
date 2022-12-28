@@ -6,6 +6,7 @@
 #include "TimerUi.h"
 #include "ResManager.h"
 #include "Sprite.h"
+#include "Monster.h"
 bool Scene_01::Enter()
 {
 	GObject* gobj = new Player();
@@ -24,7 +25,15 @@ bool Scene_01::Enter()
 	sprite->QuickSet(texture, timer_ui, timer_ui->get_pos(), timer_ui->get_scale());
 	timer_ui->ChangeSprite(sprite);
 	
+	Monster* monster = new Monster();
+	monster->set_pos(Vector2{ 600, 500 });
+	monster->set_center_pos(Vector2{ 600, 500 });
+	monster->set_move_range(0.0);
+	monster->set_move_speed(0.5f);
+	monster->set_scale(Vector2{ 50, 50 });
 
+	monster->set_group_type(GROUP_TYPE::MONSTER);
+	CreateGObject(monster, GROUP_TYPE::MONSTER);
 		
 	return TRUE;
 }

@@ -18,7 +18,7 @@ private:
 	Vector2 scale_;
 	GROUP_TYPE group_type_;
 	bool is_dead_;
-
+	bool visible_;
 	Sprite* sprite_;
 
 
@@ -29,9 +29,10 @@ public:
 	virtual void Update()=0;
 	virtual void FinalUpdate() {};
 	virtual void Render(ID3D11Device* p_d3d_device)=0;
-	virtual void OnCollisionEnter(const Collider& collider) {};
-	virtual void OnCollisionStay(const Collider& collider) {};
-	virtual void OnCollisionExit(const Collider& collider) {};
+	virtual void OnCollisionEnter(Collider* collider) {};
+	virtual void OnCollisionStay(Collider* collider) {};
+	virtual void OnCollisionExit(Collider* collider) {};
+	virtual void OnInteract(const GObject* req_obj) {};
 
 	unsigned long long get_id() { return id_; };
 	inline const tstring& get_name() { return name_; };
@@ -51,6 +52,8 @@ public:
 	inline Sprite* get_sprite() { return sprite_; };
 	void ChangeSprite(Sprite* sprite);
 	inline bool IsDead() { return is_dead_; };
+	inline void set_visible(bool b) { visible_ = b; };
+	inline bool get_visible() { return visible_; };
 
 	virtual void SaveToFile(FILE* p_file) override;
 	

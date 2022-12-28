@@ -1,6 +1,6 @@
 #include "RealObject.h"
 #include "Collider.h"
-#include "Animator.h"
+#include "RealObjectAnimator.h"
 #include "Sprite.h"
 #include "Texture.h"
 RealObject::RealObject()
@@ -25,7 +25,7 @@ RealObject::RealObject(const RealObject& origin)
 		collider_->set_owner(this);
 	}
 	if (origin.animator_ != nullptr) {
-		animator_ = new Animator(*(origin.animator_));
+		animator_ = new RealObjectAnimator(*(dynamic_cast<RealObjectAnimator*>(origin.animator_)));
 		animator_->set_owner(this);
 	}
 }
@@ -48,27 +48,34 @@ void RealObject::CreateAnimator()
 {
 }
 
+void RealObject::CreateInteractor()
+{
+}
+
 void RealObject::Render(ID3D11Device* p_d3d_device)
 {
-	Sprite* sprite = get_sprite();
-	const Vector2& pos = WorldToRenderPos(get_pos());
-	const Vector2& scale = get_scale();
-	if (sprite != nullptr) {
-		Texture* texture = sprite->get_texture();
-		const Vector2& sprite_base_pos = sprite->get_base_pos();
-		const Vector2& sprite_scale = sprite->get_scale();
-		/*TransparentBlt(hdc
-			, static_cast<int>(pos.x-scale.x/2.f)
-			, static_cast<int>(pos.y-scale.y/2.f)
-			, static_cast<int>(scale.x)
-			, static_cast<int>(scale.y)
-			, texture->get_hdc()
-			, static_cast<int>(sprite_base_pos.x)
-			, static_cast<int>(sprite_base_pos.y)
-			, static_cast<int>(sprite_scale.x					   )
-			, static_cast<int>(sprite_scale.y					   )
-			, RGB(255, 0, 255));*/
+	if (get_visible()) {
+		Sprite* sprite = get_sprite();
+		const Vector2& pos = WorldToRenderPos(get_pos());
+		const Vector2& scale = get_scale();
+		if (sprite != nullptr) {
+			Texture* texture = sprite->get_texture();
+			const Vector2& sprite_base_pos = sprite->get_base_pos();
+			const Vector2& sprite_scale = sprite->get_scale();
+			/*TransparentBlt(hdc
+				, static_cast<int>(pos.x-scale.x/2.f)
+				, static_cast<int>(pos.y-scale.y/2.f)
+				, static_cast<int>(scale.x)
+				, static_cast<int>(scale.y)
+				, texture->get_hdc()
+				, static_cast<int>(sprite_base_pos.x)
+				, static_cast<int>(sprite_base_pos.y)
+				, static_cast<int>(sprite_scale.x					   )
+				, static_cast<int>(sprite_scale.y					   )
+				, RGB(255, 0, 255));*/
+		}
 	}
+	
 }
 
 void RealObject::FinalUpdate() {
@@ -114,7 +121,7 @@ void RealObject::LoadFromFile(FILE* p_file)
 
 	fread(&animator_, sizeof(DWORD_PTR), 1, p_file);
 	if (animator_) {
-		animator_ = new Animator();
+		animator_ = new RealObjectAnimator();
 		animator_->LoadFromFile(p_file);
 		animator_->set_owner(this);
 	}

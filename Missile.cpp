@@ -41,7 +41,7 @@ void Missile::Render(ID3D11Device* p_d3d_device)
 	ComponentRender(p_d3d_device);
 }
 
-void Missile::OnCollisionEnter(const Collider& collider)
+void Missile::OnCollisionEnter(Collider* collider)
 {
 	DeleteGObject(this, get_group_type());
 }
