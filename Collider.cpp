@@ -10,6 +10,7 @@ Collider::Collider()
 	, pos_offset_{}
 	, scale_{}
 	, owner_(nullptr)
+	, is_physical_collider_(false)
 {
 }
 
@@ -22,6 +23,7 @@ Collider::Collider(const Collider& org)
 	, pos_offset_{org.pos_offset_}
 	, scale_{org.scale_}
 	, owner_(nullptr)
+	, is_physical_collider_(false)
 {
 }
 
@@ -49,7 +51,11 @@ void Collider::Render(ID3D11Device* p_d3d_device)
 
 void Collider::OnCollisionEnter(Collider* collider)
 {
+	if (collider->get_is_physical_collider() && is_physical_collider_) {
+		physical_collisions_.push_back(collider);
+	}
 	owner_->OnCollisionEnter(collider);
+	
 }
 
 void Collider::OnCollisionStay(Collider* collider)
@@ -59,6 +65,9 @@ void Collider::OnCollisionStay(Collider* collider)
 
 void Collider::OnCollisionExit(Collider* collider)
 {
+	if (collider->get_is_physical_collider() && is_physical_collider_) {
+		physical_collisions_.erase(std::remove(physical_collisions_.begin(), physical_collisions_.end(), collider), physical_collisions_.end());
+	}
 	owner_->OnCollisionExit(collider);
 }
 

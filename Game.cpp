@@ -1,8 +1,9 @@
 #include "Game.h"
 Game::Game()
-	: uptime_s(0)
+	: day_(1)
+	, day_uptime_s_(0)
 	, game_state_(GAME_STATE::FREEZED)
-	, acc_dt_(0) {};
+	, acc_dt_(0){};
 Game::~Game() {};
 
 void Game::StartGame()
@@ -20,7 +21,7 @@ void Game::Update()
 	{
 		acc_dt_ += Time::GetInstance()->dt_f();
 		if (acc_dt_ >= 1.) {
-			uptime_s++;
+			day_uptime_s_++;
 			acc_dt_ = 0.;
 		}
 	}

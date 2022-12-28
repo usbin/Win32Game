@@ -7,6 +7,7 @@
 #include "ResManager.h"
 #include "Sprite.h"
 #include "Monster.h"
+#include "Game.h"
 bool Scene_01::Enter()
 {
 	GObject* gobj = new Player();
@@ -31,10 +32,14 @@ bool Scene_01::Enter()
 	monster->set_move_range(0.0);
 	monster->set_move_speed(0.5f);
 	monster->set_scale(Vector2{ 50, 50 });
+	
 
 	monster->set_group_type(GROUP_TYPE::MONSTER);
 	CreateGObject(monster, GROUP_TYPE::MONSTER);
 		
+
+	//자식 항목 만들기
+	Game::GetInstance()->StartGame();
 	return TRUE;
 }
 

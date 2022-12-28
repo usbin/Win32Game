@@ -9,40 +9,28 @@
 #include "RealObjectAnimator.h"
 #include "PathManager.h"
 #include "Interactor.h"
+#include "PlayerControlComponent.h"
+#include "PhysicsComponent.h"
+
 Player::Player()
-	: speed_(200.f) {
+	: speed_(200.f){
 	
 	CreateCollider();
 	CreateAnimator();
 	CreateInteractor();
+	CreateControlCmp();
+	CreatePhysicsCmp();
 	//애니메이션 시작
 	get_animator()->Play(_T("Idle"));
 
 }
+Player::~Player()
+{
+
+}
 void Player::Update()
 {
-	Vector2 v = get_pos();
-
-	Vector2 move_direction{ 0, 0 };
-	if (KEY_HOLD(KEY::RIGHT)) {
-		move_direction.x = 1;
-		set_direction(DIRECTION::RIGHT);
-	}
-	else if (KEY_HOLD(KEY::LEFT)) {
-		move_direction.x = -1;
-		set_direction(DIRECTION::LEFT);
-	}
-	if (KEY_HOLD(KEY::UP)) {
-		move_direction.y = -1;
-	}
-	else if (KEY_HOLD(KEY::DOWN)) {
-		move_direction.y = 1;
-	}
-
-	v.x += static_cast<float>(move_direction.Normalize().x * speed_ * Time::GetInstance()->dt_f());
-	v.y += static_cast<float>(move_direction.Normalize().y * speed_ * Time::GetInstance()->dt_f());
 	
-	set_pos(v);
 
 	if (KEY_DOWN(KEY::SPACE)) {
 		
@@ -54,9 +42,6 @@ void Player::Update()
 		}
 	}
 
-	if (KEY_DOWN(KEY::Q)) {
-		ChangeScene(SCENE_TYPE::SCENE_01);
-	}
 
 
 }
@@ -74,6 +59,7 @@ void Player::CreateCollider()
 	Collider* collider = new Collider();
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 20, 20 });
+	collider->set_is_physical_collider(true);
 	set_collider(collider);
 }
 
@@ -102,6 +88,16 @@ void Player::CreateInteractor()
 	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
 	set_interactor(interactor);
 	
+}
+
+void Player::CreateControlCmp()
+{
+	control_cmp_ = new PlayerControlComponent();
+}
+
+void Player::CreatePhysicsCmp()
+{
+	physics_cmp_ = new PhysicsComponent();
 }
 
 void Player::OnCollisionEnter(Collider* collider)

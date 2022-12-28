@@ -12,6 +12,7 @@ Monster::Monster()
 	Collider* collider = new Collider();
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 20, 20 });
+	collider->set_is_physical_collider(true);
 	set_collider(collider);
 	CreateInteractor();
 }

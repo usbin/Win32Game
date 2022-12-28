@@ -97,6 +97,12 @@
     <Filter Include="Game\Component\Interactor">
       <UniqueIdentifier>{cb7d2e89-765e-48e2-915f-b06829868a38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\ControlComponent">
+      <UniqueIdentifier>{106d9ea3-69eb-4bd8-b8c4-32ae0d8466e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\PhysicsComponent">
+      <UniqueIdentifier>{d5e354d5-ec84-4ec1-b701-b1cbe77e3b36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -261,9 +267,6 @@
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="TimerUi.h">
-      <Filter>Game\Scene\Scene_01</Filter>
-    </ClInclude>
     <ClInclude Include="Background_Title.h">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClInclude>
@@ -290,6 +293,18 @@
     </ClInclude>
     <ClInclude Include="Interactor.h">
       <Filter>Game\Component\Interactor</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerUi.h">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlComponent.h">
+      <Filter>Game\Component\ControlComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControlComponent.h">
+      <Filter>Game\Component\ControlComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Game\Component\PhysicsComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -442,9 +457,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="TimerUi.cpp">
-      <Filter>Game\Scene\Scene_01</Filter>
-    </ClCompile>
     <ClCompile Include="Background_Title.cpp">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClCompile>
@@ -471,6 +483,18 @@
     </ClCompile>
     <ClCompile Include="Interactor.cpp">
       <Filter>Game\Component\Interactor</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerUi.cpp">
+      <Filter>Game\GObject\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlComponent.cpp">
+      <Filter>Game\Component\ControlComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerControlComponent.cpp">
+      <Filter>Game\Component\ControlComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Game\Component\PhysicsComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

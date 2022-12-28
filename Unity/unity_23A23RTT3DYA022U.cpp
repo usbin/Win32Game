@@ -23,6 +23,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\CollisionManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ControlComponent.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Core.cpp"
 
 
@@ -86,7 +89,13 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PathManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PhysicsComponent.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Player.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PlayerControlComponent.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObject.cpp"

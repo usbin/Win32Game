@@ -3,6 +3,9 @@
 #include "RealObjectAnimator.h"
 #include "Sprite.h"
 #include "Texture.h"
+#include "ControlComponent.h"
+#include "PhysicsComponent.h"
+
 RealObject::RealObject()
 	: GObject()
 	, animator_(nullptr)
@@ -35,20 +38,10 @@ RealObject::~RealObject() {
 
 	delete collider_;
 	delete animator_;
+	delete control_cmp_;
+	delete physics_cmp_;
 }
 
-
-void RealObject::CreateCollider()
-{
-}
-
-void RealObject::CreateAnimator()
-{
-}
-
-void RealObject::CreateInteractor()
-{
-}
 
 void RealObject::Render(ID3D11Device* p_d3d_device)
 {
@@ -69,9 +62,9 @@ void RealObject::Render(ID3D11Device* p_d3d_device)
 void RealObject::FinalUpdate() {
 	// 컴포넌트들에 대한 FinalUpdate들 모음.
 	if (collider_ != nullptr) collider_->FinalUpdate();
-	
 	if (animator_ != nullptr) animator_->Update();
-	
+	if (control_cmp_ != nullptr) control_cmp_->Update(this);
+	if (physics_cmp_ != nullptr) physics_cmp_->FinalUpdate(this);
 
 
 }
