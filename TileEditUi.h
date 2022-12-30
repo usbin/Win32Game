@@ -9,6 +9,10 @@ class InvisibleWallEditFrame;
 
 
 
+#define TILE_UI_BASE_POS_X 5
+#define TILE_UI_BASE_POS_Y 50
+#define TILE_UI_SCALE_X 32
+#define TILE_UI_SCALE_Y 32
 
 enum class TILE_EDIT_MODE {
 	ADD,
@@ -28,6 +32,7 @@ private:
 	Director_Scene_Tool* director_;
 
 	ButtonUi* mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::END)];
+	ButtonUi* exit_button_;
 	TILE_EDIT_MODE mode_;
 
 	std::vector<TileUi*> tile_uis_;
@@ -54,7 +59,7 @@ private:
 	void CreateColliderModeBtn();
 	void CreateColliderDeleteModeBtn();
 	void CreateArrowBtns();
-	void CreateEmptyTileUis();
+	void CreateEmptyTileUis(UINT row, UINT col);
 	void AddTileListFromTexture(Texture* texture, const Vector2& texture_base_pos, const Vector2& texture_scale
 		, const Vector2& sprite_scale, const Vector2& interval, int count); //texture에서 TileUi들을 생성하고 tile_uis_에 추가
 
@@ -75,5 +80,11 @@ public:
 	inline TileUi* get_picked_tile_ui() { return picked_tile_ui_; };
 	inline UINT get_page() { return page_; };
 	inline TILE_EDIT_MODE get_mode() { return mode_; };
+	inline UINT get_max_col() {
+		return tile_ui_sprites_[0]->get_texture()->get_width() / tile_ui_sprites_[0]->get_scale().x; //static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	}
+	inline UINT get_max_row() {
+		return static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+	}
 };
 

@@ -3,8 +3,6 @@
 #include "RealObject.h"
 #include "Tile.h"
 
-#define TILE_WIDTH 32
-#define TILE_HEIGHT 32
 
 Scene::Scene(ID3D11Device* p_d3d_device)
 	: name_(_T(""))
@@ -111,38 +109,4 @@ void Scene::ObjectToNext(GROUP_TYPE group_type, GObject* target)
 		gobjects_[static_cast<UINT>(group_type)].erase(iter);
 		gobjects_[static_cast<UINT>(group_type)].insert(iter +1, target);
 	}
-}
-
-void Scene::CreateTile(UINT column_count, UINT row_count)
-{
-	for (UINT i = 0; i < tile_map_.size(); i++) {
-		SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TILE);
-	}
-
-	for (UINT i = 0; i < row_count; i++) {
-		for (UINT j = 0; j < column_count; j++) {
-			Tile* tile = new Tile();
-			tile->set_pos(Vector2{ (static_cast<int>(j * TILE_WIDTH)) % static_cast<int>(column_count * TILE_WIDTH) + TILE_WIDTH/2.f, static_cast<int>((i * TILE_HEIGHT)) + TILE_HEIGHT/2.f });
-			tile->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
-			tile->set_group_type(GROUP_TYPE::TILE);
-			tile->set_name(_T("Tile"));
-			CreateGObject(tile, GROUP_TYPE::TILE);
-			tile_map_.push_back(tile);
-		}
-	}
-
-}
-
-Tile* Scene::GetTile(Vector2 world_pos)
-{
-	//몇번째 타일맵인지 찾고 삽입
-	for (int i = 0; i < tile_map_.size(); i++) {
-		Vector2 tile_pos = tile_map_[i]->get_pos();
-		Vector2 tile_scale = tile_map_[i]->get_scale();
-		if (tile_pos.x - tile_scale.x / 2.f < world_pos.x && world_pos.x < tile_pos.x + tile_scale.x/2.f
-			&& tile_pos.y - tile_scale.y/2.f < world_pos.y && world_pos.y < tile_pos.y + tile_scale.y/2.f) {
-			return tile_map_[i];
-		}
-	}
-	return nullptr;
 }

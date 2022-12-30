@@ -40,7 +40,7 @@ void Camera::Update()
 		else if (KEY_HOLD(KEY::S)) {
 			direction.y = 1;
 		}
-		look_pos_ += direction.Normalize() * DtF() * 200.f;
+		look_pos_ += direction.Normalize() * DtF() * 800.f;
 
 		
 	}

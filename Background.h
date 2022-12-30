@@ -3,8 +3,6 @@
 #include "RealObject.h"
 
 
-#define BACKGROUND_RATIO_X 2
-#define BACKGROUND_RATIO_Y 2
 
 class Background : public RealObject
 {

@@ -15,7 +15,6 @@ private:
 	HDC hdc_;
 	ID3D11Device* p_d3d_device_;
 
-	std::vector<Tile*> tile_map_;
 public:
 	Scene()
 		: hdc_{ 0 } {};
@@ -34,12 +33,9 @@ public:
 	void ObjectToTop(GROUP_TYPE group_type, GObject* target);
 	void ObjectToPrev(GROUP_TYPE group_type, GObject* target);
 	void ObjectToNext(GROUP_TYPE group_type, GObject* target);
-	void CreateTile(UINT column_count, UINT row_count);
-	Tile* GetTile(Vector2 world_pos); //해당 위치에 있는 타일 리턴. 없으면 nullptr
 	inline HDC get_hdc() { return hdc_; };
 	inline void set_name(tstring name) { name_ = name; }
 	inline tstring get_name() { return name_; }
-	inline const std::vector<Tile*>& get_tile_map() { return tile_map_; };
 };
 
 

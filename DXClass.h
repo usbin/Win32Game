@@ -1,5 +1,6 @@
 #pragma once
 #include "global.h"
+class GObject;
 
 class DXClass
 {
@@ -56,5 +57,9 @@ public:
 	inline ID3D11RenderTargetView* get_render_target_view() { return p_render_target_view_; };
 	inline const DXGI_FORMAT& get_idx_format() { return idx_format_; }
 	inline ID3D11SamplerState* get_sampler_state() { return p_sampler_linear_; };
+
+
+	//
+	void SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size);
 };
 

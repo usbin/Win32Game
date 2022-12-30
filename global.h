@@ -46,3 +46,8 @@ typedef std::basic_string<TCHAR> tstring;
 #include "inline.h"
 #include "function.h"
 #include "SelectGdi.h"
+
+
+
+#define TILE_WIDTH 32
+#define TILE_HEIGHT 32

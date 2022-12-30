@@ -12,6 +12,7 @@
 #include "Texture.h"
 #include "Background.h"
 #include "FileManager.h"
+#include "DXClass.h"
 
 #define MAX_LOADSTRING 100
 #define INITIAL_WINDOW_WIDTH 1024
@@ -177,7 +178,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_CHANGE_TILECELL_SIZE:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_CHANGE_TILECELL_SIZE), hWnd, ChangeTilecellSize);
                 break;
-            case IDM_LOAD_BACKGROUND:
+            //===============================
+            //  배경이미지 관리
+            //================================
+            case IDM_LOAD_BACKGROUND_LAYER1:
             {
                 Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
                 if (current_scene) {
@@ -214,38 +218,209 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         //2. 복사한 텍스쳐를 불러와서, 이 텍스쳐를 1x1 스프라이트로 가지는 BACKGROUND 오브젝트 생성.
                         //이미 BACKGROUND 오브젝트가 있다면 스프라이트만 교체
                         GObject* bg_object;
-                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND);
+                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND1);
                         if (objs.empty()) {
                             bg_object = new Background();
-                            CreateGObject(bg_object, GROUP_TYPE::BACKGROUND);
+                            CreateGObject(bg_object, GROUP_TYPE::BACKGROUND1);
                         }
                         else bg_object = objs[0];
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
                         Sprite* bg_sprite = new Sprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         bg_object->ChangeSprite(bg_sprite);
-                        bg_object->set_group_type(GROUP_TYPE::BACKGROUND);
+                        bg_object->set_group_type(GROUP_TYPE::BACKGROUND1);
                         bg_object->set_pos(Vector2{ 0, 0 });
-                        bg_object->set_scale(Vector2{ texture->get_width()*BACKGROUND_RATIO_X, texture->get_height()*BACKGROUND_RATIO_Y });
-                        EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_ENABLED);
+                        bg_object->set_scale(Vector2{ texture->get_width(), texture->get_height() });
+                        EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND_LAYER1, MF_ENABLED);
                     }
                 }
                 
             }
                 break;
-            case IDM_REMOVE_BACKGROUND: {
+            case IDM_REMOVE_BACKGROUND_LAYER1: {
                 GObject* bg_object;
-                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND);
+                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND1);
                 if (!objs.empty()) {
-                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND);
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND1);
+                }
+                EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND_LAYER1, MF_DISABLED);
+            }
+                break;
+            case IDM_LOAD_BACKGROUND_LAYER2:
+            {
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+                    TCHAR initial_path[256];
+                    _tcscpy_s(initial_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("PNG\0*.png\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+                    ofn.lpstrInitialDir = initial_path;
+
+                    if (GetOpenFileName(&ofn)) {
+                        //1. 텍스쳐를 content\texture 폴더로 복사하기
+                        TCHAR file_name[256] = _T("");
+                        for (int i = static_cast<int>(_tcsclen(file_path)) - 1; i >= 0; i--) {
+                            if (file_path[i] == _T('\\')) {
+                                _tcscpy_s(file_name, &file_path[i + 1]);
+                                break;
+                            }
+                        }
+                        TCHAR relative_path[256] = _T("");
+                        _tcscat_s(relative_path, _T("texture\\"));
+                        _tcscat_s(relative_path, file_name);
+
+                        TCHAR dest_path[256] = _T("");
+                        _tcscat_s(dest_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+                        _tcscat_s(dest_path, relative_path);
+                        CopyFile(file_path, dest_path, true);
+                        //2. 복사한 텍스쳐를 불러와서, 이 텍스쳐를 1x1 스프라이트로 가지는 BACKGROUND 오브젝트 생성.
+                        //이미 BACKGROUND 오브젝트가 있다면 스프라이트만 교체
+                        GObject* bg_object;
+                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND2);
+                        if (objs.empty()) {
+                            bg_object = new Background();
+                            CreateGObject(bg_object, GROUP_TYPE::BACKGROUND2);
+                        }
+                        else bg_object = objs[0];
+                        Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
+                        Sprite* bg_sprite = new Sprite();
+                        bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
+                        bg_object->ChangeSprite(bg_sprite);
+                        bg_object->set_group_type(GROUP_TYPE::BACKGROUND2);
+                        bg_object->set_pos(Vector2{ 0, 0 });
+                        bg_object->set_scale(Vector2{ texture->get_width(), texture->get_height() });
+                        EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND_LAYER2, MF_ENABLED);
+                    }
+                }
+
+            }
+            break;
+            case IDM_REMOVE_BACKGROUND_LAYER2: {
+                GObject* bg_object;
+                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND2);
+                if (!objs.empty()) {
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND2);
+                }
+                EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND_LAYER2, MF_DISABLED);
+            }
+                                             break;
+            case IDM_LOAD_BACKGROUND_LAYER3:
+            {
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+                    TCHAR initial_path[256];
+                    _tcscpy_s(initial_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("PNG\0*.png\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+                    ofn.lpstrInitialDir = initial_path;
+
+                    if (GetOpenFileName(&ofn)) {
+                        //1. 텍스쳐를 content\texture 폴더로 복사하기
+                        TCHAR file_name[256] = _T("");
+                        for (int i = static_cast<int>(_tcsclen(file_path)) - 1; i >= 0; i--) {
+                            if (file_path[i] == _T('\\')) {
+                                _tcscpy_s(file_name, &file_path[i + 1]);
+                                break;
+                            }
+                        }
+                        TCHAR relative_path[256] = _T("");
+                        _tcscat_s(relative_path, _T("texture\\"));
+                        _tcscat_s(relative_path, file_name);
+
+                        TCHAR dest_path[256] = _T("");
+                        _tcscat_s(dest_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+                        _tcscat_s(dest_path, relative_path);
+                        CopyFile(file_path, dest_path, true);
+                        //2. 복사한 텍스쳐를 불러와서, 이 텍스쳐를 1x1 스프라이트로 가지는 BACKGROUND 오브젝트 생성.
+                        //이미 BACKGROUND 오브젝트가 있다면 스프라이트만 교체
+                        GObject* bg_object;
+                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND3);
+                        if (objs.empty()) {
+                            bg_object = new Background();
+                            CreateGObject(bg_object, GROUP_TYPE::BACKGROUND3);
+                        }
+                        else bg_object = objs[0];
+                        Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
+                        Sprite* bg_sprite = new Sprite();
+                        bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
+                        bg_object->ChangeSprite(bg_sprite);
+                        bg_object->set_group_type(GROUP_TYPE::BACKGROUND3);
+                        bg_object->set_pos(Vector2{ 0, 0 });
+                        bg_object->set_scale(Vector2{ texture->get_width(), texture->get_height() });
+                        EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_ENABLED);
+                    }
+                }
+
+            }
+            break;
+            case IDM_REMOVE_BACKGROUND_LAYER3: {
+                GObject* bg_object;
+                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND3);
+                if (!objs.empty()) {
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND3);
                 }
                 EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_DISABLED);
             }
-                break;
+             break;
+            //===============================
+            //  맵파일 관리
+            //================================
+            case IDM_LOAD_MAPFILE:
+            {
+                //BACKGROUND, TILE, INVISIBLEWALL을 .map 파일로 저장
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                //툴씬에서만 동작
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+                    TCHAR initial_path[256];
+                    _tcscpy_s(initial_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("MAP\0*.map\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+                    ofn.lpstrInitialDir = initial_path;
+
+                    if (GetOpenFileName(&ofn)) {
+
+                        //2. 복사한 맵을 불러와서, 이 맵으로 타일 리스트를 로드함.
+                        //기존의 배경, 타일, 콜라이더는 전부 지워야함.
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND1);
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TILE);
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::INVISIBLE_WALL);
+
+                        FileManager::GetInstance()->LoadMap(file_path);
+                        
+
+                        
+
+                    }
+                }
+
+            }
+            break;
             case IDM_SAVE_MAPFILE: {
                 //BACKGROUND, TILE, INVISIBLEWALL을 .map 파일로 저장
                 Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
                 //툴씬에서만 동작
+
                 if (current_scene) {
                     TCHAR file_path[256] = _T("");
 
@@ -259,13 +434,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
                     if (GetSaveFileName(&ofn)) {
-                        _tcscat_s(file_path, _T(".map"));
+                        if(_tcscmp(&file_path[_tcsclen(file_path)-4], _T(".map")))
+                            _tcscat_s(file_path, _T(".map"));
                         FileManager::GetInstance()->SaveMap(file_path);
 
                     }
                 }
             }
                                  break;
+            case IDM_SAVE_TILEMAP_TO_PNG: {
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                //툴씬에서만 동작
+                if (current_scene) {
+                    
+                    DXClass::GetInstance()->SaveMapfileToPng(current_scene->GetGroupObjects(GROUP_TYPE::TILE), Vector2{ current_scene->get_column_count() * TILE_WIDTH, current_scene->get_row_count() * TILE_HEIGHT });
+                }
+                break;
+            }
 
             case IDM_EXIT:
                 DestroyWindow(hWnd);
@@ -319,7 +504,9 @@ INT_PTR CALLBACK ChangeTilecellSize(HWND hDlg, UINT message, WPARAM wParam, LPAR
             UINT x_size = GetDlgItemInt(hDlg, IDC_WIDTH_TF, nullptr, false);
             UINT y_size = GetDlgItemInt(hDlg, IDC_HEIGHT_TF, nullptr, false);
             Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
-            if (current_scene) current_scene->CreateTile(x_size, y_size);
+            if (current_scene) {
+                current_scene->CreateEmptyTilemap(x_size, y_size);
+            }
             EndDialog(hDlg, LOWORD(wParam));
             return (INT_PTR)TRUE;
         }

@@ -18,11 +18,6 @@
 #define IDC_HEIGHT_TF                   1001
 #define IDOK_BTN                        1002
 #define IDCANCEL_BTN                    1003
-#define ID_32771                        32771
-#define ID_32772                        32772
-#define ID_32773                        32773
-#define ID_32774                        32774
-#define ID_32775                        32775
 #define ID_PENCIL                       32776
 #define ID_ERASOR                       32777
 #define ID_TEXTBOX                      32778
@@ -34,8 +29,15 @@
 #define IDM_CHANGE_TILECELL_SIZE        32784
 #define IDM_LOAD_BACKGROUND             32788
 #define IDM_REMOVE_BACKGROUND           32789
-#define ID_32790                        32790
 #define IDM_SAVE_MAPFILE                32791
+#define IDM_LOAD_MAPFILE                32798
+#define IDM_SAVE_TILEMAP_TO_PNG         32802
+#define IDM_LOAD_BACKGROUND_LAYER1      32817
+#define IDM_REMOVE_BACKGROUND_LAYER1    32818
+#define IDM_LOAD_BACKGROUND_LAYER2      32819
+#define IDM_LOAD_BACKGROUND_LAYER3      32820
+#define IDM_REMOVE_BACKGROUND_LAYER2    32821
+#define IDM_REMOVE_BACKGROUND_LAYER3    32822
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -44,7 +46,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
-#define _APS_NEXT_COMMAND_VALUE         32792
+#define _APS_NEXT_COMMAND_VALUE         32823
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

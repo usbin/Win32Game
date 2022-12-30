@@ -17,7 +17,6 @@ private:
 	HBRUSH brushes[static_cast<int>(BRUSH_TYPE::END)];
 
 
-
 	void InitPenAndBrush();
 public:
 	int Init(HWND hwnd, int width, int height);
@@ -27,6 +26,7 @@ public:
 	inline HWND get_main_hwnd() { return hwnd_; };
 	inline POINT get_pt_resolution() { return pt_resolution_; };
 	inline Vector2 get_resolution() { return Vector2{ pt_resolution_ }; };
+
 	inline HPEN GetPen(PEN_TYPE pen_type) {
 		return pens[static_cast<int>(pen_type)];
 	};

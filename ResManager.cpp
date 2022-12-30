@@ -13,9 +13,11 @@ ResManager::~ResManager() {
 
 Texture* ResManager::LoadTexture(const tstring& key, const tstring& relative_path)
 {
+    
     auto it = textures_.find(key);
-    if (it != textures_.end()) return it->second;
-
+    if (it != textures_.end()) {
+        return it->second;
+    }
     Texture* texture = new Texture();
     texture->set_key(key);
     texture->set_relative_path(relative_path);

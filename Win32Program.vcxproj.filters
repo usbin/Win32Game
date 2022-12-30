@@ -240,9 +240,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Game\GObject\RealObject\Tile</Filter>
     </ClInclude>
-    <ClInclude Include="TileCell.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
-    </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Game\GObject\RealObject\Background</Filter>
     </ClInclude>
@@ -432,9 +429,6 @@
     </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>Game\GObject\RealObject\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="TileCell.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Game\GObject\RealObject\Background</Filter>

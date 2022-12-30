@@ -12,9 +12,15 @@ public:
 private:
 	HDC hdc_;
 
+	UINT column_count_;
+	UINT row_count_;
 public:
 	virtual bool Enter() override;
 	virtual bool Exit() override;
 
-	
+	void CreateEmptyTilemap(UINT column_count, UINT row_count);
+
+	Tile* GetTile(Vector2 world_pos); //해당 위치에 있는 타일 리턴. 없으면 nullptr
+	inline UINT get_column_count() { return column_count_; };
+	inline UINT get_row_count() { return row_count_; };
 };

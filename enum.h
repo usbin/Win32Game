@@ -58,8 +58,10 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 enum class GROUP_TYPE
 {
 	DEFAULT=0,
-	BACKGROUND=2,
-	TILE=3,
+	BACKGROUND1=2,
+	BACKGROUND2=3,
+	BACKGROUND3=4,
+	TILE=5,
 	PLAYER,
 	THING,
 	MISSILE,

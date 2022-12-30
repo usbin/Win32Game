@@ -152,9 +152,6 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileUi.cpp"
 
 
-#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileCell.cpp"
-
-
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Time.cpp"
 
 

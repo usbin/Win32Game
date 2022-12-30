@@ -216,7 +216,6 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileEditUi.h" />
     <ClInclude Include="TileUi.h" />
-    <ClInclude Include="TileCell.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimerUi.h" />
     <ClInclude Include="TitleText_Title.h" />
@@ -278,7 +277,6 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileEditUi.cpp" />
     <ClCompile Include="TileUi.cpp" />
-    <ClCompile Include="TileCell.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimerUi.cpp" />
     <ClCompile Include="TitleText_Title.cpp" />

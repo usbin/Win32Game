@@ -11,11 +11,8 @@
 #include "Collider.h"
 #include "UiManager.h"
 #include "InvisibleWallEditFrame.h"
+#include "Scene_Tool.h"
 
-#define TILE_UI_BASE_POS_X 5
-#define TILE_UI_BASE_POS_Y 50
-#define TILE_UI_SCALE_X 32
-#define TILE_UI_SCALE_Y 32
 
 TileEditUi::TileEditUi()
 	:PanelUi()
@@ -68,6 +65,7 @@ void TileEditUi::CreateExitBtn()
 		DeleteGObject(reinterpret_cast<GObject*>(param1), GROUP_TYPE::UI);
 	
 		}, reinterpret_cast<DWORD_PTR>(this), 0);
+	exit_button_ = exit_btn;
 
 }
 
@@ -195,16 +193,14 @@ void TileEditUi::CreateArrowBtns()
 
 }
 
-void TileEditUi::CreateEmptyTileUis()
+void TileEditUi::CreateEmptyTileUis(UINT row, UINT col)
 {
 
-	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
-	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
-	for (UINT i = 0; i < static_cast<UINT>(max_row * max_col); i++) {
+	for (UINT i = 0; i < static_cast<UINT>(row * col); i++) {
 		TileUi* tile_ui = new TileUi(true);
 		tile_ui->set_group_type(GROUP_TYPE::UI);
 		tile_ui->set_scale(Vector2{ TILE_UI_SCALE_X, TILE_UI_SCALE_Y });
-		tile_ui->set_pos(Vector2{ TILE_UI_BASE_POS_X + (i % max_row) * (tile_ui->get_scale().x), TILE_UI_BASE_POS_Y + (i / max_row) * (tile_ui->get_scale().y) });
+		tile_ui->set_pos(Vector2{ TILE_UI_BASE_POS_X + (i % col) * (tile_ui->get_scale().x), TILE_UI_BASE_POS_Y + (i / col) * (tile_ui->get_scale().y) });
 		tile_ui->set_name(_T(""));
 		tile_ui->set_director(director_);
 		tile_ui->set_parent(this);
@@ -217,13 +213,16 @@ void TileEditUi::CreateEmptyTileUis()
 			}, reinterpret_cast<DWORD_PTR>(this), static_cast<DWORD_PTR>(i));
 		tile_uis_.push_back(tile_ui);
 	}
+	//타일 편집 윈도우 크기 재조정
+	set_scale(Vector2{ get_max_col() * TILE_UI_SCALE_X + TILE_UI_BASE_POS_X * 2, get_max_row() * TILE_UI_SCALE_Y + TILE_UI_BASE_POS_Y * 2 });
+	if (exit_button_) {
+		exit_button_->set_pos(Vector2{ get_scale().x - exit_button_->get_scale().x-5, exit_button_->get_scale().y });
+	}
 }
 
 void TileEditUi::AddTileListFromTexture(Texture* texture, const Vector2& texture_base_pos, const Vector2& texture_scale, const Vector2& sprite_scale, const Vector2& interval, int count)
 {
 	int count_in_row_texture = static_cast<int>(texture_scale.x / sprite_scale.x);
-	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
-	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
 	for (int i = 0; i < count; i++) {
 		Sprite* sprite = new Sprite();
 		sprite->QuickSet(texture
@@ -232,6 +231,7 @@ void TileEditUi::AddTileListFromTexture(Texture* texture, const Vector2& texture
 		, sprite_scale);
 		tile_ui_sprites_.push_back(sprite);
 	}
+
 }
 
 void TileEditUi::LoadTileListFromTexture(UINT page)
@@ -239,20 +239,32 @@ void TileEditUi::LoadTileListFromTexture(UINT page)
 	//n page에 올라가는 타일 수는
 	// MIN(max_row * max_col, (전체타일ui수 - (page)*(max_row *max_col)))
 	// 
-	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
-	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
-	for (UINT tile_ui_i = 0; tile_ui_i < min((tile_ui_sprites_.size() - page * max_row * max_col), max_row * max_col); tile_ui_i++) {
-		tile_uis_[tile_ui_i] ->ChangeSprite(new Sprite(*tile_ui_sprites_[page*max_col*max_row+tile_ui_i]));
-		tile_ui_sprites_[page * max_col * max_row + tile_ui_i]->set_owner(tile_uis_[tile_ui_i]);
+	if (!tile_ui_sprites_.empty()) {
+		int max_col = get_max_col();//tile_ui_sprites_[0]->get_texture()->get_width() / tile_ui_sprites_[0]->get_scale().x; //static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+		int max_row = get_max_row();//static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+		UINT tile_ui_i = 0;
+		for (; tile_ui_i < min((tile_ui_sprites_.size() - page * max_col * max_row), max_col * max_row); tile_ui_i++) {
+			tile_uis_[tile_ui_i]->ChangeSprite(new Sprite(*tile_ui_sprites_[page * max_row * max_col + tile_ui_i]));
+			tile_ui_sprites_[page * max_row * max_col + tile_ui_i]->set_owner(tile_uis_[tile_ui_i]);
+		}
+		//해당 페이지의 남은 빈 칸만큼 초기화해줌.
+		tile_ui_i %= max_col * max_row;
+		if (tile_ui_i > 0) {
+			for (; tile_ui_i < max_col * max_row; tile_ui_i++) {
+				tile_uis_[tile_ui_i]->ChangeSprite(nullptr);
+			}
+		}
+		
 	}
+	
 	
 	
 }
 
 void TileEditUi::ChangePage(UINT page)
 {
-	int max_row = static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
-	int max_col = static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
+	int max_row = get_max_row(); //static_cast<int>((get_scale().x - TILE_UI_BASE_POS_X * 2) / TILE_UI_SCALE_X);
+	int max_col = get_max_col(); static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
 	UINT max_page = static_cast<UINT>(tile_ui_sprites_.size()/(max_row * max_col));
 	if (page < 0 || page > (max_page)) return;
 	page_ = page;
@@ -288,7 +300,7 @@ void TileEditUi::Init()
 	//타일셋은 texture에서 부분부분 불러옴.
 	Texture* crop_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Crops"), _T("texture\\Harvest-Moon_Crops.png"));
 
-	Texture* farm_texture = ResManager::GetInstance()->LoadTexture(_T("Harvest Moon Farm"), _T("texture\\Harvest-Moon_Farm-Full.png"));
+	Texture* farm_texture = ResManager::GetInstance()->LoadTexture(_T("Stardew Valley Farm"), _T("texture\\StardewValley_FarmSpring.png"));
 
 	//빈 밭 sprite
 	// - 범위 (32,41) ~(66, 57)
@@ -301,8 +313,8 @@ void TileEditUi::Init()
 	//AddTileListFromTexture(crop_texture, Vector2{ 99, 41 }, Vector2{ 133, 57 }, Vector2{ 16, 16 }, Vector2{ 2, 0 }, 2);
 	//순무 성장과정
 	//AddTileListFromTexture(crop_texture, Vector2{ 13, 135 }, Vector2{ 47, 187 }, Vector2{ 16, 16 }, Vector2{ 2, 2 }, 6);
-	CreateEmptyTileUis();
-	AddTileListFromTexture(farm_texture, Vector2{ 0, 0 }, Vector2{ 1024, 1024 }, Vector2{ 16, 16 }, Vector2{ 0, 0 }, (1024 * 1024)/(16*16));
+	AddTileListFromTexture(farm_texture, Vector2{ 0, 0 }, Vector2{ 400, 1264 }, Vector2{ 16, 16 }, Vector2{ 0, 0 }, (400 * 1264)/(16*16));
+	CreateEmptyTileUis(get_max_row(), get_max_col());
 	ChangePage(0);
 	CreateArrowBtns();
 }
@@ -315,19 +327,31 @@ void TileEditUi::Update()
 	case TILE_EDIT_MODE::ADD: {
 		if (KEY_HOLD(KEY::LBUTTON)) {
 			if (picked_tile_ui_) {
-				Tile* tile = SceneManager::GetInstance()->get_current_scene()->GetTile(GET_MOUSE_POS());
-				if (tile) tile->SetTile(picked_tile_ui_);
+				if (UiManager::GetInstance()->focus_nothing()) {
+					Scene_Tool* scene_tool = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+					if (scene_tool) {
+						Tile* tile = scene_tool->GetTile(GET_MOUSE_POS());
+						if (tile) tile->SetTile(picked_tile_ui_);
+					}
+				}
 			}
 		}
 		if (KEY_DOWN(KEY::RBUTTON)) {
+
 			picked_tile_ui_ = nullptr;
 		}
 	}
 	break;
 	case TILE_EDIT_MODE::REMOVE: {
 		if (KEY_HOLD(KEY::LBUTTON)) {
-			Tile* tile = SceneManager::GetInstance()->get_current_scene()->GetTile(GET_MOUSE_POS());
-			if (tile) tile->ResetTile();
+			if (UiManager::GetInstance()->focus_nothing()) {
+				Scene_Tool* scene_tool = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+				if (scene_tool) {
+					Tile* tile = scene_tool->GetTile(GET_MOUSE_POS());
+					if (tile) tile->ResetTile();
+
+				}
+			}
 		}
 	}
 
@@ -400,12 +424,14 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 	case TILE_EDIT_MODE::ADD: {
 		if (picked_tile_ui_) {
 			Sprite* sprite = picked_tile_ui_->get_sprite();
-			Vector2 sprite_base_pos = sprite->get_base_pos();
-			Vector2 sprite_size = sprite->get_scale();
-			Vector2 tile_ui_scale = picked_tile_ui_->get_scale();
-			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
+			if (sprite) {
+				Vector2 sprite_base_pos = sprite->get_base_pos();
+				Vector2 sprite_size = sprite->get_scale();
+				Vector2 tile_ui_scale = picked_tile_ui_->get_scale();
+				Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
 
-			DrawTexture(p_d3d_device, mouse_pos-tile_ui_scale/2.f, tile_ui_scale, sprite_base_pos, sprite_size, sprite->get_texture());
+				DrawTexture(p_d3d_device, mouse_pos - tile_ui_scale / 2.f, tile_ui_scale, sprite_base_pos, sprite_size, sprite->get_texture());
+			}
 		}
 	}
 	break;

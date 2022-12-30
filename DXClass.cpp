@@ -1,7 +1,9 @@
 #include "DXClass.h"
 #include "PathManager.h"
 #include "Core.h"
-
+#include "Tile.h"
+#include "Sprite.h"
+#include "Texture.h"
 DXClass::DXClass()
 	: p_d3d_device_(nullptr)
 	, p_immediate_context_(nullptr)
@@ -506,4 +508,77 @@ void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 sc
 
 
 	p_brush->Release();
+}
+
+void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
+{
+	//1.타일맵을 출력할 쓰기용 텍스쳐와 렌더타겟뷰 생성
+	ID3D11Texture2D* tilemap;
+	ID3D11RenderTargetView* render_target_view_tilemap;
+
+	D3D11_TEXTURE2D_DESC texture_desc;
+	D3D11_RENDER_TARGET_VIEW_DESC render_target_view_desc;
+
+	ZeroMemory(&texture_desc, sizeof(texture_desc));
+	texture_desc.Width = size.x;
+	texture_desc.Height = size.y;
+	texture_desc.MipLevels = 1;
+	texture_desc.ArraySize = 1;
+	texture_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	texture_desc.SampleDesc.Count = 1;
+	texture_desc.Usage = D3D11_USAGE_DEFAULT;
+	texture_desc.BindFlags = D3D11_BIND_RENDER_TARGET;
+	texture_desc.CPUAccessFlags = 0;
+	texture_desc.MiscFlags = 0;
+	p_d3d_device_->CreateTexture2D(&texture_desc, NULL, &tilemap);
+
+	ZeroMemory(&render_target_view_desc, sizeof(render_target_view_desc));
+	render_target_view_desc.Format = texture_desc.Format;
+	render_target_view_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	render_target_view_desc.Texture2D.MipSlice = 0;
+
+	p_d3d_device_->CreateRenderTargetView(tilemap, &render_target_view_desc, &render_target_view_tilemap);
+
+	//2. 쉐이더의 상수버퍼(해상도 저장됨)에 임시 해상도(타일맵의 크기) 입력, 출력 타겟 변경
+	WriteConstantBufferOnResize(size);
+	p_immediate_context_->OMSetRenderTargets(1, &render_target_view_tilemap, NULL);
+	D3D11_VIEWPORT viewport;
+	viewport.Width = size.x;
+	viewport.Height = size.y;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	p_immediate_context_->RSSetViewports(1, &viewport);
+
+	//3. 출력
+	for (UINT i = 0; i < tiles.size(); i++) {
+		Sprite* tile_sprite = tiles[i]->get_sprite();
+		if(tile_sprite)
+			DrawTexture(p_d3d_device_, tiles[i]->get_pos() - tiles[i]->get_scale() / 2.f, tiles[i]->get_scale(), tile_sprite->get_base_pos(), tile_sprite->get_scale(), tile_sprite->get_texture());
+	}
+	p_immediate_context_->DrawIndexed(1, 0, 0);
+
+	//4. PNG 파일로 저장.
+	TCHAR file_path[256] = _T("");
+	OPENFILENAME ofn = {};
+	memset(&ofn, 0, sizeof(OPENFILENAME));
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = Core::GetInstance()->get_main_hwnd();
+	ofn.lpstrFilter = _T("PNG\0*.png\0");
+	ofn.lpstrFile = file_path;
+	ofn.nMaxFile = 256;
+	if (GetSaveFileName(&ofn)) {
+		D3DX11SaveTextureToFile(p_immediate_context_, tilemap, D3DX11_IMAGE_FILE_FORMAT::D3DX11_IFF_PNG, file_path);
+
+	}
+
+	//5. 해상도와 출력 타겟 되돌리기
+	WriteConstantBufferOnResize(Core::GetInstance()->get_resolution());
+	viewport.Width = Core::GetInstance()->get_resolution().x;
+	viewport.Height = Core::GetInstance()->get_resolution().y;
+	p_immediate_context_->RSSetViewports(1, &viewport);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
+
+	
 }
