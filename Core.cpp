@@ -126,8 +126,6 @@ bool Core::Progress()
 	SceneManager::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
 	
 	DXClass::GetInstance()->get_swap_chain()->Present(0, 0);
-	//BitBlt(hdc_, 0, 0, pt_resolution_.x, pt_resolution_.y, hdc_mem_, 0, 0, SRCCOPY);
-
 
 	//===============
 	//	이벤트 지연 처리

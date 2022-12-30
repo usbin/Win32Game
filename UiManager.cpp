@@ -24,6 +24,9 @@ void UiManager::Dfs(const std::vector<Ui*>& uis, std::vector<Ui*>& ui_heap) {
 }
 void UiManager::FinalUpdate()
 {
+	if (selected_target_ && selected_target_->IsDead()) {
+		selected_target_ = nullptr;
+	}
 	if (selected_target_ && !selected_target_->get_is_selectable()) {
 		selected_target_->Unselect();
 	}

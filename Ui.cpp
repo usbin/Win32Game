@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "Animator.h"
+#include "UiManager.h"
 
 Ui::Ui(bool is_static_pos)
 	: is_static_pos_(is_static_pos)
@@ -21,6 +22,11 @@ Ui::~Ui()
 {
 	if (animator_) delete animator_;
 	SafeDeleteVector<Ui*>(children_);
+
+	if (UiManager::GetInstance()->get_selected_target() == this) {
+		UiManager::GetInstance()->ResetSelection();
+	}
+
 }
 
 
