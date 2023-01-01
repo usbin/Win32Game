@@ -14,7 +14,7 @@ Sprite::Sprite(const Sprite& org)
 	: texture_(org.texture_)
 	, base_pos_(org.base_pos_)
 	, scale_(org.scale_)
-	, owner_(nullptr)
+	, owner_(org.owner_)
 {
 }
 
@@ -38,8 +38,13 @@ void Sprite::QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector
 	base_pos_ = base_pos;
 	scale_ = scale;
 }
+void Sprite::Render(ID3D11Device* p_d3d_device)
+{
+
+}
 void Sprite::SaveToFile(FILE* p_file)
 {
+
 	texture_->SaveToFile(p_file);
 	fwrite(&base_pos_, sizeof(Vector2), 1, p_file);
 	fwrite(&scale_, sizeof(Vector2), 1, p_file);

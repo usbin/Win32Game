@@ -89,6 +89,12 @@ public:
 	bool operator>=(const Vector2& o_v) {
 		return x >= o_v.x && y >= o_v.y;
 	}
+	bool operator!=(const Vector2& o_v) {
+		return x != o_v.x || y != o_v.y;
+	}
+	bool operator==(const Vector2& o_v) {
+		return x == o_v.x && y == o_v.y;
+	}
 
 };
 

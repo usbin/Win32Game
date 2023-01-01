@@ -2,7 +2,7 @@
 #include "InvisibleWall.h"
 #include "ImageUi.h"
 #include "ResManager.h"
-#include "Sprite.h"
+#include "RealObjectSprite.h"
 #include "Collider.h"
 #include "FrameSizer.h"
 
@@ -34,9 +34,9 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	left_top_sizer_->set_scale(Vector2{ 10, 10 });
 	left_top_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new Sprite();
+		Sprite* sprite = new RealObjectSprite();
 		sprite->QuickSet(texture, left_top_sizer_, 0, 0, 1, 1);
-		left_top_sizer_->ChangeSprite(sprite);
+		left_top_sizer_-> ChangeSprite(sprite);
 	}
 	left_top_sizer_->SetOnDragListener([](InvisibleWallEditFrame* frame, Vector2 delta) {
 		Vector2 content_pos = frame->get_content()->get_pos();
@@ -58,7 +58,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	right_top_sizer_->set_scale(Vector2{ 10, 10 });
 	right_top_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new Sprite();
+		Sprite* sprite = new RealObjectSprite();
 		sprite->QuickSet(texture, right_top_sizer_, 0, 0, 1, 1);
 		right_top_sizer_->ChangeSprite(sprite);
 	}
@@ -82,7 +82,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	left_bottom_sizer_->set_scale(Vector2{ 10, 10 });
 	left_bottom_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new Sprite();
+		Sprite* sprite = new RealObjectSprite();
 		sprite->QuickSet(texture, left_bottom_sizer_, 0, 0, 1, 1);
 		left_bottom_sizer_->ChangeSprite(sprite);
 	}
@@ -106,7 +106,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	right_bottom_sizer_->set_scale(Vector2{ 10, 10 });
 	right_bottom_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new Sprite();
+		Sprite* sprite = new RealObjectSprite();
 		sprite->QuickSet(texture, right_bottom_sizer_, 0, 0, 1, 1);
 		right_bottom_sizer_->ChangeSprite(sprite);
 	}

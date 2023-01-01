@@ -20,6 +20,7 @@ private:
 	Ui* parent_;				// 이 ui가 자식으로 있는 ui. root ui일 경우 nullptr.
 	std::vector<Ui*> children_;	// 이 ui 위에 있는 child ui. 
 
+	Sprite* sprite_;
 	Animator* animator_;
 
 	bool mouse_on_check_;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
@@ -52,7 +53,9 @@ public:
 	virtual void LbuttonUp() {};
 	virtual void Select() {};
 	virtual void Unselect() {};
-
+	
+	Sprite* get_sprite() { return sprite_; };
+	virtual void ChangeSprite(Sprite* sprite);
 
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline Animator* get_animator() { return animator_; };
@@ -71,6 +74,7 @@ public:
 	inline bool get_selected() { return is_selected_; };
 	inline bool get_enabled() { return enabled_; };
 	inline void set_enabled(bool b) { enabled_ = b; };
+
 private:
 	inline void set_selected(bool b) { is_selected_ = b; };
 

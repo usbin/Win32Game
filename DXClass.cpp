@@ -530,7 +530,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 	texture_desc.BindFlags = D3D11_BIND_RENDER_TARGET;
 	texture_desc.CPUAccessFlags = 0;
 	texture_desc.MiscFlags = 0;
-	p_d3d_device_->CreateTexture2D(&texture_desc, NULL, &tilemap);
+	if(FAILED(p_d3d_device_->CreateTexture2D(&texture_desc, NULL, &tilemap))) return;
 
 	ZeroMemory(&render_target_view_desc, sizeof(render_target_view_desc));
 	render_target_view_desc.Format = texture_desc.Format;
@@ -553,9 +553,13 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 
 	//3. Ãâ·Â
 	for (UINT i = 0; i < tiles.size(); i++) {
-		Sprite* tile_sprite = tiles[i]->get_sprite();
-		if(tile_sprite)
+		Tile* tile = dynamic_cast<Tile*>(tiles[i]);
+		if (tile->get_render_component()){
+
+			Sprite* tile_sprite = tile->get_render_component()->get_sprite();
+			if (tile_sprite)
 			DrawTexture(p_d3d_device_, tiles[i]->get_pos() - tiles[i]->get_scale() / 2.f, tiles[i]->get_scale(), tile_sprite->get_base_pos(), tile_sprite->get_scale(), tile_sprite->get_texture());
+		}
 	}
 	p_immediate_context_->DrawIndexed(1, 0, 0);
 

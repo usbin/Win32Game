@@ -40,7 +40,7 @@ int Core::OnDestroy() {
 }
 
 
-int Core::Init(HWND h_wnd, int width, int height) {
+int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 
 	//==============
 	// 윈도우 초기화
@@ -48,11 +48,12 @@ int Core::Init(HWND h_wnd, int width, int height) {
 
 	//메모리 누수 체크
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(8808);
+	//_CrtSetBreakAlloc(71504);
 	//_CrtSetBreakAlloc(1446);
 
 	hwnd_ = h_wnd;
 	hdc_ = GetDC(hwnd_);
+	hinst_ = hInst;
 	RECT rect{ 0, 0, width, height };
 	pt_resolution_ = POINT{ rect.right - rect.left, rect.bottom - rect.top };
 
@@ -149,7 +150,8 @@ void Core::SyncResolution()
 	Vector2 old_window_size( resolution_rect.right-resolution_rect.left, resolution_rect.bottom-resolution_rect.top );
 	Vector2 new_window_size(window_rect.right - window_rect.left, window_rect.bottom - window_rect.top);
 	Vector2 new_resolution(new_window_size-(old_window_size - pt_resolution_));
-	if (new_resolution.x > 0 && new_resolution.y > 0) {
+
+	if (new_resolution.x>0 && new_resolution.y>0 && new_window_size != old_window_size) {
 		//========== 해상도 변경 막아놓음 ==================
 		LONG width_diff = new_window_size.x - old_window_size.x;
 		LONG height_diff = new_window_size.y - old_window_size.y;

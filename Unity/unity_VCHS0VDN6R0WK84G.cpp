@@ -29,6 +29,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Core.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Crop.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_01.cpp"
 
 
@@ -36,6 +39,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DXClass.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Equip.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
@@ -74,7 +80,16 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ISavable.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemDb.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemHolder.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Mic.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Missile.cpp"
@@ -101,6 +116,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PlayerControlComponent.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PlayerItemHolder.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObject.cpp"
 
 
@@ -108,6 +126,15 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObjectAnimator.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PlayerRenderComponent.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObjectSprite.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\RealObjectRenderComponent.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Res.cpp"
@@ -132,6 +159,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_Tool.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Seed.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SelectGdi.cpp"
@@ -171,6 +201,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiManager.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiSprite.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Win32Program.cpp"

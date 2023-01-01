@@ -10,6 +10,7 @@ class Core {
 private:
 	POINT pt_resolution_;
 	HWND hwnd_;
+	HINSTANCE hinst_;
 	HDC hdc_;
 	HDC hdc_mem_;
 	HBITMAP hbitmap_;
@@ -19,13 +20,14 @@ private:
 
 	void InitPenAndBrush();
 public:
-	int Init(HWND hwnd, int width, int height);
+	int Init(HWND hwnd, HINSTANCE hInst, int width, int height);
 	int OnDestroy();
 	bool Progress();
 	inline HDC get_main_hdc() { return hdc_; };
 	inline HWND get_main_hwnd() { return hwnd_; };
 	inline POINT get_pt_resolution() { return pt_resolution_; };
 	inline Vector2 get_resolution() { return Vector2{ pt_resolution_ }; };
+	inline HINSTANCE get_instance() { return hinst_; };
 
 	inline HPEN GetPen(PEN_TYPE pen_type) {
 		return pens[static_cast<int>(pen_type)];

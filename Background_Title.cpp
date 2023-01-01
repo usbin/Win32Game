@@ -4,7 +4,7 @@
 #include "Core.h"
 #include "ResManager.h"
 #include "Texture.h"
-#include "Sprite.h"
+#include "UiSprite.h"
 
 Background_Title::Background_Title()
 	:Ui(true)
@@ -19,7 +19,7 @@ Background_Title::Background_Title()
 	animator->CreateAnimation(_T("Title Background Animation"), bg_texture, Vector2(0, 0), Vector2(bg_img_size.x, ((bg_size.y / bg_size.x) * bg_img_size.x)), Vector2(0, 1), Vector2(0, 0), 0.025f, 200, false);
 	animator->Play(_T("Title Background Animation"));
 
-	Sprite* sprite = new Sprite();
+	Sprite* sprite = new UiSprite();
 	sprite->QuickSet(bg_texture, this, Vector2(0, 200), Vector2(bg_img_size.x, ((bg_size.y / bg_size.x) * bg_img_size.x)));
 	sprite->set_owner(this);
 	ChangeSprite(sprite);
@@ -48,10 +48,13 @@ void Background_Title::Render(ID3D11Device* p_d3d_device)
 			get_animator()->Render(p_d3d_device);
 		}
 		else {
-			Texture* texture = get_sprite()->get_texture();
-			const Vector2& sprite_base_pos = get_sprite()->get_base_pos();
-			const Vector2& sprite_scale = get_sprite()->get_scale();
-			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
+			if (get_sprite()) {
+
+				Texture* texture = get_sprite()->get_texture();
+				const Vector2& sprite_base_pos = get_sprite()->get_base_pos();
+				const Vector2& sprite_scale = get_sprite()->get_scale();
+				DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
+			}
 		}
 	}
 

@@ -80,6 +80,20 @@ enum class SCENE_TYPE
 	END
 };
 
+enum class ITEM_CODE {
+	HOE				= 1,	//±ªÀÌ
+	WATERING_POT	= 2,	//¹°»Ñ¸®°³
+	PICKAXE			= 3,	//°î±ªÀÌ
+	AXE				= 4,	//µµ³¢
+	SICKLE			= 5,	//³´
+	STONE			= 50,	//µ¹
+	WOOD			= 51,	//³ª¹«
+	WEED			= 52,	//ÀâÃÊ
+	PARSNIP_SEED	= 100,	//¼ø¹« ¾¾¾Ñ
+	PARSNIP			= 101,	//¼ø¹«
+
+};
+
 enum class PEN_TYPE {//void Core::InitPenAndBrush()¿¡µµ ÃÊ±âÈ­ ±¸¹® Ãß°¡ÇØ¾ßÇÔ
 	BLACK,
 	WHITE,
@@ -110,8 +124,19 @@ enum class EVENT_TYPE {
 };
 
 enum class DIRECTION {
+	UP,
+	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	END
+};
+
+enum class PLAYER_STATE {
+	IDLE,
+	WALK,
+	HOLD,
+	HOLD_AND_WALK,
+	END
 };
 
 enum class GAME_STATE

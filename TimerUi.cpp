@@ -1,6 +1,6 @@
 #include "TimerUi.h"
 #include "ResManager.h"
-#include "Sprite.h"
+#include "UiSprite.h"
 #include "Game.h"
 #include "Core.h"
 #include "Game.h"
@@ -8,7 +8,7 @@ TimerUi::TimerUi()
 	: Ui(true)
 {
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Ingame Timer Ui Background"), _T("texture\\light-gray.png"));
-	Sprite* sprite = new Sprite();
+	Sprite* sprite = new UiSprite();
 	sprite->QuickSet(texture, this, get_pos(), get_scale());
 	ChangeSprite(sprite);
 }

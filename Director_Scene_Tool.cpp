@@ -4,7 +4,7 @@
 #include "TileUi.h"
 #include "Sprite.h"
 #include "Core.h"
-
+#include "Scene_Tool.h"
 #define TILE_WINDOW_WIDTH 300
 #define TILE_WINDOW_HEIGHT 550
 Director_Scene_Tool::Director_Scene_Tool()
@@ -35,6 +35,18 @@ void Director_Scene_Tool::Update()
 			tdu->set_name(_T("Tile Edit Ui"));
 			tdu->set_director(this);
 			tdu->Init();
+
+			Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+			if (current_scene) {
+				if (current_scene->get_tileuis_texture()) {
+					tdu->ChangeTileuisTexture(current_scene->get_tileuis_texture()
+						, current_scene->get_texture_base_pos()
+						, current_scene->get_texture_scale()
+						, current_scene->get_sprite_scale()
+						, current_scene->get_interval()
+						, current_scene->get_count());
+				}
+			}
 			CreateGObject(tdu, GROUP_TYPE::UI);
 			tile_edit_ui_ = tdu;
 			tile_edit_ui_->ChangeMode(TILE_EDIT_MODE::ADD);

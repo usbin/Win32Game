@@ -1,9 +1,11 @@
 #pragma once
 #include "GObject.h"
+#include "RealObjectRenderComponent.h"
 
 class Interactor;
 class ControlComponent;
 class PhysicsComponent;
+class RealObjectRenderComponent;
 class RealObject : public GObject
 {
 public:
@@ -18,6 +20,7 @@ protected:
 	Interactor* interactor_;	//상호작용체.
 	ControlComponent* control_cmp_;
 	PhysicsComponent* physics_cmp_;
+	RealObjectRenderComponent* render_cmp_;
 	Vector2 velocity_;
 
 
@@ -27,6 +30,7 @@ protected:
 	virtual void CreateInteractor() {};
 	virtual void CreateControlCmp() {};
 	virtual void CreatePhysicsCmp() {};
+	virtual void CreateRenderCmp() {};
 public:
 
 	virtual void Update() override = 0;
@@ -41,8 +45,10 @@ public:
 	inline Interactor* get_interactor() { return interactor_; };
 	inline void set_animator(Animator* animator) { animator_ = animator; };
 	inline Animator* get_animator() { return animator_; };
+	inline RealObjectRenderComponent* get_render_component() { return render_cmp_; };
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
+	virtual Sprite* get_sprite() { return render_cmp_ ? render_cmp_->get_sprite() : nullptr; };
 	virtual void SaveToFile(FILE* p_file) override;
 	virtual void LoadFromFile(FILE* p_file) override;
 

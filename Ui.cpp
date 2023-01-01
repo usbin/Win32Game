@@ -27,6 +27,8 @@ Ui::~Ui()
 		UiManager::GetInstance()->ResetSelection();
 	}
 
+	delete sprite_;
+
 }
 
 
@@ -127,4 +129,10 @@ void Ui::ChildrenRender(ID3D11Device* p_d3d_device)
 	for (auto iter = children_.begin(); iter != children_.end(); iter++) {
 		(*iter)->Render(p_d3d_device);
 	}
+}
+
+void Ui::ChangeSprite(Sprite* sprite)
+{
+	if (sprite_) delete sprite_;
+	sprite_ = sprite;
 }

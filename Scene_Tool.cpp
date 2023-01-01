@@ -9,6 +9,7 @@
 #include "CollisionManager.h"
 #include "Core.h"
 #include "Tile.h"
+#include "TileEditUi.h"
 Scene_Tool::Scene_Tool()
 	:hdc_(0)
 {
@@ -32,6 +33,9 @@ bool Scene_Tool::Enter()
 	Director_Scene_Tool* dst = new Director_Scene_Tool();
 	dst->set_group_type(GROUP_TYPE::DIRECTOR);
 	CreateGObject(dst, GROUP_TYPE::DIRECTOR);
+	director_ = dst;
+
+	Texture* farm_texture = ResManager::GetInstance()->LoadTexture(_T("Stardew Valley Farm"), _T("texture\\StardewValley_FarmSpring.png"));
 
 
 	//È­¸é¿¡ ±âº» 80x65Ä­ ºó Å¸ÀÏ¸Ê ¸¸µé±â
@@ -39,7 +43,6 @@ bool Scene_Tool::Enter()
 
 	GObject* gobj = new Player();
 	gobj->set_pos(Vector2{ 0, 0 });
-	gobj->set_scale(Vector2{ 50, 50 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
@@ -69,6 +72,19 @@ void Scene_Tool::CreateEmptyTilemap(UINT column_count, UINT row_count)
 			tile->set_name(_T("Tile"));
 			CreateGObject(tile, GROUP_TYPE::TILE);
 		}
+	}
+}
+
+void Scene_Tool::ChangeTileuisTexture(Texture* tileuis_texture, Vector2 texture_base_pos, Vector2 texture_scale, Vector2 sprite_scale, Vector2 interval, int count)
+{
+	tileuis_texture_ = tileuis_texture;
+	texture_base_pos_ = texture_base_pos;
+	texture_scale_ = texture_scale;
+	sprite_scale_ = sprite_scale;
+	interval_ = interval;
+	count_ = count;
+	if (director_ && director_->get_tile_edit_ui()) {
+		director_->get_tile_edit_ui()->ChangeTileuisTexture(tileuis_texture, texture_base_pos, texture_scale, sprite_scale, interval, count);
 	}
 }
 

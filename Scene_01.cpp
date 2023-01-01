@@ -5,7 +5,7 @@
 #include "CollisionManager.h"
 #include "TimerUi.h"
 #include "ResManager.h"
-#include "Sprite.h"
+#include "RealObjectSprite.h"
 #include "Monster.h"
 #include "Game.h"
 #include "Director_Scene_01.h"
@@ -18,7 +18,6 @@ bool Scene_01::Enter()
 
 	GObject* gobj = new Player();
 	gobj->set_pos(Vector2{ 500, 500 });
-	gobj->set_scale(Vector2{ 50, 50 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
@@ -28,7 +27,7 @@ bool Scene_01::Enter()
 	timer_ui->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(timer_ui, GROUP_TYPE::UI);
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Ingame Timer Ui Background"), _T("texture\\black.png"));
-	Sprite* sprite = new Sprite();
+	Sprite* sprite = new RealObjectSprite();
 	sprite->QuickSet(texture, timer_ui, timer_ui->get_pos(), timer_ui->get_scale());
 	timer_ui->ChangeSprite(sprite);
 	

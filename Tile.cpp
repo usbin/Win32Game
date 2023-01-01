@@ -1,6 +1,6 @@
 #include "Tile.h"
 #include "Texture.h"
-#include "Sprite.h"
+#include "RealObjectSprite.h"
 #include "TileUi.h"
 
 Tile::Tile()
@@ -34,12 +34,17 @@ void Tile::Render(ID3D11Device* p_d3d_device)
 
 void Tile::SetTile(TileUi* tile_ui)
 {
-	ChangeSprite(new Sprite(*tile_ui->get_sprite()));
+	if (render_cmp_) {
+		render_cmp_->ChangeSprite(new RealObjectSprite(*dynamic_cast<RealObjectSprite*>(tile_ui->get_sprite())));
+	}
 }
 
 void Tile::ResetTile()
 {
-	ChangeSprite(nullptr);
+	if (render_cmp_) {
+		render_cmp_->ChangeSprite(nullptr);
+	}
+	
 }
 
 void Tile::SaveToFile(FILE* p_file)

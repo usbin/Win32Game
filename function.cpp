@@ -54,7 +54,7 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 {
 
 	ID3D11DeviceContext* p_immediate_context;
-	p_d3d_device->GetImmediateContext(&p_immediate_context);
+	p_immediate_context = DXClass::GetInstance()->get_immediate_context();
 
 	//Á¡ ÁÂÇ¥
 	const int vertice_count = 4;
@@ -85,14 +85,13 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
 
-	p_immediate_context->Release();
 }
 
 void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color)
 {
 	//¸é->¼± ¼ø¼­·Î ±×¸².
 	ID3D11DeviceContext* p_immediate_context;
-	p_d3d_device->GetImmediateContext(&p_immediate_context);
+	p_immediate_context = DXClass::GetInstance()->get_immediate_context();
 
 	//Á¡ ÁÂÇ¥
 	const int vertice_count = 4;
@@ -145,14 +144,12 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
 
-	p_immediate_context->Release();
-
 }
 
 void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture)
 {
 	ID3D11DeviceContext* p_immediate_context;
-	p_d3d_device->GetImmediateContext(&p_immediate_context);
+	p_immediate_context = DXClass::GetInstance()->get_immediate_context();
 
 	ID3D11ShaderResourceView* p_resource_view = texture->get_resource_view();
 	Vector2 r = texture->get_size();
@@ -195,7 +192,6 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	p_immediate_context->DrawIndexed(plane_indices_count, 0, 0);
 
-	p_immediate_context->Release();
 }
 
 void DrawFixedsizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT text_length, tstring font_name, UINT font_size, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight, DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment)

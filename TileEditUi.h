@@ -62,8 +62,6 @@ private:
 	void CreateEmptyTileUis(UINT row, UINT col);
 	void AddTileListFromTexture(Texture* texture, const Vector2& texture_base_pos, const Vector2& texture_scale
 		, const Vector2& sprite_scale, const Vector2& interval, int count); //texture에서 TileUi들을 생성하고 tile_uis_에 추가
-
-
 	void LoadTileListFromTexture(UINT page);//TileEditUi위에 TileUi를 실제로 얹는 작업
 	void ChangePage(UINT page);
 	void PickTileUi(int tile_ui_idx);
@@ -74,6 +72,7 @@ public:
 	virtual void Render(ID3D11Device* p_d3d_device) override;
 
 	void ChangeMode(TILE_EDIT_MODE mode);
+	void ChangeTileuisTexture(Texture* tileuis_texture, Vector2 texture_base_pos, Vector2 texture_scale, Vector2 sprite_scale, Vector2 interval, int count);
 
 	inline void set_director(Director_Scene_Tool* director) { director_ = director; };
 	inline ButtonUi** get_mode_buttons() { return mode_buttons_; };

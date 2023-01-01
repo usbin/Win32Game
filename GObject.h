@@ -19,7 +19,6 @@ private:
 	GROUP_TYPE group_type_;
 	bool is_dead_;
 	bool visible_;
-	Sprite* sprite_;
 	DIRECTION direction_;		//바라보고 있는 방향
 
 
@@ -50,8 +49,6 @@ public:
 	
 	}
 	inline GROUP_TYPE get_type() { return group_type_; };
-	inline Sprite* get_sprite() { return sprite_; };
-	void ChangeSprite(Sprite* sprite);
 	inline bool IsDead() { return is_dead_; };
 	inline void set_visible(bool b) { visible_ = b; };
 	inline bool get_visible() { return visible_; };

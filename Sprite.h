@@ -17,11 +17,15 @@ private:
 	Texture* texture_;
 	Vector2 base_pos_;
 	Vector2 scale_;
+	Vector2 rotation_;
 	GObject* owner_;
+
 
 public:
 	void QuickSet(Texture* texture, GObject* owner, int row, int column, int max_row, int max_column);
 	void QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector2 scale);
+	virtual void Render(ID3D11Device* p_d3d_device);
+
 	inline void set_texture(Texture* texture) { texture_ = texture; };
 	inline Texture* get_texture() { return texture_; };
 	inline void set_base_pos(Vector2 pos) { base_pos_ = pos; };

@@ -75,9 +75,9 @@ void Animation::SaveToFile(FILE* p_file)
 	//6. offset 저장
 	//7. is_finished 저장
 	//8. frames 저장
-	UINT name_size = name_.size() + 1;
+	int name_size = name_.size() + 1;
 	const TCHAR* name_cstr = name_.c_str();
-	fwrite(&name_size, sizeof(UINT), 1, p_file);
+	fwrite(&name_size, sizeof(int), 1, p_file);
 	fwrite(name_cstr, sizeof(TCHAR), name_size, p_file);
 	texture_->SaveToFile(p_file);
 	fwrite(&duration_, sizeof(float), 1, p_file);
@@ -85,8 +85,8 @@ void Animation::SaveToFile(FILE* p_file)
 	fwrite(&img_count_, sizeof(int), 1, p_file);
 	fwrite(&offset_, sizeof(Vector2), 1, p_file);
 	fwrite(&is_finished_, sizeof(bool), 1, p_file);
-	UINT frame_size = frames_.size();
-	fwrite(&frame_size, sizeof(UINT), 1, p_file);
+	int frame_size = frames_.size();
+	fwrite(&frame_size, sizeof(int), 1, p_file);
 	for (AnimationFrame frame : frames_) {
 		fwrite(&frame, sizeof(AnimationFrame), 1, p_file);
 	}
@@ -104,8 +104,8 @@ void Animation::LoadFromFile(FILE* p_file)
 	//6. offset 로드
 	//7. is_finished 로드
 	//8. frames 로드
-	UINT name_size = 0;
-	fread(&name_size, sizeof(UINT), 1, p_file);
+	int name_size = 0;
+	fread(&name_size, sizeof(int), 1, p_file);
 	TCHAR* name_cstr = new TCHAR[name_size];
 	fread(name_cstr, sizeof(TCHAR), name_size, p_file);
 	name_ = name_cstr;
@@ -120,8 +120,8 @@ void Animation::LoadFromFile(FILE* p_file)
 	fread(&img_count_, sizeof(int), 1, p_file);
 	fread(&offset_, sizeof(Vector2), 1, p_file);
 	fread(&is_finished_, sizeof(bool), 1, p_file);
-	UINT frame_size = frames_.size();
-	fread(&frame_size, sizeof(UINT), 1, p_file);
+	int frame_size = frames_.size();
+	fread(&frame_size, sizeof(int), 1, p_file);
 	for (int i = 0; i < frame_size; i++) {
 		AnimationFrame frame{};
 		fread(&frame, sizeof(AnimationFrame), 1, p_file);

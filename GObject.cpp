@@ -1,7 +1,8 @@
 #include "GObject.h"
 #include "Collider.h"
 #include "Animator.h"
-#include "Sprite.h"
+#include "UiSprite.h"
+#include "RealObjectSprite.h"
 
 unsigned int GObject::id_counter_ = 1;
 GObject::GObject()
@@ -11,7 +12,6 @@ GObject::GObject()
 	, id_(id_counter_++)
 	, group_type_(GROUP_TYPE::DEFAULT)
 	, is_dead_(false)
-	, sprite_(nullptr)
 	, visible_(true){
 
 }
@@ -22,39 +22,28 @@ GObject::GObject(const GObject& origin) //복사 생성자
 	, id_(id_counter_++)
 	, group_type_(origin.group_type_)
 	, is_dead_(false)
-	, sprite_(nullptr)
 	, visible_(true){
-	//sprite 복사해야함.
 }
 GObject::~GObject(){
-	if(sprite_) delete sprite_;
-}
-
-void GObject::ChangeSprite(Sprite* sprite)
-{
-	if (sprite_) delete sprite_;
-	sprite_ = sprite;
 }
 
 void GObject::SaveToFile(FILE* p_file)
 {
-	UINT name_size = name_.size()+1;
+
+	int name_size = get_name().size() + 1;
 	fwrite(&name_size, sizeof(UINT), 1, p_file);
-	fwrite(name_.c_str(), sizeof(TCHAR), name_size, p_file);
+	fwrite(get_name().c_str(), sizeof(TCHAR), name_size, p_file);
 	fwrite(&pos_, sizeof(Vector2), 1, p_file);
 	fwrite(&scale_, sizeof(Vector2), 1, p_file);
 	fwrite(&group_type_, sizeof(GROUP_TYPE), 1, p_file);
-	fwrite(&sprite_, sizeof(DWORD_PTR), 1, p_file);
-	if (sprite_) {
-		sprite_->SaveToFile(p_file);
-	}
+	fwrite(&visible_, sizeof(bool), 1, p_file);
 	fwrite(&direction_, sizeof(DIRECTION), 1, p_file);
 
 }
 
 void GObject::LoadFromFile(FILE* p_file)
 {
-	UINT name_size;
+	int name_size;
 	fread(&name_size, sizeof(UINT), 1, p_file);
 	TCHAR* name = new TCHAR[name_size];
 	fread(name, sizeof(TCHAR), name_size, p_file);
@@ -63,12 +52,7 @@ void GObject::LoadFromFile(FILE* p_file)
 	fread(&pos_, sizeof(Vector2), 1, p_file);
 	fread(&scale_, sizeof(Vector2), 1, p_file);
 	fread(&group_type_, sizeof(GROUP_TYPE), 1, p_file);
-	fread(&sprite_, sizeof(DWORD_PTR), 1, p_file);
-	if (sprite_) {
-		sprite_ = new Sprite();
-		sprite_->LoadFromFile(p_file);
-		sprite_->set_owner(this);
-	}
+	fread(&visible_, sizeof(bool), 1, p_file);
 	fread(&direction_, sizeof(DIRECTION), 1, p_file);
 	
 }

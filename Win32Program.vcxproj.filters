@@ -103,6 +103,15 @@
     <Filter Include="Game\Component\PhysicsComponent">
       <UniqueIdentifier>{d5e354d5-ec84-4ec1-b701-b1cbe77e3b36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Item">
+      <UniqueIdentifier>{8138f95d-926b-4710-a568-ecd701988d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\ItemHolder">
+      <UniqueIdentifier>{7d75728f-399d-451d-8c89-56a34865cb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\RenderComponent">
+      <UniqueIdentifier>{64111892-fb8d-418f-a6cc-cafbc4e75b72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -306,6 +315,43 @@
     <ClInclude Include="Director_Scene_01.h">
       <Filter>Game\Scene\Scene_01</Filter>
     </ClInclude>
+    <ClInclude Include="IUsable.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDb.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Equip.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Crop.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="IItem.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Mic.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Seed.h">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="RealObjectSprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="UiSprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHolder.h">
+      <Filter>Game\Component\ItemHolder</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerItemHolder.h" />
+    <ClInclude Include="PlayerRenderComponent.h">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="RealObjectRenderComponent.h">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -495,6 +541,37 @@
     </ClCompile>
     <ClCompile Include="Director_Scene_01.cpp">
       <Filter>Game\Scene\Scene_01</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDb.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Crop.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Equip.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Mic.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Seed.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="RealObjectSprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="UiSprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHolder.cpp">
+      <Filter>Game\Component\ItemHolder</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerItemHolder.cpp" />
+    <ClCompile Include="PlayerRenderComponent.cpp">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="RealObjectRenderComponent.cpp">
+      <Filter>Game\Component\RenderComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

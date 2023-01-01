@@ -20,6 +20,6 @@ private:
 public:
 	virtual void Update();
 	virtual void Render(ID3D11Device* p_d3d_device);
-
+	inline TileEditUi* get_tile_edit_ui() { return tile_edit_ui_; };
 };
 

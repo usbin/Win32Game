@@ -5,6 +5,10 @@
 #include "Texture.h"
 #include "ControlComponent.h"
 #include "PhysicsComponent.h"
+#include "Animator.h"
+#include "Animation.h"
+#include "UiSprite.h"
+#include "RealObjectSprite.h"
 
 RealObject::RealObject()
 	: GObject()
@@ -40,21 +44,16 @@ RealObject::~RealObject() {
 	delete animator_;
 	delete control_cmp_;
 	delete physics_cmp_;
+	delete render_cmp_;
 }
 
 
 void RealObject::Render(ID3D11Device* p_d3d_device)
 {
 	if (get_visible()) {
-		Sprite* sprite = get_sprite();
-		const Vector2& pos = WorldToRenderPos(get_pos());
-		const Vector2& scale = get_scale();
-		if (sprite != nullptr) {
-			Texture* texture = sprite->get_texture();
-			const Vector2& sprite_base_pos = sprite->get_base_pos();
-			const Vector2& sprite_scale = sprite->get_scale();
-			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
-		}
+		// animator가 없거나 실행중이 아닐 때만 그리기
+		if (render_cmp_) render_cmp_->Render(this, p_d3d_device);
+		
 	}
 	
 }
@@ -65,6 +64,7 @@ void RealObject::FinalUpdate() {
 	if (animator_ != nullptr) animator_->Update();
 	if (control_cmp_ != nullptr) control_cmp_->Update(this);
 	if (physics_cmp_ != nullptr) physics_cmp_->FinalUpdate(this);
+	if (render_cmp_ != nullptr) render_cmp_->Update(this);
 
 
 }
@@ -72,12 +72,15 @@ void RealObject::ComponentRender(ID3D11Device* p_d3d_device)
 {
 	// 컴포넌트들에 대한 렌더링
 	if (collider_ != nullptr) collider_->Render(p_d3d_device);
-	if (animator_ != nullptr) animator_->Render(p_d3d_device);
 }
 
 void RealObject::SaveToFile(FILE* p_file)
 {
 	GObject::SaveToFile(p_file);
+
+
+	fwrite(&render_cmp_, sizeof(DWORD_PTR), 1, p_file);
+	if (render_cmp_) render_cmp_->SaveToFile(p_file);
 
 	fwrite(&collider_, sizeof(DWORD_PTR), 1, p_file);
 	if (collider_) collider_->SaveToFile(p_file);
@@ -89,6 +92,17 @@ void RealObject::SaveToFile(FILE* p_file)
 void RealObject::LoadFromFile(FILE* p_file)
 {
 	GObject::LoadFromFile(p_file);
+
+	if (render_cmp_) delete render_cmp_;
+	if (collider_) delete collider_;
+	if (animator_) delete animator_;
+
+	fread(&render_cmp_, sizeof(DWORD_PTR), 1, p_file);
+	if (render_cmp_) {
+		render_cmp_ = new RealObjectRenderComponent(this);
+		render_cmp_->LoadFromFile(p_file);
+	}
+
 
 	fread(&collider_, sizeof(DWORD_PTR), 1, p_file);
 	if (collider_) {

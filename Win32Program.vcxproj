@@ -167,10 +167,12 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ControlComponent.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Crop.h" />
     <ClInclude Include="Director_Scene_01.h" />
     <ClInclude Include="Director_Scene_Title.h" />
     <ClInclude Include="DXClass.h" />
     <ClInclude Include="enum.h" />
+    <ClInclude Include="Equip.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExitBtn.h" />
     <ClInclude Include="FileManager.h" />
@@ -179,14 +181,19 @@
     <ClInclude Include="function.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GObject.h" />
+    <ClInclude Include="IItem.h" />
     <ClInclude Include="ImageUi.h" />
     <ClInclude Include="inline.h" />
     <ClInclude Include="Interactor.h" />
     <ClInclude Include="InvisibleWall.h" />
     <ClInclude Include="InvisibleWallEditFrame.h" />
     <ClInclude Include="ISavable.h" />
+    <ClInclude Include="ItemHolder.h" />
+    <ClInclude Include="IUsable.h" />
+    <ClInclude Include="ItemDb.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="macro.h" />
+    <ClInclude Include="Mic.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="NewGameBtn_Title.h" />
@@ -196,9 +203,13 @@
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerControlComponent.h" />
+    <ClInclude Include="PlayerItemHolder.h" />
     <ClInclude Include="RealObject.h" />
     <ClInclude Include="RealObjectAnimation.h" />
     <ClInclude Include="RealObjectAnimator.h" />
+    <ClInclude Include="PlayerRenderComponent.h" />
+    <ClInclude Include="RealObjectSprite.h" />
+    <ClInclude Include="RealObjectRenderComponent.h" />
     <ClInclude Include="Res.h" />
     <ClInclude Include="ResManager.h" />
     <ClInclude Include="Resource.h" />
@@ -208,6 +219,7 @@
     <ClInclude Include="Scene_Title.h" />
     <ClInclude Include="Scene_Tool.h" />
     <ClInclude Include="Director_Scene_Tool.h" />
+    <ClInclude Include="Seed.h" />
     <ClInclude Include="SelectGdi.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="struct.h" />
@@ -223,6 +235,7 @@
     <ClInclude Include="UiAnimation.h" />
     <ClInclude Include="UiAnimator.h" />
     <ClInclude Include="UiManager.h" />
+    <ClInclude Include="UiSprite.h" />
     <ClInclude Include="Win32Program.h" />
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +249,11 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ControlComponent.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Crop.cpp" />
     <ClCompile Include="Director_Scene_01.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="DXClass.cpp" />
+    <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExitBtn.cpp" />
     <ClCompile Include="FileManager.cpp" />
@@ -251,7 +266,10 @@
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
     <ClCompile Include="ISavable.cpp" />
+    <ClCompile Include="ItemDb.cpp" />
+    <ClCompile Include="ItemHolder.cpp" />
     <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="Mic.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NewGameBtn_Title.cpp" />
@@ -260,9 +278,13 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerControlComponent.cpp" />
+    <ClCompile Include="PlayerItemHolder.cpp" />
     <ClCompile Include="RealObject.cpp" />
     <ClCompile Include="RealObjectAnimation.cpp" />
     <ClCompile Include="RealObjectAnimator.cpp" />
+    <ClCompile Include="PlayerRenderComponent.cpp" />
+    <ClCompile Include="RealObjectSprite.cpp" />
+    <ClCompile Include="RealObjectRenderComponent.cpp" />
     <ClCompile Include="Res.cpp" />
     <ClCompile Include="ResManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -271,6 +293,7 @@
     <ClCompile Include="Scene_Title.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="Director_Scene_Tool.cpp" />
+    <ClCompile Include="Seed.cpp" />
     <ClCompile Include="SelectGdi.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -284,6 +307,7 @@
     <ClCompile Include="UiAnimation.cpp" />
     <ClCompile Include="UiAnimator.cpp" />
     <ClCompile Include="UiManager.cpp" />
+    <ClCompile Include="UiSprite.cpp" />
     <ClCompile Include="Win32Program.cpp" />
   </ItemGroup>
   <ItemGroup>
