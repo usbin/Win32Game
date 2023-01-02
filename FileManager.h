@@ -1,5 +1,6 @@
 #pragma once
 #include "global.h"
+
 //1. 맵 저장, 불러오기
 class FileManager
 {

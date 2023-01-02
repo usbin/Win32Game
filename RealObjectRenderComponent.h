@@ -1,26 +1,33 @@
 #pragma once
 #include "global.h"
-#include "ISavable.h"
+#include "IRenderComponent.h"
+#include "RealObjectSprite.h"
 class GObject;
 class Sprite;
-class RealObjectRenderComponent : public ISavable
+class RealObjectAnimator;
+class RealObject;
+class RealObjectSprite;
+
+class RealObjectRenderComponent : public IRenderComponent
 {
 public:
 	RealObjectRenderComponent(GObject* owner) {};
-	virtual ~RealObjectRenderComponent() { delete sprite_; };
+	virtual ~RealObjectRenderComponent();
 
 private:
-	Sprite* sprite_;
+	RealObject* owner_;
+	RealObjectSprite* sprite_;
+	RealObjectAnimator* animator_;
 
 public:
-	virtual void Update(GObject* owner){};
+	virtual void Update(GObject* owner);
 	virtual void Render(GObject* owner, ID3D11Device* p_d3d_device);
 
-	virtual Sprite* get_sprite() { return sprite_; };
+	virtual Sprite* get_sprite() { return static_cast<Sprite*>(sprite_); };
 	virtual void ChangeSprite(Sprite* sprite);
+	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
+	inline RealObjectAnimator* get_animator() { return animator_; };
+	RealObject* get_owner() { return owner_; };
 
-	// ISavable을(를) 통해 상속됨
-	virtual void SaveToFile(FILE* p_file) override;
-	virtual void LoadFromFile(FILE* p_file) override;
 };
 

@@ -347,7 +347,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         else bg_object = dynamic_cast<Background*>(objs[0]);
 
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        Sprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = new RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if (bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND1);
@@ -409,7 +409,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         }
                         else bg_object = dynamic_cast<Background*>(objs[0]);
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        Sprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = new RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if(bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND2);
@@ -472,7 +472,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         }
                         else bg_object = dynamic_cast<Background*>(objs[0]);
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        Sprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = new RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if(bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND3);

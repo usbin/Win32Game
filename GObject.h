@@ -1,14 +1,13 @@
 #pragma once
 
 #include "global.h"
-#include "ISavable.h"
 //게임 안에 존재하는, 그려져야 하는 모든 오브젝트
 //매 렌더링에서 그려줌.
 class Collider;
 class Animator;
 class Sprite;
 
-class GObject : public ISavable
+class GObject
 {
 private:
 	static unsigned int id_counter_;
@@ -55,7 +54,6 @@ public:
 	inline const DIRECTION get_direction() { return direction_; };
 	inline void set_direction(DIRECTION direction) { direction_ = direction; };
 
-	virtual void SaveToFile(FILE* p_file) override;
 	
 	bool operator== (const GObject& o) const {
 		return this->id_ == o.id_;
@@ -63,13 +61,12 @@ public:
 	
 	
 
-	// ISavable을(를) 통해 상속됨
-	virtual void LoadFromFile(FILE* p_file) override;
+
 
 
 private:
 	inline void SetDead() { is_dead_ = true; }; //EventManager를 통해서만 호출해야 함. 절대 단독호출x.
 	//단독호출 할 시 EventManager의 dead_objects_에 추가되지 않고 메인루틴에서도 제외되므로 영원히 삭제되지 않음.
-
 	friend class EventManager;
+
 };

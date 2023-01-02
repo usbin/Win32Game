@@ -43,6 +43,8 @@ void Interactor::OnCollisionExit(Collider* collider)
 	}
 }
 
+
+
 void Interactor::Update()
 {
 	set_pos(owner_->get_pos() + pos_offset_);

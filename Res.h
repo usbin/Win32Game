@@ -1,8 +1,7 @@
 #pragma once
 #include "global.h"
-#include "ISavable.h"
 
-class Res : public ISavable
+class Res
 {
 private :
 	tstring key_;
@@ -16,13 +15,6 @@ public:
 	inline const tstring& get_relative_path() { return relative_path_; };
 	inline void set_relative_path(const tstring& path) { relative_path_ = path; };
 
-
-	// ISavable을(를) 통해 상속됨
-	virtual void SaveToFile(FILE* p_file) override;
-
-
-	// ISavable을(를) 통해 상속됨
-	virtual void LoadFromFile(FILE* p_file) override;
 
 };
 

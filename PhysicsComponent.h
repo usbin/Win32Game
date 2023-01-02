@@ -1,6 +1,5 @@
 #pragma once
 #include "global.h"
-
 class RealObject;
 class PhysicsComponent
 {
@@ -9,5 +8,6 @@ public:
 	~PhysicsComponent();
 
 	virtual void FinalUpdate(RealObject* obj);
+
 };
 

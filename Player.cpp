@@ -14,6 +14,7 @@
 #include "Sprite.h"
 #include "RealObjectSprite.h"
 #include "PlayerRenderComponent.h"
+#include "IRenderComponent.h"
 
 Player::Player()
 	: speed_(200.f){
@@ -25,7 +26,6 @@ Player::Player()
 
 
 	CreateCollider();
-	CreateAnimator();
 	CreateInteractor();
 	CreateControlCmp();
 	CreatePhysicsCmp();
@@ -71,93 +71,6 @@ void Player::CreateCollider()
 	set_collider(collider);
 }
 
-void Player::CreateAnimator()
-{
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
-	Animator* animator = new RealObjectAnimator();
-	animator->CreateAnimation(
-		_T("Walk_Front")
-		, texture
-		, Vector2{ 16, 0 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Walk_Back")
-		, texture
-		, Vector2{ 16, 64 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Walk_Right")
-		, texture
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Walk_Left")
-		, texture
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Hold_And_Walk_Front")
-		, texture
-		, Vector2{ 112, 0 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Hold_And_Walk_Back")
-		, texture
-		, Vector2{ 112, 64 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Hold_And_Walk_Right")
-		, texture
-		, Vector2{ 112, 32 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->CreateAnimation(
-		_T("Hold_And_Walk_Left")
-		, texture
-		, Vector2{ 112, 32 }
-		, Vector2{ 16, 32 }
-		, Vector2{ 16, 0 }
-		, Vector2{ 0, 0 }
-		, .2f
-		, 3
-		, false);
-	animator->set_owner(this);
-	set_animator(animator);
-}
 
 void Player::CreateInteractor()
 {

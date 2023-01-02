@@ -1,10 +1,9 @@
 #pragma once
 #include "global.h"
-#include "ISavable.h"
 #include "Animation.h"
 class Animation;
 class Texture;
-class Animator : public ISavable
+class Animator
 {
 public:
 	Animator();
@@ -27,17 +26,11 @@ public:
 	GObject* get_owner() { return owner_; };
 	void set_owner(GObject* owner) { owner_ = owner; };
 	inline bool is_finished() { return current_anim_ == nullptr ? true : current_anim_->is_finished(); };
-private :
 
+
+
+public:
 
 	friend class RealObject;
-
-
-
-	// ISavable을(를) 통해 상속됨
-	virtual void SaveToFile(FILE* p_file);
-
-	virtual void LoadFromFile(FILE* p_file);
-
 };
 

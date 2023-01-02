@@ -1,11 +1,11 @@
 #pragma once
 #include "GObject.h"
 #include "RealObjectRenderComponent.h"
-
+#include "RealObjectSprite.h"
 class Interactor;
-class ControlComponent;
+class IControlComponent;
 class PhysicsComponent;
-class RealObjectRenderComponent;
+class IRenderComponent;
 class RealObject : public GObject
 {
 public:
@@ -16,11 +16,10 @@ public:
 protected:
 
 	Collider* collider_;		//충돌체. 없으면 nullptr
-	Animator* animator_;
 	Interactor* interactor_;	//상호작용체.
-	ControlComponent* control_cmp_;
+	IControlComponent* control_cmp_;
 	PhysicsComponent* physics_cmp_;
-	RealObjectRenderComponent* render_cmp_;
+	IRenderComponent* render_cmp_;
 	Vector2 velocity_;
 
 
@@ -43,14 +42,11 @@ public:
 	inline Collider* get_collider() { return collider_; };
 	inline void set_interactor(Interactor* interactor) { interactor_ = interactor; };
 	inline Interactor* get_interactor() { return interactor_; };
-	inline void set_animator(Animator* animator) { animator_ = animator; };
-	inline Animator* get_animator() { return animator_; };
-	inline RealObjectRenderComponent* get_render_component() { return render_cmp_; };
+	inline IRenderComponent* get_render_component() { return render_cmp_; };
+	inline void set_render_component(RealObjectRenderComponent* cmp) { render_cmp_ = cmp; };
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
-	virtual Sprite* get_sprite() { return render_cmp_ ? render_cmp_->get_sprite() : nullptr; };
-	virtual void SaveToFile(FILE* p_file) override;
-	virtual void LoadFromFile(FILE* p_file) override;
+	virtual RealObjectSprite* get_sprite() { return render_cmp_ ? dynamic_cast<RealObjectSprite*>(render_cmp_->get_sprite()) : nullptr; };
 
 	friend class PhysicsComponent;
 

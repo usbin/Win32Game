@@ -13,6 +13,7 @@ Background::~Background()
 
 void Background::Update()
 {
+	
 }
 
 void Background::CreateRenderCmp()

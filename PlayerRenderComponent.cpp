@@ -4,10 +4,12 @@
 #include "RealObjectAnimator.h"
 #include "ResManager.h"
 #include "RealObjectSprite.h"
+#include "RealObjectAnimator.h"
 
 PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
-	:RealObjectRenderComponent(owner)
 {
+	owner_ = dynamic_cast<RealObject*>( owner );
+
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
 	Sprite* sprite_front = new RealObjectSprite();
 	Sprite* sprite_back = new RealObjectSprite();
@@ -34,6 +36,8 @@ PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::HOLD] = sprite_hold_left;
 	sprites[(int)DIRECTION::DOWN][(int)PLAYER_STATE::HOLD] = sprite_hold_front;
 
+	CreateAnimator();
+
 }
 
 PlayerRenderComponent::~PlayerRenderComponent()
@@ -46,54 +50,145 @@ PlayerRenderComponent::~PlayerRenderComponent()
 			}
 		}
 	}
+	delete animator_;
+	delete sprite_;
+}
+
+void PlayerRenderComponent::CreateAnimator()
+{
+	Animator* old_animator = get_animator();
+	if (old_animator) delete old_animator;
+
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
+	RealObjectAnimator* animator = new RealObjectAnimator();
+	animator->CreateAnimation(
+		_T("Walk_Front")
+		, texture
+		, Vector2{ 16, 0 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Walk_Back")
+		, texture
+		, Vector2{ 16, 64 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Walk_Right")
+		, texture
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Walk_Left")
+		, texture
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Hold_And_Walk_Front")
+		, texture
+		, Vector2{ 112, 0 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Hold_And_Walk_Back")
+		, texture
+		, Vector2{ 112, 64 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Hold_And_Walk_Right")
+		, texture
+		, Vector2{ 112, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->CreateAnimation(
+		_T("Hold_And_Walk_Left")
+		, texture
+		, Vector2{ 112, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .2f
+		, 3
+		, false);
+	animator->set_owner(get_owner());
+	set_animator(animator);
 }
 
 void PlayerRenderComponent::Update(GObject* owner)
 {
 
+	animator_->Update();
 
-
-
-}
-
-void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
-{
-	
 	Player* player = dynamic_cast<Player*>(owner);
-	Vector2 v = player->get_velocity();
 
-	float x_direction = player->get_direction() != DIRECTION::LEFT ? 1.f : -1.f;
 	if (player) {
 		switch (player->state_) {
 		case PLAYER_STATE::IDLE: {
-			player->get_animator()->Stop();
-			Vector2 pos = WorldToRenderPos(player->get_pos());
-			Vector2 scale = Vector2{ player->get_scale().x * x_direction, player->get_scale().y };
-			Sprite* sprite = sprites[(int)player->get_direction()][(int)player->state_];
-			DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite->get_base_pos(), sprite->get_scale(), sprite->get_texture());
+			if (animator_) animator_->Stop();
+			Sprite* new_sprite = sprites[(int)player->get_direction()][(int)player->state_];
+			if (sprite_
+				&&sprite_->get_texture() == new_sprite->get_texture()
+				&& sprite_->get_base_pos() == new_sprite->get_base_pos()
+				&& sprite_->get_scale() == new_sprite->get_scale()) {
+				//아무것도 하지않음
+			}
+			else {
+				ChangeSprite(new RealObjectSprite(*dynamic_cast<RealObjectSprite*>(new_sprite)));
+			}
 		} break;
 		case PLAYER_STATE::WALK: {
-			//ChangeSprite(new RealObjectSprite(*dynamic_cast<RealObjectSprite*>(sprites[(int)player->get_direction()][(int)player->state_])));
 			switch (player->get_direction())
 			{
 			case DIRECTION::UP:
-				if (!player->get_animator()->is_current_playing(_T("Walk_Back")))
-					player->get_animator()->Play(_T("Walk_Back"));
+				if (!animator_->is_current_playing(_T("Walk_Back")))
+					animator_->Play(_T("Walk_Back"));
 				break;
 			case DIRECTION::DOWN:
-				if (!player->get_animator()->is_current_playing(_T("Walk_Front")))
-					player->get_animator()->Play(_T("Walk_Front"));
+				if (!animator_->is_current_playing(_T("Walk_Front")))
+					animator_->Play(_T("Walk_Front"));
+
 				break;
 			case DIRECTION::LEFT:
-				if (!player->get_animator()->is_current_playing(_T("Walk_Left")))
-					player->get_animator()->Play(_T("Walk_Left"));
+				if (!animator_->is_current_playing(_T("Walk_Left")))
+					animator_->Play(_T("Walk_Left"));
 				break;
 			case DIRECTION::RIGHT:
-				if (!player->get_animator()->is_current_playing(_T("Walk_Right")))
-					player->get_animator()->Play(_T("Walk_Right"));
+				if (!animator_->is_current_playing(_T("Walk_Right")))
+					animator_->Play(_T("Walk_Right"));
 				break;
 			}
-				
+
 		} break;
 		}
 
@@ -101,10 +196,30 @@ void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 	}
 }
 
-void PlayerRenderComponent::SaveToFile(FILE* p_file)
+void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 {
+	Player* player = dynamic_cast<Player*>(owner);
+	float x_direction = player->get_direction() == DIRECTION::LEFT ? -1.f : 1.f;
+	if (player) {
+		if (!animator_ || animator_->is_finished()) {
+			if (sprite_) {
+				Vector2 pos = WorldToRenderPos(player->get_pos());
+				Vector2 scale = Vector2{ player->get_scale().x * x_direction, player->get_scale().y };
+				DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture());
+			}
+		}
+		else {
+			animator_->Render(p_d3d_device);
+		}
+	}
+
+
+	
 }
 
-void PlayerRenderComponent::LoadFromFile(FILE* p_file)
+void PlayerRenderComponent::ChangeSprite(Sprite* sprite)
 {
+	if (sprite_) delete sprite_;
+	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);
 }
+

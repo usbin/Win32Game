@@ -46,8 +46,3 @@ void Tile::ResetTile()
 	}
 	
 }
-
-void Tile::SaveToFile(FILE* p_file)
-{
-	RealObject::SaveToFile(p_file);
-}

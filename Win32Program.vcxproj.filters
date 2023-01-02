@@ -264,9 +264,6 @@
     <ClInclude Include="FileManager.h">
       <Filter>Game\FileManager</Filter>
     </ClInclude>
-    <ClInclude Include="ISavable.h">
-      <Filter>Game\FileManager</Filter>
-    </ClInclude>
     <ClInclude Include="DXClass.h">
       <Filter>Module</Filter>
     </ClInclude>
@@ -303,7 +300,7 @@
     <ClInclude Include="TimerUi.h">
       <Filter>Game\GObject\Ui</Filter>
     </ClInclude>
-    <ClInclude Include="ControlComponent.h">
+    <ClInclude Include="IControlComponent.h">
       <Filter>Game\Component\ControlComponent</Filter>
     </ClInclude>
     <ClInclude Include="PlayerControlComponent.h">
@@ -351,6 +348,15 @@
     </ClInclude>
     <ClInclude Include="RealObjectRenderComponent.h">
       <Filter>Game\Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderComponent.h">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="IFileSaver.h">
+      <Filter>Game\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSaver1_0_0.h">
+      <Filter>Game\FileManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +497,6 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>Game\FileManager</Filter>
     </ClCompile>
-    <ClCompile Include="ISavable.cpp">
-      <Filter>Game\FileManager</Filter>
-    </ClCompile>
     <ClCompile Include="DXClass.cpp">
       <Filter>Module</Filter>
     </ClCompile>
@@ -529,9 +532,6 @@
     </ClCompile>
     <ClCompile Include="TimerUi.cpp">
       <Filter>Game\GObject\Ui</Filter>
-    </ClCompile>
-    <ClCompile Include="ControlComponent.cpp">
-      <Filter>Game\Component\ControlComponent</Filter>
     </ClCompile>
     <ClCompile Include="PlayerControlComponent.cpp">
       <Filter>Game\Component\ControlComponent</Filter>
@@ -572,6 +572,9 @@
     </ClCompile>
     <ClCompile Include="RealObjectRenderComponent.cpp">
       <Filter>Game\Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSaver1_0_0.cpp">
+      <Filter>Game\FileManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

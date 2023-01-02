@@ -3,7 +3,6 @@
 #include "Collider.h"
 #include "RealObject.h"
 
-
 class Interactor : public RealObject
 {
 public:
@@ -29,8 +28,10 @@ public:
 	virtual void OnCollisionExit(Collider* collider) override;
 	void set_scale(Vector2 scale) = delete;
 	Vector2 get_scale() = delete;
+	inline void set_owner(GObject* owner) { owner_ = owner; };
 	inline GObject* get_owner() { return owner_; };
 	friend class GObject;
+
 
 };
 

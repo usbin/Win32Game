@@ -28,7 +28,7 @@ void RealObjectAnimation::Render(ID3D11Device* p_d3d_device)
 
 	if (!is_finished_) {
 		RealObject* owner = dynamic_cast<RealObject*>(animator_->get_owner());
-		if (owner && owner->get_animator()) {
+		if (owner && animator_) {
 			Vector2 pos = WorldToRenderPos(owner->get_pos() + offset_);
 			Vector2 scale = animator_->get_owner()->get_scale();
 			const AnimationFrame& frame = frames_[frame_index_];

@@ -165,7 +165,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="ControlComponent.h" />
+    <ClInclude Include="FileSaver1_0_0.h" />
+    <ClInclude Include="IControlComponent.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Crop.h" />
     <ClInclude Include="Director_Scene_01.h" />
@@ -181,13 +182,14 @@
     <ClInclude Include="function.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GObject.h" />
+    <ClInclude Include="IFileSaver.h" />
     <ClInclude Include="IItem.h" />
     <ClInclude Include="ImageUi.h" />
     <ClInclude Include="inline.h" />
     <ClInclude Include="Interactor.h" />
     <ClInclude Include="InvisibleWall.h" />
     <ClInclude Include="InvisibleWallEditFrame.h" />
-    <ClInclude Include="ISavable.h" />
+    <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="ItemHolder.h" />
     <ClInclude Include="IUsable.h" />
     <ClInclude Include="ItemDb.h" />
@@ -247,7 +249,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="ControlComponent.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Crop.cpp" />
     <ClCompile Include="Director_Scene_01.cpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExitBtn.cpp" />
     <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="FileSaver1_0_0.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -265,7 +267,6 @@
     <ClCompile Include="Interactor.cpp" />
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
-    <ClCompile Include="ISavable.cpp" />
     <ClCompile Include="ItemDb.cpp" />
     <ClCompile Include="ItemHolder.cpp" />
     <ClCompile Include="KeyManager.cpp" />

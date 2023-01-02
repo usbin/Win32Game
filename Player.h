@@ -22,7 +22,6 @@ private:
 	PLAYER_STATE state_;
 	
 	virtual void CreateCollider() override;
-	virtual void CreateAnimator() override;
 	virtual void CreateInteractor() override;
 	virtual void CreateControlCmp() override;
 	virtual void CreatePhysicsCmp() override;

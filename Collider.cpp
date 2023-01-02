@@ -71,19 +71,3 @@ void Collider::OnCollisionExit(Collider* collider)
 	owner_->OnCollisionExit(collider);
 }
 
-
-void Collider::SaveToFile(FILE* p_file) {
-
-	fwrite(&pos_offset_, sizeof(Vector2), 1, p_file);
-	fwrite(&scale_, sizeof(Vector2), 1, p_file);
-	fwrite(&final_pos_, sizeof(Vector2), 1, p_file);
-	fwrite(&is_physical_collider_, sizeof(bool), 1, p_file);
-}
-
-void Collider::LoadFromFile(FILE* p_file)
-{
-	fread(&pos_offset_, sizeof(Vector2), 1, p_file);
-	fread(&scale_, sizeof(Vector2), 1, p_file);
-	fread(&final_pos_, sizeof(Vector2), 1, p_file);
-	fread(&is_physical_collider_, sizeof(bool), 1, p_file);
-}

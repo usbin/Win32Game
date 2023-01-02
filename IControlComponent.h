@@ -2,12 +2,11 @@
 #include "global.h"
 class RealObject;
 
-class ControlComponent
+class IControlComponent
 {
-public:
-	ControlComponent();
-	~ControlComponent();
 
+public:
+	virtual ~IControlComponent() = 0 {};
 	virtual void Update(RealObject* obj) = 0;
 };
 

@@ -2,7 +2,7 @@
 #include "PathManager.h"
 #include "Core.h"
 #include "Tile.h"
-#include "Sprite.h"
+#include "RealObjectSprite.h"
 #include "Texture.h"
 DXClass::DXClass()
 	: p_d3d_device_(nullptr)
@@ -556,7 +556,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 		Tile* tile = dynamic_cast<Tile*>(tiles[i]);
 		if (tile->get_render_component()){
 
-			Sprite* tile_sprite = tile->get_render_component()->get_sprite();
+			RealObjectSprite* tile_sprite = dynamic_cast<RealObjectSprite*>( tile->get_render_component()->get_sprite());
 			if (tile_sprite)
 			DrawTexture(p_d3d_device_, tiles[i]->get_pos() - tiles[i]->get_scale() / 2.f, tiles[i]->get_scale(), tile_sprite->get_base_pos(), tile_sprite->get_scale(), tile_sprite->get_texture());
 		}

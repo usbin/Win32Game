@@ -1,17 +1,16 @@
 #pragma once
 #include "global.h"
-#include "ISavable.h"
 class Texture;
 class Animator;
 struct AnimationFrame {
 	Vector2 base_pos;
 	Vector2 img_size;
 };
-class Animation : public ISavable
+class Animation
 {
 public:
 	Animation();
-	~Animation();
+	virtual ~Animation();
 protected:
 	tstring name_;
 	Texture* texture_;
@@ -39,11 +38,6 @@ public:
 	inline bool is_repeat() { return is_repeat_; };
 	inline bool is_finished() { return is_finished_; };
 	
-
-	// ISavable을(를) 통해 상속됨
-	virtual void SaveToFile(FILE* p_file) override;
-
-	virtual void LoadFromFile(FILE* p_file) override;
 
 };
 

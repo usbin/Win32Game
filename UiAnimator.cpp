@@ -10,11 +10,3 @@ void UiAnimator::CreateAnimation(const tstring& name, Texture* texture, Vector2 
 
 
 }
-
-void UiAnimator::SaveToFile(FILE* p_file)
-{
-}
-
-void UiAnimator::LoadFromFile(FILE* p_file)
-{
-}

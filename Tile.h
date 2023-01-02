@@ -14,6 +14,5 @@ public:
 	virtual void Render(ID3D11Device* p_d3d_device) override;
 	void SetTile(TileUi* tile_ui);
 	void ResetTile();
-	virtual void SaveToFile(FILE* p_file) override;
 };
 

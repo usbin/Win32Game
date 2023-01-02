@@ -42,21 +42,3 @@ void Sprite::Render(ID3D11Device* p_d3d_device)
 {
 
 }
-void Sprite::SaveToFile(FILE* p_file)
-{
-
-	texture_->SaveToFile(p_file);
-	fwrite(&base_pos_, sizeof(Vector2), 1, p_file);
-	fwrite(&scale_, sizeof(Vector2), 1, p_file);
-	
-}
-
-void Sprite::LoadFromFile(FILE* p_file)
-{
-	Res* res = new Res();
-	res->LoadFromFile(p_file);
-	texture_ = ResManager::GetInstance()->LoadTexture(res->get_key(), res->get_relative_path());
-	delete res;
-	fread(&base_pos_, sizeof(Vector2), 1, p_file);
-	fread(&scale_, sizeof(Vector2), 1, p_file);
-}
