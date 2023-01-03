@@ -12,18 +12,18 @@ public:
 	~Scene_Tool();
 
 private:
-	HDC hdc_;
+	HDC hdc_ = 0;
 
-	UINT column_count_;
-	UINT row_count_;
-	Director_Scene_Tool* director_;
+	UINT column_count_ = 0;
+	UINT row_count_ = 0;
+	Director_Scene_Tool* director_ = nullptr;
 
-	Texture* tileuis_texture_;
-	Vector2 texture_base_pos_;
-	Vector2 texture_scale_;
-	Vector2 sprite_scale_;
-	Vector2 interval_;
-	int count_;
+	Texture* tileuis_texture_ = nullptr;
+	Vector2 texture_base_pos_ = Vector2::Zero();
+	Vector2 texture_scale_ = Vector2::Zero();
+	Vector2 sprite_scale_ = Vector2::Zero();
+	Vector2 interval_ = Vector2::Zero();
+	int count_ = 0;
 public:
 	virtual bool Enter() override;
 	virtual bool Exit() override;

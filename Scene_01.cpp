@@ -11,27 +11,27 @@
 #include "Director_Scene_01.h"
 bool Scene_01::Enter()
 {
-	Director_Scene_01* director = new Director_Scene_01();
+	Director_Scene_01* director = DEBUG_NEW Director_Scene_01();
 	director->set_group_type(GROUP_TYPE::DIRECTOR);
 	CreateGObject(director, GROUP_TYPE::DIRECTOR);
 
 
-	GObject* gobj = new Player();
+	GObject* gobj = DEBUG_NEW Player();
 	gobj->set_pos(Vector2{ 500, 500 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
-	TimerUi* timer_ui = new TimerUi();
+	TimerUi* timer_ui = DEBUG_NEW TimerUi();
 	timer_ui->set_pos(Vector2(0, 0));
 	timer_ui->set_scale(Vector2(200, 100));
 	timer_ui->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(timer_ui, GROUP_TYPE::UI);
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Ingame Timer Ui Background"), _T("texture\\black.png"));
-	Sprite* sprite = new RealObjectSprite();
+	Sprite* sprite = DEBUG_NEW RealObjectSprite();
 	sprite->QuickSet(texture, timer_ui, timer_ui->get_pos(), timer_ui->get_scale());
 	timer_ui->ChangeSprite(sprite);
 	
-	Monster* monster = new Monster();
+	Monster* monster = DEBUG_NEW Monster();
 	monster->set_pos(Vector2{ 600, 500 });
 	monster->set_center_pos(Vector2{ 600, 500 });
 	monster->set_move_range(0.0);

@@ -8,7 +8,7 @@ private:
 	Seed() {};
 	~Seed() {};
 
-	int item_code_;
+	int item_code_ = 0;
 	tstring name_;
 
 public:

@@ -29,10 +29,10 @@ public:
 	TileEditUi();
 	~TileEditUi();
 private:
-	Director_Scene_Tool* director_;
+	Director_Scene_Tool* director_ = nullptr;
 
 	ButtonUi* mode_buttons_[static_cast<ULONGLONG>(TILE_EDIT_MODE::END)];
-	ButtonUi* exit_button_;
+	ButtonUi* exit_button_ = nullptr;
 	TILE_EDIT_MODE mode_;
 
 	std::vector<TileUi*> tile_uis_;
@@ -42,14 +42,14 @@ private:
 	//==============
 	//	ADD 모드
 	//==============
-	TileUi* picked_tile_ui_;
+	TileUi* picked_tile_ui_ = nullptr;
 
 	//===============
 	//	COLLIDER 모드
 	//===============
-	Vector2 drag_start_pos_;
-	Vector2 prev_drag_pos_;
-	bool dragging_;
+	Vector2 drag_start_pos_ = Vector2::Zero();
+	Vector2 prev_drag_pos_ = Vector2::Zero();
+	bool dragging_ = false;
 	std::vector<InvisibleWallEditFrame*> wall_edit_frames_;
 
 	//초기화

@@ -13,7 +13,7 @@ public:
 	Director_Scene_Tool();
 	~Director_Scene_Tool();
 private:
-	TileEditUi* tile_edit_ui_;
+	TileEditUi* tile_edit_ui_ = nullptr;
 
 
 

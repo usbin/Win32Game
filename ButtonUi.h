@@ -11,7 +11,7 @@ public:
 private:
 	// OnClick 핸들러 함수들
 	std::vector<OnClickHandlerParams> on_click_handler;
-	bool is_selected_;
+	bool is_selected_ = false;
 
 public:
 	virtual void Render(ID3D11Device* p_d3d_device) override;

@@ -28,7 +28,7 @@ void Director_Scene_Tool::Update()
 		//T 눌리면 타일 UI 열기/닫기
 		if (tile_edit_ui_ == nullptr
 			|| tile_edit_ui_->IsDead()) {
-			TileEditUi* tdu = new TileEditUi();
+			TileEditUi* tdu = DEBUG_NEW TileEditUi();
 			tdu->set_pos(Vector2{ 500, 100 });
 			tdu->set_scale(Vector2{ TILE_WINDOW_WIDTH, TILE_WINDOW_HEIGHT });
 			tdu->set_group_type(GROUP_TYPE::UI);

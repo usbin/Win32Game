@@ -7,9 +7,9 @@ public:
 	TitleText_Title();
 	~TitleText_Title();
 private:
-	Vector2 dest_pos_;
-	float duration_;
-	float remain_duration_;
+	Vector2 dest_pos_ = Vector2::Zero();
+	float duration_ = 0;
+	float remain_duration_ = 0;
 	EFFECT_STATE effect_state_;
 public:
 	virtual void Update() override;

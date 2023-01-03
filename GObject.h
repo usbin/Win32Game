@@ -13,12 +13,12 @@ private:
 	static unsigned int id_counter_;
 	unsigned int id_;
 	tstring name_;
-	Vector2 pos_;
-	Vector2 scale_;
+	Vector2 pos_ = Vector2::Zero();
+	Vector2 scale_ = Vector2::Zero();
 	GROUP_TYPE group_type_;
-	bool is_dead_;
-	bool visible_;
-	DIRECTION direction_;		//바라보고 있는 방향
+	bool is_dead_ = false;
+	bool visible_ = false;
+	DIRECTION direction_ = DIRECTION::DOWN;		//바라보고 있는 방향
 
 
 public:

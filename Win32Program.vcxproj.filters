@@ -276,9 +276,6 @@
     <ClInclude Include="TitleText_Title.h">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClInclude>
-    <ClInclude Include="ExitBtn.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
-    </ClInclude>
     <ClInclude Include="NewGameBtn_Title.h">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClInclude>
@@ -339,10 +336,9 @@
     <ClInclude Include="UiSprite.h">
       <Filter>Game\Component\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="ItemHolder.h">
+    <ClInclude Include="IItemHolder.h">
       <Filter>Game\Component\ItemHolder</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerItemHolder.h" />
     <ClInclude Include="PlayerRenderComponent.h">
       <Filter>Game\Component\RenderComponent</Filter>
     </ClInclude>
@@ -357,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="FileSaver1_0_0.h">
       <Filter>Game\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerItemHolder.h">
+      <Filter>Game\Component\ItemHolder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -509,9 +508,6 @@
     <ClCompile Include="TitleText_Title.cpp">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClCompile>
-    <ClCompile Include="ExitBtn.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
-    </ClCompile>
     <ClCompile Include="NewGameBtn_Title.cpp">
       <Filter>Game\Scene\Scene_Title</Filter>
     </ClCompile>
@@ -563,10 +559,6 @@
     <ClCompile Include="UiSprite.cpp">
       <Filter>Game\Component\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="ItemHolder.cpp">
-      <Filter>Game\Component\ItemHolder</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerItemHolder.cpp" />
     <ClCompile Include="PlayerRenderComponent.cpp">
       <Filter>Game\Component\RenderComponent</Filter>
     </ClCompile>
@@ -575,6 +567,9 @@
     </ClCompile>
     <ClCompile Include="FileSaver1_0_0.cpp">
       <Filter>Game\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerItemHolder.cpp">
+      <Filter>Game\Component\ItemHolder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

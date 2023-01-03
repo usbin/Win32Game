@@ -10,8 +10,8 @@ class KeyManager
 	SINGLETON(KeyManager);
 private:
 	std::vector<CurrentKeyState> current_key_states_;
-	Vector2 mouse_pos_;
-	bool mouse_in_window_;
+	Vector2 mouse_pos_ = Vector2::Zero();
+	bool mouse_in_window_ = false;
 public:
 	bool Init();
 	bool Update();

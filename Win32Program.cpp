@@ -341,13 +341,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         Background* bg_object;
                         const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND1);
                         if (objs.empty()) {
-                            bg_object = new Background();
+                            bg_object = DEBUG_NEW Background();
                             CreateGObject(bg_object, GROUP_TYPE::BACKGROUND1);
                         }
                         else bg_object = dynamic_cast<Background*>(objs[0]);
 
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        RealObjectSprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = DEBUG_NEW RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if (bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND1);
@@ -404,12 +404,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         Background* bg_object;
                         const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND2);
                         if (objs.empty()) {
-                            bg_object = new Background();
+                            bg_object = DEBUG_NEW Background();
                             CreateGObject(bg_object, GROUP_TYPE::BACKGROUND2);
                         }
                         else bg_object = dynamic_cast<Background*>(objs[0]);
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        RealObjectSprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = DEBUG_NEW RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if(bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND2);
@@ -467,12 +467,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         Background* bg_object;
                         const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::BACKGROUND3);
                         if (objs.empty()) {
-                            bg_object = new Background();
+                            bg_object = DEBUG_NEW Background();
                             CreateGObject(bg_object, GROUP_TYPE::BACKGROUND3);
                         }
                         else bg_object = dynamic_cast<Background*>(objs[0]);
                         Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
-                        RealObjectSprite* bg_sprite = new RealObjectSprite();
+                        RealObjectSprite* bg_sprite = DEBUG_NEW RealObjectSprite();
                         bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
                         if(bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
                         bg_object->set_group_type(GROUP_TYPE::BACKGROUND3);
@@ -577,7 +577,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             } break;
 
             case IDM_EXIT:
-                DestroyWindow(hWnd);
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);

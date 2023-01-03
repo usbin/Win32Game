@@ -63,7 +63,7 @@ void Player::Render(ID3D11Device* p_d3d_device)
 
 void Player::CreateCollider()
 {
-	Collider* collider = new Collider();
+	Collider* collider = DEBUG_NEW Collider();
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 20, 20 });
 	collider->set_is_physical_collider(true);
@@ -74,7 +74,7 @@ void Player::CreateCollider()
 
 void Player::CreateInteractor()
 {
-	Interactor* interactor = new Interactor();
+	Interactor* interactor = DEBUG_NEW Interactor();
 	interactor->Init(this, Vector2(0, 0), Vector2(100, 100));
 	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
 	set_interactor(interactor);
@@ -83,17 +83,17 @@ void Player::CreateInteractor()
 
 void Player::CreateControlCmp()
 {
-	control_cmp_ = new PlayerControlComponent();
+	control_cmp_ = DEBUG_NEW PlayerControlComponent();
 }
 
 void Player::CreatePhysicsCmp()
 {
-	physics_cmp_ = new PhysicsComponent();
+	physics_cmp_ = DEBUG_NEW PhysicsComponent();
 }
 
 void Player::CreateRenderCmp()
 {
-	render_cmp_ = new PlayerRenderComponent(this);
+	render_cmp_ = DEBUG_NEW PlayerRenderComponent(this);
 
 }
 

@@ -11,13 +11,13 @@ public:
 
 private:
 	static UINT id_counter_;
-	UINT id_;
-	Vector2 pos_offset_;		//속한 오브젝트의 pos를 기준으로 한 오프셋
-	Vector2 scale_;				//크기
-	Vector2 final_pos_;			//FinalUpdate에서 업데이트하는 pos
-	GObject* owner_;			//속한 오브젝트
+	UINT id_ = 0;
+	Vector2 pos_offset_ = Vector2::Zero();		//속한 오브젝트의 pos를 기준으로 한 오프셋
+	Vector2 scale_ = Vector2::Zero();				//크기
+	Vector2 final_pos_ = Vector2::Zero();			//FinalUpdate에서 업데이트하는 pos
+	GObject* owner_ = nullptr;			//속한 오브젝트
 
-	bool is_physical_collider_;	//물리법칙에 적용을 받는가(충돌 검사만 하는가, 충돌시 이동을 제한하는가)
+	bool is_physical_collider_ = false;	//물리법칙에 적용을 받는가(충돌 검사만 하는가, 충돌시 이동을 제한하는가)
 	std::vector<Collider*> physical_collisions_;
 	
 

@@ -18,7 +18,7 @@ public:
 
 
 private:
-	float speed_;
+	float speed_ = 0;
 	PLAYER_STATE state_;
 	
 	virtual void CreateCollider() override;

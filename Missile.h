@@ -4,8 +4,8 @@
 class Missile : public RealObject
 {
 private:
-	Vector2 direction_;
-	float speed_;
+	Vector2 direction_ = Vector2::Zero();
+	float speed_ = 0;
 public:
 	Missile();
 	virtual ~Missile() override {};

@@ -9,9 +9,9 @@ private:
 	SINGLETON(Game);
 
 	GAME_STATE game_state_;
-	UINT day_;					//몇일차인가
-	UINT day_uptime_s_;			//게임 속 오늘 하루 0시부터 경과한 시간
-	float acc_dt_;				//1초를 계산하기 위한 누적 값
+	UINT day_ = 0;					//몇일차인가
+	UINT day_uptime_s_ = 0;			//게임 속 오늘 하루 0시부터 경과한 시간
+	float acc_dt_ = 0;				//1초를 계산하기 위한 누적 값
 
 	
 private:

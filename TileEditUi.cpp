@@ -26,7 +26,7 @@ TileEditUi::TileEditUi()
 {
 	std::vector<GObject*> walls = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::INVISIBLE_WALL);
 	for (int i = 0; i < walls.size(); i++) {
-		InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();
+		InvisibleWallEditFrame* frame = DEBUG_NEW InvisibleWallEditFrame();
 		frame->set_content(static_cast<InvisibleWall*>(walls[i]));
 		frame->set_name(_T("Invisible Wall Frame"));
 		frame->set_group_type(GROUP_TYPE::UI);
@@ -49,13 +49,13 @@ TileEditUi::~TileEditUi()
 
 void TileEditUi::CreateExitBtn()
 {
-	ButtonUi* exit_btn = new ButtonUi(true);
+	ButtonUi* exit_btn = DEBUG_NEW ButtonUi(true);
 	exit_btn->set_pos(Vector2{ get_scale().x - 25.f, 5.f });
 	exit_btn->set_scale(Vector2{ 20, 20 });
 	exit_btn->set_group_type(GROUP_TYPE::UI);
 	exit_btn->set_name(_T("Exit Button"));
 	Texture* exit_texture = ResManager::GetInstance()->LoadTexture(_T("Exit Button"), _T("texture\\Exit_Btn.png"));
-	Sprite* sprite = new UiSprite();
+	Sprite* sprite = DEBUG_NEW UiSprite();
 	sprite->QuickSet(exit_texture, exit_btn, 0, 0, 1, 1);
 	exit_btn->ChangeSprite(sprite);
 	exit_btn->set_parent(this);
@@ -72,12 +72,12 @@ void TileEditUi::CreateExitBtn()
 
 void TileEditUi::CreateAddModeBtn()
 {
-	ButtonUi* add_btn = new ButtonUi(true);
+	ButtonUi* add_btn = DEBUG_NEW ButtonUi(true);
 	add_btn->set_scale(Vector2{ 20, 20 });
 	add_btn->set_group_type(GROUP_TYPE::UI);
 	add_btn->set_name(_T("Add Button"));
 	Texture* add_texture = ResManager::GetInstance()->LoadTexture(_T("Add Button"), _T("texture\\plus-btn.png"));
-	Sprite* add_sprite = new UiSprite();
+	Sprite* add_sprite = DEBUG_NEW UiSprite();
 	add_sprite->QuickSet(add_texture, add_btn, 0, 0, 1, 1);
 	add_btn->ChangeSprite(add_sprite);
 	add_btn->set_parent(this);
@@ -94,12 +94,12 @@ void TileEditUi::CreateAddModeBtn()
 
 void TileEditUi::CreateRemoveModeBtn()
 {
-	ButtonUi* remove_btn = new ButtonUi(true);
+	ButtonUi* remove_btn = DEBUG_NEW ButtonUi(true);
 	remove_btn->set_scale(Vector2{ 20, 20 });
 	remove_btn->set_group_type(GROUP_TYPE::UI);
 	remove_btn->set_name(_T("Remove Button"));
 	Texture* remove_texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
-	Sprite* remove_sprite = new UiSprite();
+	Sprite* remove_sprite = DEBUG_NEW UiSprite();
 	remove_sprite->QuickSet(remove_texture, remove_btn, 0, 0, 1, 1);
 	remove_btn->ChangeSprite(remove_sprite);
 	remove_btn->set_parent(this);
@@ -116,12 +116,12 @@ void TileEditUi::CreateRemoveModeBtn()
 
 void TileEditUi::CreateColliderModeBtn()
 {
-	ButtonUi* collider_btn = new ButtonUi(true);
+	ButtonUi* collider_btn = DEBUG_NEW ButtonUi(true);
 	collider_btn->set_scale(Vector2{ 20, 20 });
 	collider_btn->set_group_type(GROUP_TYPE::UI);
 	collider_btn->set_name(_T("Collider Button"));
 	Texture* collider_texture = ResManager::GetInstance()->LoadTexture(_T("Collider Button"), _T("texture\\collider-btn.png"));
-	Sprite* collider_sprite = new UiSprite();
+	Sprite* collider_sprite = DEBUG_NEW UiSprite();
 	collider_sprite->QuickSet(collider_texture, collider_btn, 0, 0, 1, 1);
 	collider_btn->ChangeSprite(collider_sprite);
 	collider_btn->set_parent(this);
@@ -137,12 +137,12 @@ void TileEditUi::CreateColliderModeBtn()
 }
 
 void TileEditUi::CreateColliderDeleteModeBtn() {
-	ButtonUi* collider_delete_btn = new ButtonUi(true);
+	ButtonUi* collider_delete_btn = DEBUG_NEW ButtonUi(true);
 	collider_delete_btn->set_scale(Vector2{ 20,20 });
 	collider_delete_btn->set_group_type(GROUP_TYPE::UI);
 	collider_delete_btn->set_name(_T("Collider Delete Button"));
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Collider Delete Button"), _T("texture\\collider-delete-btn.png"));
-	Sprite* sprite = new UiSprite();
+	Sprite* sprite = DEBUG_NEW UiSprite();
 	sprite->QuickSet(texture, collider_delete_btn, 0, 0, 1, 1);
 	collider_delete_btn->ChangeSprite(sprite);
 	collider_delete_btn->set_parent(this);
@@ -158,13 +158,13 @@ void TileEditUi::CreateColliderDeleteModeBtn() {
 
 void TileEditUi::CreateArrowBtns()
 {
-	ButtonUi* left_arrow_btn = new ButtonUi(true);
+	ButtonUi* left_arrow_btn = DEBUG_NEW ButtonUi(true);
 	left_arrow_btn->set_pos(Vector2{ -50.f, get_final_pos().y + get_scale().y - 40.f });
 	left_arrow_btn->set_scale(Vector2{ 40, 40 });
 	left_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	left_arrow_btn->set_name(_T("Left Arrow Button"));
 	Texture* left_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Left Arrow Button"), _T("texture\\left-arrow-btn.png"));
-	Sprite* left_arrow_sprite = new UiSprite();
+	Sprite* left_arrow_sprite = DEBUG_NEW UiSprite();
 	left_arrow_sprite->QuickSet(left_arrow_texture, left_arrow_btn, 0, 0, 1, 1);
 	left_arrow_btn->ChangeSprite(left_arrow_sprite);
 	left_arrow_btn->set_parent(this);
@@ -175,13 +175,13 @@ void TileEditUi::CreateArrowBtns()
 		teu->ChangePage(teu->get_page() - 1);
 		}, reinterpret_cast<DWORD_PTR>(this), 0);
 
-	ButtonUi* right_arrow_btn = new ButtonUi(true);
+	ButtonUi* right_arrow_btn = DEBUG_NEW ButtonUi(true);
 	right_arrow_btn->set_pos(Vector2{ 10.f+get_scale().x, get_final_pos().y + get_scale().y - 40.f });
 	right_arrow_btn->set_scale(Vector2{ 40, 40 });
 	right_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	right_arrow_btn->set_name(_T("Right Arrow Button"));
 	Texture* right_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Right Arrow Button"), _T("texture\\right-arrow-btn.png"));
-	Sprite* right_arrow_sprite = new UiSprite();
+	Sprite* right_arrow_sprite = DEBUG_NEW UiSprite();
 	right_arrow_sprite->QuickSet(right_arrow_texture, right_arrow_btn, 0, 0, 1, 1);
 	right_arrow_btn->ChangeSprite(right_arrow_sprite);
 	right_arrow_btn->set_parent(this);
@@ -198,7 +198,7 @@ void TileEditUi::CreateEmptyTileUis(UINT row, UINT col)
 {
 
 	for (UINT i = 0; i < static_cast<UINT>(row * col); i++) {
-		TileUi* tile_ui = new TileUi(true);
+		TileUi* tile_ui = DEBUG_NEW TileUi(true);
 		tile_ui->set_group_type(GROUP_TYPE::UI);
 		tile_ui->set_scale(Vector2{ TILE_UI_SCALE_X, TILE_UI_SCALE_Y });
 		tile_ui->set_pos(Vector2{ TILE_UI_BASE_POS_X + (i % col) * (tile_ui->get_scale().x), TILE_UI_BASE_POS_Y + (i / col) * (tile_ui->get_scale().y) });
@@ -225,7 +225,7 @@ void TileEditUi::AddTileListFromTexture(Texture* texture, const Vector2& texture
 {
 	int count_in_row_texture = static_cast<int>(texture_scale.x / sprite_scale.x);
 	for (int i = 0; i < count; i++) {
-		Sprite* sprite = new UiSprite();
+		Sprite* sprite = DEBUG_NEW UiSprite();
 		sprite->QuickSet(texture
 			, nullptr
 			, texture_base_pos + Vector2{ (i % count_in_row_texture) * (sprite_scale.x + interval.x), i / count_in_row_texture * (sprite_scale.y + interval.y) }
@@ -245,7 +245,7 @@ void TileEditUi::LoadTileListFromTexture(UINT page)
 		int max_row = get_max_row();//static_cast<int>((get_scale().y - TILE_UI_BASE_POS_Y * 2) / TILE_UI_SCALE_Y);
 		UINT tile_ui_i = 0;
 		for (; tile_ui_i < min((tile_ui_sprites_.size() - page * max_col * max_row), max_col * max_row); tile_ui_i++) {
-			tile_uis_[tile_ui_i]->ChangeSprite(new UiSprite(*dynamic_cast<UiSprite*>(tile_ui_sprites_[page * max_row * max_col + tile_ui_i])));
+			tile_uis_[tile_ui_i]->ChangeSprite(DEBUG_NEW UiSprite(*dynamic_cast<UiSprite*>(tile_ui_sprites_[page * max_row * max_col + tile_ui_i])));
 			tile_ui_sprites_[page * max_row * max_col + tile_ui_i]->set_owner(tile_uis_[tile_ui_i]);
 		}
 		//해당 페이지의 남은 빈 칸만큼 초기화해줌.
@@ -368,20 +368,20 @@ void TileEditUi::Update()
 			Vector2 scale{ abs(drag_end_pos_.x - drag_start_pos_.x), abs(drag_end_pos_.y - drag_start_pos_.y) };
 			if (scale.x >= 16.f && scale.y >= 16.f) {
 				// InvisibleWall과 collider는 pos가 중앙, InvisibleWallFrame은 기준점이 좌상단임.
-				InvisibleWall* wall = new InvisibleWall();
+				InvisibleWall* wall = DEBUG_NEW InvisibleWall();
 				wall->set_pos(Vector2{ min(drag_start_pos_.x+scale.x/2.f, drag_end_pos_.x+scale.x/2.f), min(drag_start_pos_.y+scale.y/2.f, drag_end_pos_.y+scale.y/2.f) });
 				wall->set_scale(scale);
 				wall->set_group_type(GROUP_TYPE::INVISIBLE_WALL);
 				wall->set_name(_T("Invisible Wall"));
 				CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 
-				Collider* collider = new Collider();
+				Collider* collider = DEBUG_NEW Collider();
 				collider->set_owner(wall);
 				collider->set_scale(wall->get_scale());
 				collider->set_is_physical_collider(true);
 				wall->set_collider(collider);
 
-				InvisibleWallEditFrame* frame = new InvisibleWallEditFrame();
+				InvisibleWallEditFrame* frame = DEBUG_NEW InvisibleWallEditFrame();
 				frame->set_content(wall);
 				frame->set_name(_T("Invisible Wall Frame"));
 				frame->set_group_type(GROUP_TYPE::UI);

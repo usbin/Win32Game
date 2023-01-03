@@ -8,7 +8,7 @@ private:
 	Equip()
 	: item_code_(0) {};
 	~Equip() {};
-	int item_code_;
+	int item_code_ = 0;
 	tstring name_;
 
 public:

@@ -30,7 +30,7 @@ bool Scene_Tool::Enter()
 {
 	CollisionManager::GetInstance()->CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::INVISIBLE_WALL);
 
-	Director_Scene_Tool* dst = new Director_Scene_Tool();
+	Director_Scene_Tool* dst = DEBUG_NEW Director_Scene_Tool();
 	dst->set_group_type(GROUP_TYPE::DIRECTOR);
 	CreateGObject(dst, GROUP_TYPE::DIRECTOR);
 	director_ = dst;
@@ -41,7 +41,7 @@ bool Scene_Tool::Enter()
 	//È­¸é¿¡ ±âº» 80x65Ä­ ºó Å¸ÀÏ¸Ê ¸¸µé±â
 	CreateEmptyTilemap(80, 65);
 
-	GObject* gobj = new Player();
+	GObject* gobj = DEBUG_NEW Player();
 	gobj->set_pos(Vector2{ 0, 0 });
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
@@ -65,7 +65,7 @@ void Scene_Tool::CreateEmptyTilemap(UINT column_count, UINT row_count)
 	row_count_ = row_count;
 	for (UINT i = 0; i < row_count; i++) {
 		for (UINT j = 0; j < column_count; j++) {
-			Tile* tile = new Tile();
+			Tile* tile = DEBUG_NEW Tile();
 			tile->set_pos(Vector2{ (static_cast<int>(j * TILE_WIDTH)) % static_cast<int>(column_count * TILE_WIDTH) + TILE_WIDTH / 2.f, static_cast<int>((i * TILE_HEIGHT)) + TILE_HEIGHT / 2.f });
 			tile->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
 			tile->set_group_type(GROUP_TYPE::TILE);

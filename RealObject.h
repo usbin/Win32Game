@@ -15,12 +15,12 @@ public:
 	
 protected:
 
-	Collider* collider_;		//충돌체. 없으면 nullptr
-	Interactor* interactor_;	//상호작용체.
-	IControlComponent* control_cmp_;
-	PhysicsComponent* physics_cmp_;
-	IRenderComponent* render_cmp_;
-	Vector2 velocity_;
+	Collider* collider_ = nullptr;		//충돌체. 없으면 nullptr
+	Interactor* interactor_ = nullptr;	//상호작용체.(GObject를 물려받아 생명주기 관리x)
+	IControlComponent* control_cmp_ = nullptr;
+	PhysicsComponent* physics_cmp_ = nullptr;
+	IRenderComponent* render_cmp_ = nullptr;
+	Vector2 velocity_ = Vector2::Zero();
 
 
 protected:

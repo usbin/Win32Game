@@ -4,6 +4,12 @@
 #include "RealObjectAnimator.h"
 #include "Collider.h"
 
+
+RealObjectRenderComponent::RealObjectRenderComponent(RealObject* owner)
+{
+	owner_ = owner;
+}
+
 RealObjectRenderComponent::~RealObjectRenderComponent()
 {
 
@@ -17,6 +23,7 @@ void RealObjectRenderComponent::Update(GObject* owner)
 {
 
 	if (animator_ != nullptr) animator_->Update();
+	
 }
 void RealObjectRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 {

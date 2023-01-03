@@ -10,13 +10,13 @@ class Sprite
 public:
 	Sprite();
 	Sprite(const Sprite& org);
-	~Sprite();
+	virtual ~Sprite();
 
 private:
-	Texture* texture_;
-	Vector2 base_pos_;
-	Vector2 scale_;
-	GObject* owner_;
+	Texture* texture_ = nullptr;
+	Vector2 base_pos_ = Vector2::Zero();
+	Vector2 scale_ = Vector2::Zero();
+	GObject* owner_ = nullptr;
 
 
 public:

@@ -12,20 +12,20 @@ public:
 	~InvisibleWallEditFrame();
 
 private:
-	InvisibleWall* content_;
+	InvisibleWall* content_ = nullptr;
 
-	bool dragging_;
-	Vector2 prev_dragged_pos_;
+	bool dragging_ = false;
+	Vector2 prev_dragged_pos_ = Vector2::Zero();
 
-	FrameSizer* left_top_sizer_;
-	FrameSizer* right_top_sizer_;
-	FrameSizer* left_bottom_sizer_;
-	FrameSizer* right_bottom_sizer_;
+	FrameSizer* left_top_sizer_ = nullptr;
+	FrameSizer* right_top_sizer_ = nullptr;
+	FrameSizer* left_bottom_sizer_ = nullptr;
+	FrameSizer* right_bottom_sizer_ = nullptr;
 
-	bool left_top_sizing_;
-	bool right_top_sizing_;
-	bool left_bottom_sizing_;
-	bool right_bottom_sizing_;
+	bool left_top_sizing_ = false;
+	bool right_top_sizing_ = false;
+	bool left_bottom_sizing_ = false;
+	bool right_bottom_sizing_ = false;
 
 public:
 	virtual void Update() override;

@@ -8,8 +8,8 @@ public:
 	~NewGameBtn_Title();
 
 private:
-	float text_alpha_;
-	D2D1::ColorF text_color_;
+	float text_alpha_ = 0;
+	D2D1::ColorF text_color_ = 0x0;
 	EFFECT_STATE effect_state_;
 public:
 	void StartEffect();

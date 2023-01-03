@@ -10,6 +10,7 @@
 #include "DXClass.h"
 #include "Game.h"
 
+
 Core::Core()
 	: hwnd_(0)
 	, hdc_(0)
@@ -19,7 +20,8 @@ Core::Core()
 	, brushes{}
 	, pens{}
 	{
-
+	memset(brushes, 0, sizeof(brushes));
+	memset(pens, 0, sizeof(pens));
 }
 
 Core::~Core() {
@@ -48,7 +50,7 @@ int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 
 	//메모리 누수 체크
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(71504);
+	//_CrtSetBreakAlloc(16754);
 	//_CrtSetBreakAlloc(1446);
 
 	hwnd_ = h_wnd;

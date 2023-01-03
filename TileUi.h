@@ -15,7 +15,7 @@ public:
 	~TileUi();
 
 private:
-	Director_Scene_Tool* director_;
+	Director_Scene_Tool* director_ = nullptr;
 
 
 public:

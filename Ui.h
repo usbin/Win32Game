@@ -15,21 +15,21 @@ public:
 	Ui(bool is_static_pos);
 	virtual ~Ui();
 private:
-	bool is_static_pos_;		// 카메라에 영향받지 않는 좌표계를 쓰는가(일반적인 Ui처럼 위치 고정)
-	Vector2 final_pos_;
-	Ui* parent_;				// 이 ui가 자식으로 있는 ui. root ui일 경우 nullptr.
+	bool is_static_pos_ = false;		// 카메라에 영향받지 않는 좌표계를 쓰는가(일반적인 Ui처럼 위치 고정)
+	Vector2 final_pos_ = Vector2::Zero();
+	Ui* parent_ = nullptr;				// 이 ui가 자식으로 있는 ui. root ui일 경우 nullptr.
 	std::vector<Ui*> children_;	// 이 ui 위에 있는 child ui. 
 
-	Sprite* sprite_;
-	Animator* animator_;
+	Sprite* sprite_ = nullptr;
+	Animator* animator_ = nullptr;
 
-	bool mouse_on_check_;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
-	bool lbutton_hold_;			// 가장 위에서 실제로 이벤트를 받았을 때에만 체크됨.
+	bool mouse_on_check_ = false;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
+	bool lbutton_hold_ = false;			// 가장 위에서 실제로 이벤트를 받았을 때에만 체크됨.
 
-	bool selectable_;			// "선택됨" 상태가 가능한지
-	bool is_selected_;
+	bool selectable_ = false;			// "선택됨" 상태가 가능한지
+	bool is_selected_ = false;
 
-	bool enabled_;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
+	bool enabled_ = true;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
 
 
 

@@ -8,7 +8,7 @@
 Missile::Missile()
 	: direction_(Vector2{ 0, 0 })
 	, speed_(200.f) {
-	Collider* collider = new Collider();
+	Collider* collider = DEBUG_NEW Collider();
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 5, 5 });
 	set_collider(collider);

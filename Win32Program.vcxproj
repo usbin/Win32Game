@@ -175,7 +175,6 @@
     <ClInclude Include="enum.h" />
     <ClInclude Include="Equip.h" />
     <ClInclude Include="EventManager.h" />
-    <ClInclude Include="ExitBtn.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FrameSizer.h" />
     <ClInclude Include="framework.h" />
@@ -190,7 +189,7 @@
     <ClInclude Include="InvisibleWall.h" />
     <ClInclude Include="InvisibleWallEditFrame.h" />
     <ClInclude Include="IRenderComponent.h" />
-    <ClInclude Include="ItemHolder.h" />
+    <ClInclude Include="IItemHolder.h" />
     <ClInclude Include="IUsable.h" />
     <ClInclude Include="ItemDb.h" />
     <ClInclude Include="KeyManager.h" />
@@ -256,7 +255,6 @@
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="ExitBtn.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FileSaver1_0_0.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
@@ -268,7 +266,6 @@
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
     <ClCompile Include="ItemDb.cpp" />
-    <ClCompile Include="ItemHolder.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Mic.cpp" />
     <ClCompile Include="Missile.cpp" />

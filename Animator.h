@@ -10,9 +10,9 @@ public:
 	Animator(const Animator& origin);
 	virtual ~Animator();
 protected:
-	GObject* owner_;
+	GObject* owner_ = nullptr;
 	std::map<tstring, Animation*> anims_;
-	Animation* current_anim_;
+	Animation* current_anim_ = nullptr;
 public:
 	virtual void CreateAnimation(const tstring& name, Texture* texture, Vector2 base_pos, Vector2 img_size, Vector2 img_distance, Vector2 offset
 		, float duration, int img_count, bool is_repeat) = 0;

@@ -15,6 +15,7 @@ Ui::Ui(bool is_static_pos)
 	, selectable_(false)
 	, is_selected_(false)
 	, animator_ (nullptr)
+	, sprite_(nullptr)
 {
 }
 

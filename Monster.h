@@ -4,10 +4,10 @@
 class Monster : public RealObject
 {
 private:
-	float move_speed_;
-	Vector2 center_pos_;
-	float move_range_;
-	int direction_; //-1¿Þ 1¿À
+	float move_speed_ = 0;
+	Vector2 center_pos_ = Vector2::Zero();
+	float move_range_ = 0;
+	int direction_ = 0; //-1¿Þ 1¿À
 public:
 	Monster();
 	virtual ~Monster() override;

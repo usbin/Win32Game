@@ -7,13 +7,14 @@
 Scene::Scene(ID3D11Device* p_d3d_device)
 	: name_(_T(""))
 	, p_d3d_device_(p_d3d_device)
+	, hdc_(0)
+
 {
 
 }
 
 
 Scene::~Scene() {
-	//DeleteAllObjects();
 	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
 		for (auto gobject : gobjects_[group]) {
 			delete gobject;

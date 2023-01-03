@@ -27,6 +27,9 @@ public:
 	float Length() {
 		return sqrtf(x * x + y * y);
 	}
+	static Vector2 Zero() {
+		return Vector2{ 0, 0 };
+	}
 	Vector2& Normalize() {
 		if (abs(x) < FLT_EPSILON && abs(y) < FLT_EPSILON) {
 			return *this;

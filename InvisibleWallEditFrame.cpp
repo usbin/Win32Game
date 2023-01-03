@@ -26,7 +26,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Sizer"), _T("texture\\circle_black_filled.bmp"));
 
-	left_top_sizer_ = new FrameSizer();
+	left_top_sizer_ = DEBUG_NEW FrameSizer();
 	left_top_sizer_->set_parent(this);
 	this->AddChild(left_top_sizer_);
 	left_top_sizer_->set_group_type(GROUP_TYPE::UI);
@@ -34,7 +34,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	left_top_sizer_->set_scale(Vector2{ 10, 10 });
 	left_top_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new RealObjectSprite();
+		Sprite* sprite = DEBUG_NEW RealObjectSprite();
 		sprite->QuickSet(texture, left_top_sizer_, 0, 0, 1, 1);
 		left_top_sizer_-> ChangeSprite(sprite);
 	}
@@ -50,7 +50,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 		frame->get_content()->set_pos((content_pos + content_scale / 2.f) - content_scale_after/2.f);
 	}, this);
 
-	right_top_sizer_ = new FrameSizer();
+	right_top_sizer_ = DEBUG_NEW FrameSizer();
 	right_top_sizer_->set_parent(this);
 	this->AddChild(right_top_sizer_);
 	right_top_sizer_->set_group_type(GROUP_TYPE::UI);
@@ -58,7 +58,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	right_top_sizer_->set_scale(Vector2{ 10, 10 });
 	right_top_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new RealObjectSprite();
+		Sprite* sprite = DEBUG_NEW RealObjectSprite();
 		sprite->QuickSet(texture, right_top_sizer_, 0, 0, 1, 1);
 		right_top_sizer_->ChangeSprite(sprite);
 	}
@@ -74,7 +74,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 		frame->get_content()->set_pos(Vector2{ content_pos.x - content_scale.x/2.f +content_scale_after.x / 2.f, (content_pos.y+content_scale.y/2.f)-(content_scale_after.y/2.f)});
 		}, this);
 
-	left_bottom_sizer_ = new FrameSizer();
+	left_bottom_sizer_ = DEBUG_NEW FrameSizer();
 	left_bottom_sizer_->set_parent(this);
 	this->AddChild(left_bottom_sizer_);
 	left_bottom_sizer_->set_group_type(GROUP_TYPE::UI);
@@ -82,7 +82,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	left_bottom_sizer_->set_scale(Vector2{ 10, 10 });
 	left_bottom_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new RealObjectSprite();
+		Sprite* sprite = DEBUG_NEW RealObjectSprite();
 		sprite->QuickSet(texture, left_bottom_sizer_, 0, 0, 1, 1);
 		left_bottom_sizer_->ChangeSprite(sprite);
 	}
@@ -98,7 +98,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 		frame->get_content()->set_pos(Vector2{ (content_pos.x + content_scale.x / 2.f) - (content_scale_after.x) / 2.f, content_pos.y-content_scale.y/2.f + content_scale_after.y / 2.f  });
 		}, this);
 
-	right_bottom_sizer_ = new FrameSizer();
+	right_bottom_sizer_ = DEBUG_NEW FrameSizer();
 	right_bottom_sizer_->set_parent(this);
 	this->AddChild(right_bottom_sizer_);
 	right_bottom_sizer_->set_group_type(GROUP_TYPE::UI);
@@ -106,7 +106,7 @@ InvisibleWallEditFrame::InvisibleWallEditFrame()
 	right_bottom_sizer_->set_scale(Vector2{ 10, 10 });
 	right_bottom_sizer_->set_enabled(false);
 	if (texture) {
-		Sprite* sprite = new RealObjectSprite();
+		Sprite* sprite = DEBUG_NEW RealObjectSprite();
 		sprite->QuickSet(texture, right_bottom_sizer_, 0, 0, 1, 1);
 		right_bottom_sizer_->ChangeSprite(sprite);
 	}

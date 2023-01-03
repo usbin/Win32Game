@@ -11,13 +11,13 @@ class RealObjectSprite;
 class RealObjectRenderComponent : public IRenderComponent
 {
 public:
-	RealObjectRenderComponent(GObject* owner) {};
+	RealObjectRenderComponent(RealObject* owner);
 	virtual ~RealObjectRenderComponent();
 
 private:
-	RealObject* owner_;
-	RealObjectSprite* sprite_;
-	RealObjectAnimator* animator_;
+	RealObject* owner_ = nullptr;
+	RealObjectSprite* sprite_ = nullptr;
+	RealObjectAnimator* animator_ = nullptr;
 
 public:
 	virtual void Update(GObject* owner);

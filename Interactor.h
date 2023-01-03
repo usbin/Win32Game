@@ -10,9 +10,9 @@ public:
 	~Interactor();
 
 private:
-	GObject* owner_;
+	GObject* owner_ = nullptr;
 	std::vector<Interactor*> interactors_;
-	Vector2 pos_offset_;
+	Vector2 pos_offset_ = Vector2::Zero();
 
 
 public:

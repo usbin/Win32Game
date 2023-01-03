@@ -34,8 +34,7 @@ void FileSaver1_0_0::LoadTilemapFromFile(FILE* p_file)
 	int tiles_size;
 	fread(&tiles_size, sizeof(int), 1, p_file);
 	for (int i = 0; i < tiles_size; i++) {
-		Tile* tile = nullptr;
-		LoadTile(p_file, &tile);
+		Tile* tile = LoadTile(p_file);
 		CreateGObject(tile, GROUP_TYPE::TILE);
 	}
 }
@@ -55,14 +54,14 @@ void FileSaver1_0_0::SaveWallToFile(FILE* p_file)
 
 void FileSaver1_0_0::LoadWallFromFile(FILE* p_file)
 {
+
 	//툴씬에서만 동작
 	Scene_Tool* scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
 	if (scene == nullptr) return;
 	UINT walls_size;
 	fread(&walls_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < walls_size; i++) {
-		InvisibleWall* wall = nullptr;
-		LoadWall(p_file, &wall);
+		InvisibleWall* wall = LoadWall(p_file);
 		CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 	}
 }
@@ -116,23 +115,22 @@ void FileSaver1_0_0::LoadMapFromFile(FILE* p_file)
 	Background* bg;
 	fread(&bg, sizeof(DWORD_PTR), 1, p_file);
 	if (bg) {
-		LoadBackground(p_file, &bg);
+		bg = LoadBackground(p_file);
 		CreateGObject(bg, GROUP_TYPE::BACKGROUND1);
-
 		EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER1, MF_ENABLED);
 
 	}
 	Background* bg2;
 	fread(&bg2, sizeof(DWORD_PTR), 1, p_file);
 	if (bg2) {
-		LoadBackground(p_file, &bg2);
+		bg2 = LoadBackground(p_file);
 		CreateGObject(bg2, GROUP_TYPE::BACKGROUND2);
 		EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER2, MF_ENABLED);
 	}
 	Background* bg3;
 	fread(&bg3, sizeof(DWORD_PTR), 1, p_file);
 	if (bg3) {
-		LoadBackground(p_file, &bg3);
+		bg3 = LoadBackground(p_file);
 		CreateGObject(bg3, GROUP_TYPE::BACKGROUND3);
 		EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER3, MF_ENABLED);
 	}
@@ -141,8 +139,7 @@ void FileSaver1_0_0::LoadMapFromFile(FILE* p_file)
 	UINT walls_size;
 	fread(&walls_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < walls_size; i++) {
-		InvisibleWall* wall = nullptr;
-		LoadWall(p_file, &wall);
+		InvisibleWall* wall = LoadWall(p_file);
 		CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 	}
 }
@@ -162,12 +159,13 @@ void FileSaver1_0_0::SaveGObject(FILE* p_file, GObject* gobject)
 	fwrite(&name_size, sizeof(int), 1, p_file);
 	fwrite((name.c_str()), sizeof(TCHAR), name_size, p_file);
 	fwrite(&pos, sizeof(Vector2), 1, p_file);
+	fwrite(&scale, sizeof(Vector2), 1, p_file);
 	fwrite(&group_type, sizeof(Vector2), 1, p_file);
 	fwrite(&is_visible, sizeof(bool), 1, p_file);
 	fwrite(&direction, sizeof(DIRECTION), 1, p_file);
 }
 
-void FileSaver1_0_0::LoadGObject(FILE* p_file, GObject** gobject)
+void FileSaver1_0_0::LoadGObject(FILE* p_file, GObject*& gobject)
 {
 	tstring name;
 	TCHAR name_buffer[256];
@@ -182,15 +180,16 @@ void FileSaver1_0_0::LoadGObject(FILE* p_file, GObject** gobject)
 	fread(name_buffer, sizeof(TCHAR), name_size, p_file);
 	name = tstring(name_buffer);
 	fread(&pos, sizeof(Vector2), 1, p_file);
+	fread(&scale, sizeof(Vector2), 1, p_file);
 	fread(&group_type, sizeof(Vector2), 1, p_file);
 	fread(&is_visible, sizeof(bool), 1, p_file);
 	fread(&direction, sizeof(DIRECTION), 1, p_file);
-	(*gobject)->set_name(name);
-	(*gobject)->set_pos(pos);
-	(*gobject)->set_scale(scale);
-	(*gobject)->set_group_type(group_type);
-	(*gobject)->set_visible(is_visible);
-	(*gobject)->set_direction(direction);
+	gobject->set_name(name);
+	gobject->set_pos(pos);
+	gobject->set_scale(scale);
+	gobject->set_group_type(group_type);
+	gobject->set_visible(is_visible);
+	gobject->set_direction(direction);
 }
 
 void FileSaver1_0_0::SaveSprite(FILE* p_file, Sprite* sprite)
@@ -205,17 +204,17 @@ void FileSaver1_0_0::SaveSprite(FILE* p_file, Sprite* sprite)
 
 }
 
-void FileSaver1_0_0::LoadSprite(FILE* p_file, Sprite** sprite, GObject* owner)
+void FileSaver1_0_0::LoadSprite(FILE* p_file, Sprite*& sprite, GObject* owner)
 {
 
 	Texture* texture;
 	fread(&texture, sizeof(DWORD_PTR), 1, p_file);
-	if (texture) LoadTexture(p_file, &texture);
+	if (texture) LoadTexture(p_file, texture);
 	Vector2 base_pos;
 	Vector2 scale;
 	fread(&base_pos, sizeof(Vector2), 1, p_file);
 	fread(&scale, sizeof(Vector2), 1, p_file);
-	(*sprite)->QuickSet(texture, owner, base_pos, scale);
+	sprite->QuickSet(texture, owner, base_pos, scale);
 }
 
 void FileSaver1_0_0::SaveTexture(FILE* p_file, Texture* texture)
@@ -231,7 +230,7 @@ void FileSaver1_0_0::SaveTexture(FILE* p_file, Texture* texture)
 
 }
 
-void FileSaver1_0_0::LoadTexture(FILE* p_file, Texture** texture)
+void FileSaver1_0_0::LoadTexture(FILE* p_file, Texture*& texture)
 {
 	
 	TCHAR key_buffer[256];
@@ -245,7 +244,7 @@ void FileSaver1_0_0::LoadTexture(FILE* p_file, Texture** texture)
 
 	tstring key(key_buffer);
 	tstring relative_path(relative_path_buffer);
-	(*texture) = ResManager::GetInstance()->LoadTexture(key, relative_path);
+	texture = ResManager::GetInstance()->LoadTexture(key, relative_path);
 }
 
 void FileSaver1_0_0::SaveBackground(FILE* p_file, Background* background)
@@ -264,28 +263,30 @@ void FileSaver1_0_0::SaveBackground(FILE* p_file, Background* background)
 
 }
 
-void FileSaver1_0_0::LoadBackground(FILE* p_file, Background** background)
+Background* FileSaver1_0_0::LoadBackground(FILE* p_file)
 {
-	(*background) = new Background();
-	GObject* p_obj = static_cast<GObject*>(*background);
-	LoadGObject(p_file, &p_obj);
+	Background* background = DEBUG_NEW Background();
+	GObject* p_obj = static_cast<GObject*>(background);
+	LoadGObject(p_file, p_obj);
 
 	RealObjectRenderComponent* render_cmp;
 	fread(&render_cmp, sizeof(DWORD_PTR), 1, p_file);
 	if (render_cmp) {
-		render_cmp = new RealObjectRenderComponent(*background);
+		render_cmp = DEBUG_NEW RealObjectRenderComponent(background);
 
 		RealObjectSprite* sprite;
 		fread(&sprite, sizeof(DWORD_PTR), 1, p_file);
 		
 		if (sprite) {
-			sprite = new RealObjectSprite();
+			sprite = DEBUG_NEW RealObjectSprite();
 			Sprite* p_sprite = static_cast<Sprite*>(sprite);
-			LoadSprite(p_file, &p_sprite, *background);
+			LoadSprite(p_file, p_sprite, background);
 			render_cmp->ChangeSprite(sprite);
 		}
-		(*background)->set_render_component(render_cmp);
+		if (background->get_render_component()) delete background->get_render_component();
+		background->set_render_component(render_cmp);
 	}
+	return background;
 }
 
 void FileSaver1_0_0::SaveWall(FILE* p_file, InvisibleWall* wall)
@@ -305,32 +306,33 @@ void FileSaver1_0_0::SaveWall(FILE* p_file, InvisibleWall* wall)
 
 }
 
-void FileSaver1_0_0::LoadWall(FILE* p_file, InvisibleWall** wall)
+InvisibleWall* FileSaver1_0_0::LoadWall(FILE* p_file)
 {
-	(*wall) = new InvisibleWall();
-	GObject* p_obj = static_cast<GObject*>(*wall);
-	LoadGObject(p_file, &p_obj);
+	InvisibleWall* wall = DEBUG_NEW InvisibleWall();
+	GObject* p_obj = static_cast<GObject*>(wall);
+	LoadGObject(p_file, p_obj);
 
 	Vector2 pos_offset;		
 	Vector2 scale;
 	bool is_physical_collider;
 
-	Collider* collider = (*wall)->get_collider();
+	Collider* collider = wall->get_collider();
 	fread(&collider, sizeof(DWORD_PTR), 1, p_file);
 	if (collider) {
-		collider = new Collider();
-		Vector2 pos_offset = collider->get_pos_offset();
-		Vector2 scale = collider->get_scale();
-		bool is_physical_collider = collider->get_is_physical_collider();
+		collider = DEBUG_NEW Collider();
+		Vector2 pos_offset;
+		Vector2 scale;
+		bool is_physical_collider;
 		fread(&pos_offset, sizeof(Vector2), 1, p_file);
 		fread(&scale, sizeof(Vector2), 1, p_file);
 		fread(&is_physical_collider, sizeof(bool), 1, p_file);
-		collider->set_owner(*wall);
+		collider->set_owner(wall);
 		collider->set_pos_offset(pos_offset);
 		collider->set_scale(scale);
 		collider->set_is_physical_collider(is_physical_collider);
-		(*wall)->set_collider(collider);
+		wall->set_collider(collider);
 	}
+	return wall;
 }
 
 void FileSaver1_0_0::SaveTile(FILE* p_file, Tile* tile)
@@ -348,26 +350,28 @@ void FileSaver1_0_0::SaveTile(FILE* p_file, Tile* tile)
 	}
 }
 
-void FileSaver1_0_0::LoadTile(FILE* p_file, Tile** tile)
+Tile* FileSaver1_0_0::LoadTile(FILE* p_file)
 {
-	(*tile) = new Tile();
-	GObject* p_obj = static_cast<GObject*>(*tile);
-	LoadGObject(p_file, &p_obj);
+	Tile* tile = DEBUG_NEW Tile();
+	GObject* p_obj = static_cast<GObject*>(tile);
+	LoadGObject(p_file, p_obj);
 
 	RealObjectRenderComponent* render_cmp;
 	fread(&render_cmp, sizeof(DWORD_PTR), 1, p_file);
 	if (render_cmp) {
-		render_cmp = new RealObjectRenderComponent(*tile);
+		render_cmp = DEBUG_NEW RealObjectRenderComponent(tile);
 
 		RealObjectSprite* sprite;
 		fread(&sprite, sizeof(DWORD_PTR), 1, p_file);
 
 		if (sprite) {
-			sprite = new RealObjectSprite();
+			sprite = DEBUG_NEW RealObjectSprite();
 			Sprite* p_sprite = static_cast<Sprite*>(sprite);
-			LoadSprite(p_file, &p_sprite, *tile);
+			LoadSprite(p_file, p_sprite, tile);
 			render_cmp->ChangeSprite(sprite);
 		}
-		(*tile)->set_render_component(render_cmp);
+		if(tile->get_render_component()) delete tile->get_render_component();
+		tile->set_render_component(render_cmp);
 	}
+	return tile;
 }

@@ -9,7 +9,7 @@ Monster::Monster()
 	, center_pos_(Vector2{0,0})
 	, direction_(-1)
 	, move_range_(0){
-	Collider* collider = new Collider();
+	Collider* collider = DEBUG_NEW Collider();
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 20, 20 });
 	collider->set_is_physical_collider(true);
@@ -20,7 +20,7 @@ Monster::~Monster() {}
 void Monster::CreateInteractor()
 {
 
-	Interactor* interactor = new Interactor();
+	Interactor* interactor = DEBUG_NEW Interactor();
 	interactor->Init(this, Vector2(0, 0), Vector2(100, 100));
 	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
 	set_interactor(interactor);

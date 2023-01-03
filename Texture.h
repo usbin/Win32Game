@@ -8,7 +8,7 @@ class Texture : public Res
 private:
 
 	//DX11 »ç¿ë
-	ID3D11ShaderResourceView* p_resource_view_;
+	ID3D11ShaderResourceView* p_resource_view_ = nullptr;
 	D3D11_TEXTURE2D_DESC texture_desc_;
 
 	Texture();

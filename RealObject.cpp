@@ -14,6 +14,10 @@
 RealObject::RealObject()
 	: GObject()
 	, collider_(nullptr)
+	, control_cmp_(nullptr)
+	, physics_cmp_(nullptr)
+	, render_cmp_(nullptr)
+	, interactor_(nullptr)
 {
 }
 

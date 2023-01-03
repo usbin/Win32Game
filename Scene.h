@@ -12,8 +12,8 @@ private:
 	std::queue<std::pair<GObject*, GROUP_TYPE>> delete_queue_;
 	tstring name_;
 
-	HDC hdc_;
-	ID3D11Device* p_d3d_device_;
+	HDC hdc_ = 0;
+	ID3D11Device* p_d3d_device_ = nullptr;
 
 public:
 	Scene()

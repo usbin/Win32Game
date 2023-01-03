@@ -7,33 +7,33 @@ class DXClass
 private:
 	SINGLETON(DXClass);
 
-	ID3D11Device* p_d3d_device_;
-	ID3D11DeviceContext* p_immediate_context_;
-	IDXGISwapChain* p_swap_chain_;
-	ID3D11RenderTargetView* p_render_target_view_;
+	ID3D11Device* p_d3d_device_ = nullptr;
+	ID3D11DeviceContext* p_immediate_context_ = nullptr;
+	IDXGISwapChain* p_swap_chain_ = nullptr;
+	ID3D11RenderTargetView* p_render_target_view_ = nullptr;
 
-	ID3D11VertexShader* p_vs_;
-	ID3D11PixelShader* p_ps_;
-	ID3D11Buffer* p_vertex_buffer_;
-	ID3D11Buffer* p_idx_buffer_;
-	ID3D11Buffer* p_const_buffer_on_resize_;//쉐이더에게 해상도 넘겨주기 위한 파라미터 버퍼
-	ID3D11Buffer* p_const_buffer_on_render_;//텍스쳐 사용 여부와 color를 갖고 있는 파라미터 버퍼
+	ID3D11VertexShader* p_vs_ = nullptr;
+	ID3D11PixelShader* p_ps_ = nullptr;
+	ID3D11Buffer* p_vertex_buffer_ = nullptr;
+	ID3D11Buffer* p_idx_buffer_ = nullptr;
+	ID3D11Buffer* p_const_buffer_on_resize_ = nullptr;//쉐이더에게 해상도 넘겨주기 위한 파라미터 버퍼
+	ID3D11Buffer* p_const_buffer_on_render_ = nullptr;//텍스쳐 사용 여부와 color를 갖고 있는 파라미터 버퍼
 	DXGI_FORMAT idx_format_;
 
 	//이미지 렌더링용 샘플러
-	ID3D11SamplerState* p_sampler_linear_;
+	ID3D11SamplerState* p_sampler_linear_ = nullptr;
 
 	//텍스트 렌더링
-	IDWriteFactory* p_dwrite_factory_;
-	ID2D1Factory* p_d2d1_factory_;
-	IDXGISurface1* p_d2d_rt_;
-	ID2D1RenderTarget* p_text_render_target_;
-	IDWriteTextFormat* p_text_format_;
+	IDWriteFactory* p_dwrite_factory_ = nullptr;
+	ID2D1Factory* p_d2d1_factory_ = nullptr;
+	IDXGISurface1* p_d2d_rt_ = nullptr;
+	ID2D1RenderTarget* p_text_render_target_ = nullptr;
+	IDWriteTextFormat* p_text_format_ = nullptr;
 	//말줄임표 설정
 	DWRITE_TRIMMING trim_options_ = {
 		DWRITE_TRIMMING_GRANULARITY_CHARACTER
 	};
-	IDWriteInlineObject* p_trim_sign_;
+	IDWriteInlineObject* p_trim_sign_ = nullptr;
 
 public:
 	int Init(HWND hwnd, Vector2 resolution);

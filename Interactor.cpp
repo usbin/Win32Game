@@ -16,7 +16,7 @@ void Interactor::Init(GObject* owner, Vector2 pos_offset, Vector2 scale)
 
 	owner_ = owner;
 	pos_offset_ = pos_offset;
-	Collider* collider = new Collider();
+	Collider* collider = DEBUG_NEW Collider();
 	collider->set_owner(this);
 	collider->set_scale(scale);
 

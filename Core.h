@@ -9,13 +9,13 @@ class Core {
 
 private:
 	POINT pt_resolution_;
-	HWND hwnd_;
-	HINSTANCE hinst_;
-	HDC hdc_;
-	HDC hdc_mem_;
-	HBITMAP hbitmap_;
-	HPEN pens[static_cast<int>(PEN_TYPE::END)];
-	HBRUSH brushes[static_cast<int>(BRUSH_TYPE::END)];
+	HWND hwnd_ = 0;
+	HINSTANCE hinst_ = 0;
+	HDC hdc_ = 0;
+	HDC hdc_mem_ = 0;
+	HBITMAP hbitmap_ = 0;
+	HPEN pens[static_cast<int>(PEN_TYPE::END)] = {0};
+	HBRUSH brushes[static_cast<int>(BRUSH_TYPE::END)] = {0};
 
 
 	void InitPenAndBrush();

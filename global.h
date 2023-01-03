@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <crtdbg.h>	
 
+#define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+
 
 #include <Windows.h>
 #include <tchar.h>
@@ -25,7 +27,7 @@
 #pragma comment(lib, "D3dCompiler.lib")
 #include <d3d11.h>
 #include <D3DX11.h>
-#include <D3DX10tex.h>
+#include <D3DX11tex.h>
 #include <d3dcompiler.h>
 #include <D3DX11async.h>
 #include <DirectXMath.h>

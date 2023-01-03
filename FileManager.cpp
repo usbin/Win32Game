@@ -78,8 +78,7 @@ void FileManager::LoadWallFile(const tstring& file_path)
 	UINT walls_size;
 	fread(&walls_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < walls_size; i++) {
-		InvisibleWall* wall = new InvisibleWall();
-		FileSaver1_0_0::GetInstance()->SaveWall(p_file, wall);
+		InvisibleWall* wall = FileSaver1_0_0::GetInstance()->LoadWall(p_file);
 		CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 	}
 
@@ -116,8 +115,7 @@ void FileManager::LoadTilemapFile(const tstring& file_path)
 	UINT tiles_size;
 	fread(&tiles_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < tiles_size; i++) {
-		Tile* tile = new Tile();
-		FileSaver1_0_0::GetInstance()->LoadTile(p_file, &tile);
+		Tile* tile = FileSaver1_0_0::GetInstance()->LoadTile(p_file);
 		CreateGObject(tile, GROUP_TYPE::TILE);
 
 	}

@@ -11,9 +11,9 @@ public:
 	Director_Scene_Title();
 	~Director_Scene_Title();
 private:
-	Background_Title* bg_;
-	TitleText_Title* title_;
-	NewGameBtn_Title* new_game_btn_;
+	Background_Title* bg_ = nullptr;
+	TitleText_Title* title_ = nullptr;
+	NewGameBtn_Title* new_game_btn_ = nullptr;
 public:
 	void Init(Background_Title* bg, TitleText_Title* title, NewGameBtn_Title* new_game_btn);
 	virtual void Update() override;

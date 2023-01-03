@@ -7,12 +7,12 @@ class Camera
 	SINGLETON(Camera);
 
 private:
-	Vector2 look_pos_;		//카메라가 보는 위치(중심 좌표)
-	GObject* look_target_;	//타깃이 있으면 따라감
+	Vector2 look_pos_ = Vector2::Zero();		//카메라가 보는 위치(중심 좌표)
+	GObject* look_target_ = nullptr;	//타깃이 있으면 따라감
 
 
-	Vector2 look_pos_dest_;	//천천히 움직여서 도착할 위치
-	float remain_second_;	//도착하기까지 몇 초 남았는지
+	Vector2 look_pos_dest_ = Vector2::Zero();	//천천히 움직여서 도착할 위치
+	float remain_second_ = 0;	//도착하기까지 몇 초 남았는지
 
 public:
 	void Update();

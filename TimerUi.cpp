@@ -8,7 +8,7 @@ TimerUi::TimerUi()
 	: Ui(true)
 {
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Ingame Timer Ui Background"), _T("texture\\light-gray.png"));
-	Sprite* sprite = new UiSprite();
+	Sprite* sprite = DEBUG_NEW UiSprite();
 	sprite->QuickSet(texture, this, get_pos(), get_scale());
 	ChangeSprite(sprite);
 }

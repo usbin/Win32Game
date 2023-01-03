@@ -17,14 +17,14 @@
 #include "NewGameBtn_Title.h"
 bool Scene_Title::Enter()
 {
-	Director_Scene_Title* dst = new Director_Scene_Title();
+	Director_Scene_Title* dst = DEBUG_NEW Director_Scene_Title();
 	dst->set_group_type(GROUP_TYPE::DIRECTOR);
 	CreateGObject(dst, GROUP_TYPE::DIRECTOR);
 
 	//==========================
 	// 게임 배경, 시작 버튼 생성
 	//===========================
-	Background_Title* bg = new Background_Title();
+	Background_Title* bg = DEBUG_NEW Background_Title();
 	Vector2 bg_size = Core::GetInstance()->get_resolution();
 	bg->set_pos(Vector2{ 0, 0 });
 	bg->set_scale(bg_size);
@@ -32,7 +32,7 @@ bool Scene_Title::Enter()
 	CreateGObject(bg, GROUP_TYPE::UI);
 
 
-	TitleText_Title* title_text = new TitleText_Title();	
+	TitleText_Title* title_text = DEBUG_NEW TitleText_Title();	
 	//초기 위치 : 화면 밖
 	Vector2 resolution = Core::GetInstance()->get_resolution();
 	title_text->set_pos(Vector2(resolution.x, resolution.y / 4.f));
@@ -40,7 +40,7 @@ bool Scene_Title::Enter()
 	title_text->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(title_text, GROUP_TYPE::UI);
 
-	NewGameBtn_Title* new_game_btn = new NewGameBtn_Title();
+	NewGameBtn_Title* new_game_btn = DEBUG_NEW NewGameBtn_Title();
 	Vector2 scale(150, 50);
 
 	new_game_btn->set_pos(Vector2(resolution.x / 2.f - scale.x / 2.f, resolution.y * 2.f / 4.f));

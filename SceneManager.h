@@ -9,10 +9,10 @@ class SceneManager
 {
 	SINGLETON(SceneManager);
 private:
-	Scene* p_current_scene_;
+	Scene* p_current_scene_ = nullptr;
 	Scene* scenes_[static_cast<int>(SCENE_TYPE::END)];
-	HDC hdc_;
-	ID3D11Device* p_d3d_device_;
+	HDC hdc_ = 0;
+	ID3D11Device* p_d3d_device_ = nullptr;
 	bool ChangeScene(SCENE_TYPE type);
 public:
 	bool Init(ID3D11Device* p_d3d_device_);

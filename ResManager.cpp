@@ -18,7 +18,7 @@ Texture* ResManager::LoadTexture(const tstring& key, const tstring& relative_pat
     if (it != textures_.end()) {
         return it->second;
     }
-    Texture* texture = new Texture();
+    Texture* texture = DEBUG_NEW Texture();
     texture->set_key(key);
     texture->set_relative_path(relative_path);
     texture->Load();

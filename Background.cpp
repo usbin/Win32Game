@@ -9,6 +9,7 @@ Background::Background()
 
 Background::~Background()
 {
+	
 }
 
 void Background::Update()
@@ -18,5 +19,5 @@ void Background::Update()
 
 void Background::CreateRenderCmp()
 {
-	render_cmp_ = new RealObjectRenderComponent(this);
+	render_cmp_ = DEBUG_NEW RealObjectRenderComponent(this);
 }

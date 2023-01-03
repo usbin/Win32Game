@@ -8,13 +8,13 @@ class PlayerRenderComponent : public IRenderComponent
 {
 public:
 	PlayerRenderComponent(GObject* owner);
-	~PlayerRenderComponent();
+	virtual ~PlayerRenderComponent();
 
 private:
-	RealObject* owner_;
-	RealObjectSprite* sprite_;
-	RealObjectAnimator* animator_;
-	Sprite* sprites[(int)DIRECTION::END][(int)PLAYER_STATE::END];
+	RealObject* owner_ = nullptr;
+	RealObjectSprite* sprite_ = nullptr;
+	RealObjectAnimator* animator_ = nullptr;
+	Sprite* sprites[(int)DIRECTION::END][(int)PLAYER_STATE::END] = { 0 };
 
 public:
 	virtual void CreateAnimator();

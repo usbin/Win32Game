@@ -13,16 +13,16 @@ public:
 	virtual ~Animation();
 protected:
 	tstring name_;
-	Texture* texture_;
-	float duration_;
-	bool is_repeat_;		//반복재생 여부
-	Animator* animator_;
-	int img_count_;
-	Vector2 offset_;		//GObject와 실제 그려지는 애니메이션간의 거리
-	bool is_finished_;		//재생이 끝났는지 여부
+	Texture* texture_ = nullptr;
+	float duration_ = 0;
+	bool is_repeat_ = false;		//반복재생 여부
+	Animator* animator_ = nullptr;
+	int img_count_ = 0;
+	Vector2 offset_ = Vector2::Zero();		//GObject와 실제 그려지는 애니메이션간의 거리
+	bool is_finished_ = false;		//재생이 끝났는지 여부
 
-	float frame_acc_dt_;	//현재 프레임 실행 후 경과된 시간
-	int frame_index_;
+	float frame_acc_dt_ = 0;	//현재 프레임 실행 후 경과된 시간
+	int frame_index_ = 0;
 
 	std::vector<AnimationFrame> frames_;
 

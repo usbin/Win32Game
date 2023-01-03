@@ -10,6 +10,7 @@ SceneManager::SceneManager()
 	, scenes_{}
 	, hdc_{ 0 }
 {
+	memset(scenes_, 0, sizeof(scenes_));
 }
 
 SceneManager::~SceneManager() {
@@ -37,16 +38,16 @@ bool SceneManager::Init(ID3D11Device* p_d3d_device)
 
 	p_d3d_device_ = p_d3d_device;
 	//모든 씬 생성, 초기화
-	scenes_[static_cast<int>(SCENE_TYPE::TITLE)] = new Scene_Title(p_d3d_device_);
+	scenes_[static_cast<int>(SCENE_TYPE::TITLE)] = DEBUG_NEW Scene_Title(p_d3d_device_);
 	scenes_[static_cast<int>(SCENE_TYPE::TITLE)]->set_name(_T("Scene Title"));
-	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)] = new Scene_01{ p_d3d_device_ };
+	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)] = DEBUG_NEW Scene_01{ p_d3d_device_ };
 	scenes_[static_cast<int>(SCENE_TYPE::SCENE_01)]->set_name(_T("Scene 01"));
-	scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)] = new Scene_Tool{ p_d3d_device_ };
+	scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)] = DEBUG_NEW Scene_Tool{ p_d3d_device_ };
 	scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)]->set_name(_T("Scene Tool"));
 
 
 	//시작 씬 설정
-	p_current_scene_ = scenes_[static_cast<int>(SCENE_TYPE::TITLE)];
+	p_current_scene_ = scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)];
 	p_current_scene_->Enter();
 
 	return TRUE;

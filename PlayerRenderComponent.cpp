@@ -8,17 +8,19 @@
 
 PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 {
+	
+
 	owner_ = dynamic_cast<RealObject*>( owner );
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
-	Sprite* sprite_front = new RealObjectSprite();
-	Sprite* sprite_back = new RealObjectSprite();
-	Sprite* sprite_right = new RealObjectSprite();
-	Sprite* sprite_left = new RealObjectSprite();
-	Sprite* sprite_hold_front = new RealObjectSprite();
-	Sprite* sprite_hold_back = new RealObjectSprite();
-	Sprite* sprite_hold_right = new RealObjectSprite();
-	Sprite* sprite_hold_left = new RealObjectSprite();
+	Sprite* sprite_front = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_back = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_right = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_left = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_hold_front = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_hold_back = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_hold_right = DEBUG_NEW RealObjectSprite();
+	Sprite* sprite_hold_left = DEBUG_NEW RealObjectSprite();
 	sprite_front->QuickSet(texture, owner, Vector2{ 0, 0 }, Vector2{ 16, 32 });
 	sprite_back->QuickSet(texture, owner, Vector2{ 0, 64 }, Vector2{ 16, 32 });
 	sprite_right->QuickSet(texture, owner, Vector2{ 0, 32 }, Vector2{ 16, 32 });
@@ -45,6 +47,7 @@ PlayerRenderComponent::~PlayerRenderComponent()
 	for (int i = 0; i < (int)DIRECTION::END; i++) {
 		for (int j = 0; j < (int)PLAYER_STATE::END; j++) {
 			if (sprites[i][j]) {
+
 				delete sprites[i][j];
 				sprites[i][j] = nullptr;
 			}
@@ -60,7 +63,7 @@ void PlayerRenderComponent::CreateAnimator()
 	if (old_animator) delete old_animator;
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
-	RealObjectAnimator* animator = new RealObjectAnimator();
+	RealObjectAnimator* animator = DEBUG_NEW RealObjectAnimator();
 	animator->CreateAnimation(
 		_T("Walk_Front")
 		, texture
@@ -164,7 +167,7 @@ void PlayerRenderComponent::Update(GObject* owner)
 				//아무것도 하지않음
 			}
 			else {
-				ChangeSprite(new RealObjectSprite(*dynamic_cast<RealObjectSprite*>(new_sprite)));
+				ChangeSprite(DEBUG_NEW RealObjectSprite(*dynamic_cast<RealObjectSprite*>(new_sprite)));
 			}
 		} break;
 		case PLAYER_STATE::WALK: {

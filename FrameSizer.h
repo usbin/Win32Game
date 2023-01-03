@@ -9,7 +9,7 @@ class InvisibleWallEditFrame;
 typedef void(*OnDragHandler)(InvisibleWallEditFrame* frame, Vector2 delta);
 struct OnDragHandlerParams {
 	OnDragHandler handler;
-	InvisibleWallEditFrame* frame;
+	InvisibleWallEditFrame* frame = nullptr;
 };
 class FrameSizer : public Ui
 {
@@ -21,8 +21,8 @@ private:
 	//인자로 부모와 변화량 vector를 받음.
 	OnDragHandlerParams on_drag_handler_;
 	
-	bool dragging_;
-	Vector2 prev_drag_pos_;
+	bool dragging_ = false;
+	Vector2 prev_drag_pos_ = Vector2::Zero();
 
 public:
 	virtual void Update() override;

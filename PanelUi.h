@@ -8,10 +8,10 @@ public:
 	~PanelUi();
 private:
 
-	Vector2 prev_drag_pos_;
-	bool dragging_;
+	Vector2 prev_drag_pos_ = Vector2::Zero();
+	bool dragging_ = false;
 
-	bool draggable_;
+	bool draggable_ = true;
 public:
 	virtual void Update() override;
 	virtual void FinalUpdate() override;
