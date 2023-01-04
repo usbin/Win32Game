@@ -3,7 +3,7 @@
 #include "IRenderComponent.h"
 #include "RealObjectSprite.h"
 class GObject;
-class Sprite;
+class GObjectSprite;
 class RealObjectAnimator;
 class RealObject;
 class RealObjectSprite;
@@ -23,8 +23,8 @@ public:
 	virtual void Update(GObject* owner);
 	virtual void Render(GObject* owner, ID3D11Device* p_d3d_device);
 
-	virtual Sprite* get_sprite() { return static_cast<Sprite*>(sprite_); };
-	virtual void ChangeSprite(Sprite* sprite);
+	virtual GObjectSprite* get_sprite() { return static_cast<GObjectSprite*>(sprite_); };
+	virtual void ChangeSprite(GObjectSprite* sprite);
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };

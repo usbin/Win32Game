@@ -1,4 +1,10 @@
 #include "Seed.h"
+#include "RealObject.h"
+#include "IItemHolder.h"
+Seed::~Seed()
+{
+    delete sprite_;
+}
 
 IItem* Seed::Init(int item_code, tstring name)
 {
@@ -14,15 +20,17 @@ IItem* Seed::Init(int item_code, tstring name)
     return this;
 }
 
-void Seed::OnHold(GObject* owner)
+void Seed::OnHold(RealObject* owner) const
 {
+    // 선택돼있을 때(캐릭터가 잡고 있을 때)
+    owner->get_item_holder()->SetItem(this);
 }
 
-int Seed::get_item_code()
+int Seed::get_item_code() const
 {
     return item_code_;
 }
 
-void Seed::Use(GObject* obj)
+void Seed::Use(RealObject* obj)
 {
 }

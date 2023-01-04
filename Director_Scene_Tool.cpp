@@ -2,7 +2,7 @@
 #include "TileEditUi.h"
 #include "ButtonUi.h"
 #include "TileUi.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "Core.h"
 #include "Scene_Tool.h"
 #define TILE_WINDOW_WIDTH 300

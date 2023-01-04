@@ -47,7 +47,7 @@ bool SceneManager::Init(ID3D11Device* p_d3d_device)
 
 
 	//Ω√¿€ æ¿ º≥¡§
-	p_current_scene_ = scenes_[static_cast<int>(SCENE_TYPE::SCENE_TOOL)];
+	p_current_scene_ = scenes_[static_cast<int>(SCENE_TYPE::TITLE)];
 	p_current_scene_->Enter();
 
 	return TRUE;

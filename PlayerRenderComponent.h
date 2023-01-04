@@ -14,7 +14,8 @@ private:
 	RealObject* owner_ = nullptr;
 	RealObjectSprite* sprite_ = nullptr;
 	RealObjectAnimator* animator_ = nullptr;
-	Sprite* sprites[(int)DIRECTION::END][(int)PLAYER_STATE::END] = { 0 };
+	RealObjectSprite* sprites[(int)DIRECTION::END][(int)PLAYER_STATE::END][(int)PLAYER_HAND_STATE::END] = { 0 };
+	tstring animation_names[(int)DIRECTION::END][(int)PLAYER_STATE::END][(int)PLAYER_HAND_STATE::END] = { _T("") };
 
 public:
 	virtual void CreateAnimator();
@@ -22,8 +23,8 @@ public:
 	virtual void Render(GObject* owner, ID3D11Device* p_d3d_device);
 
 
-	virtual Sprite* get_sprite() { return sprite_; };
-	virtual void ChangeSprite(Sprite* sprite);
+	virtual GObjectSprite* get_sprite() { return sprite_; };
+	virtual void ChangeSprite(GObjectSprite* sprite);
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };

@@ -1,4 +1,10 @@
 #include "Mic.h"
+#include "RealObject.h"
+#include "IItemHolder.h"
+Mic::~Mic()
+{
+    delete sprite_;
+}
 
 IItem* Mic::Init(int item_code, tstring name)
 {
@@ -19,11 +25,13 @@ IItem* Mic::Init(int item_code, tstring name)
     return this;
 }
 
-void Mic::OnHold(GObject* owner)
+void Mic::OnHold(RealObject* owner) const
 {
+    // 선택돼있을 때(캐릭터가 잡고 있을 때)
+    owner->get_item_holder()->SetItem(this);
 }
 
-int Mic::get_item_code()
+int Mic::get_item_code() const
 {
     return item_code_;
 }

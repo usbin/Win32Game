@@ -11,6 +11,12 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Background_Title.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\BottomInventoryCellUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\BottomInventoryUi.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ButtonUi.cpp"
 
 
@@ -62,6 +68,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObject.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObjectSprite.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
 
 
@@ -75,6 +84,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemDb.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemSprite.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"
@@ -156,9 +168,6 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SelectGdi.cpp"
-
-
-#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Sprite.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Texture.cpp"

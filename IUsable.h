@@ -1,10 +1,10 @@
 #pragma once
 #include "global.h"
-class GObject;
-class Sprite;
+class RealObject;
+class ISprite;
 class IUsable
 {
 public:
-	virtual void Use(GObject* obj) = 0;
+	virtual void Use(RealObject* obj) = 0;
 };
 

@@ -5,6 +5,7 @@
 #include "ResManager.h"
 #include "RealObjectSprite.h"
 #include "RealObjectAnimator.h"
+#include "GObjectSprite.h"
 
 PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 {
@@ -13,14 +14,14 @@ PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 	owner_ = dynamic_cast<RealObject*>( owner );
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
-	Sprite* sprite_front = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_back = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_right = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_left = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_hold_front = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_hold_back = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_hold_right = DEBUG_NEW RealObjectSprite();
-	Sprite* sprite_hold_left = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_front = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_back = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_right = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_left = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_hold_front = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_hold_back = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_hold_right = DEBUG_NEW RealObjectSprite();
+	RealObjectSprite* sprite_hold_left = DEBUG_NEW RealObjectSprite();
 	sprite_front->QuickSet(texture, owner, Vector2{ 0, 0 }, Vector2{ 16, 32 });
 	sprite_back->QuickSet(texture, owner, Vector2{ 0, 64 }, Vector2{ 16, 32 });
 	sprite_right->QuickSet(texture, owner, Vector2{ 0, 32 }, Vector2{ 16, 32 });
@@ -29,14 +30,14 @@ PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 	sprite_hold_back->QuickSet(texture, owner, Vector2{ 112, 64 }, Vector2{ 16, 32 });
 	sprite_hold_right->QuickSet(texture, owner, Vector2{ 112, 32 }, Vector2{ 16, 32 });
 	sprite_hold_left->QuickSet(texture, owner, Vector2{ 112, 32 }, Vector2{ 16, 32 });
-	sprites[(int)DIRECTION::UP][(int)PLAYER_STATE::IDLE] = sprite_back;
-	sprites[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::IDLE] = sprite_right;
-	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::IDLE] = sprite_left;
-	sprites[(int)DIRECTION::DOWN][(int)PLAYER_STATE::IDLE] = sprite_front;
-	sprites[(int)DIRECTION::UP][(int)PLAYER_STATE::HOLD] = sprite_hold_back;
-	sprites[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::HOLD] = sprite_hold_right;
-	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::HOLD] = sprite_hold_left;
-	sprites[(int)DIRECTION::DOWN][(int)PLAYER_STATE::HOLD] = sprite_hold_front;
+	sprites[(int)DIRECTION::UP][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_back;
+	sprites[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_right;
+	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_left;
+	sprites[(int)DIRECTION::DOWN][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_front;
+	sprites[(int)DIRECTION::UP][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::HOLD] = sprite_hold_back;
+	sprites[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::HOLD] = sprite_hold_right;
+	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::HOLD] = sprite_hold_left;
+	sprites[(int)DIRECTION::DOWN][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::HOLD] = sprite_hold_front;
 
 	CreateAnimator();
 
@@ -46,11 +47,13 @@ PlayerRenderComponent::~PlayerRenderComponent()
 {
 	for (int i = 0; i < (int)DIRECTION::END; i++) {
 		for (int j = 0; j < (int)PLAYER_STATE::END; j++) {
-			if (sprites[i][j]) {
-
-				delete sprites[i][j];
-				sprites[i][j] = nullptr;
+			for (int k = 0; k < (int)PLAYER_HAND_STATE::END; k++) {
+				if (sprites[i][j][k]) {
+					delete sprites[i][j][k];
+					sprites[i][j][k] = nullptr;
+				}
 			}
+			
 		}
 	}
 	delete animator_;
@@ -74,6 +77,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Front");
 	animator->CreateAnimation(
 		_T("Walk_Back")
 		, texture
@@ -84,6 +88,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Back");
 	animator->CreateAnimation(
 		_T("Walk_Right")
 		, texture
@@ -94,6 +99,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Right");
 	animator->CreateAnimation(
 		_T("Walk_Left")
 		, texture
@@ -104,6 +110,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Left");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Front")
 		, texture
@@ -114,6 +121,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Front");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Back")
 		, texture
@@ -124,6 +132,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Back");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Right")
 		, texture
@@ -134,6 +143,7 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Right");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Left")
 		, texture
@@ -144,6 +154,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, .2f
 		, 3
 		, false);
+	animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Left");
+
 	animator->set_owner(get_owner());
 	set_animator(animator);
 }
@@ -159,7 +171,7 @@ void PlayerRenderComponent::Update(GObject* owner)
 		switch (player->state_) {
 		case PLAYER_STATE::IDLE: {
 			if (animator_) animator_->Stop();
-			Sprite* new_sprite = sprites[(int)player->get_direction()][(int)player->state_];
+			ISprite* new_sprite = sprites[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_];
 			if (sprite_
 				&&sprite_->get_texture() == new_sprite->get_texture()
 				&& sprite_->get_base_pos() == new_sprite->get_base_pos()
@@ -171,26 +183,8 @@ void PlayerRenderComponent::Update(GObject* owner)
 			}
 		} break;
 		case PLAYER_STATE::WALK: {
-			switch (player->get_direction())
-			{
-			case DIRECTION::UP:
-				if (!animator_->is_current_playing(_T("Walk_Back")))
-					animator_->Play(_T("Walk_Back"));
-				break;
-			case DIRECTION::DOWN:
-				if (!animator_->is_current_playing(_T("Walk_Front")))
-					animator_->Play(_T("Walk_Front"));
-
-				break;
-			case DIRECTION::LEFT:
-				if (!animator_->is_current_playing(_T("Walk_Left")))
-					animator_->Play(_T("Walk_Left"));
-				break;
-			case DIRECTION::RIGHT:
-				if (!animator_->is_current_playing(_T("Walk_Right")))
-					animator_->Play(_T("Walk_Right"));
-				break;
-			}
+			if (!animator_->is_current_playing(animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]))
+				animator_->Play(animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]);
 
 		} break;
 		}
@@ -220,7 +214,7 @@ void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 	
 }
 
-void PlayerRenderComponent::ChangeSprite(Sprite* sprite)
+void PlayerRenderComponent::ChangeSprite(GObjectSprite* sprite)
 {
 	if (sprite_) delete sprite_;
 	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);

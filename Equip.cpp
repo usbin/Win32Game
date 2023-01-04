@@ -1,34 +1,23 @@
 #include "Equip.h"
-
-
+#include "ResManager.h"
+#include "ItemSprite.h"
+#include "RealObject.h"
+#include "IItemHolder.h"
+Equip::~Equip()
+{
+	delete sprite_;
+}
 IItem* Equip::Init(int item_code, tstring name)
 {
 	item_code_ = item_code;
 	name_ = name;
 
-	//
-	//(0, 24) (15, 48)
-	switch (item_code) {
-	case (int)ITEM_CODE::HOE: {	//±ªÀÌ
 
-	} break;
-	case (int)ITEM_CODE::WATERING_POT: { //¹°»Ñ¸®°³
-
-	} break;
-	case (int)ITEM_CODE::PICKAXE: { //°î±ªÀÌ
-
-	} break;
-	case (int)ITEM_CODE::AXE: { //µµ³¢
-
-	} break;
-	case (int)ITEM_CODE::SICKLE: { //³´
-
-	} break;
-	}
+	
 	return this;
 }
 
-void Equip::Use(GObject* obj)
+void Equip::Use(RealObject* obj)
 {
 	switch (item_code_) {
 	case (int)ITEM_CODE::HOE: {	//±ªÀÌ
@@ -43,19 +32,17 @@ void Equip::Use(GObject* obj)
 	case (int)ITEM_CODE::AXE: { //µµ³¢
 
 	} break;
-	case (int)ITEM_CODE::SICKLE: { //³´
-
-	} break;
 	}
 }
 
-int Equip::get_item_code()
+int Equip::get_item_code() const
 {
 	return item_code_;
 }
 
-void Equip::OnHold(GObject* owner)
+
+void Equip::OnHold(RealObject* owner) const
 {
 	// ¼±ÅÃµÅÀÖÀ» ¶§(Ä³¸¯ÅÍ°¡ Àâ°í ÀÖÀ» ¶§)
-
+	owner->get_item_holder()->SetItem(this);
 }

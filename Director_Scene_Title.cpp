@@ -36,7 +36,9 @@ void Director_Scene_Title::Update()
         }
     }
 
-
+    if (KEY_DOWN(KEY::F2)) {
+        ChangeScene(SCENE_TYPE::SCENE_01);
+    }
 	if (KEY_DOWN(KEY::F11)) {
 		ChangeScene(SCENE_TYPE::SCENE_TOOL);
 	}

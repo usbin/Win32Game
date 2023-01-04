@@ -51,5 +51,5 @@ typedef std::basic_string<TCHAR> tstring;
 
 
 
-#define TILE_WIDTH 32
-#define TILE_HEIGHT 32
+#define TILE_WIDTH 48
+#define TILE_HEIGHT 48

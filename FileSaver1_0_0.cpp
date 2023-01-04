@@ -192,8 +192,8 @@ void FileSaver1_0_0::LoadGObject(FILE* p_file, GObject*& gobject)
 	gobject->set_direction(direction);
 }
 
-void FileSaver1_0_0::SaveSprite(FILE* p_file, Sprite* sprite)
-{ 
+void FileSaver1_0_0::SaveGObjectSprite(FILE* p_file, GObjectSprite* sprite)
+{
 	Texture* texture = sprite->get_texture();
 	fwrite(&texture, sizeof(DWORD_PTR), 1, p_file);
 	if (texture)	SaveTexture(p_file, texture);
@@ -201,12 +201,10 @@ void FileSaver1_0_0::SaveSprite(FILE* p_file, Sprite* sprite)
 	Vector2 scale = sprite->get_scale();
 	fwrite(&base_pos, sizeof(Vector2), 1, p_file);
 	fwrite(&scale, sizeof(Vector2), 1, p_file);
-
 }
 
-void FileSaver1_0_0::LoadSprite(FILE* p_file, Sprite*& sprite, GObject* owner)
+void FileSaver1_0_0::LoadGObjectSprite(FILE* p_file, GObjectSprite*& sprite, GObject* owner)
 {
-
 	Texture* texture;
 	fread(&texture, sizeof(DWORD_PTR), 1, p_file);
 	if (texture) LoadTexture(p_file, texture);
@@ -216,6 +214,7 @@ void FileSaver1_0_0::LoadSprite(FILE* p_file, Sprite*& sprite, GObject* owner)
 	fread(&scale, sizeof(Vector2), 1, p_file);
 	sprite->QuickSet(texture, owner, base_pos, scale);
 }
+
 
 void FileSaver1_0_0::SaveTexture(FILE* p_file, Texture* texture)
 {
@@ -256,7 +255,7 @@ void FileSaver1_0_0::SaveBackground(FILE* p_file, Background* background)
 	if (render_cmp) {
 		RealObjectSprite* sprite = dynamic_cast<RealObjectSprite*>(render_cmp->get_sprite());
 		fwrite(&sprite, sizeof(DWORD_PTR), 1, p_file);
-		if (sprite) SaveSprite(p_file, sprite);
+		if (sprite) SaveGObjectSprite(p_file, sprite);
 		
 
 	}
@@ -279,8 +278,8 @@ Background* FileSaver1_0_0::LoadBackground(FILE* p_file)
 		
 		if (sprite) {
 			sprite = DEBUG_NEW RealObjectSprite();
-			Sprite* p_sprite = static_cast<Sprite*>(sprite);
-			LoadSprite(p_file, p_sprite, background);
+			GObjectSprite* p_sprite = static_cast<GObjectSprite*>(sprite);
+			LoadGObjectSprite(p_file, p_sprite, background);
 			render_cmp->ChangeSprite(sprite);
 		}
 		if (background->get_render_component()) delete background->get_render_component();
@@ -344,7 +343,7 @@ void FileSaver1_0_0::SaveTile(FILE* p_file, Tile* tile)
 	if (render_cmp) {
 		RealObjectSprite* sprite = dynamic_cast<RealObjectSprite*>(render_cmp->get_sprite());
 		fwrite(&sprite, sizeof(DWORD_PTR), 1, p_file);
-		if (sprite) SaveSprite(p_file, sprite);
+		if (sprite) SaveGObjectSprite(p_file, sprite);
 
 
 	}
@@ -366,8 +365,8 @@ Tile* FileSaver1_0_0::LoadTile(FILE* p_file)
 
 		if (sprite) {
 			sprite = DEBUG_NEW RealObjectSprite();
-			Sprite* p_sprite = static_cast<Sprite*>(sprite);
-			LoadSprite(p_file, p_sprite, tile);
+			GObjectSprite* p_sprite = static_cast<GObjectSprite*>(sprite);
+			LoadGObjectSprite(p_file, p_sprite, tile);
 			render_cmp->ChangeSprite(sprite);
 		}
 		if(tile->get_render_component()) delete tile->get_render_component();

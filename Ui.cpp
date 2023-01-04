@@ -1,6 +1,6 @@
 #include "Ui.h"
 #include "Core.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "Texture.h"
 #include "Animator.h"
 #include "UiManager.h"
@@ -87,7 +87,7 @@ void Ui::Render(ID3D11Device* p_d3d_device)
 		if (!is_static_pos()) pos = WorldToRenderPos(pos);
 		const Vector2& scale = get_scale();
 
-		Sprite* sprite = get_sprite();
+		ISprite* sprite = get_sprite();
 		if (animator_) {
 			animator_->Render(p_d3d_device);
 		}
@@ -132,7 +132,7 @@ void Ui::ChildrenRender(ID3D11Device* p_d3d_device)
 	}
 }
 
-void Ui::ChangeSprite(Sprite* sprite)
+void Ui::ChangeSprite(GObjectSprite* sprite)
 {
 	if (sprite_) delete sprite_;
 	sprite_ = sprite;

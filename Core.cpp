@@ -9,6 +9,7 @@
 #include "UiManager.h"
 #include "DXClass.h"
 #include "Game.h"
+#include "ItemDb.h"
 
 
 Core::Core()
@@ -83,6 +84,9 @@ int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 	//=================
 	SceneManager::GetInstance()->Init(DXClass::GetInstance()->get_d3d_device());
 	CollisionManager::GetInstance()->Init();
+
+	ItemDb::GetInstance()->Init();
+	
 
 
 

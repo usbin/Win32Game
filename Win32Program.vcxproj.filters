@@ -231,7 +231,7 @@
     <ClInclude Include="Scene_Tool.h">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="ISprite.h">
       <Filter>Game\Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Director_Scene_Tool.h">
@@ -357,6 +357,18 @@
     <ClInclude Include="PlayerItemHolder.h">
       <Filter>Game\Component\ItemHolder</Filter>
     </ClInclude>
+    <ClInclude Include="BottomInventoryUi.h">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClInclude>
+    <ClInclude Include="BottomInventoryCellUi.h">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjectSprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -463,9 +475,6 @@
     <ClCompile Include="Scene_Tool.cpp">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
-    </ClCompile>
     <ClCompile Include="Director_Scene_Tool.cpp">
       <Filter>Game\Scene\Scene_Tool</Filter>
     </ClCompile>
@@ -570,6 +579,18 @@
     </ClCompile>
     <ClCompile Include="PlayerItemHolder.cpp">
       <Filter>Game\Component\ItemHolder</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomInventoryCellUi.cpp">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomInventoryUi.cpp">
+      <Filter>Game\Scene\Scene_01</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemSprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="GObjectSprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -16,6 +16,18 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 	ALT,
 	SPACE,
 	TAB,
+	KEY_1,
+	KEY_2,
+	KEY_3,
+	KEY_4,
+	KEY_5,
+	KEY_6,
+	KEY_7,
+	KEY_8,
+	KEY_9,
+	KEY_0,
+	KEY_MINUS,
+	KEY_PLUS,
 	Q,
 	W,
 	E,
@@ -85,7 +97,6 @@ enum class ITEM_CODE {
 	WATERING_POT	= 2,	//물뿌리개
 	PICKAXE			= 3,	//곡괭이
 	AXE				= 4,	//도끼
-	SICKLE			= 5,	//낫
 	STONE			= 50,	//돌
 	WOOD			= 51,	//나무
 	WEED			= 52,	//잡초
@@ -134,11 +145,15 @@ enum class DIRECTION {
 enum class PLAYER_STATE {
 	IDLE,
 	WALK,
-	HOLD,
-	HOLD_AND_WALK,
+	RUN,
 	END
 };
-
+enum class PLAYER_HAND_STATE {
+	NONE,
+	HOLD,
+	EQUIP,
+	END
+};
 enum class GAME_STATE
 {
 	PLAYING,		// 시간이 흘러가고 플레이어가 움직일 수 있는 상태

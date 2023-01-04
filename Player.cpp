@@ -11,15 +11,15 @@
 #include "Interactor.h"
 #include "PlayerControlComponent.h"
 #include "PhysicsComponent.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "RealObjectSprite.h"
 #include "PlayerRenderComponent.h"
-#include "IRenderComponent.h"
-
+#include "PlayerItemHolder.h"
+#include "ItemDb.h"
 Player::Player()
 	: speed_(200.f){
 
-	set_scale(Vector2{ 32, 64 });
+	set_scale(Vector2{ 48, 96 });
 
 	state_ = PLAYER_STATE::IDLE;
 	set_direction(DIRECTION::DOWN);
@@ -30,7 +30,16 @@ Player::Player()
 	CreateControlCmp();
 	CreatePhysicsCmp();
 	CreateRenderCmp();
+	CreateItemHolder();
 
+	const IItem* item = ItemDb::GetInstance()->GetItem(1);
+	const IItem* item2 = ItemDb::GetInstance()->GetItem(2);
+	const IItem* item3 = ItemDb::GetInstance()->GetItem(3);
+	const IItem* item4 = ItemDb::GetInstance()->GetItem(4);
+	inventory_.push_back(ItemData{ item, 1 });
+	inventory_.push_back(ItemData{ item2, 1 });
+	inventory_.push_back(ItemData{ item3, 1 });
+	inventory_.push_back(ItemData{ item4, 1 });
 
 }
 Player::~Player()
@@ -49,7 +58,6 @@ void Player::Update()
 			obj->OnInteract(this);
 		}
 	}
-
 
 
 }
@@ -97,6 +105,13 @@ void Player::CreateRenderCmp()
 
 }
 
+void Player::CreateItemHolder()
+{
+	item_holder_ = DEBUG_NEW PlayerItemHolder();
+	item_holder_->set_owner(this);
+
+}
+
 void Player::OnCollisionEnter(Collider* collider)
 {
 }
@@ -107,6 +122,16 @@ void Player::OnCollisionStay(Collider* collider)
 
 void Player::OnCollisionExit(Collider* collider)
 {
+}
+
+void Player::OnHold(const IItem* item)
+{
+	hand_state_ = PLAYER_HAND_STATE::HOLD;
+}
+
+void Player::OnUnhold()
+{
+	hand_state_ = PLAYER_HAND_STATE::NONE;
 }
 
 

@@ -4,7 +4,7 @@
 class TileUi;
 class Director_Scene_Tool;
 class ButtonUi;
-class Sprite;
+class ISprite;
 class InvisibleWallEditFrame;
 
 
@@ -36,7 +36,7 @@ private:
 	TILE_EDIT_MODE mode_;
 
 	std::vector<TileUi*> tile_uis_;
-	std::vector<Sprite*> tile_ui_sprites_;
+	std::vector<GObjectSprite*> tile_ui_sprites_;
 	UINT page_;
 
 	//==============

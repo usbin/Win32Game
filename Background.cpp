@@ -1,6 +1,6 @@
 #include "Background.h"
-#include "Sprite.h"
 #include "Texture.h"
+#include "RealObjectRenderComponent.h"
 
 Background::Background()
 {

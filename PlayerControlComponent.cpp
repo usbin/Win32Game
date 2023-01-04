@@ -32,6 +32,7 @@ void PlayerControlComponent::Update(RealObject* obj)
 		}
 		
 		if (move_direction == Vector2{ 0, 0 }) {
+			
 			player->state_ = PLAYER_STATE::IDLE;
 		}
 		else {

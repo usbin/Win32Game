@@ -5,7 +5,7 @@
 //매 렌더링에서 그려줌.
 class Collider;
 class Animator;
-class Sprite;
+class ISprite;
 
 class GObject
 {

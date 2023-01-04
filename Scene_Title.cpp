@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "ButtonUi.h"
 #include "ImageUi.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "Director_Scene_Title.h"
 #include "Background_Title.h"
 #include "TitleText_Title.h"

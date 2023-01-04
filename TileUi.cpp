@@ -1,7 +1,7 @@
 #include "TileUi.h"
 #include "SceneManager.h"
 #include "TileEditUi.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "Director_Scene_Tool.h"
 #include "SceneManager.h"
 #include "Tile.h"

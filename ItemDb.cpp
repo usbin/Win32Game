@@ -3,21 +3,71 @@
 #include "Crop.h"
 #include "Mic.h"
 #include "Seed.h"
+#include "ResManager.h"
+#include "ItemSprite.h"
 
+
+ItemDb::ItemDb() {};
+ItemDb::~ItemDb() {
+
+	SafeDeleteMap<int, IItem*>(items_);
+};
 void ItemDb::Init()
 {
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::HOE,				(DEBUG_NEW Equip())->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WATERING_POT,		(DEBUG_NEW Equip())->Init((int)ITEM_CODE::HOE, _T("¹°»Ñ¸®°³"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PICKAXE,			(DEBUG_NEW Equip())->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::AXE,				(DEBUG_NEW Equip())->Init((int)ITEM_CODE::AXE, _T("µµ³¢"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::SICKLE,			(DEBUG_NEW Equip())->Init((int)ITEM_CODE::SICKLE, _T("³´"))));
+	Equip* hoe = DEBUG_NEW Equip();
+	Equip* watering_pot = DEBUG_NEW Equip();
+	Equip* pickaxe = DEBUG_NEW Equip();
+	Equip* axe = DEBUG_NEW Equip();
+	Mic* stone = DEBUG_NEW Mic();
+	Mic* weed = DEBUG_NEW Mic();
+	Mic* wood = DEBUG_NEW Mic();
+	Seed* parsnip_seed = DEBUG_NEW Seed();
+	Crop* parsnip = DEBUG_NEW Crop();
 
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::STONE,			(DEBUG_NEW Mic())->Init((int)ITEM_CODE::STONE, _T("µ¹"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WEED,				(DEBUG_NEW Mic())->Init((int)ITEM_CODE::WEED, _T("ÀâÃÊ"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WOOD,				(DEBUG_NEW Mic())->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"))));
+	hoe->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"));
+	watering_pot->Init((int)ITEM_CODE::WATERING_POT, _T("¹°»Ñ¸®°³"));
+	pickaxe->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"));
+	axe->Init((int)ITEM_CODE::AXE, _T("µµ³¢"));
+	stone->Init((int)ITEM_CODE::STONE, _T("µ¹"));
+	weed->Init((int)ITEM_CODE::WEED, _T("ÀâÃÊ"));
+	wood->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"));
+	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, _T("¼ø¹« ¾¾¾Ñ"));
+	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"));
 
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PARSNIP_SEED,		(DEBUG_NEW Seed())->Init((int)ITEM_CODE::PARSNIP_SEED, _T("¼ø¹« ¾¾¾Ñ"))));
-	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PARSNIP,			(DEBUG_NEW Crop())->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"))));
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
+	ItemSprite* hoe_sprite = DEBUG_NEW ItemSprite();
+	hoe_sprite->set_texture(texture);
+	hoe_sprite->set_base_pos(Vector2{ 80, 32 });
+	hoe_sprite->set_scale(Vector2{ 16, 16 });
+	hoe->sprite_ = hoe_sprite;
+	ItemSprite* watering_pot_sprite = DEBUG_NEW ItemSprite();
+	watering_pot_sprite->set_texture(texture);
+	watering_pot_sprite->set_base_pos(Vector2{ 32, 224 });
+	watering_pot_sprite->set_scale(Vector2{ 16, 16 });
+	watering_pot->sprite_ = watering_pot_sprite;
+	ItemSprite* pickaxe_sprite = DEBUG_NEW ItemSprite();
+	pickaxe_sprite->set_texture(texture);
+	pickaxe_sprite->set_base_pos(Vector2{ 80, 128 });
+	pickaxe_sprite->set_scale(Vector2{ 16, 16 });
+	pickaxe->sprite_ = pickaxe_sprite;
+	ItemSprite* axe_sprite = DEBUG_NEW ItemSprite();
+	axe_sprite->set_texture(texture);
+	axe_sprite->set_base_pos(Vector2{ 80, 160 });
+	axe_sprite->set_scale(Vector2{ 16, 16 });
+	axe->sprite_ = axe_sprite;
+
+
+
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::HOE,				static_cast<IItem*>(hoe)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WATERING_POT,		static_cast<IItem*>(watering_pot)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PICKAXE,			static_cast<IItem*>(pickaxe)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::AXE,				static_cast<IItem*>(axe)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::STONE,			static_cast<IItem*>(stone)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WEED,				static_cast<IItem*>(weed)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::WOOD,				static_cast<IItem*>(wood)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PARSNIP_SEED,		static_cast<IItem*>(parsnip_seed)));
+	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::PARSNIP,			static_cast<IItem*>(parsnip)));
+
 
 }
 
@@ -25,7 +75,7 @@ const IItem* ItemDb::GetItem(int item_code)
 {
 	auto it = items_.find(item_code);
 	if (it != items_.end()) {
-		return it->second;
+		return (it->second);
 	}
 	return nullptr;
 }

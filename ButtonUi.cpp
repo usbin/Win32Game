@@ -1,11 +1,10 @@
 #include "ButtonUi.h"
 #include "Texture.h"
-#include "Sprite.h"
+#include "UiSprite.h"
 
 ButtonUi::ButtonUi(bool is_static_pos)
 	: Ui(is_static_pos)
 	, on_click_handler{}
-	, is_selected_(false)
 {
 }
 
@@ -26,7 +25,7 @@ void ButtonUi::Render(ID3D11Device* p_d3d_device)
 	if (get_lbutton_hold()) {
 		if (get_sprite()) {
 
-			Sprite* sprite = get_sprite();
+			ISprite* sprite = get_sprite();
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();
@@ -38,7 +37,7 @@ void ButtonUi::Render(ID3D11Device* p_d3d_device)
 	}
 	else {
 		if (get_sprite()) {
-			Sprite* sprite = get_sprite();
+			ISprite* sprite = get_sprite();
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();
@@ -48,7 +47,7 @@ void ButtonUi::Render(ID3D11Device* p_d3d_device)
 			DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff000000), ARGB(0xffffffff));
 		}
 	}
-	if (is_selected_) {
+	if (get_selected()) {
 		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff0000ff));
 	}
 

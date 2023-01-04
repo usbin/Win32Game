@@ -12,9 +12,8 @@ void Texture::Load()
 {
 	tstring texture_path = PathManager::GetInstance()->GetContentPath() + get_relative_path();
 
-
-
-	if (FAILED(D3DX11CreateShaderResourceViewFromFile(DXClass::GetInstance()->get_d3d_device(), texture_path.c_str(), NULL, NULL, &p_resource_view_, NULL))) {
+	HRESULT hr;
+	if (FAILED(hr = D3DX11CreateShaderResourceViewFromFile(DXClass::GetInstance()->get_d3d_device(), texture_path.c_str(), NULL, NULL, &p_resource_view_, NULL))) {
 		return;
 	}
 

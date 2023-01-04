@@ -6,6 +6,7 @@ class Interactor;
 class IControlComponent;
 class PhysicsComponent;
 class IRenderComponent;
+class IItemHolder;
 class RealObject : public GObject
 {
 public:
@@ -22,6 +23,7 @@ protected:
 	IRenderComponent* render_cmp_ = nullptr;
 	Vector2 velocity_ = Vector2::Zero();
 
+	IItemHolder* item_holder_ = nullptr;
 
 protected:
 	virtual void CreateCollider() {};
@@ -47,6 +49,7 @@ public:
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
 	virtual RealObjectSprite* get_sprite() { return render_cmp_ ? dynamic_cast<RealObjectSprite*>(render_cmp_->get_sprite()) : nullptr; };
+	inline IItemHolder* get_item_holder() { return item_holder_; };
 
 	friend class PhysicsComponent;
 

@@ -2,7 +2,7 @@
 #include "global.h"
 #include "ButtonUi.h"
 
-class Sprite;
+class ISprite;
 class Director_Scene_Tool;
 
 //드래그로 이동 가능.

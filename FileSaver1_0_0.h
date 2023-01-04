@@ -6,7 +6,7 @@ class InvisibleWall;
 class Tile;
 class GObject;
 class Res;
-class Sprite;
+class GObjectSprite;
 class Texture;
 
 class FileSaver1_0_0 : public IFileSaver
@@ -16,8 +16,8 @@ public:
 public:
 	void SaveGObject(FILE* p_file, GObject* gobject);
 	void LoadGObject(FILE* p_file, GObject*& gobject);
-	void SaveSprite(FILE* p_file, Sprite* sprite);
-	void LoadSprite(FILE* p_file, Sprite*& sprite, GObject* owner);
+	void SaveGObjectSprite(FILE* p_file, GObjectSprite* sprite);
+	void LoadGObjectSprite(FILE* p_file, GObjectSprite*& sprite, GObject* owner);
 	void SaveTexture(FILE* p_file, Texture* texture);
 	void LoadTexture(FILE* p_file, Texture*& texture);
 

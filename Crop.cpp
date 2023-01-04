@@ -1,4 +1,10 @@
 #include "Crop.h"
+#include "RealObject.h"
+#include "IItemHolder.h"
+Crop::~Crop()
+{
+    delete sprite_;
+}
 
 IItem* Crop::Init(int item_code, tstring name)
 {
@@ -12,16 +18,18 @@ IItem* Crop::Init(int item_code, tstring name)
     return this;
 }
 
-void Crop::Use(GObject* obj)
+void Crop::Use(RealObject* obj)
 {
 
 }
 
-int Crop::get_item_code()
+int Crop::get_item_code() const
 {
     return item_code_;
 }
 
-void Crop::OnHold(GObject* owner)
+void Crop::OnHold(RealObject* owner) const
 {
+    // 선택돼있을 때(캐릭터가 잡고 있을 때)
+    owner->get_item_holder()->SetItem(this);
 }

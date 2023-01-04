@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "TileUi.h"
 #include "ResManager.h"
-#include "Sprite.h"
+#include "GObjectSprite.h"
 #include "CollisionManager.h"
 #include "Core.h"
 #include "Tile.h"
@@ -28,6 +28,7 @@ Scene_Tool::~Scene_Tool()
 
 bool Scene_Tool::Enter()
 {
+	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 	CollisionManager::GetInstance()->CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::INVISIBLE_WALL);
 
 	Director_Scene_Tool* dst = DEBUG_NEW Director_Scene_Tool();
