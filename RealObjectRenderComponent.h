@@ -29,5 +29,9 @@ public:
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };
 
+
+	virtual bool is_current_playing(tstring anim_name) override;
+	virtual void PlayItemAnimation(ITEM_CODE item_code) override;
+
 };
 

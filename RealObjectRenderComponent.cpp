@@ -51,3 +51,14 @@ void RealObjectRenderComponent::ChangeSprite(GObjectSprite* sprite)
 	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);
 
 }
+
+
+bool RealObjectRenderComponent::is_current_playing(tstring anim_name)
+{
+	return animator_->is_current_playing(anim_name);
+}
+
+void RealObjectRenderComponent::PlayItemAnimation(ITEM_CODE item_code)
+{
+
+}

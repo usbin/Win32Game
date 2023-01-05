@@ -71,6 +71,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObjectSprite.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\IItem.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
 
 
@@ -81,6 +84,12 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWallEditFrame.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemAnimation.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemAnimator.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemDb.cpp"

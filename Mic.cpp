@@ -35,3 +35,16 @@ int Mic::get_item_code() const
 {
     return item_code_;
 }
+
+void Mic::UpdateOnHolder(IItemHolder* holder) const
+{
+}
+
+void Mic::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
+{
+}
+
+
+void Mic::OnUnhold() const
+{
+}

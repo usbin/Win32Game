@@ -102,6 +102,7 @@ enum class ITEM_CODE {
 	WEED			= 52,	//잡초
 	PARSNIP_SEED	= 100,	//순무 씨앗
 	PARSNIP			= 101,	//순무
+	END
 
 };
 
@@ -154,6 +155,7 @@ enum class PLAYER_HAND_STATE {
 	EQUIP,
 	END
 };
+
 enum class GAME_STATE
 {
 	PLAYING,		// 시간이 흘러가고 플레이어가 움직일 수 있는 상태

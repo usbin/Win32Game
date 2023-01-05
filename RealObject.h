@@ -39,7 +39,7 @@ public:
 	virtual void FinalUpdate() override	final;					
 	virtual void ComponentRender(ID3D11Device* p_d3d_device) final;
 
-
+	virtual void OnUseItem(ITEM_CODE item_code) {};
 	inline void set_collider(Collider* collider) { collider_ = collider; };
 	inline Collider* get_collider() { return collider_; };
 	inline void set_interactor(Interactor* interactor) { interactor_ = interactor; };

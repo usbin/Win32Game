@@ -26,10 +26,10 @@ PlayerRenderComponent::PlayerRenderComponent(GObject* owner)
 	sprite_back->QuickSet(texture, owner, Vector2{ 0, 64 }, Vector2{ 16, 32 });
 	sprite_right->QuickSet(texture, owner, Vector2{ 0, 32 }, Vector2{ 16, 32 });
 	sprite_left->QuickSet(texture, owner, Vector2{ 0, 32 }, Vector2{ 16, 32 });
-	sprite_hold_front->QuickSet(texture, owner, Vector2{ 112, 0 }, Vector2{ 16, 32 });
-	sprite_hold_back->QuickSet(texture, owner, Vector2{ 112, 64 }, Vector2{ 16, 32 });
-	sprite_hold_right->QuickSet(texture, owner, Vector2{ 112, 32 }, Vector2{ 16, 32 });
-	sprite_hold_left->QuickSet(texture, owner, Vector2{ 112, 32 }, Vector2{ 16, 32 });
+	sprite_hold_front->QuickSet(texture, owner, Vector2{ 160, 0 }, Vector2{ 16, 32 });
+	sprite_hold_back->QuickSet(texture, owner, Vector2{ 160, 64 }, Vector2{ 16, 32 });
+	sprite_hold_right->QuickSet(texture, owner, Vector2{ 160, 32 }, Vector2{ 16, 32 });
+	sprite_hold_left->QuickSet(texture, owner, Vector2{ 160, 32 }, Vector2{ 16, 32 });
 	sprites[(int)DIRECTION::UP][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_back;
 	sprites[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_right;
 	sprites[(int)DIRECTION::LEFT][(int)PLAYER_STATE::IDLE][(int)PLAYER_HAND_STATE::NONE] = sprite_left;
@@ -67,94 +67,247 @@ void PlayerRenderComponent::CreateAnimator()
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("player"), _T("texture\\StardewValley_Player.png"));
 	RealObjectAnimator* animator = DEBUG_NEW RealObjectAnimator();
+	//걷기 애니메이션
 	animator->CreateAnimation(
 		_T("Walk_Front")
 		, texture
-		, Vector2{ 16, 0 }
+		, Vector2{ 0, 96 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Front");
+	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Front");
 	animator->CreateAnimation(
 		_T("Walk_Back")
 		, texture
-		, Vector2{ 16, 64 }
+		, Vector2{ 0, 160 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Back");
+	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Back");
 	animator->CreateAnimation(
 		_T("Walk_Right")
 		, texture
-		, Vector2{ 16, 32 }
+		, Vector2{ 0, 128 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Right");
+	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Right");
 	animator->CreateAnimation(
 		_T("Walk_Left")
 		, texture
-		, Vector2{ 16, 32 }
+		, Vector2{ 0, 128 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Left");
+	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Left");
+
+	//달리기 애니메이션
+	animator->CreateAnimation(
+		_T("Run_Front")
+		, texture
+		, Vector2{ 0, 192 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Front");
+	animator->CreateAnimation(
+		_T("Run_Back")
+		, texture
+		, Vector2{ 0, 256 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Back");
+	animator->CreateAnimation(
+		_T("Run_Right")
+		, texture
+		, Vector2{ 0, 224 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Right");
+	animator->CreateAnimation(
+		_T("Run_Left")
+		, texture
+		, Vector2{ 0, 224 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Left");
+
+	//들고 걷기 애니메이션
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Front")
 		, texture
-		, Vector2{ 112, 0 }
+		, Vector2{ 160, 96 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Front");
+	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Front");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Back")
 		, texture
-		, Vector2{ 112, 64 }
+		, Vector2{ 160, 160 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Back");
+	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Back");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Right")
 		, texture
-		, Vector2{ 112, 32 }
+		, Vector2{ 160, 128 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Right");
+	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Right");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Left")
 		, texture
-		, Vector2{ 112, 32 }
+		, Vector2{ 160, 128 }
 		, Vector2{ 16, 32 }
 		, Vector2{ 16, 0 }
 		, Vector2{ 0, 0 }
 		, .2f
-		, 3
+		, 4
 		, false);
-	animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Left");
+	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Left");
+	//들고 달리기 애니메이션
+	animator->CreateAnimation(
+		_T("Hold_And_Run_Front")
+		, texture
+		, Vector2{ 160, 192 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Front");
+	animator->CreateAnimation(
+		_T("Hold_And_Run_Back")
+		, texture
+		, Vector2{ 160, 256 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Back");
+	animator->CreateAnimation(
+		_T("Hold_And_Run_Right")
+		, texture
+		, Vector2{ 160, 224 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Right");
+	animator->CreateAnimation(
+		_T("Hold_And_Run_Left")
+		, texture
+		, Vector2{ 160, 224 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 10
+		, false);
+	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Left");
+
+	//도구 사용 애니메이션 (방향만 동적, 나머진 동일)
+	animator->CreateAnimation(
+		_T("Use_Tool_Front")
+		, texture
+		, Vector2{ 320, 0 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false);
+	item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::HOE]
+		= item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::AXE]
+		= item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::PICKAXE]
+		= _T("Use_Tool_Front");
+	animator->CreateAnimation(
+		_T("Use_Tool_Back")
+		, texture
+		, Vector2{ 320, 64 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false);
+	item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::HOE]
+		= item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::AXE]
+		= item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::PICKAXE]
+		= _T("Use_Tool_Back");
+	animator->CreateAnimation(
+		_T("Use_Tool_Right")
+		, texture
+		, Vector2{ 320, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false);
+	item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::HOE]
+		= item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::AXE]
+		= item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::PICKAXE]
+		= _T("Use_Tool_Right");
+
+	animator->CreateAnimation(
+		_T("Use_Tool_Left")
+		, texture
+		, Vector2{ 320, 32 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false);
+	item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::HOE]
+		= item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::AXE]
+		= item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::PICKAXE]
+		= _T("Use_Tool_Left");
 
 	animator->set_owner(get_owner());
 	set_animator(animator);
@@ -183,10 +336,14 @@ void PlayerRenderComponent::Update(GObject* owner)
 			}
 		} break;
 		case PLAYER_STATE::WALK: {
-			if (!animator_->is_current_playing(animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]))
-				animator_->Play(animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]);
+			if (!animator_->is_current_playing(state_animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]))
+				animator_->Play(state_animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]);
 
 		} break;
+		case PLAYER_STATE::RUN: {
+			if (!animator_->is_current_playing(state_animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]))
+				animator_->Play(state_animation_names[(int)player->get_direction()][(int)player->state_][(int)player->hand_state_]);
+		}
 		}
 
 
@@ -220,3 +377,18 @@ void PlayerRenderComponent::ChangeSprite(GObjectSprite* sprite)
 	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);
 }
 
+bool PlayerRenderComponent::is_current_playing(tstring anim_name)
+{
+	return animator_->is_current_playing(anim_name);
+}
+
+void PlayerRenderComponent::PlayItemAnimation(ITEM_CODE item_code)
+{
+	if (owner_) {
+		if (!is_current_playing(item_use_animation_names[(int)owner_->get_direction()][(int)item_code])) {
+			animator_->Play(item_use_animation_names[(int)owner_->get_direction()][(int)item_code], true);
+		}
+	}
+	
+	
+}

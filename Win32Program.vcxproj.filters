@@ -369,6 +369,12 @@
     <ClInclude Include="GObjectSprite.h">
       <Filter>Game\Component\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="ItemAnimation.h">
+      <Filter>Game\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemAnimator.h">
+      <Filter>Game\Component\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -592,5 +598,12 @@
     <ClCompile Include="GObjectSprite.cpp">
       <Filter>Game\Component\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="ItemAnimation.cpp">
+      <Filter>Game\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemAnimator.cpp">
+      <Filter>Game\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="IItem.cpp" />
   </ItemGroup>
 </Project>

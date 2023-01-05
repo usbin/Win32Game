@@ -193,6 +193,8 @@
     <ClInclude Include="InvisibleWallEditFrame.h" />
     <ClInclude Include="IRenderComponent.h" />
     <ClInclude Include="IItemHolder.h" />
+    <ClInclude Include="ItemAnimation.h" />
+    <ClInclude Include="ItemAnimator.h" />
     <ClInclude Include="ItemSprite.h" />
     <ClInclude Include="IUsable.h" />
     <ClInclude Include="ItemDb.h" />
@@ -268,10 +270,13 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GObject.cpp" />
     <ClCompile Include="GObjectSprite.cpp" />
+    <ClCompile Include="IItem.cpp" />
     <ClCompile Include="ImageUi.cpp" />
     <ClCompile Include="Interactor.cpp" />
     <ClCompile Include="InvisibleWall.cpp" />
     <ClCompile Include="InvisibleWallEditFrame.cpp" />
+    <ClCompile Include="ItemAnimation.cpp" />
+    <ClCompile Include="ItemAnimator.cpp" />
     <ClCompile Include="ItemDb.cpp" />
     <ClCompile Include="ItemSprite.cpp" />
     <ClCompile Include="KeyManager.cpp" />

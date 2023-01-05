@@ -126,7 +126,22 @@ void Player::OnCollisionExit(Collider* collider)
 
 void Player::OnHold(const IItem* item)
 {
-	hand_state_ = PLAYER_HAND_STATE::HOLD;
+	switch (item->get_item_code())
+	{
+	case (int)ITEM_CODE::HOE:
+	case (int)ITEM_CODE::WATERING_POT:
+	case (int)ITEM_CODE::PICKAXE:
+	case (int)ITEM_CODE::AXE:
+		hand_state_ = PLAYER_HAND_STATE::NONE;
+		break;
+	case (int)ITEM_CODE::STONE:
+	case (int)ITEM_CODE::WOOD:
+	case (int)ITEM_CODE::WEED:
+	case (int)ITEM_CODE::PARSNIP_SEED:
+	case (int)ITEM_CODE::PARSNIP:
+		hand_state_ = PLAYER_HAND_STATE::HOLD;
+		break;
+	}
 }
 
 void Player::OnUnhold()
@@ -134,4 +149,42 @@ void Player::OnUnhold()
 	hand_state_ = PLAYER_HAND_STATE::NONE;
 }
 
+const IItem* Player::GetHoldItem()
+{
+	if (!item_holder_) return nullptr;
+	else {
+		return item_holder_->get_item();
+	}
+}
+
+void Player::OnUseItem(ITEM_CODE item_code) {
+	switch (item_code)
+	{
+	case ITEM_CODE::HOE:
+	{
+		if (!get_render_component()) return;
+		get_render_component()->PlayItemAnimation(item_code);
+	} break;
+	case ITEM_CODE::WATERING_POT:
+		break;
+	case ITEM_CODE::PICKAXE:
+		break;
+	case ITEM_CODE::AXE:
+		break;
+	case ITEM_CODE::STONE:
+		break;
+	case ITEM_CODE::WOOD:
+		break;
+	case ITEM_CODE::WEED:
+		break;
+	case ITEM_CODE::PARSNIP_SEED:
+		break;
+	case ITEM_CODE::PARSNIP:
+		break;
+	case ITEM_CODE::END:
+		break;
+	default:
+		break;
+	}
+}
 

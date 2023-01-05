@@ -31,6 +31,19 @@ int Seed::get_item_code() const
     return item_code_;
 }
 
-void Seed::Use(RealObject* obj)
+void Seed::Use(RealObject* obj) const
+{
+}
+
+void Seed::UpdateOnHolder(IItemHolder* holder) const
+{
+}
+
+void Seed::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
+{
+}
+
+
+void Seed::OnUnhold() const
 {
 }

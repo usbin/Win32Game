@@ -34,5 +34,11 @@ void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 
 void BottomInventoryCellUi::Select()
 {
+	
 	item_data_.item->OnHold(bottom_inventory_ui_->get_owner());
+}
+
+void BottomInventoryCellUi::Unselect()
+{
+	item_data_.item->OnUnhold();
 }

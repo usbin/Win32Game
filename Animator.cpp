@@ -21,16 +21,23 @@ Animator::~Animator()
 	SafeDeleteMap<tstring, Animation*>(anims_);
 }
 
-void Animator::Play(const tstring& name)
+void Animator::Play(const tstring& name, bool exclusive)
 {
-	Animation* anim = FindAnimation(name);
-	current_anim_ = anim;
-	current_anim_->ResetFrame();
+	if (!exclusive_ || is_finished()) {
+		Animation* anim = FindAnimation(name);
+		if (anim) {
+			current_anim_ = anim;
+			current_anim_->ResetFrame();
+			exclusive_ = exclusive;
+		}
+	}
+	
 }
 
 void Animator::Stop()
 {
-	current_anim_ = nullptr;
+	if(!exclusive_)
+		current_anim_ = nullptr;
 }
 
 Animation* Animator::FindAnimation(const tstring& name)
@@ -44,7 +51,8 @@ Animation* Animator::FindAnimation(const tstring& name)
 bool Animator::is_current_playing(const tstring& name)
 {
 	auto it = anims_.find(name);
-	return (!current_anim_|| !is_finished() || current_anim_->is_repeat()) && it->second == current_anim_;
+	if (it == anims_.end()) return false;
+	return (!is_finished()) && it->second == current_anim_;
 }
 
 void Animator::Update()

@@ -15,7 +15,8 @@ private:
 	RealObjectSprite* sprite_ = nullptr;
 	RealObjectAnimator* animator_ = nullptr;
 	RealObjectSprite* sprites[(int)DIRECTION::END][(int)PLAYER_STATE::END][(int)PLAYER_HAND_STATE::END] = { 0 };
-	tstring animation_names[(int)DIRECTION::END][(int)PLAYER_STATE::END][(int)PLAYER_HAND_STATE::END] = { _T("") };
+	tstring state_animation_names[(int)DIRECTION::END][(int)PLAYER_STATE::END][(int)PLAYER_HAND_STATE::END] = { _T("") };
+	tstring item_use_animation_names[(int)DIRECTION::END][(int)ITEM_CODE::END];
 
 public:
 	virtual void CreateAnimator();
@@ -28,5 +29,10 @@ public:
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };
+
+	
+	virtual bool is_current_playing(tstring anim_name) override;
+	virtual void PlayItemAnimation(ITEM_CODE item_code) override;
+
 };
 

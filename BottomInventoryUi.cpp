@@ -33,7 +33,6 @@ void BottomInventoryUi::CreateEmptyCells()
 		AddChild(cell);
 		cell->AddOnClickHandler([](DWORD_PTR p_self, DWORD_PTR p2) {
 			BottomInventoryCellUi* cell = reinterpret_cast<BottomInventoryCellUi*>(p_self);
-			cell->Select();
 			}, reinterpret_cast<DWORD_PTR>(cell), 0);
 		cells_[i] = cell;
 

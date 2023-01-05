@@ -60,6 +60,7 @@ void Animation::Update()
 
 void Animation::ResetFrame()
 {
+	frame_acc_dt_ = 0;
 	frame_index_ = 0;
 	is_finished_ = false;
 }

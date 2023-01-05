@@ -18,7 +18,7 @@ IItem* Crop::Init(int item_code, tstring name)
     return this;
 }
 
-void Crop::Use(RealObject* obj)
+void Crop::Use(RealObject* obj) const
 {
 
 }
@@ -26,6 +26,19 @@ void Crop::Use(RealObject* obj)
 int Crop::get_item_code() const
 {
     return item_code_;
+}
+
+
+void Crop::UpdateOnHolder(IItemHolder* holder) const
+{
+}
+
+void Crop::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
+{
+}
+
+void Crop::OnUnhold() const
+{
 }
 
 void Crop::OnHold(RealObject* owner) const

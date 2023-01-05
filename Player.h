@@ -39,7 +39,8 @@ private:
 	virtual void OnCollisionExit(Collider* collider) override;
 	void OnHold(const IItem* item);
 	void OnUnhold();
-
+	virtual void OnUseItem(ITEM_CODE item_code) override;
+	const IItem* GetHoldItem();
 
 public:
 	inline const std::vector<ItemData>& get_inventory() { return inventory_; };

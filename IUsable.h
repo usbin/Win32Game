@@ -5,6 +5,6 @@ class ISprite;
 class IUsable
 {
 public:
-	virtual void Use(RealObject* obj) = 0;
+	virtual void Use(RealObject* obj) const = 0;
 };
 

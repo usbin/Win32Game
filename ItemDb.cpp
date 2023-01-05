@@ -5,7 +5,8 @@
 #include "Seed.h"
 #include "ResManager.h"
 #include "ItemSprite.h"
-
+#include "ItemAnimator.h"
+#include "ItemAnimation.h"
 
 ItemDb::ItemDb() {};
 ItemDb::~ItemDb() {
@@ -25,6 +26,7 @@ void ItemDb::Init()
 	Crop* parsnip = DEBUG_NEW Crop();
 
 	hoe->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"));
+	hoe->set_scale(Vector2{ 192, 192 });
 	watering_pot->Init((int)ITEM_CODE::WATERING_POT, _T("¹°»Ñ¸®°³"));
 	pickaxe->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"));
 	axe->Init((int)ITEM_CODE::AXE, _T("µµ³¢"));
@@ -37,25 +39,30 @@ void ItemDb::Init()
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
 	ItemSprite* hoe_sprite = DEBUG_NEW ItemSprite();
 	hoe_sprite->set_texture(texture);
-	hoe_sprite->set_base_pos(Vector2{ 80, 32 });
+	hoe_sprite->set_base_pos(Vector2{0, 32 });
 	hoe_sprite->set_scale(Vector2{ 16, 16 });
 	hoe->sprite_ = hoe_sprite;
 	ItemSprite* watering_pot_sprite = DEBUG_NEW ItemSprite();
 	watering_pot_sprite->set_texture(texture);
-	watering_pot_sprite->set_base_pos(Vector2{ 32, 224 });
+	watering_pot_sprite->set_base_pos(Vector2{ 0, 608 });
 	watering_pot_sprite->set_scale(Vector2{ 16, 16 });
 	watering_pot->sprite_ = watering_pot_sprite;
 	ItemSprite* pickaxe_sprite = DEBUG_NEW ItemSprite();
 	pickaxe_sprite->set_texture(texture);
-	pickaxe_sprite->set_base_pos(Vector2{ 80, 128 });
+	pickaxe_sprite->set_base_pos(Vector2{ 0, 224 });
 	pickaxe_sprite->set_scale(Vector2{ 16, 16 });
 	pickaxe->sprite_ = pickaxe_sprite;
 	ItemSprite* axe_sprite = DEBUG_NEW ItemSprite();
 	axe_sprite->set_texture(texture);
-	axe_sprite->set_base_pos(Vector2{ 80, 160 });
+	axe_sprite->set_base_pos(Vector2{ 0, 416 });
 	axe_sprite->set_scale(Vector2{ 16, 16 });
 	axe->sprite_ = axe_sprite;
 
+
+	ItemAnimator* hoe_animator = new ItemAnimator();
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), texture, Vector2{64, 32}, Vector2{64, 64}
+	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false);
+	hoe->animator_ = hoe_animator;
 
 
 	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::HOE,				static_cast<IItem*>(hoe)));
