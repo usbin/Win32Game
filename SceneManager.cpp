@@ -75,6 +75,14 @@ void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
 	p_d3d_device->GetImmediateContext(&context);
 	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
 	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
-	context->ClearDepthStencilView(DXClass::GetInstance()->get_depth_view(), D3D11_CLEAR_DEPTH, 1.f, 0);
+	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
+		context->ClearRenderTargetView(DXClass::GetInstance()->get_render_layer_target((RENDER_LAYER)i), ClearColor);
+	}
+
+	DXClass::GetInstance()->get_text_bitmap()->BeginDraw();
+	DXClass::GetInstance()->get_text_bitmap()->Clear();
+	DXClass::GetInstance()->get_text_bitmap()->EndDraw();
+
+
 	context->Release();
 }

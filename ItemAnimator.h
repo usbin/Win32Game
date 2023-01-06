@@ -16,7 +16,7 @@ public:
 
 	// Animator을(를) 통해 상속됨
 	void CreateAnimation(const tstring& name, Texture* texture, Vector2 base_pos, Vector2 img_size
-		, Vector2 img_distance, Vector2 offset, float duration, int img_count, bool is_repeat, float depth);
+		, Vector2 img_distance, Vector2 offset, float duration, int img_count, bool is_repeat, RENDER_LAYER layer);
 
 	void CreateAnimation(const tstring& name, Texture* texture, Vector2 base_pos, Vector2 img_size
 		, Vector2 img_distance, Vector2 offset, float duration, int img_count, bool is_repeat) override final {};

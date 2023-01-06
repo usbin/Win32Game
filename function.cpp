@@ -50,7 +50,7 @@ Vector2 RenderToWorldPos(Vector2 render_pos)
 	return Camera::GetInstance()->GetWorldPos(render_pos);
 }
 
-void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, float depth)
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, RENDER_LAYER layer)
 {
 
 	ID3D11DeviceContext* p_immediate_context;
@@ -60,10 +60,10 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	const int vertice_count = 4;
 	CustomVertex vertices[] =
 	{
-		{ XMFLOAT3(base_pos.x,				base_pos.y,				depth), XMFLOAT2(0, 0)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				depth), XMFLOAT2(1, 0)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	depth), XMFLOAT2(1, 1)},
-		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	depth), XMFLOAT2(0, 1)}
+		{ XMFLOAT3(base_pos.x,				base_pos.y,				0.f), XMFLOAT2(0, 0)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				0.f), XMFLOAT2(1, 0)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	0.f), XMFLOAT2(1, 1)},
+		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	0.f), XMFLOAT2(0, 1)}
 	};
 	//선 인덱스
 	const int line_indices_count = 8;
@@ -81,13 +81,15 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	//Constant Buffer 채우기
 	DXClass::GetInstance()->WriteConstantBufferOnRender(FALSE, ARGB_TO_XMFLOAT(line_color));
 	// Set primitive topology
+	ID3D11RenderTargetView* layer_target_view = DXClass::GetInstance()->get_render_layer_target(layer);
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	p_immediate_context->OMSetRenderTargets(1, &layer_target_view, NULL);
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
 
 }
 
-void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color, float depth)
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color, RENDER_LAYER layer)
 {
 	//면->선 순서로 그림.
 	ID3D11DeviceContext* p_immediate_context;
@@ -97,10 +99,10 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	const int vertice_count = 4;
 	CustomVertex vertices[] =
 	{
-		{ XMFLOAT3(base_pos.x,				base_pos.y,				depth), XMFLOAT2(0, 0)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				depth), XMFLOAT2(1, 0)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	depth), XMFLOAT2(1, 1)},
-		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	depth), XMFLOAT2(0, 1)}
+		{ XMFLOAT3(base_pos.x,				base_pos.y,				0.f), XMFLOAT2(0, 0)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				0.f), XMFLOAT2(1, 0)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	0.f), XMFLOAT2(1, 1)},
+		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	0.f), XMFLOAT2(0, 1)}
 	};
 	//선 인덱스
 	const int line_indices_count = 8;
@@ -123,12 +125,18 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	//Constant Buffer 채우기
 	DXClass::GetInstance()->WriteConstantBufferOnRender(FALSE, ARGB_TO_XMFLOAT(plane_color));
 	// Set primitive topology
+	ID3D11RenderTargetView* layer_target_view = DXClass::GetInstance()->get_render_layer_target(layer);
+	p_immediate_context->OMSetRenderTargets(1, &layer_target_view, NULL);
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	p_immediate_context->DrawIndexed(plane_indices_count, 0, 0);
 
 	//==========================
 	// 선 그리기
 	//==========================
+	// Vertex 색깔 변경(line_color)
+	for (int i = 0; i < vertice_count; i++) {
+		//vertices[i].color = ARGB_TO_XMFLOAT(line_color);
+	}
 	//Vertex Buffer 채우기
 	DXClass::GetInstance()->WriteVertexBuffer(vertices, vertice_count);
 	// Indices 변경(line index)
@@ -136,13 +144,13 @@ void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Ve
 	//Constant Buffer 채우기
 	DXClass::GetInstance()->WriteConstantBufferOnRender(FALSE, ARGB_TO_XMFLOAT(line_color));
 	// Set primitive topology
-	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	p_immediate_context->DrawIndexed(line_indices_count, 0, 0);
 
 
 }
 
-void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture, float depth)
+void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale
+	, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture, RENDER_LAYER layer)
 {
 	ID3D11DeviceContext* p_immediate_context;
 	p_immediate_context = DXClass::GetInstance()->get_immediate_context();
@@ -156,10 +164,10 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 	const int vertice_count = 4;
 	CustomVertex vertices[] =
 	{
-		{ XMFLOAT3(base_pos.x,				base_pos.y,				depth), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				depth), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y)},
-		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	depth), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y + normalized_texture_scale.y)},
-		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	depth), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y + normalized_texture_scale.y)}
+		{ XMFLOAT3(base_pos.x,				base_pos.y,				0.f), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				0.f), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y + normalized_texture_scale.y)},
+		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y + normalized_texture_scale.y)}
 	};
 	//DX는 반드시 시계방향으로 그려야 함. scale이 음수면 좌우 반전이 된 것이므로 반시계방향으로 그려지게 됨. 따라서 시계방향으로 그려지도록 정점 순서 변경.
 	if (scale.x < 0) {
@@ -181,19 +189,14 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 	DXClass::GetInstance()->WriteIndexBuffer(plane_indices, plane_indices_count);
 	//Constant Buffer 채우기
 	DXClass::GetInstance()->WriteConstantBufferOnRender(TRUE, XMFLOAT4(0, 0, 0, 0));
-	ID3D11RenderTargetView* target_view = DXClass::GetInstance()->get_render_target_view();
-	if (depth < 1.f) {
-		p_immediate_context->OMSetRenderTargets(1, &target_view, DXClass::GetInstance()->get_depth_view());
-	}
-	else {
-		p_immediate_context->OMSetRenderTargets(1, &target_view, NULL);
-	}
+
 	p_immediate_context->PSSetShaderResources(0, 1, &p_resource_view);
+	ID3D11RenderTargetView* layer_target_view = DXClass::GetInstance()->get_render_layer_target(layer);
+	p_immediate_context->OMSetRenderTargets(1, &layer_target_view, NULL);
 
 	// Set primitive topology
 	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	p_immediate_context->DrawIndexed(plane_indices_count, 0, 0);
-
 
 }
 

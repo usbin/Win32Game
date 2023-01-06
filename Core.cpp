@@ -77,6 +77,9 @@ int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 	if (FAILED(DXClass::GetInstance()->Init(h_wnd, Vector2(pt_resolution_)))) {
 		return E_FAIL;
 	}
+	if (FAILED(DXClass::GetInstance()->InitRenderLayers(Vector2(pt_resolution_)))) {
+		return E_FAIL;
+	}
 	DXClass::GetInstance()->InitD2D1();
 
 	//================
@@ -131,7 +134,13 @@ bool Core::Progress()
 	//===============
 	SceneManager::GetInstance()->ClearView(DXClass::GetInstance()->get_d3d_device());
 	SceneManager::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
-
+	//레이어1 렌더링(플레이어 아래)
+	DXClass::GetInstance()->RenderLayer(RENDER_LAYER::DEFAULT);
+	//레이어2 렌더링(기본)
+	DXClass::GetInstance()->RenderLayer(RENDER_LAYER::PLAYER);
+	//레이어3 렌더링(플레이어 위)
+	DXClass::GetInstance()->RenderLayer(RENDER_LAYER::TOP);
+	DXClass::GetInstance()->RenderTextLayer();
 	
 	DXClass::GetInstance()->get_swap_chain()->Present(0, 0);
 

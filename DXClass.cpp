@@ -35,8 +35,13 @@ DXClass::~DXClass() {
 	if (p_dwrite_factory_) p_dwrite_factory_->Release();
 	if(p_d2d_rt_) p_d2d_rt_->Release();
 	if(p_text_render_target_) p_text_render_target_->Release();
+	if (p_text_bitmap_) p_text_bitmap_->Release();
 
-	if (p_depth_view_) p_depth_view_->Release();
+	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
+		if (render_layer_targets_[i]) render_layer_targets_[i]->Release();
+		if (render_layer_textures_[i]) render_layer_textures_[i]->Release();
+		if (render_layer_resource_views_[i]) render_layer_resource_views_[i]->Release();
+	}
 };
 
 int DXClass::Init(HWND hwnd, Vector2 resolution)
@@ -83,32 +88,13 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	}
 
 
-	ID3D11Texture2D* depth_texture;
-	D3D11_TEXTURE2D_DESC depth_desc;
-	ZeroMemory(&depth_desc, sizeof(depth_desc));
-	depth_desc.Width = resolution.x;
-	depth_desc.Height = resolution.y;
-	depth_desc.MipLevels = 1;
-	depth_desc.ArraySize = 1;
-	depth_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depth_desc.SampleDesc.Count = 1;
-	depth_desc.SampleDesc.Quality = 0;
-	depth_desc.Usage = D3D11_USAGE_DEFAULT;
-	depth_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	depth_desc.CPUAccessFlags = 0;
-	depth_desc.MiscFlags = 0;
-	if(FAILED(p_d3d_device_->CreateTexture2D(&depth_desc, NULL, &depth_texture)))return E_FAIL;
 
-	D3D11_DEPTH_STENCIL_VIEW_DESC depth_view_desc;
-	ZeroMemory(&depth_view_desc, sizeof(depth_view_desc));
-	depth_view_desc.Format = depth_desc.Format;
-	depth_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	depth_view_desc.Texture2D.MipSlice = 0;
-	if(FAILED(p_d3d_device_->CreateDepthStencilView(depth_texture, &depth_view_desc, &p_depth_view_))) return E_FAIL;
-	depth_texture->Release();
+
+
+
 
 	p_back_buffer->Release();
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
 
 
 	// Viewport 초기화
@@ -304,6 +290,71 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 
 }
 
+int DXClass::InitRenderLayers(Vector2 resolution)
+{
+	// 렌더 레이어용 텍스쳐, 렌더 타겟 뷰(출력용), 리소스 뷰(입력용) 생성
+	ID3D11Texture2D* layer1_texture;
+	ID3D11Texture2D* layer2_texture;
+	ID3D11Texture2D* layer3_texture;
+	ID3D11RenderTargetView* layer1_target_view;
+	ID3D11RenderTargetView* layer2_target_view;
+	ID3D11RenderTargetView* layer3_target_view;
+	ID3D11ShaderResourceView* layer1_resource_view;
+	ID3D11ShaderResourceView* layer2_resource_view;
+	ID3D11ShaderResourceView* layer3_resource_view;
+
+
+
+	D3D11_TEXTURE2D_DESC layer_texture_desc;
+	D3D11_RENDER_TARGET_VIEW_DESC layer_target_view_desc;
+	D3D11_SHADER_RESOURCE_VIEW_DESC layer_resource_view_desc;
+
+	ZeroMemory(&layer_texture_desc, sizeof(layer_texture_desc));
+	layer_texture_desc.Width = resolution.x;
+	layer_texture_desc.Height = resolution.y;
+	layer_texture_desc.MipLevels = 1;
+	layer_texture_desc.ArraySize = 1;
+	layer_texture_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	layer_texture_desc.SampleDesc.Count = 1;
+	layer_texture_desc.Usage = D3D11_USAGE_DEFAULT;
+	layer_texture_desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+	layer_texture_desc.CPUAccessFlags = 0;
+	layer_texture_desc.MiscFlags = 0;
+	if (FAILED(p_d3d_device_->CreateTexture2D(&layer_texture_desc, NULL, &layer1_texture))) return E_FAIL;
+	if (FAILED(p_d3d_device_->CreateTexture2D(&layer_texture_desc, NULL, &layer2_texture))) return E_FAIL;
+	if (FAILED(p_d3d_device_->CreateTexture2D(&layer_texture_desc, NULL, &layer3_texture))) return E_FAIL;
+
+	ZeroMemory(&layer_target_view_desc, sizeof(layer_target_view_desc));
+	layer_target_view_desc.Format = layer_texture_desc.Format;
+	layer_target_view_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	layer_target_view_desc.Texture2D.MipSlice = 0;
+	p_d3d_device_->CreateRenderTargetView(layer1_texture, &layer_target_view_desc, &layer1_target_view);
+	p_d3d_device_->CreateRenderTargetView(layer2_texture, &layer_target_view_desc, &layer2_target_view);
+	p_d3d_device_->CreateRenderTargetView(layer3_texture, &layer_target_view_desc, &layer3_target_view);
+
+	ZeroMemory(&layer_resource_view_desc, sizeof(layer_resource_view_desc));
+	layer_resource_view_desc.Format = layer_texture_desc.Format;
+	layer_resource_view_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	layer_resource_view_desc.Texture2D.MostDetailedMip = 0;
+	layer_resource_view_desc.Texture2D.MipLevels = 1;
+	if (FAILED(p_d3d_device_->CreateShaderResourceView(layer1_texture, &layer_resource_view_desc, &layer1_resource_view))) return E_FAIL;
+	if (FAILED(p_d3d_device_->CreateShaderResourceView(layer2_texture, &layer_resource_view_desc, &layer2_resource_view))) return E_FAIL;
+	if (FAILED(p_d3d_device_->CreateShaderResourceView(layer3_texture, &layer_resource_view_desc, &layer3_resource_view))) return E_FAIL;
+
+	render_layer_targets_[(int)RENDER_LAYER::DEFAULT] = layer1_target_view;
+	render_layer_targets_[(int)RENDER_LAYER::PLAYER] = layer2_target_view;
+	render_layer_targets_[(int)RENDER_LAYER::TOP] = layer3_target_view;
+	render_layer_textures_[(int)RENDER_LAYER::DEFAULT] = layer1_texture;
+	render_layer_textures_[(int)RENDER_LAYER::PLAYER] = layer2_texture;
+	render_layer_textures_[(int)RENDER_LAYER::TOP] = layer3_texture;
+	render_layer_resource_views_[(int)RENDER_LAYER::DEFAULT] = layer1_resource_view;
+	render_layer_resource_views_[(int)RENDER_LAYER::PLAYER] = layer2_resource_view;
+	render_layer_resource_views_[(int)RENDER_LAYER::TOP] = layer3_resource_view;
+
+	return S_OK;
+}
+
+
 
 
 void DXClass::WriteVertexBuffer(CustomVertex* vertices, UINT vertex_count)
@@ -377,6 +428,50 @@ void DXClass::WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color)
 	p_immediate_context_->Unmap(p_const_buffer_on_render_, NULL);
 }
 
+void DXClass::RenderLayer(RENDER_LAYER layer)
+{
+	ID3D11Texture2D* texture = render_layer_textures_[(int)layer];
+	Vector2 resolution = Core::GetInstance()->get_resolution();
+
+	//점 좌표
+	const int vertice_count = 4;
+	CustomVertex vertices[] =
+	{
+		{ XMFLOAT3(0,				0,				0.f), XMFLOAT2(0, 0)},
+		{ XMFLOAT3(resolution.x,	0,				0.f), XMFLOAT2(1, 0)},
+		{ XMFLOAT3(resolution.x,	resolution.y,	0.f), XMFLOAT2(1, 1)},
+		{ XMFLOAT3(0,				resolution.y,	0.f), XMFLOAT2(0, 1)}
+	};
+
+	//면 인덱스
+	const int plane_indices_count = 6;
+	UINT plane_indices[] = {
+		0, 1, 2,
+
+		2, 3, 0
+	};
+	//Vertex Buffer 채우기
+	DXClass::GetInstance()->WriteVertexBuffer(vertices, vertice_count);
+	//Plane Index Buffer 채우기
+	DXClass::GetInstance()->WriteIndexBuffer(plane_indices, plane_indices_count);
+	//Constant Buffer 채우기
+	DXClass::GetInstance()->WriteConstantBufferOnRender(TRUE, XMFLOAT4(0, 0, 0, 0));
+	ID3D11RenderTargetView* layer_target_view = DXClass::GetInstance()->get_render_layer_target(layer);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
+	p_immediate_context_->PSSetShaderResources(0, 1, &render_layer_resource_views_[(int)layer]);
+	// Set primitive topology
+	p_immediate_context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	p_immediate_context_->DrawIndexed(6, 0, 0);
+}
+
+void DXClass::RenderTextLayer()
+{
+	p_text_render_target_->BeginDraw();
+	ID2D1Bitmap* bitmap;
+	p_text_bitmap_->GetBitmap(&bitmap);
+	p_text_render_target_->DrawBitmap(bitmap);
+	p_text_render_target_->EndDraw();
+}
 
 void DXClass::ResetResolution(Vector2 new_resolution)
 {
@@ -397,37 +492,7 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 		return;
 	}
 	p_back_buffer->Release();
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
-
-	//Depth Stencil View 재초기화
-	if (p_depth_view_) p_depth_view_->Release();
-	ID3D11Texture2D* depth_texture;
-	D3D11_TEXTURE2D_DESC depth_desc;
-	ZeroMemory(&depth_desc, sizeof(depth_desc));
-	depth_desc.Width = new_resolution.x;
-	depth_desc.Height = new_resolution.y;
-	depth_desc.MipLevels = 1;
-	depth_desc.ArraySize = 1;
-	depth_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depth_desc.SampleDesc.Count = 1;
-	depth_desc.SampleDesc.Quality = 0;
-	depth_desc.Usage = D3D11_USAGE_DEFAULT;
-	depth_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	depth_desc.CPUAccessFlags = 0;
-	depth_desc.MiscFlags = 0;
-	if (FAILED(p_d3d_device_->CreateTexture2D(&depth_desc, NULL, &depth_texture)))return;
-
-	D3D11_DEPTH_STENCIL_VIEW_DESC depth_view_desc;
-	ZeroMemory(&depth_view_desc, sizeof(depth_view_desc));
-	depth_view_desc.Format = depth_desc.Format;
-	depth_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	depth_view_desc.Texture2D.MipSlice = 0;
-	if (FAILED(p_d3d_device_->CreateDepthStencilView(depth_texture, &depth_view_desc, &p_depth_view_))) return;
-	depth_texture->Release();
-
-
-	p_back_buffer->Release();
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
 
 
 	// Viewport 초기화
@@ -454,7 +519,7 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 	if (FAILED(p_swap_chain_->GetBuffer(0, IID_PPV_ARGS(&p_d2d_rt_)))) {
 		return;
 	};
-	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
+	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_R8G8B8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
 	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
 		return;
 	}
@@ -482,10 +547,14 @@ void DXClass::InitD2D1()
 	if (FAILED(p_swap_chain_->GetBuffer(0, IID_PPV_ARGS(&p_d2d_rt_)))) {
 		return;
 	};
-	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
+	D2D1_RENDER_TARGET_PROPERTIES d2d_rt_props = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_R8G8B8A8_UNORM , D2D1_ALPHA_MODE_PREMULTIPLIED), 0, 0);
 	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
 		return;
 	}
+	D2D1_PIXEL_FORMAT pixel_format;
+	pixel_format.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
+	pixel_format.format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	if(FAILED(p_text_render_target_->CreateCompatibleRenderTarget( p_text_render_target_->GetSize(),  p_text_render_target_->GetPixelSize(), pixel_format, &p_text_bitmap_))) return;
 
 
 	//폰트 기본값 설정
@@ -551,16 +620,16 @@ void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 sc
 		static_cast<FLOAT>(pos.x+scale.x) / dpi_scale_x,
 		static_cast<FLOAT>(pos.y+scale.y) / dpi_scale_y
 	);
-	p_text_render_target_->BeginDraw();
-	p_text_render_target_->SetTransform(D2D1::IdentityMatrix());
-	p_text_render_target_->DrawTextW(
+	p_text_bitmap_->BeginDraw();
+	p_text_bitmap_->SetTransform(D2D1::IdentityMatrix());
+	p_text_bitmap_->DrawTextW(
 		text,
 		length,
 		p_text_format_,
 		layout_rect,
 		p_brush
 	);
-	p_text_render_target_->EndDraw();
+	p_text_bitmap_->EndDraw();
 
 
 	p_brush->Release();
@@ -597,7 +666,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 
 	//2. 쉐이더의 상수버퍼(해상도 저장됨)에 임시 해상도(타일맵의 크기) 입력, 출력 타겟 변경
 	WriteConstantBufferOnResize(size);
-	p_immediate_context_->OMSetRenderTargets(1, &render_target_view_tilemap, p_depth_view_);
+	p_immediate_context_->OMSetRenderTargets(1, &render_target_view_tilemap, NULL);
 	D3D11_VIEWPORT viewport;
 	viewport.Width = size.x;
 	viewport.Height = size.y;
@@ -638,7 +707,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 	viewport.Width = Core::GetInstance()->get_resolution().x;
 	viewport.Height = Core::GetInstance()->get_resolution().y;
 	p_immediate_context_->RSSetViewports(1, &viewport);
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
 	tilemap->Release();
 	render_target_view_tilemap->Release();
 	

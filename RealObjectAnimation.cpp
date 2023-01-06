@@ -38,7 +38,7 @@ void RealObjectAnimation::Render(ID3D11Device* p_d3d_device)
 				, frame.base_pos
 				, frame.img_size
 				, texture_
-				, depth_);
+				, layer_);
 		}
 	}
 	
