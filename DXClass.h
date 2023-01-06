@@ -11,6 +11,7 @@ private:
 	ID3D11DeviceContext* p_immediate_context_ = nullptr;
 	IDXGISwapChain* p_swap_chain_ = nullptr;
 	ID3D11RenderTargetView* p_render_target_view_ = nullptr;
+	ID3D11DepthStencilView* p_depth_view_;
 
 	ID3D11VertexShader* p_vs_ = nullptr;
 	ID3D11PixelShader* p_ps_ = nullptr;
@@ -41,6 +42,7 @@ public:
 	void WriteIndexBuffer(UINT* indices, UINT index_count);
 	void WriteConstantBufferOnResize(Vector2 resolution);
 	void WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color);
+
 	void ResetResolution(Vector2 new_resolution);
 
 	void InitD2D1();
@@ -58,6 +60,7 @@ public:
 	inline const DXGI_FORMAT& get_idx_format() { return idx_format_; }
 	inline ID3D11SamplerState* get_sampler_state() { return p_sampler_linear_; };
 
+	inline ID3D11DepthStencilView* get_depth_view() { return p_depth_view_; };
 
 	//
 	void SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size);

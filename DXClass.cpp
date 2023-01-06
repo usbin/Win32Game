@@ -8,7 +8,6 @@ DXClass::DXClass()
 	: p_d3d_device_(nullptr)
 	, p_immediate_context_(nullptr)
 	, p_swap_chain_(nullptr)
-	, p_render_target_view_(nullptr)
 	, p_vs_(nullptr)
 	, p_ps_(nullptr)
 	, p_const_buffer_on_resize_(nullptr)
@@ -36,6 +35,8 @@ DXClass::~DXClass() {
 	if (p_dwrite_factory_) p_dwrite_factory_->Release();
 	if(p_d2d_rt_) p_d2d_rt_->Release();
 	if(p_text_render_target_) p_text_render_target_->Release();
+
+	if (p_depth_view_) p_depth_view_->Release();
 };
 
 int DXClass::Init(HWND hwnd, Vector2 resolution)
@@ -80,8 +81,34 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 		p_back_buffer->Release();
 		return E_FAIL;
 	}
+
+
+	ID3D11Texture2D* depth_texture;
+	D3D11_TEXTURE2D_DESC depth_desc;
+	ZeroMemory(&depth_desc, sizeof(depth_desc));
+	depth_desc.Width = resolution.x;
+	depth_desc.Height = resolution.y;
+	depth_desc.MipLevels = 1;
+	depth_desc.ArraySize = 1;
+	depth_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depth_desc.SampleDesc.Count = 1;
+	depth_desc.SampleDesc.Quality = 0;
+	depth_desc.Usage = D3D11_USAGE_DEFAULT;
+	depth_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depth_desc.CPUAccessFlags = 0;
+	depth_desc.MiscFlags = 0;
+	if(FAILED(p_d3d_device_->CreateTexture2D(&depth_desc, NULL, &depth_texture)))return E_FAIL;
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC depth_view_desc;
+	ZeroMemory(&depth_view_desc, sizeof(depth_view_desc));
+	depth_view_desc.Format = depth_desc.Format;
+	depth_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depth_view_desc.Texture2D.MipSlice = 0;
+	if(FAILED(p_d3d_device_->CreateDepthStencilView(depth_texture, &depth_view_desc, &p_depth_view_))) return E_FAIL;
+	depth_texture->Release();
+
 	p_back_buffer->Release();
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
 
 
 	// Viewport 초기화
@@ -279,7 +306,6 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 
 
 
-
 void DXClass::WriteVertexBuffer(CustomVertex* vertices, UINT vertex_count)
 {
 	ID3D11Buffer* p_vertex_buffer;
@@ -351,6 +377,7 @@ void DXClass::WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color)
 	p_immediate_context_->Unmap(p_const_buffer_on_render_, NULL);
 }
 
+
 void DXClass::ResetResolution(Vector2 new_resolution)
 {
 	//==============================
@@ -370,7 +397,37 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 		return;
 	}
 	p_back_buffer->Release();
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
+
+	//Depth Stencil View 재초기화
+	if (p_depth_view_) p_depth_view_->Release();
+	ID3D11Texture2D* depth_texture;
+	D3D11_TEXTURE2D_DESC depth_desc;
+	ZeroMemory(&depth_desc, sizeof(depth_desc));
+	depth_desc.Width = new_resolution.x;
+	depth_desc.Height = new_resolution.y;
+	depth_desc.MipLevels = 1;
+	depth_desc.ArraySize = 1;
+	depth_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depth_desc.SampleDesc.Count = 1;
+	depth_desc.SampleDesc.Quality = 0;
+	depth_desc.Usage = D3D11_USAGE_DEFAULT;
+	depth_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depth_desc.CPUAccessFlags = 0;
+	depth_desc.MiscFlags = 0;
+	if (FAILED(p_d3d_device_->CreateTexture2D(&depth_desc, NULL, &depth_texture)))return;
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC depth_view_desc;
+	ZeroMemory(&depth_view_desc, sizeof(depth_view_desc));
+	depth_view_desc.Format = depth_desc.Format;
+	depth_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depth_view_desc.Texture2D.MipSlice = 0;
+	if (FAILED(p_d3d_device_->CreateDepthStencilView(depth_texture, &depth_view_desc, &p_depth_view_))) return;
+	depth_texture->Release();
+
+
+	p_back_buffer->Release();
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
 
 
 	// Viewport 초기화
@@ -494,7 +551,6 @@ void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 sc
 		static_cast<FLOAT>(pos.x+scale.x) / dpi_scale_x,
 		static_cast<FLOAT>(pos.y+scale.y) / dpi_scale_y
 	);
-
 	p_text_render_target_->BeginDraw();
 	p_text_render_target_->SetTransform(D2D1::IdentityMatrix());
 	p_text_render_target_->DrawTextW(
@@ -541,7 +597,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 
 	//2. 쉐이더의 상수버퍼(해상도 저장됨)에 임시 해상도(타일맵의 크기) 입력, 출력 타겟 변경
 	WriteConstantBufferOnResize(size);
-	p_immediate_context_->OMSetRenderTargets(1, &render_target_view_tilemap, NULL);
+	p_immediate_context_->OMSetRenderTargets(1, &render_target_view_tilemap, p_depth_view_);
 	D3D11_VIEWPORT viewport;
 	viewport.Width = size.x;
 	viewport.Height = size.y;
@@ -582,7 +638,8 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 	viewport.Width = Core::GetInstance()->get_resolution().x;
 	viewport.Height = Core::GetInstance()->get_resolution().y;
 	p_immediate_context_->RSSetViewports(1, &viewport);
-	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
-
+	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, p_depth_view_);
+	tilemap->Release();
+	render_target_view_tilemap->Release();
 	
 }

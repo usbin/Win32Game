@@ -131,6 +131,7 @@ bool Core::Progress()
 	//===============
 	SceneManager::GetInstance()->ClearView(DXClass::GetInstance()->get_d3d_device());
 	SceneManager::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
+
 	
 	DXClass::GetInstance()->get_swap_chain()->Present(0, 0);
 

@@ -73,7 +73,8 @@ bool SceneManager::ChangeScene(SCENE_TYPE type)
 void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
 	ID3D11DeviceContext* context;
 	p_d3d_device->GetImmediateContext(&context);
-	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
 	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
+	context->ClearDepthStencilView(DXClass::GetInstance()->get_depth_view(), D3D11_CLEAR_DEPTH, 1.f, 0);
 	context->Release();
 }

@@ -95,7 +95,7 @@ void Ui::Render(ID3D11Device* p_d3d_device)
 			Texture* texture = sprite->get_texture();
 			const Vector2& sprite_base_pos = sprite->get_base_pos();
 			const Vector2& sprite_scale = sprite->get_scale();
-			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
+			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture, 0.f);
 		}
 	}
 	

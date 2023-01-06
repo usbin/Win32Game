@@ -171,6 +171,14 @@ enum class EFFECT_STATE
 	DONE		//효과 끝남
 };
 
+enum class RENDER_LAYER
+{
+	DEFAULT,
+	PLAYER,
+	TOP,
+	END
+};
+
 //====================
 // 텍스트 출력용
 //=====================

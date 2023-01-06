@@ -29,6 +29,7 @@ Scene_Tool::~Scene_Tool()
 bool Scene_Tool::Enter()
 {
 	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
+	Camera::GetInstance()->set_target(nullptr);
 	CollisionManager::GetInstance()->CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::INVISIBLE_WALL);
 
 	Director_Scene_Tool* dst = DEBUG_NEW Director_Scene_Tool();

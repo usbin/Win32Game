@@ -61,7 +61,7 @@ void ItemDb::Init()
 
 	ItemAnimator* hoe_animator = new ItemAnimator();
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), texture, Vector2{64, 32}, Vector2{64, 64}
-	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false);
+	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false, .4f);
 	hoe->animator_ = hoe_animator;
 
 

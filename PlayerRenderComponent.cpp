@@ -77,7 +77,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Front");
 	animator->CreateAnimation(
 		_T("Walk_Back")
@@ -88,7 +89,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Back");
 	animator->CreateAnimation(
 		_T("Walk_Right")
@@ -99,7 +101,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Right");
 	animator->CreateAnimation(
 		_T("Walk_Left")
@@ -110,7 +113,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::NONE] = _T("Walk_Left");
 
 	//달리기 애니메이션
@@ -123,7 +127,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Front");
 	animator->CreateAnimation(
 		_T("Run_Back")
@@ -134,7 +139,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Back");
 	animator->CreateAnimation(
 		_T("Run_Right")
@@ -145,7 +151,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Right");
 	animator->CreateAnimation(
 		_T("Run_Left")
@@ -156,7 +163,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::NONE] = _T("Run_Left");
 
 	//들고 걷기 애니메이션
@@ -169,7 +177,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Front");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Back")
@@ -180,7 +189,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Back");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Right")
@@ -191,7 +201,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Right");
 	animator->CreateAnimation(
 		_T("Hold_And_Walk_Left")
@@ -202,7 +213,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .2f
 		, 4
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::WALK][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Walk_Left");
 	//들고 달리기 애니메이션
 	animator->CreateAnimation(
@@ -214,7 +226,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::DOWN][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Front");
 	animator->CreateAnimation(
 		_T("Hold_And_Run_Back")
@@ -225,7 +238,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::UP][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Back");
 	animator->CreateAnimation(
 		_T("Hold_And_Run_Right")
@@ -236,7 +250,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::RIGHT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Right");
 	animator->CreateAnimation(
 		_T("Hold_And_Run_Left")
@@ -247,7 +262,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 10
-		, false);
+		, false
+		, .5f);
 	state_animation_names[(int)DIRECTION::LEFT][(int)PLAYER_STATE::RUN][(int)PLAYER_HAND_STATE::HOLD] = _T("Hold_And_Run_Left");
 
 	//도구 사용 애니메이션 (방향만 동적, 나머진 동일)
@@ -260,7 +276,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 5
-		, false);
+		, false
+		, .5f);
 	item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::HOE]
 		= item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::AXE]
 		= item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::PICKAXE]
@@ -274,7 +291,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 5
-		, false);
+		, false
+		, .5f);
 	item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::HOE]
 		= item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::AXE]
 		= item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::PICKAXE]
@@ -288,7 +306,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 5
-		, false);
+		, false
+		, .5f);
 	item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::HOE]
 		= item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::AXE]
 		= item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::PICKAXE]
@@ -303,7 +322,8 @@ void PlayerRenderComponent::CreateAnimator()
 		, Vector2{ 0, 0 }
 		, .1f
 		, 5
-		, false);
+		, false
+		, .5f);
 	item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::HOE]
 		= item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::AXE]
 		= item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::PICKAXE]

@@ -15,11 +15,13 @@ RealObjectAnimator::~RealObjectAnimator()
 {
 }
 
-void RealObjectAnimator::CreateAnimation(const tstring& name, Texture* texture, Vector2 base_pos, Vector2 img_size, Vector2 img_distance, Vector2 offset, float duration, int img_count, bool is_repeat)
+void RealObjectAnimator::CreateAnimation(const tstring& name, Texture* texture, Vector2 base_pos, Vector2 img_size
+	, Vector2 img_distance, Vector2 offset, float duration, int img_count, bool is_repeat, float depth)
 {
-	Animation* anim = DEBUG_NEW RealObjectAnimation();
+	RealObjectAnimation* anim = DEBUG_NEW RealObjectAnimation();
 	anim->Init(name, texture, base_pos, img_size, img_distance, offset, duration, img_count, is_repeat);
 	anim->set_animator(this);
+	anim->set_depth(depth);
 	anims_.insert(std::make_pair(name, anim));
 }
 
