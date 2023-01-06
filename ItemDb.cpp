@@ -26,7 +26,6 @@ void ItemDb::Init()
 	Crop* parsnip = DEBUG_NEW Crop();
 
 	hoe->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"));
-	hoe->set_scale(Vector2{ 192, 192 });
 	watering_pot->Init((int)ITEM_CODE::WATERING_POT, _T("¹°»Ñ¸®°³"));
 	pickaxe->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"));
 	axe->Init((int)ITEM_CODE::AXE, _T("µµ³¢"));
@@ -35,6 +34,10 @@ void ItemDb::Init()
 	wood->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"));
 	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, _T("¼ø¹« ¾¾¾Ñ"));
 	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"));
+	hoe->set_scale(Vector2{ 192, 192 });
+	watering_pot->set_scale(Vector2{ 192, 192 });
+	pickaxe->set_scale(Vector2{ 192, 192 });
+	axe->set_scale(Vector2{ 192, 192 });
 
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
 	ItemSprite* hoe_sprite = DEBUG_NEW ItemSprite();
@@ -62,7 +65,35 @@ void ItemDb::Init()
 	ItemAnimator* hoe_animator = new ItemAnimator();
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), texture, Vector2{64, 32}, Vector2{64, 64}
 	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false, RENDER_LAYER::PLAYER);
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Back"), texture, Vector2{ 64, 160 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Right"), texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Left"), texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	hoe->animator_ = hoe_animator;
+
+	ItemAnimator* pickaxe_animator = new ItemAnimator();
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Front"), texture, Vector2{ 64, 224 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Back"), texture, Vector2{ 64, 352 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Right"), texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Left"), texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	pickaxe->animator_ = pickaxe_animator;
+
+	ItemAnimator* axe_animator = new ItemAnimator();
+	axe_animator->CreateAnimation(_T("Use_Axe_Front"), texture, Vector2{ 64, 416 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	axe_animator->CreateAnimation(_T("Use_Axe_Back"), texture, Vector2{ 64, 544 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	axe_animator->CreateAnimation(_T("Use_Axe_Right"), texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	axe_animator->CreateAnimation(_T("Use_Axe_Left"), texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	axe->animator_ = axe_animator;
 
 
 	items_.insert(std::make_pair<int, IItem*>((int)ITEM_CODE::HOE,				static_cast<IItem*>(hoe)));

@@ -51,6 +51,7 @@ void Animation::Update()
 		if (++frame_index_ >= img_count_) {
 			is_finished_ = true;
 			frame_index_ = 0;
+			
 			return;
 		}
 		frame_acc_dt_ -= duration_;

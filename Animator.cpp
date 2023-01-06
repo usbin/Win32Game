@@ -2,7 +2,7 @@
 #include "Animation.h"
 #include "RealObjectAnimation.h"
 #include "UiAnimation.h"
-
+#include "Game.h"
 Animator::Animator()
 	: owner_(nullptr)
 	, anims_{}
@@ -23,6 +23,7 @@ Animator::~Animator()
 
 void Animator::Play(const tstring& name, bool exclusive)
 {
+	if (exclusive) Game::GetInstance()->PlayerFreeze();
 	if (!exclusive_ || is_finished()) {
 		Animation* anim = FindAnimation(name);
 		if (anim) {
@@ -32,12 +33,14 @@ void Animator::Play(const tstring& name, bool exclusive)
 		}
 	}
 	
+	
 }
 
 void Animator::Stop()
 {
-	if(!exclusive_)
+	if (!exclusive_) {
 		current_anim_ = nullptr;
+	}
 }
 
 Animation* Animator::FindAnimation(const tstring& name)
@@ -60,6 +63,9 @@ void Animator::Update()
 	if (current_anim_ == nullptr) return;
 	if (current_anim_->is_repeat() && current_anim_->is_finished()) {
 		current_anim_->ResetFrame();
+	}
+	if (current_anim_->is_finished() && exclusive_) {
+		Game::GetInstance()->PlayerUnfreeze();
 	}
 	current_anim_->Update();
 }

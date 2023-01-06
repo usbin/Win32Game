@@ -15,17 +15,6 @@ void Game::StartGame()
 
 void Game::Update()
 {
-	switch (game_state_) {
-	case GAME_STATE::PLAYING:
-	case GAME_STATE::PLAYER_FREEZED:
-	{
-		acc_dt_ += Time::GetInstance()->dt_f();
-		if (acc_dt_ >= 1.) {
-			day_uptime_s_++;
-			acc_dt_ = 0.;
-		}
-	}
-	}
 
 
 }

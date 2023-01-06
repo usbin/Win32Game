@@ -26,17 +26,66 @@ void Equip::Use(RealObject* obj) const
 		// 플레이어의 애니메이션 시작.
 		obj->OnUseItem(ITEM_CODE::HOE);
 		// 본인 애니메이션 시작.
-		animator_->Play(_T("Use_Hoe_Front"), true);
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_Hoe_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_Hoe_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_Hoe_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_Hoe_Right"), true);
+			break;
+		}
 		
 	} break;
 	case (int)ITEM_CODE::WATERING_POT: { //물뿌리개
+		
 
 	} break;
 	case (int)ITEM_CODE::PICKAXE: { //곡괭이
-
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::PICKAXE);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_Pickaxe_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_Pickaxe_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_Pickaxe_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_Pickaxe_Right"), true);
+			break;
+		}
 	} break;
 	case (int)ITEM_CODE::AXE: { //도끼
-
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::AXE);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_Axe_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_Axe_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_Axe_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_Axe_Right"), true);
+			break;
+		}
 	} break;
 	}
 }

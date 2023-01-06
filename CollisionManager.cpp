@@ -15,7 +15,8 @@ void CollisionManager::Init()
 	CheckGroupBitmap(GROUP_TYPE::MISSILE, GROUP_TYPE::MONSTER);
 	//Interactor-Interactor
 	CheckGroupBitmap(GROUP_TYPE::INTERACTOR, GROUP_TYPE::INTERACTOR);
-	
+
+	CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::INVISIBLE_WALL);
 }
 
 void CollisionManager::Update()

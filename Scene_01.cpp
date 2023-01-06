@@ -58,7 +58,7 @@ bool Scene_01::Enter()
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);
 
 
-	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath()+_T("map\\Farm_NoWall.map"));
+	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath()+_T("map\\Farm.map"));
 
 
 	Camera::GetInstance()->set_target(player);

@@ -158,12 +158,12 @@ const IItem* Player::GetHoldItem()
 }
 
 void Player::OnUseItem(ITEM_CODE item_code) {
+	if (!get_render_component()) return;
+	get_render_component()->PlayItemAnimation(item_code);
 	switch (item_code)
 	{
 	case ITEM_CODE::HOE:
 	{
-		if (!get_render_component()) return;
-		get_render_component()->PlayItemAnimation(item_code);
 	} break;
 	case ITEM_CODE::WATERING_POT:
 		break;
