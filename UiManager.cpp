@@ -134,3 +134,14 @@ void UiManager::ResetSelection()
 		selected_target_ = nullptr;
 	}
 }
+
+void UiManager::SelectTarget(Ui* target)
+{
+	ResetSelection();
+	selected_target_ = target;
+	if (selected_target_) {
+		selected_target_->set_selected(true);
+		selected_target_->Select();
+
+	}
+}

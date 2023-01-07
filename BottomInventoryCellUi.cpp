@@ -17,9 +17,6 @@ BottomInventoryCellUi::~BottomInventoryCellUi()
 
 void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 {
-	if (get_mouse_on()) {
-		int a = 0;
-	}
 	if(get_selected()) DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFFFF0000), RENDER_LAYER::TOP);
 	else DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), RENDER_LAYER::TOP);
 	if (item_data_.item) {
@@ -34,11 +31,9 @@ void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 
 void BottomInventoryCellUi::Select()
 {
-	
-	item_data_.item->OnHold(bottom_inventory_ui_->get_owner());
-}
+	if (!bottom_inventory_ui_) return;
+	if (!bottom_inventory_ui_->get_owner()) return;
+	if (!bottom_inventory_ui_->get_owner()->get_item_holder()) return;
 
-void BottomInventoryCellUi::Unselect()
-{
-	item_data_.item->OnUnhold();
+	bottom_inventory_ui_->get_owner()->get_item_holder()->SetItem(item_data_.item);
 }

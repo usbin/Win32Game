@@ -27,8 +27,6 @@ IItem* Mic::Init(int item_code, tstring name)
 
 void Mic::OnHold(RealObject* owner) const
 {
-    // 선택돼있을 때(캐릭터가 잡고 있을 때)
-    owner->get_item_holder()->SetItem(this);
 }
 
 int Mic::get_item_code() const
@@ -44,7 +42,3 @@ void Mic::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
 {
 }
 
-
-void Mic::OnUnhold() const
-{
-}

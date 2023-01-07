@@ -1,5 +1,7 @@
 #include "BottomInventoryUi.h"
 #include "BottomInventoryCellUi.h"
+#include "UiManager.h"
+#include "Game.h"
 
 BottomInventoryUi::BottomInventoryUi()
 	: ImageUi(true)
@@ -49,6 +51,29 @@ void BottomInventoryUi::Update()
 			cells_[i]->SetItem(inventory[i]);
 		}
 	}
+	switch (Game::GetInstance()->get_game_state())
+	{
+	case GAME_STATE::PLAYING:
+	case GAME_STATE::TIME_STOPPED:
+		if (KEY_DOWN(KEY::KEY_1))	UiManager::GetInstance()->SelectTarget(cells_[0]);
+		else if (KEY_DOWN(KEY::KEY_2))	UiManager::GetInstance()->SelectTarget(cells_[1]);
+		else if (KEY_DOWN(KEY::KEY_3))	UiManager::GetInstance()->SelectTarget(cells_[2]);
+		else if (KEY_DOWN(KEY::KEY_4))	UiManager::GetInstance()->SelectTarget(cells_[3]);
+		else if (KEY_DOWN(KEY::KEY_5))	UiManager::GetInstance()->SelectTarget(cells_[4]);
+		else if (KEY_DOWN(KEY::KEY_6))	UiManager::GetInstance()->SelectTarget(cells_[5]);
+		else if (KEY_DOWN(KEY::KEY_7))	UiManager::GetInstance()->SelectTarget(cells_[6]);
+		else if (KEY_DOWN(KEY::KEY_8))	UiManager::GetInstance()->SelectTarget(cells_[7]);
+		else if (KEY_DOWN(KEY::KEY_9))	UiManager::GetInstance()->SelectTarget(cells_[8]);
+		else if (KEY_DOWN(KEY::KEY_0))	UiManager::GetInstance()->SelectTarget(cells_[9]);
+		else if (KEY_DOWN(KEY::KEY_MINUS))	UiManager::GetInstance()->SelectTarget(cells_[10]);
+		else if (KEY_DOWN(KEY::KEY_PLUS))	UiManager::GetInstance()->SelectTarget(cells_[11]);
+		break;
+	case GAME_STATE::PLAYER_FREEZED:
+	case GAME_STATE::FREEZED:
+		break;
+	}
+	
+	
 
 	ChildrenUpdate();
 }

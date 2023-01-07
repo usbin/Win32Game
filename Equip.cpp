@@ -44,7 +44,25 @@ void Equip::Use(RealObject* obj) const
 		
 	} break;
 	case (int)ITEM_CODE::WATERING_POT: { //물뿌리개
-		
+
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::WATERING_POT);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_WateringPot_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_WateringPot_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_WateringPot_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_WateringPot_Right"), true);
+			break;
+		}
 
 	} break;
 	case (int)ITEM_CODE::PICKAXE: { //곡괭이
@@ -107,17 +125,11 @@ void Equip::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) cons
 		if (animator_) animator_->Render(p_d3d_device);
 	}
 }
-void Equip::OnUnhold() const
-{
-	if(animator_) animator_->set_owner(nullptr);
-}
-
 
 void Equip::OnHold(RealObject* owner) const
 {
 	// 선택돼있을 때(캐릭터가 잡고 있을 때)
 	if (owner) {
-		owner->get_item_holder()->SetItem(this);
 		if(animator_) animator_->set_owner(owner->get_item_holder());
 
 	}

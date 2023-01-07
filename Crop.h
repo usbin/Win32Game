@@ -16,7 +16,6 @@ private:
 public:
 	IItem* Init(int item_code, tstring name);
 	virtual void OnHold(RealObject* owner) const override;
-	virtual void OnUnhold() const override;
 	virtual void Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;
 	virtual ItemSprite* get_sprite() const override { return sprite_; };

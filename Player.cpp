@@ -32,14 +32,20 @@ Player::Player()
 	CreateRenderCmp();
 	CreateItemHolder();
 
-	const IItem* item = ItemDb::GetInstance()->GetItem(1);
-	const IItem* item2 = ItemDb::GetInstance()->GetItem(2);
-	const IItem* item3 = ItemDb::GetInstance()->GetItem(3);
-	const IItem* item4 = ItemDb::GetInstance()->GetItem(4);
+	const IItem* item = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::HOE);
+	const IItem* item2 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::WATERING_POT);
+	const IItem* item3 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::PICKAXE);
+	const IItem* item4 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::AXE);
+	const IItem* item5 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::STONE);
+	const IItem* item6 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::PARSNIP_SEED);
+	const IItem* item7 = ItemDb::GetInstance()->GetItem((int)ITEM_CODE::PARSNIP);
 	inventory_.push_back(ItemData{ item, 1 });
 	inventory_.push_back(ItemData{ item2, 1 });
 	inventory_.push_back(ItemData{ item3, 1 });
 	inventory_.push_back(ItemData{ item4, 1 });
+	inventory_.push_back(ItemData{ item5, 1 });
+	inventory_.push_back(ItemData{ item6, 1 });
+	inventory_.push_back(ItemData{ item7, 1 });
 
 }
 Player::~Player()
@@ -73,9 +79,9 @@ void Player::CreateCollider()
 {
 	Collider* collider = DEBUG_NEW Collider();
 	collider->set_owner(this);
-	collider->set_scale(Vector2{ 20, 20 });
+	collider->set_scale(Vector2{ 40, 40 });
 	collider->set_is_physical_collider(true);
-	collider->set_pos_offset(Vector2{ 0, 20 });
+	collider->set_pos_offset(Vector2{ 0, 30 });
 	set_collider(collider);
 }
 

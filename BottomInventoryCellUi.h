@@ -18,6 +18,5 @@ public:
 	virtual void Render(ID3D11Device* p_d3d_device) override;
 	inline void SetItem(ItemData item_data) { item_data_ = item_data; };
 	virtual void Select() override;
-	virtual void Unselect() override;
 };
 

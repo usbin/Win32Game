@@ -329,6 +329,61 @@ void PlayerRenderComponent::CreateAnimator()
 		= item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::PICKAXE]
 		= _T("Use_Tool_Left");
 
+	//물뿌리개 사용 애니메이션
+	animator->CreateAnimation(
+		_T("Use_WateringPot_Front")
+		, texture
+		, Vector2{ 320, 96 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false
+		, RENDER_LAYER::PLAYER);
+	item_use_animation_names[(int)DIRECTION::DOWN][(int)ITEM_CODE::WATERING_POT]
+		= _T("Use_WateringPot_Front");
+	animator->CreateAnimation(
+		_T("Use_WateringPot_Back")
+		, texture
+		, Vector2{ 320, 160 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false
+		, RENDER_LAYER::PLAYER);
+	item_use_animation_names[(int)DIRECTION::UP][(int)ITEM_CODE::WATERING_POT]
+		= _T("Use_WateringPot_Back");
+	animator->CreateAnimation(
+		_T("Use_WateringPot_Right")
+		, texture
+		, Vector2{ 320, 128 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false
+		, RENDER_LAYER::PLAYER);
+	item_use_animation_names[(int)DIRECTION::RIGHT][(int)ITEM_CODE::WATERING_POT]
+		= _T("Use_WateringPot_Right");
+
+	animator->CreateAnimation(
+		_T("Use_WateringPot_Left")
+		, texture
+		, Vector2{ 320, 128 }
+		, Vector2{ 16, 32 }
+		, Vector2{ 16, 0 }
+		, Vector2{ 0, 0 }
+		, .1f
+		, 5
+		, false
+		, RENDER_LAYER::PLAYER);
+	item_use_animation_names[(int)DIRECTION::LEFT][(int)ITEM_CODE::WATERING_POT]
+		= _T("Use_WateringPot_Left");
+
 	animator->set_owner(get_owner());
 	set_animator(animator);
 }

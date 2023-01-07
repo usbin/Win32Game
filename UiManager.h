@@ -18,5 +18,6 @@ public:
 	};
 	inline bool focus_nothing() { return !target_ui_ && !prev_downed_target_; };
 	void ResetSelection();
+	void SelectTarget(Ui* target); 
 };
 

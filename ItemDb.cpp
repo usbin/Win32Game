@@ -38,60 +38,102 @@ void ItemDb::Init()
 	watering_pot->set_scale(Vector2{ 192, 192 });
 	pickaxe->set_scale(Vector2{ 192, 192 });
 	axe->set_scale(Vector2{ 192, 192 });
+	stone->set_scale(Vector2{ 192, 192 });
+	weed->set_scale(Vector2{ 192, 192 });
+	wood->set_scale(Vector2{ 192, 192 });
+	parsnip_seed->set_scale(Vector2{ 192, 192 });
+	parsnip->set_scale(Vector2{ 192, 192 });
 
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
+	Texture* tool_texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
+	Texture* forage_texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Forage"), _T("texture\\StardewValley_Forage.png"));
+	Texture* crop_texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Crop"), _T("texture\\StardewValley_Crop.png"));
 	ItemSprite* hoe_sprite = DEBUG_NEW ItemSprite();
-	hoe_sprite->set_texture(texture);
-	hoe_sprite->set_base_pos(Vector2{0, 32 });
-	hoe_sprite->set_scale(Vector2{ 16, 16 });
+	hoe_sprite->QuickSet(tool_texture, hoe, Vector2{ 0, 32 }, Vector2{ 16, 16 });
 	hoe->sprite_ = hoe_sprite;
 	ItemSprite* watering_pot_sprite = DEBUG_NEW ItemSprite();
-	watering_pot_sprite->set_texture(texture);
-	watering_pot_sprite->set_base_pos(Vector2{ 0, 608 });
-	watering_pot_sprite->set_scale(Vector2{ 16, 16 });
+	watering_pot_sprite->QuickSet(tool_texture, watering_pot, Vector2{ 0, 608 }, Vector2{ 16, 16 });
 	watering_pot->sprite_ = watering_pot_sprite;
 	ItemSprite* pickaxe_sprite = DEBUG_NEW ItemSprite();
-	pickaxe_sprite->set_texture(texture);
-	pickaxe_sprite->set_base_pos(Vector2{ 0, 224 });
-	pickaxe_sprite->set_scale(Vector2{ 16, 16 });
+	pickaxe_sprite->QuickSet(tool_texture, pickaxe, Vector2{ 0, 224 }, Vector2{ 16, 16 });
 	pickaxe->sprite_ = pickaxe_sprite;
 	ItemSprite* axe_sprite = DEBUG_NEW ItemSprite();
-	axe_sprite->set_texture(texture);
+	axe_sprite->set_texture(tool_texture);
 	axe_sprite->set_base_pos(Vector2{ 0, 416 });
 	axe_sprite->set_scale(Vector2{ 16, 16 });
 	axe->sprite_ = axe_sprite;
+	ItemSprite* stone_sprite = DEBUG_NEW ItemSprite();
+	stone_sprite->set_texture(forage_texture);
+	stone_sprite->set_base_pos(Vector2{ 136, 198 });
+	stone_sprite->set_scale(Vector2{ 16, 16 });
+	stone->sprite_ = stone_sprite;
+	stone_sprite->set_owner(stone);
+	ItemSprite* weed_sprite = DEBUG_NEW ItemSprite();
+	weed_sprite->set_texture(forage_texture);
+	weed_sprite->set_base_pos(Vector2{ 32, 192 });
+	weed_sprite->set_scale(Vector2{ 32, 32 });
+	weed->sprite_ = weed_sprite;
+	weed_sprite->set_owner(weed);
+	ItemSprite* wood_sprite = DEBUG_NEW ItemSprite();
+	wood_sprite->set_texture(forage_texture);
+	wood_sprite->set_base_pos(Vector2{ 70, 199 });
+	wood_sprite->set_scale(Vector2{ 16, 16 });
+	wood->sprite_ = wood_sprite;
+	wood_sprite->set_owner(wood);
+	ItemSprite* parsnip_seed_sprite = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite->set_texture(crop_texture);
+	parsnip_seed_sprite->set_base_pos(Vector2{ 0, 16 });
+	parsnip_seed_sprite->set_scale(Vector2{ 16, 16 });
+	parsnip_seed->sprite_ = parsnip_seed_sprite;
+	parsnip_seed_sprite->set_owner(parsnip_seed);
+	ItemSprite* parsnip_sprite = DEBUG_NEW ItemSprite();
+	parsnip_sprite->set_texture(crop_texture);
+	parsnip_sprite->set_base_pos(Vector2{ 80, 13 });
+	parsnip_sprite->set_scale(Vector2{ 16, 16 });
+	parsnip->sprite_ = parsnip_sprite;
+	parsnip_sprite->set_owner(parsnip);
 
 
 	ItemAnimator* hoe_animator = new ItemAnimator();
-	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), texture, Vector2{64, 32}, Vector2{64, 64}
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), tool_texture, Vector2{64, 32}, Vector2{64, 64}
 	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false, RENDER_LAYER::PLAYER);
-	hoe_animator->CreateAnimation(_T("Use_Hoe_Back"), texture, Vector2{ 64, 160 }, Vector2{ 64, 64 }
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Back"), tool_texture, Vector2{ 64, 160 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
-	hoe_animator->CreateAnimation(_T("Use_Hoe_Right"), texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Right"), tool_texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
-	hoe_animator->CreateAnimation(_T("Use_Hoe_Left"), texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
+	hoe_animator->CreateAnimation(_T("Use_Hoe_Left"), tool_texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	hoe->animator_ = hoe_animator;
 
-	ItemAnimator* pickaxe_animator = new ItemAnimator();
-	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Front"), texture, Vector2{ 64, 224 }, Vector2{ 64, 64 }
+	ItemAnimator* watering_pot_animator = new ItemAnimator();
+	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Front"), tool_texture, Vector2{ 64, 608 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
-	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Back"), texture, Vector2{ 64, 352 }, Vector2{ 64, 64 }
+	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Back"), tool_texture, Vector2{ 64, 736 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
-	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Right"), texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
+	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Right"), tool_texture, Vector2{ 64, 672 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
-	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Left"), texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
+	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Left"), tool_texture, Vector2{ 64, 672 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	watering_pot->animator_ = watering_pot_animator;
+
+	ItemAnimator* pickaxe_animator = new ItemAnimator();
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Front"), tool_texture, Vector2{ 64, 224 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Back"), tool_texture, Vector2{ 64, 352 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Right"), tool_texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
+	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Left"), tool_texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	pickaxe->animator_ = pickaxe_animator;
 
 	ItemAnimator* axe_animator = new ItemAnimator();
-	axe_animator->CreateAnimation(_T("Use_Axe_Front"), texture, Vector2{ 64, 416 }, Vector2{ 64, 64 }
+	axe_animator->CreateAnimation(_T("Use_Axe_Front"), tool_texture, Vector2{ 64, 416 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
-	axe_animator->CreateAnimation(_T("Use_Axe_Back"), texture, Vector2{ 64, 544 }, Vector2{ 64, 64 }
+	axe_animator->CreateAnimation(_T("Use_Axe_Back"), tool_texture, Vector2{ 64, 544 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
-	axe_animator->CreateAnimation(_T("Use_Axe_Right"), texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
+	axe_animator->CreateAnimation(_T("Use_Axe_Right"), tool_texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
-	axe_animator->CreateAnimation(_T("Use_Axe_Left"), texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
+	axe_animator->CreateAnimation(_T("Use_Axe_Left"), tool_texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	axe->animator_ = axe_animator;
 

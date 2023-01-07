@@ -16,6 +16,7 @@
 #include "PathManager.h"
 bool Scene_01::Enter()
 {
+
 	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 
 	Director_Scene_01* director = DEBUG_NEW Director_Scene_01();
