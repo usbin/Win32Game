@@ -31,7 +31,3 @@ void ItemSprite::QuickSet(Texture* texture, IItem* owner, Vector2 base_pos, Vect
 	base_pos_ = base_pos;
 	scale_ = scale;
 }
-
-void ItemSprite::Render(ID3D11Device* p_d3d_device)
-{
-}

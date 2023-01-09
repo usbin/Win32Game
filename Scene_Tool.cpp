@@ -52,7 +52,6 @@ bool Scene_Tool::Enter()
 
 
 
-	//Camera::GetInstance()->set_target(gobj);
 	return true;
 }
 

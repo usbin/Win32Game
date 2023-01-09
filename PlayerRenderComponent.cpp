@@ -446,7 +446,7 @@ void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 	
 }
 
-void PlayerRenderComponent::ChangeSprite(GObjectSprite* sprite)
+void PlayerRenderComponent::ChangeSprite(ISprite* sprite)
 {
 	if (sprite_) delete sprite_;
 	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);

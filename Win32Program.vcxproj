@@ -167,6 +167,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="FieldTileObject.h" />
     <ClInclude Include="FileSaver1_0_0.h" />
     <ClInclude Include="GObjectSprite.h" />
     <ClInclude Include="IControlComponent.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="ItemAnimation.h" />
     <ClInclude Include="ItemAnimator.h" />
     <ClInclude Include="ItemSprite.h" />
+    <ClInclude Include="ITileObjectInfo.h" />
     <ClInclude Include="IUsable.h" />
     <ClInclude Include="ItemDb.h" />
     <ClInclude Include="KeyManager.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="Mic.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NaturalThing.h" />
     <ClInclude Include="NewGameBtn_Title.h" />
     <ClInclude Include="PanelUi.h" />
     <ClInclude Include="PathManager.h" />
@@ -234,6 +238,10 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileEditUi.h" />
+    <ClInclude Include="TileObject.h" />
+    <ClInclude Include="TileObjectDb.h" />
+    <ClInclude Include="TileObjectSprite.h" />
+    <ClInclude Include="TileObjectRenderComponent.h" />
     <ClInclude Include="TileUi.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimerUi.h" />
@@ -263,6 +271,8 @@
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="FieldTileObject.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FileSaver1_0_0.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
@@ -270,7 +280,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GObject.cpp" />
     <ClCompile Include="GObjectSprite.cpp" />
-    <ClCompile Include="IItem.cpp" />
     <ClCompile Include="ImageUi.cpp" />
     <ClCompile Include="Interactor.cpp" />
     <ClCompile Include="InvisibleWall.cpp" />
@@ -283,6 +292,7 @@
     <ClCompile Include="Mic.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="NaturalThing.cpp" />
     <ClCompile Include="NewGameBtn_Title.cpp" />
     <ClCompile Include="PanelUi.cpp" />
     <ClCompile Include="PathManager.cpp" />
@@ -309,6 +319,10 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileEditUi.cpp" />
+    <ClCompile Include="TileObject.cpp" />
+    <ClCompile Include="TileObjectDb.cpp" />
+    <ClCompile Include="TileObjectSprite.cpp" />
+    <ClCompile Include="TileObjectRenderComponent.cpp" />
     <ClCompile Include="TileUi.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimerUi.cpp" />

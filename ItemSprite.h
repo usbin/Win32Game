@@ -13,7 +13,6 @@ private:
 	Vector2 scale_ = Vector2::Zero();
 	IItem* owner_ = nullptr;
 public:
-	virtual void Render(ID3D11Device* p_d3d_device) override;
 	void QuickSet(Texture* texture, IItem* owner, int row, int column, int max_row, int max_column);
 	void QuickSet(Texture* texture, IItem* owner, Vector2 base_pos, Vector2 scale);
 

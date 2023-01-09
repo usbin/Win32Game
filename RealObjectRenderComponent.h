@@ -23,8 +23,8 @@ public:
 	virtual void Update(GObject* owner);
 	virtual void Render(GObject* owner, ID3D11Device* p_d3d_device);
 
-	virtual GObjectSprite* get_sprite() { return static_cast<GObjectSprite*>(sprite_); };
-	virtual void ChangeSprite(GObjectSprite* sprite);
+	virtual ISprite* get_sprite() { return static_cast<ISprite*>(sprite_); };
+	virtual void ChangeSprite(ISprite* sprite);
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };

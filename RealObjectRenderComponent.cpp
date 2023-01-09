@@ -45,7 +45,7 @@ void RealObjectRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_devic
 	
 }
 
-void RealObjectRenderComponent::ChangeSprite(GObjectSprite* sprite)
+void RealObjectRenderComponent::ChangeSprite(ISprite* sprite)
 {
 	if (sprite_) delete sprite_;
 	sprite_ = dynamic_cast<RealObjectSprite*>(sprite);

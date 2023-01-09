@@ -15,7 +15,6 @@ private:
 
 
 public:
-	virtual void Render(ID3D11Device* p_d3d_device) = 0;
 
 	inline virtual void set_texture(Texture* texture) = 0;
 	inline virtual Texture* get_texture() = 0;

@@ -15,10 +15,12 @@ private:
 	Player* owner_ = nullptr;
 	Vector2 hold_offset_ = Vector2::Zero();
 	Vector2 holder_scale_ = Vector2::Zero();
+
+	Vector2 target_pos_ = Vector2::Zero();
 public:
 	
 
-	virtual void set_owner(RealObject* owner) override { owner_ = static_cast<Player*>(owner); };
+	virtual inline void set_owner(RealObject* owner) override { owner_ = static_cast<Player*>(owner); };
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override; //아이템 렌더링
 	virtual void SetItem(const IItem* item) override;
@@ -32,5 +34,8 @@ public:
 	// IItemHolder을(를) 통해 상속됨
 	virtual void set_hold_scale(Vector2 scale) override { holder_scale_ = scale; };
 	virtual Vector2 get_hold_scale() override { return holder_scale_; };
+
+	// IItemHolder을(를) 통해 상속됨
+	virtual Vector2 get_target_pos() override;
 };
 

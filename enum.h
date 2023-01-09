@@ -73,7 +73,8 @@ enum class GROUP_TYPE
 	BACKGROUND1=2,
 	BACKGROUND2=3,
 	BACKGROUND3=4,
-	TILE=5,
+	TILE=5,			//툴 씬에서만 사용되는 타일
+	TILE_OBJECT,	//밭, 작물, 돌 등 타일 1개를 차지하는 오브젝트. 전체 NxM의 포인터를 씬 안에서 유지해야함.
 	PLAYER,
 	THING,
 	MISSILE,
@@ -84,6 +85,7 @@ enum class GROUP_TYPE
 	UI = 31, //맨 마지막에 렌더링
 	END = 32
 };
+
 enum class SCENE_TYPE
 {
 	TITLE,
@@ -106,6 +108,13 @@ enum class ITEM_CODE {
 
 };
 
+enum class TILE_OBJECT_TYPE {
+	STONE,
+	WOOD,
+	WEED,
+	FIELD,
+	END
+};
 enum class PEN_TYPE {//void Core::InitPenAndBrush()에도 초기화 구문 추가해야함
 	BLACK,
 	WHITE,

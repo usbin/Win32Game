@@ -48,7 +48,7 @@ public:
 	inline void set_render_component(RealObjectRenderComponent* cmp) { render_cmp_ = cmp; };
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
-	virtual RealObjectSprite* get_sprite() { return render_cmp_ ? dynamic_cast<RealObjectSprite*>(render_cmp_->get_sprite()) : nullptr; };
+	virtual ISprite* get_sprite() { return render_cmp_ ? dynamic_cast<ISprite*>(render_cmp_->get_sprite()) : nullptr; };
 	inline IItemHolder* get_item_holder() { return item_holder_; };
 
 	friend class PhysicsComponent;

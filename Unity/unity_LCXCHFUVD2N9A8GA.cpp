@@ -50,6 +50,12 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Field.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FieldTileObject.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FileManager.cpp"
 
 
@@ -69,9 +75,6 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObjectSprite.cpp"
-
-
-#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\IItem.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
@@ -108,6 +111,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Monster.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NaturalThing.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NewGameBtn_Title.cpp"
@@ -186,6 +192,18 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileEditUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileObject.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileObjectDb.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileObjectSprite.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileObjectRenderComponent.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TileUi.cpp"

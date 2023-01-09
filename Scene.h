@@ -4,6 +4,7 @@
 #include "GObject.h"
 class GObject;
 class Tile;
+class TileObject;
 class Scene
 {
 	//현재 씬의 오브젝트 리스트
@@ -14,6 +15,7 @@ private:
 
 	HDC hdc_ = 0;
 	ID3D11Device* p_d3d_device_ = nullptr;
+	
 
 public:
 	Scene()
@@ -30,12 +32,15 @@ public:
 	void DeleteGroupObjects(GROUP_TYPE type);
 	void DeleteAllObjects();
 	inline const std::vector<GObject*>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };
+	void GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObject*& p_out_tile_object );		//해당 위치의 타일 오브젝트를 찾아 위치와 함께 반환/없으면 nullptr
 	void ObjectToTop(GROUP_TYPE group_type, GObject* target);
 	void ObjectToPrev(GROUP_TYPE group_type, GObject* target);
 	void ObjectToNext(GROUP_TYPE group_type, GObject* target);
 	inline HDC get_hdc() { return hdc_; };
 	inline void set_name(tstring name) { name_ = name; }
 	inline tstring get_name() { return name_; }
+
+	
 };
 
 

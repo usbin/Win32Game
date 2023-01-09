@@ -63,6 +63,7 @@ void Player::Update()
 			GObject* obj = interactors[0]->get_owner();
 			obj->OnInteract(this);
 		}
+		
 	}
 
 

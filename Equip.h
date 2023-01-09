@@ -14,11 +14,12 @@ private:
 	
 	ItemSprite* sprite_ = nullptr;
 	ItemAnimator* animator_ = nullptr;
-	Vector2 scale_{};
+	Vector2 scale_ = Vector2::Zero();
 	
+	Vector2 target_pos_ = Vector2::Zero();
 
 public:
-	virtual IItem* Init(int item_code, tstring name) override;
+	virtual IItem* Init(int item_code, tstring name);
 	virtual void OnHold(RealObject* owner) const override;
 	virtual void Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;

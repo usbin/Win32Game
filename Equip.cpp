@@ -4,6 +4,8 @@
 #include "RealObject.h"
 #include "IItemHolder.h"
 #include "ItemAnimator.h"
+#include "SceneManager.h"
+#include "FieldTileObject.h"
 Equip::~Equip()
 {
 	delete sprite_;
@@ -41,7 +43,21 @@ void Equip::Use(RealObject* obj) const
 			animator_->Play(_T("Use_Hoe_Right"), true);
 			break;
 		}
-		
+		if (obj && obj->get_item_holder()) {
+			Vector2 target_pos = obj->get_item_holder()->get_target_pos();
+			Vector2 to_base_pos;
+			TileObject* tile_obj = nullptr;
+			SceneManager::GetInstance()->get_current_scene()->GetTileObject(target_pos, to_base_pos, tile_obj);
+			if (!tile_obj) {
+				FieldTileObject* field_tile_obj = new FieldTileObject();
+				field_tile_obj->set_pos(to_base_pos);
+				field_tile_obj->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+				field_tile_obj->set_group_type(GROUP_TYPE::TILE_OBJECT);
+				field_tile_obj->Init(TILE_OBJECT_TYPE::FIELD);
+				CreateGObject(field_tile_obj, GROUP_TYPE::TILE_OBJECT);
+			}
+		}
+
 	} break;
 	case (int)ITEM_CODE::WATERING_POT: { //¹°»Ñ¸®°³
 
@@ -64,6 +80,15 @@ void Equip::Use(RealObject* obj) const
 			break;
 		}
 
+		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
+		Vector2 to_base_pos;
+		TileObject* tile_obj = nullptr;
+		SceneManager::GetInstance()->get_current_scene()->GetTileObject(target_pos, to_base_pos, tile_obj);
+		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
+			FieldTileObject* field_tile_obj = dynamic_cast<FieldTileObject*>(tile_obj);
+			field_tile_obj->Water();
+		}
+
 	} break;
 	case (int)ITEM_CODE::PICKAXE: { //°î±ªÀÌ
 		// ÇÃ·¹ÀÌ¾îÀÇ ¾Ö´Ï¸ÞÀÌ¼Ç ½ÃÀÛ.
@@ -83,6 +108,14 @@ void Equip::Use(RealObject* obj) const
 		case DIRECTION::RIGHT:
 			animator_->Play(_T("Use_Pickaxe_Right"), true);
 			break;
+		}
+
+		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
+		Vector2 to_base_pos;
+		TileObject* tile_obj = nullptr;
+		SceneManager::GetInstance()->get_current_scene()->GetTileObject(target_pos, to_base_pos, tile_obj);
+		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
+			delete tile_obj;
 		}
 	} break;
 	case (int)ITEM_CODE::AXE: { //µµ³¢
@@ -117,12 +150,16 @@ void Equip::UpdateOnHolder(IItemHolder* holder) const
 {
 	if (holder && holder->get_owner()) {
 		if (animator_) animator_->Update();
+
+		
 	}
+
 }
 void Equip::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
 {
 	if (holder && holder->get_owner()) {
 		if (animator_) animator_->Render(p_d3d_device);
+
 	}
 }
 

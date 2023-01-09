@@ -10,6 +10,7 @@
 #include "DXClass.h"
 #include "Game.h"
 #include "ItemDb.h"
+#include "TileObjectDb.h"
 
 
 Core::Core()
@@ -89,6 +90,7 @@ int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 	CollisionManager::GetInstance()->Init();
 
 	ItemDb::GetInstance()->Init();
+	TileObjectDb::GetInstance()->Init();
 	
 
 

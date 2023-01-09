@@ -55,7 +55,7 @@ void TileEditUi::CreateExitBtn()
 	exit_btn->set_group_type(GROUP_TYPE::UI);
 	exit_btn->set_name(_T("Exit Button"));
 	Texture* exit_texture = ResManager::GetInstance()->LoadTexture(_T("Exit Button"), _T("texture\\Exit_Btn.png"));
-	GObjectSprite* sprite = DEBUG_NEW UiSprite();
+	UiSprite* sprite = DEBUG_NEW UiSprite();
 	sprite->QuickSet(exit_texture, exit_btn, 0, 0, 1, 1);
 	exit_btn->ChangeSprite(sprite);
 	exit_btn->set_parent(this);
@@ -77,7 +77,7 @@ void TileEditUi::CreateAddModeBtn()
 	add_btn->set_group_type(GROUP_TYPE::UI);
 	add_btn->set_name(_T("Add Button"));
 	Texture* add_texture = ResManager::GetInstance()->LoadTexture(_T("Add Button"), _T("texture\\plus-btn.png"));
-	GObjectSprite* add_sprite = DEBUG_NEW UiSprite();
+	UiSprite* add_sprite = DEBUG_NEW UiSprite();
 	add_sprite->QuickSet(add_texture, add_btn, 0, 0, 1, 1);
 	add_btn->ChangeSprite(add_sprite);
 	add_btn->set_parent(this);
@@ -99,7 +99,7 @@ void TileEditUi::CreateRemoveModeBtn()
 	remove_btn->set_group_type(GROUP_TYPE::UI);
 	remove_btn->set_name(_T("Remove Button"));
 	Texture* remove_texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
-	GObjectSprite* remove_sprite = DEBUG_NEW UiSprite();
+	UiSprite* remove_sprite = DEBUG_NEW UiSprite();
 	remove_sprite->QuickSet(remove_texture, remove_btn, 0, 0, 1, 1);
 	remove_btn->ChangeSprite(remove_sprite);
 	remove_btn->set_parent(this);
@@ -122,7 +122,7 @@ void TileEditUi::CreateColliderModeBtn()
 	collider_btn->set_group_type(GROUP_TYPE::UI);
 	collider_btn->set_name(_T("Collider Button"));
 	Texture* collider_texture = ResManager::GetInstance()->LoadTexture(_T("Collider Button"), _T("texture\\collider-btn.png"));
-	GObjectSprite* collider_sprite = DEBUG_NEW UiSprite();
+	UiSprite* collider_sprite = DEBUG_NEW UiSprite();
 	collider_sprite->QuickSet(collider_texture, collider_btn, 0, 0, 1, 1);
 	collider_btn->ChangeSprite(collider_sprite);
 	collider_btn->set_parent(this);
@@ -143,7 +143,7 @@ void TileEditUi::CreateColliderDeleteModeBtn() {
 	collider_delete_btn->set_group_type(GROUP_TYPE::UI);
 	collider_delete_btn->set_name(_T("Collider Delete Button"));
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Collider Delete Button"), _T("texture\\collider-delete-btn.png"));
-	GObjectSprite* sprite = DEBUG_NEW UiSprite();
+	UiSprite* sprite = DEBUG_NEW UiSprite();
 	sprite->QuickSet(texture, collider_delete_btn, 0, 0, 1, 1);
 	collider_delete_btn->ChangeSprite(sprite);
 	collider_delete_btn->set_parent(this);
@@ -165,7 +165,7 @@ void TileEditUi::CreateArrowBtns()
 	left_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	left_arrow_btn->set_name(_T("Left Arrow Button"));
 	Texture* left_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Left Arrow Button"), _T("texture\\left-arrow-btn.png"));
-	GObjectSprite* left_arrow_sprite = DEBUG_NEW UiSprite();
+	UiSprite* left_arrow_sprite = DEBUG_NEW UiSprite();
 	left_arrow_sprite->QuickSet(left_arrow_texture, left_arrow_btn, 0, 0, 1, 1);
 	left_arrow_btn->ChangeSprite(left_arrow_sprite);
 	left_arrow_btn->set_parent(this);
@@ -182,7 +182,7 @@ void TileEditUi::CreateArrowBtns()
 	right_arrow_btn->set_group_type(GROUP_TYPE::UI);
 	right_arrow_btn->set_name(_T("Right Arrow Button"));
 	Texture* right_arrow_texture = ResManager::GetInstance()->LoadTexture(_T("Right Arrow Button"), _T("texture\\right-arrow-btn.png"));
-	GObjectSprite* right_arrow_sprite = DEBUG_NEW UiSprite();
+	UiSprite* right_arrow_sprite = DEBUG_NEW UiSprite();
 	right_arrow_sprite->QuickSet(right_arrow_texture, right_arrow_btn, 0, 0, 1, 1);
 	right_arrow_btn->ChangeSprite(right_arrow_sprite);
 	right_arrow_btn->set_parent(this);

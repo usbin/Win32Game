@@ -1,6 +1,7 @@
 #include "Seed.h"
 #include "RealObject.h"
 #include "IItemHolder.h"
+#include "SceneManager.h"
 Seed::~Seed()
 {
     delete sprite_;
@@ -31,7 +32,7 @@ int Seed::get_item_code() const
 
 void Seed::Use(RealObject* obj) const
 {
-    int a = 0;
+    
 }
 
 void Seed::UpdateOnHolder(IItemHolder* holder) const

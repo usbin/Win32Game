@@ -14,6 +14,7 @@ Tile::~Tile()
 
 void Tile::Update()
 {
+
 }
 
 void Tile::Render(ID3D11Device* p_d3d_device)

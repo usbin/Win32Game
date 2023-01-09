@@ -16,5 +16,6 @@ public:
 	virtual Vector2 get_hold_offset() = 0;
 	virtual void set_hold_scale(Vector2 scale) = 0;
 	virtual Vector2 get_hold_scale() = 0;
+	virtual Vector2 get_target_pos() = 0;
 };
 

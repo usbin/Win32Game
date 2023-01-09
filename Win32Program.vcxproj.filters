@@ -112,6 +112,15 @@
     <Filter Include="Game\Component\RenderComponent">
       <UniqueIdentifier>{64111892-fb8d-418f-a6cc-cafbc4e75b72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GObject\RealObject\TileObject">
+      <UniqueIdentifier>{2730cee6-c9aa-473d-b66a-a5180526c895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TileObjectInfo">
+      <UniqueIdentifier>{fe77c01a-e838-48a4-ac7e-70d03f52450e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GObject\RealObject\TileObject\Field">
+      <UniqueIdentifier>{7320c6ce-6e45-4a8f-90b7-a4cb42acfa22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -375,6 +384,30 @@
     <ClInclude Include="ItemAnimator.h">
       <Filter>Game\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="TileObject.h">
+      <Filter>Game\GObject\RealObject\TileObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ITileObjectInfo.h">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObjectDb.h">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="NaturalThing.h">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObjectSprite.h">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObjectRenderComponent.h">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldTileObject.h">
+      <Filter>Game\GObject\RealObject\TileObject\Field</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -604,6 +637,26 @@
     <ClCompile Include="ItemAnimator.cpp">
       <Filter>Game\Component\Animator</Filter>
     </ClCompile>
-    <ClCompile Include="IItem.cpp" />
+    <ClCompile Include="TileObject.cpp">
+      <Filter>Game\GObject\RealObject\TileObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObjectDb.cpp">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="NaturalThing.cpp">
+      <Filter>Game\TileObjectInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObjectSprite.cpp">
+      <Filter>Game\Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObjectRenderComponent.cpp">
+      <Filter>Game\Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldTileObject.cpp">
+      <Filter>Game\GObject\RealObject\TileObject\Field</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

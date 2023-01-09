@@ -2,7 +2,8 @@
 #include "KeyManager.h"
 #include "RealObject.h"
 #include "Tile.h"
-
+#include "Core.h"
+#include "TileObject.h"
 
 Scene::Scene(ID3D11Device* p_d3d_device)
 	: name_(_T(""))
@@ -83,6 +84,32 @@ void Scene::DeleteAllObjects()
 	for (UINT i = 0; i < static_cast<UINT>(GROUP_TYPE::END); i++) {
 		DeleteGroupObjects(static_cast<GROUP_TYPE>(i));
 	}
+}
+
+
+void Scene::GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObject*& p_out_tile_object)
+{
+	const std::vector<GObject*>& tile_objects = GetGroupObjects(GROUP_TYPE::TILE_OBJECT);
+	for (int i = 0; i < tile_objects.size(); i++) {
+		Vector2 tile_object_pos = tile_objects[i]->get_pos();
+		Vector2 tile_object_scale = tile_objects[i]->get_scale();
+		if (tile_object_pos.x - tile_object_scale.x / 2.f <= pos.x
+			&& tile_object_pos.x + tile_object_scale.x / 2.f > pos.x
+			&& tile_object_pos.y - tile_object_scale.y / 2.f <= pos.y
+			&& tile_object_pos.y + tile_object_scale.y / 2.f > pos.y)
+		{
+			p_out_tile_object = dynamic_cast<TileObject*>(tile_objects[i]);
+			p_out_base_pos.x = p_out_tile_object->get_pos().x;
+			p_out_base_pos.y = p_out_tile_object->get_pos().y;
+			return;
+
+		}
+	}
+	p_out_tile_object = nullptr;
+	p_out_base_pos.x = (int)pos.x - ((int)pos.x % (int)TILE_WIDTH) + TILE_WIDTH/2;
+	p_out_base_pos.y = (int)pos.y - ((int)pos.y % (int)TILE_HEIGHT) + TILE_HEIGHT/2;
+
+
 }
 
 void Scene::ObjectToTop(GROUP_TYPE group_type, GObject* target)

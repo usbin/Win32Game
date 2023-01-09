@@ -16,7 +16,7 @@ private:
 	GObject* owner_ = nullptr;
 
 public:
-	void Render(ID3D11Device* p_d3d_device) override {};
+	virtual void Render(ID3D11Device* p_d3d_device) = 0;
 	void QuickSet(Texture* texture, GObject* owner, int row, int column, int max_row, int max_column);
 	void QuickSet(Texture* texture, GObject* owner, Vector2 base_pos, Vector2 scale);
 	inline void set_texture(Texture* texture) { texture_ = texture; };

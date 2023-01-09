@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "FileManager.h"
 #include "PathManager.h"
+#include "TileObject.h"
 bool Scene_01::Enter()
 {
 
@@ -57,6 +58,7 @@ bool Scene_01::Enter()
 	inventory_ui->Init(player);
 	inventory_ui->CreateEmptyCells();
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);
+
 
 
 	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath()+_T("map\\Farm.map"));
