@@ -56,7 +56,6 @@ bool Scene_01::Enter()
 	inventory_ui->set_pos(Vector2{ resolution.x * 0.15f, resolution.y - 60.f });
 	inventory_ui->set_group_type(GROUP_TYPE::UI);
 	inventory_ui->Init(player);
-	inventory_ui->CreateEmptyCells();
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);
 
 

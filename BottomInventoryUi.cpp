@@ -2,6 +2,8 @@
 #include "BottomInventoryCellUi.h"
 #include "UiManager.h"
 #include "Game.h"
+#include "ItemData.h"
+#include "Inventory.h"
 
 BottomInventoryUi::BottomInventoryUi()
 	: ImageUi(true)
@@ -15,6 +17,26 @@ BottomInventoryUi::~BottomInventoryUi()
 void BottomInventoryUi::Init(Player* owner)
 {
 	owner_ = owner;
+	if (owner_ && owner_->get_inventory()) {
+		OnInventoryDataChangedArgs args;
+		args.sender = reinterpret_cast<DWORD_PTR>(this);
+		owner_->get_inventory()->AddHandler([](Inventory* inventory, int index, ItemData* new_data, OnInventoryDataChangedArgs args) {
+			BottomInventoryUi* p_self = reinterpret_cast<BottomInventoryUi*>(args.sender);
+			p_self->ReloadData(index, new_data);
+		}, args);
+		CreateEmptyCells();
+		const std::vector<ItemData*>& items = owner_->get_inventory()->GetItems();
+		for (int i = 0; i < min(items.size(), CELL_COUNT); i++) {
+			ReloadData(i, items[i]);
+		}
+	}
+
+
+}
+
+void BottomInventoryUi::ReloadData(int index, const ItemData* new_data)
+{
+	cells_[index]->Reset(index, new_data);
 }
 
 void BottomInventoryUi::CreateEmptyCells()
@@ -31,7 +53,7 @@ void BottomInventoryUi::CreateEmptyCells()
 		cell->set_scale(cell_size);
 		cell->set_group_type(GROUP_TYPE::UI);
 		cell->set_parent(this);
-		cell->Init(this);
+		cell->Init(this, i, nullptr);
 		AddChild(cell);
 		cells_[i] = cell;
 
@@ -40,17 +62,12 @@ void BottomInventoryUi::CreateEmptyCells()
 
 void BottomInventoryUi::Update()
 {
+	ImageUi::Update();
+
+
 	if (owner_->IsDead()) owner_ = nullptr;
 
-	ImageUi::Update();
-	if (owner_) {
-		//아이템 리스트를 가져옴.
-		const std::vector<ItemData>& inventory = owner_->get_inventory();
-		//cells 설정
-		for (int i = 0; i < min(inventory.size(), CELL_COUNT); i++) {
-			cells_[i]->SetItem(inventory[i]);
-		}
-	}
+
 	switch (Game::GetInstance()->get_game_state())
 	{
 	case GAME_STATE::PLAYING:

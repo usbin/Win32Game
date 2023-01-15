@@ -1,6 +1,7 @@
 #pragma once
 #include "global.h"
 #include "ITileObjectInfo.h"
+#include "TileObjectDb.h"
 class Crop;
 class TileObjectSprite;
 
@@ -18,16 +19,17 @@ private:
 	TILE_OBJECT_TYPE type_;
 	TileObjectSprite* sprites_[2][16];	//[젖음 여부][앞우밑좌 연결 여부]
 
-public:
-	// ITileObjectInfo을(를) 통해 상속됨
+
 	void Init(TILE_OBJECT_TYPE type, tstring name);
 	void SetSprite(bool is_watered, int field_connected, TileObjectSprite* sprite);
+	virtual void AddDropItem(ITEM_CODE item_code, float drop_rate, UINT amount) override;
+public:
+	// ITileObjectInfo을(를) 통해 상속됨
 	virtual void Update(TileObject* tile_object) const override;
 	virtual void Render(TileObject* tile_object, ID3D11Device* p_d3d_device) const override;
 	virtual TILE_OBJECT_TYPE get_tile_object_type() const override { return type_; };
+	virtual void OnHarvest() const override;
 
-
-
-
+	friend class TileObjectDb;
 };
 

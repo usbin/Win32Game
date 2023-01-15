@@ -18,29 +18,25 @@ private:
 	
 	Vector2 target_pos_ = Vector2::Zero();
 
-public:
 	virtual IItem* Init(int item_code, tstring name);
+	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
+public:
 	virtual void OnHold(RealObject* owner) const override;
-	virtual void Use(RealObject* obj) const override;
+	virtual bool Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;
 	virtual ItemSprite* get_sprite() const override { return sprite_; };
 
+	// IItem을(를) 통해 상속됨
+	virtual void UpdateOnHolder(IItemHolder* holder) const override;
+	virtual void RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const override;
+
+	virtual Vector2 get_scale() const override { return scale_; };
 
 	friend class ItemDb;
 
 
 
 
-	// IItem을(를) 통해 상속됨
-	virtual void UpdateOnHolder(IItemHolder* holder) const override;
-
-	// IItem을(를) 통해 상속됨
-	virtual void RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const override;
-
-
-	// IItem을(를) 통해 상속됨
-	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
-	virtual Vector2 get_scale() const override { return scale_; };
 
 };
 

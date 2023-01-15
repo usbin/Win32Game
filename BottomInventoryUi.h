@@ -3,6 +3,7 @@
 #include "ImageUi.h"
 #include "Player.h"
 class BottomInventoryCellUi;
+class ItemData;
 
 class BottomInventoryUi : public ImageUi
 {
@@ -17,6 +18,7 @@ private:
 
 public:
 	void Init(Player* owner);
+	void ReloadData(int index, const ItemData* new_data);
 	void CreateEmptyCells();
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;

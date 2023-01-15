@@ -18,8 +18,9 @@ void TileObjectDb::Init()
 	Texture* field_texture = ResManager::GetInstance()->LoadTexture(_T("Field"), _T("texture\\StardewValley_Field.png"));
 	NaturalThing* wood = DEBUG_NEW NaturalThing();
 	TileObjectSprite* wood_sprite = DEBUG_NEW TileObjectSprite();
-	wood_sprite->QuickSet(nt_texture, nullptr, Vector2{ 72, 200 }, Vector2{ 16, 16 });
+	wood_sprite->QuickSet(nt_texture, nullptr, Vector2{ 72, 200 }, Vector2{ 13, 13 });
 	wood->Init(TILE_OBJECT_TYPE::WOOD, _T("³ª¹«"), wood_sprite);
+	
 
 	NaturalThing* stone = DEBUG_NEW NaturalThing();
 	TileObjectSprite* stone_sprite = DEBUG_NEW TileObjectSprite();

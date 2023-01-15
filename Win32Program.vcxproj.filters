@@ -10,116 +10,134 @@
     <Filter Include="Default">
       <UniqueIdentifier>{767daa07-b13c-4dcb-a8be-08284df273bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject">
-      <UniqueIdentifier>{be6d2539-93b8-43a9-ab9a-4c137402308e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene">
-      <UniqueIdentifier>{3b59e143-9785-401b-9e06-312e0a55af53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\Scene_Title">
-      <UniqueIdentifier>{0366adc8-47df-4d31-842a-f9913cae05cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\Scene_01">
-      <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Res">
-      <UniqueIdentifier>{f86d45c8-6efb-443b-a32e-b959ac978083}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Res\Texture">
-      <UniqueIdentifier>{42fdc756-a77a-44f6-b20f-2c676e630970}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PathManager">
-      <UniqueIdentifier>{64f28712-2a7b-41f3-bec1-10ded5ac78c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Module">
       <UniqueIdentifier>{3fbb9305-5a77-4bb2-a6d4-cd6bcda1cf7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\EventManager">
-      <UniqueIdentifier>{6be38a95-9fe9-4d80-a9ee-9a13eeff03da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component">
-      <UniqueIdentifier>{a880d863-e2bb-486e-928e-80ee64d95649}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Camera">
+    <Filter Include="Game\0.Camera">
       <UniqueIdentifier>{97b82e50-64b4-46d0-a5d0-80c00ced8ba1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject">
-      <UniqueIdentifier>{681b6fc7-da2e-4e93-acf0-9e1ca3910add}</UniqueIdentifier>
+    <Filter Include="Game\1.Scene">
+      <UniqueIdentifier>{3b59e143-9785-401b-9e06-312e0a55af53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\Missile">
-      <UniqueIdentifier>{97061054-36b9-4c7b-9dba-98c8a435f63c}</UniqueIdentifier>
+    <Filter Include="Game\1.Scene\Scene_Title">
+      <UniqueIdentifier>{0366adc8-47df-4d31-842a-f9913cae05cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\Monster">
-      <UniqueIdentifier>{58c26f5a-ba54-4cfb-94a7-56468ec4998f}</UniqueIdentifier>
+    <Filter Include="Game\1.Scene\Scene_01">
+      <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\Player">
-      <UniqueIdentifier>{bc361756-1821-4e8e-89b5-0fc72bd62ac3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Ui">
-      <UniqueIdentifier>{44bca9a2-f64d-4ce7-9d66-fe871fc3fbcc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Ui\PanelUi">
-      <UniqueIdentifier>{950cde15-c276-4593-8d11-da9ef2eac4c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Ui\ButtonUi">
-      <UniqueIdentifier>{330bca74-1c3c-4727-bda3-3742a15344bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\Ui\ImageUi">
-      <UniqueIdentifier>{2138d5b0-98d0-40fc-9a82-c0dcb6748750}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\Scene_Tool">
+    <Filter Include="Game\1.Scene\Scene_Tool">
       <UniqueIdentifier>{83cafd75-b0fe-4d8e-8129-c40ec8820069}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Sprite">
-      <UniqueIdentifier>{fc988637-1dca-415b-80ee-20677f53ba86}</UniqueIdentifier>
+    <Filter Include="Game\2.Manager">
+      <UniqueIdentifier>{3d7265e1-6c3a-44c7-a50a-155b1a756713}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\Director">
-      <UniqueIdentifier>{1ae17db6-4919-44b1-9cb1-1b986140ea7f}</UniqueIdentifier>
+    <Filter Include="Game\2.Manager\PathManager">
+      <UniqueIdentifier>{64f28712-2a7b-41f3-bec1-10ded5ac78c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\Tile">
-      <UniqueIdentifier>{18be5378-0dcb-4796-b05d-dc2dc6afdf0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\RealObject\Background">
-      <UniqueIdentifier>{d8b3d3cf-2c52-42a7-9188-5f74c01b1aa3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GObject\RealObject\InvisibleWall">
-      <UniqueIdentifier>{1468aee8-04b6-4632-bfc9-25a4f292dfa6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\FileManager">
+    <Filter Include="Game\2.Manager\FileManager">
       <UniqueIdentifier>{ecb93ac5-4ead-4970-ba29-76f6445e4d86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Animator">
-      <UniqueIdentifier>{cc00a0a1-36e5-47f9-a4d6-85db3e86bbef}</UniqueIdentifier>
+    <Filter Include="Game\2.Manager\EventManager">
+      <UniqueIdentifier>{6be38a95-9fe9-4d80-a9ee-9a13eeff03da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Collider">
-      <UniqueIdentifier>{4b7a5320-9758-45b9-85a7-be21a5bb67df}</UniqueIdentifier>
+    <Filter Include="Game\2.Manager\KeyManager">
+      <UniqueIdentifier>{a5b95471-466f-4a3d-8b81-69bcda644120}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\Interactor">
-      <UniqueIdentifier>{cb7d2e89-765e-48e2-915f-b06829868a38}</UniqueIdentifier>
+    <Filter Include="Game\3.Res">
+      <UniqueIdentifier>{f86d45c8-6efb-443b-a32e-b959ac978083}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\ControlComponent">
-      <UniqueIdentifier>{106d9ea3-69eb-4bd8-b8c4-32ae0d8466e1}</UniqueIdentifier>
+    <Filter Include="Game\3.Res\Texture">
+      <UniqueIdentifier>{42fdc756-a77a-44f6-b20f-2c676e630970}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\PhysicsComponent">
-      <UniqueIdentifier>{d5e354d5-ec84-4ec1-b701-b1cbe77e3b36}</UniqueIdentifier>
+    <Filter Include="Game\4.GObject">
+      <UniqueIdentifier>{be6d2539-93b8-43a9-ab9a-4c137402308e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Item">
-      <UniqueIdentifier>{8138f95d-926b-4710-a568-ecd701988d7b}</UniqueIdentifier>
+    <Filter Include="Game\4.GObject\RealObject">
+      <UniqueIdentifier>{681b6fc7-da2e-4e93-acf0-9e1ca3910add}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\ItemHolder">
-      <UniqueIdentifier>{7d75728f-399d-451d-8c89-56a34865cb5e}</UniqueIdentifier>
+    <Filter Include="Game\4.GObject\RealObject\Missile">
+      <UniqueIdentifier>{97061054-36b9-4c7b-9dba-98c8a435f63c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component\RenderComponent">
-      <UniqueIdentifier>{64111892-fb8d-418f-a6cc-cafbc4e75b72}</UniqueIdentifier>
+    <Filter Include="Game\4.GObject\RealObject\Monster">
+      <UniqueIdentifier>{58c26f5a-ba54-4cfb-94a7-56468ec4998f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\TileObject">
+    <Filter Include="Game\4.GObject\RealObject\Player">
+      <UniqueIdentifier>{bc361756-1821-4e8e-89b5-0fc72bd62ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\Director">
+      <UniqueIdentifier>{1ae17db6-4919-44b1-9cb1-1b986140ea7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\Tile">
+      <UniqueIdentifier>{18be5378-0dcb-4796-b05d-dc2dc6afdf0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\Background">
+      <UniqueIdentifier>{d8b3d3cf-2c52-42a7-9188-5f74c01b1aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\InvisibleWall">
+      <UniqueIdentifier>{1468aee8-04b6-4632-bfc9-25a4f292dfa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\TileObject">
       <UniqueIdentifier>{2730cee6-c9aa-473d-b66a-a5180526c895}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\TileObjectInfo">
+    <Filter Include="Game\4.GObject\RealObject\TileObject\Field">
+      <UniqueIdentifier>{7320c6ce-6e45-4a8f-90b7-a4cb42acfa22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui">
+      <UniqueIdentifier>{44bca9a2-f64d-4ce7-9d66-fe871fc3fbcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\PanelUi">
+      <UniqueIdentifier>{950cde15-c276-4593-8d11-da9ef2eac4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\ButtonUi">
+      <UniqueIdentifier>{330bca74-1c3c-4727-bda3-3742a15344bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\ImageUi">
+      <UniqueIdentifier>{2138d5b0-98d0-40fc-9a82-c0dcb6748750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\5.Item">
+      <UniqueIdentifier>{8138f95d-926b-4710-a568-ecd701988d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\6.TileObjectInfo">
       <UniqueIdentifier>{fe77c01a-e838-48a4-ac7e-70d03f52450e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GObject\RealObject\TileObject\Field">
-      <UniqueIdentifier>{7320c6ce-6e45-4a8f-90b7-a4cb42acfa22}</UniqueIdentifier>
+    <Filter Include="Game\7.Component">
+      <UniqueIdentifier>{a880d863-e2bb-486e-928e-80ee64d95649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\Sprite">
+      <UniqueIdentifier>{fc988637-1dca-415b-80ee-20677f53ba86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\Animator">
+      <UniqueIdentifier>{cc00a0a1-36e5-47f9-a4d6-85db3e86bbef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\Collider">
+      <UniqueIdentifier>{4b7a5320-9758-45b9-85a7-be21a5bb67df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\Interactor">
+      <UniqueIdentifier>{cb7d2e89-765e-48e2-915f-b06829868a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\ControlComponent">
+      <UniqueIdentifier>{106d9ea3-69eb-4bd8-b8c4-32ae0d8466e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\PhysicsComponent">
+      <UniqueIdentifier>{d5e354d5-ec84-4ec1-b701-b1cbe77e3b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\ItemHolder">
+      <UniqueIdentifier>{7d75728f-399d-451d-8c89-56a34865cb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\7.Component\RenderComponent">
+      <UniqueIdentifier>{64111892-fb8d-418f-a6cc-cafbc4e75b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\2.Manager\Spawner">
+      <UniqueIdentifier>{718c5030-9532-4ec6-b172-b988a3570d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\RealObject\DropItem">
+      <UniqueIdentifier>{8d5c64ec-c077-4e96-aae1-cc63d66afd43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\8.Inventory">
+      <UniqueIdentifier>{c0a36b8e-3ffb-449f-bf2d-f51c533dcff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\2.Manager\UiManager">
+      <UniqueIdentifier>{b6df53de-7787-4538-8810-42a01fe7c48a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,128 +168,122 @@
     <ClInclude Include="struct.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Scene_Title.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Scene_01.h">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\1.Scene\Scene_01</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game\GObject\RealObject\Player</Filter>
+      <Filter>Game\4.GObject\RealObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="GObject.h">
-      <Filter>Game\GObject</Filter>
+      <Filter>Game\4.GObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\1.Scene</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Game\GObject\RealObject\Monster</Filter>
+      <Filter>Game\4.GObject\RealObject\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>Game\GObject\RealObject\Missile</Filter>
+      <Filter>Game\4.GObject\RealObject\Missile</Filter>
     </ClInclude>
     <ClInclude Include="inline.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Game\Res\Texture</Filter>
+      <Filter>Game\3.Res\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Res.h">
-      <Filter>Game\Res</Filter>
+      <Filter>Game\3.Res</Filter>
     </ClInclude>
     <ClInclude Include="ResManager.h">
-      <Filter>Game\Res</Filter>
+      <Filter>Game\3.Res</Filter>
     </ClInclude>
     <ClInclude Include="PathManager.h">
-      <Filter>Game\PathManager</Filter>
+      <Filter>Game\2.Manager\PathManager</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\1.Scene</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Game\Component\Collider</Filter>
+      <Filter>Game\7.Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="SelectGdi.h">
       <Filter>Module</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>Game\Component\Collider</Filter>
+      <Filter>Game\7.Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
-      <Filter>Game\EventManager</Filter>
+      <Filter>Game\2.Manager\EventManager</Filter>
     </ClInclude>
     <ClInclude Include="function.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Game\Camera</Filter>
+      <Filter>Game\0.Camera</Filter>
     </ClInclude>
     <ClInclude Include="RealObject.h">
-      <Filter>Game\GObject\RealObject</Filter>
+      <Filter>Game\4.GObject\RealObject</Filter>
     </ClInclude>
     <ClInclude Include="Ui.h">
-      <Filter>Game\GObject\Ui</Filter>
-    </ClInclude>
-    <ClInclude Include="UiManager.h">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\4.GObject\Ui</Filter>
     </ClInclude>
     <ClInclude Include="PanelUi.h">
-      <Filter>Game\GObject\Ui\PanelUi</Filter>
+      <Filter>Game\4.GObject\Ui\PanelUi</Filter>
     </ClInclude>
     <ClInclude Include="ButtonUi.h">
-      <Filter>Game\GObject\Ui\ButtonUi</Filter>
+      <Filter>Game\4.GObject\Ui\ButtonUi</Filter>
     </ClInclude>
     <ClInclude Include="ImageUi.h">
-      <Filter>Game\GObject\Ui\ImageUi</Filter>
+      <Filter>Game\4.GObject\Ui\ImageUi</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Tool.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="ISprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Director_Scene_Tool.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="TileEditUi.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="Director_Scene_Title.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClInclude>
     <ClInclude Include="TileUi.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Game\GObject\RealObject\Tile</Filter>
+      <Filter>Game\4.GObject\RealObject\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
-      <Filter>Game\GObject\RealObject\Background</Filter>
+      <Filter>Game\4.GObject\RealObject\Background</Filter>
     </ClInclude>
     <ClInclude Include="InvisibleWall.h">
-      <Filter>Game\GObject\RealObject\InvisibleWall</Filter>
+      <Filter>Game\4.GObject\RealObject\InvisibleWall</Filter>
     </ClInclude>
     <ClInclude Include="InvisibleWallEditFrame.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="FrameSizer.h">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
-      <Filter>Game\FileManager</Filter>
+      <Filter>Game\2.Manager\FileManager</Filter>
     </ClInclude>
     <ClInclude Include="DXClass.h">
       <Filter>Module</Filter>
@@ -280,133 +292,154 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Background_Title.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClInclude>
     <ClInclude Include="TitleText_Title.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClInclude>
     <ClInclude Include="NewGameBtn_Title.h">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClInclude>
     <ClInclude Include="UiAnimation.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="RealObjectAnimation.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="UiAnimator.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="RealObjectAnimator.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="Interactor.h">
-      <Filter>Game\Component\Interactor</Filter>
+      <Filter>Game\7.Component\Interactor</Filter>
     </ClInclude>
     <ClInclude Include="TimerUi.h">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\4.GObject\Ui</Filter>
     </ClInclude>
     <ClInclude Include="IControlComponent.h">
-      <Filter>Game\Component\ControlComponent</Filter>
+      <Filter>Game\7.Component\ControlComponent</Filter>
     </ClInclude>
     <ClInclude Include="PlayerControlComponent.h">
-      <Filter>Game\Component\ControlComponent</Filter>
+      <Filter>Game\7.Component\ControlComponent</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
-      <Filter>Game\Component\PhysicsComponent</Filter>
+      <Filter>Game\7.Component\PhysicsComponent</Filter>
     </ClInclude>
     <ClInclude Include="Director_Scene_01.h">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\1.Scene\Scene_01</Filter>
     </ClInclude>
     <ClInclude Include="IUsable.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="ItemDb.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="Equip.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="Crop.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="IItem.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="Mic.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="Seed.h">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClInclude>
     <ClInclude Include="RealObjectSprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="UiSprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="IItemHolder.h">
-      <Filter>Game\Component\ItemHolder</Filter>
+      <Filter>Game\7.Component\ItemHolder</Filter>
     </ClInclude>
     <ClInclude Include="PlayerRenderComponent.h">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="RealObjectRenderComponent.h">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="IRenderComponent.h">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="IFileSaver.h">
-      <Filter>Game\FileManager</Filter>
+      <Filter>Game\2.Manager\FileManager</Filter>
     </ClInclude>
     <ClInclude Include="FileSaver1_0_0.h">
-      <Filter>Game\FileManager</Filter>
+      <Filter>Game\2.Manager\FileManager</Filter>
     </ClInclude>
     <ClInclude Include="PlayerItemHolder.h">
-      <Filter>Game\Component\ItemHolder</Filter>
-    </ClInclude>
-    <ClInclude Include="BottomInventoryUi.h">
-      <Filter>Game\Scene\Scene_01</Filter>
-    </ClInclude>
-    <ClInclude Include="BottomInventoryCellUi.h">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\7.Component\ItemHolder</Filter>
     </ClInclude>
     <ClInclude Include="ItemSprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="GObjectSprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="ItemAnimation.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="ItemAnimator.h">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="TileObject.h">
-      <Filter>Game\GObject\RealObject\TileObject</Filter>
+      <Filter>Game\4.GObject\RealObject\TileObject</Filter>
     </ClInclude>
     <ClInclude Include="ITileObjectInfo.h">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClInclude>
     <ClInclude Include="TileObjectDb.h">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClInclude>
     <ClInclude Include="Field.h">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClInclude>
     <ClInclude Include="NaturalThing.h">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClInclude>
     <ClInclude Include="TileObjectSprite.h">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="TileObjectRenderComponent.h">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="FieldTileObject.h">
-      <Filter>Game\GObject\RealObject\TileObject\Field</Filter>
+      <Filter>Game\4.GObject\RealObject\TileObject\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>Game\2.Manager\KeyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Game\2.Manager\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="DropItem.h">
+      <Filter>Game\4.GObject\RealObject\DropItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Game\8.Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryController.h">
+      <Filter>Game\8.Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="UiManager.h">
+      <Filter>Game\2.Manager\UiManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemData.h">
+      <Filter>Game\5.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BottomInventoryCellUi.h">
+      <Filter>Game\8.Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="BottomInventoryUi.h">
+      <Filter>Game\8.Inventory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,119 +463,113 @@
     <ClCompile Include="Time.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Scene_Title.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
     <ClCompile Include="Scene_01.cpp">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\1.Scene\Scene_01</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\GObject\RealObject\Player</Filter>
+      <Filter>Game\4.GObject\RealObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="GObject.cpp">
-      <Filter>Game\GObject</Filter>
+      <Filter>Game\4.GObject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\1.Scene</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Game\GObject\RealObject\Monster</Filter>
+      <Filter>Game\4.GObject\RealObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>Game\GObject\RealObject\Missile</Filter>
+      <Filter>Game\4.GObject\RealObject\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Game\Res\Texture</Filter>
+      <Filter>Game\3.Res\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Res.cpp">
-      <Filter>Game\Res</Filter>
+      <Filter>Game\3.Res</Filter>
     </ClCompile>
     <ClCompile Include="ResManager.cpp">
-      <Filter>Game\Res</Filter>
+      <Filter>Game\3.Res</Filter>
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
-      <Filter>Game\PathManager</Filter>
+      <Filter>Game\2.Manager\PathManager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Game\Scene</Filter>
+      <Filter>Game\1.Scene</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Game\Component\Collider</Filter>
+      <Filter>Game\7.Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="SelectGdi.cpp">
       <Filter>Module</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>Game\Component\Collider</Filter>
+      <Filter>Game\7.Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
-      <Filter>Game\EventManager</Filter>
+      <Filter>Game\2.Manager\EventManager</Filter>
     </ClCompile>
     <ClCompile Include="function.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Game\Camera</Filter>
+      <Filter>Game\0.Camera</Filter>
     </ClCompile>
     <ClCompile Include="RealObject.cpp">
-      <Filter>Game\GObject\RealObject</Filter>
+      <Filter>Game\4.GObject\RealObject</Filter>
     </ClCompile>
     <ClCompile Include="Ui.cpp">
-      <Filter>Game\GObject\Ui</Filter>
-    </ClCompile>
-    <ClCompile Include="UiManager.cpp">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\4.GObject\Ui</Filter>
     </ClCompile>
     <ClCompile Include="PanelUi.cpp">
-      <Filter>Game\GObject\Ui\PanelUi</Filter>
+      <Filter>Game\4.GObject\Ui\PanelUi</Filter>
     </ClCompile>
     <ClCompile Include="ButtonUi.cpp">
-      <Filter>Game\GObject\Ui\ButtonUi</Filter>
+      <Filter>Game\4.GObject\Ui\ButtonUi</Filter>
     </ClCompile>
     <ClCompile Include="ImageUi.cpp">
-      <Filter>Game\GObject\Ui\ImageUi</Filter>
+      <Filter>Game\4.GObject\Ui\ImageUi</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Tool.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="Director_Scene_Tool.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="TileEditUi.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="Director_Scene_Title.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
     <ClCompile Include="TileUi.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Game\GObject\RealObject\Tile</Filter>
+      <Filter>Game\4.GObject\RealObject\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>Game\GObject\RealObject\Background</Filter>
+      <Filter>Game\4.GObject\RealObject\Background</Filter>
     </ClCompile>
     <ClCompile Include="InvisibleWall.cpp">
-      <Filter>Game\GObject\RealObject\InvisibleWall</Filter>
+      <Filter>Game\4.GObject\RealObject\InvisibleWall</Filter>
     </ClCompile>
     <ClCompile Include="InvisibleWallEditFrame.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="FrameSizer.cpp">
-      <Filter>Game\Scene\Scene_Tool</Filter>
+      <Filter>Game\1.Scene\Scene_Tool</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Game\FileManager</Filter>
+      <Filter>Game\2.Manager\FileManager</Filter>
     </ClCompile>
     <ClCompile Include="DXClass.cpp">
       <Filter>Module</Filter>
@@ -551,112 +578,131 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Background_Title.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
     <ClCompile Include="TitleText_Title.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
     <ClCompile Include="NewGameBtn_Title.cpp">
-      <Filter>Game\Scene\Scene_Title</Filter>
+      <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
     <ClCompile Include="UiAnimation.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="RealObjectAnimation.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="RealObjectAnimator.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="UiAnimator.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="Interactor.cpp">
-      <Filter>Game\Component\Interactor</Filter>
+      <Filter>Game\7.Component\Interactor</Filter>
     </ClCompile>
     <ClCompile Include="TimerUi.cpp">
-      <Filter>Game\GObject\Ui</Filter>
+      <Filter>Game\4.GObject\Ui</Filter>
     </ClCompile>
     <ClCompile Include="PlayerControlComponent.cpp">
-      <Filter>Game\Component\ControlComponent</Filter>
+      <Filter>Game\7.Component\ControlComponent</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Game\Component\PhysicsComponent</Filter>
+      <Filter>Game\7.Component\PhysicsComponent</Filter>
     </ClCompile>
     <ClCompile Include="Director_Scene_01.cpp">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\1.Scene\Scene_01</Filter>
     </ClCompile>
     <ClCompile Include="ItemDb.cpp">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClCompile>
     <ClCompile Include="Crop.cpp">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClCompile>
     <ClCompile Include="Equip.cpp">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClCompile>
     <ClCompile Include="Mic.cpp">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClCompile>
     <ClCompile Include="Seed.cpp">
-      <Filter>Game\Item</Filter>
+      <Filter>Game\5.Item</Filter>
     </ClCompile>
     <ClCompile Include="RealObjectSprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="UiSprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="PlayerRenderComponent.cpp">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="RealObjectRenderComponent.cpp">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="FileSaver1_0_0.cpp">
-      <Filter>Game\FileManager</Filter>
+      <Filter>Game\2.Manager\FileManager</Filter>
     </ClCompile>
     <ClCompile Include="PlayerItemHolder.cpp">
-      <Filter>Game\Component\ItemHolder</Filter>
-    </ClCompile>
-    <ClCompile Include="BottomInventoryCellUi.cpp">
-      <Filter>Game\Scene\Scene_01</Filter>
-    </ClCompile>
-    <ClCompile Include="BottomInventoryUi.cpp">
-      <Filter>Game\Scene\Scene_01</Filter>
+      <Filter>Game\7.Component\ItemHolder</Filter>
     </ClCompile>
     <ClCompile Include="ItemSprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="GObjectSprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="ItemAnimation.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="ItemAnimator.cpp">
-      <Filter>Game\Component\Animator</Filter>
+      <Filter>Game\7.Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="TileObject.cpp">
-      <Filter>Game\GObject\RealObject\TileObject</Filter>
+      <Filter>Game\4.GObject\RealObject\TileObject</Filter>
     </ClCompile>
     <ClCompile Include="TileObjectDb.cpp">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClCompile>
     <ClCompile Include="NaturalThing.cpp">
-      <Filter>Game\TileObjectInfo</Filter>
+      <Filter>Game\6.TileObjectInfo</Filter>
     </ClCompile>
     <ClCompile Include="TileObjectSprite.cpp">
-      <Filter>Game\Component\Sprite</Filter>
+      <Filter>Game\7.Component\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="TileObjectRenderComponent.cpp">
-      <Filter>Game\Component\RenderComponent</Filter>
+      <Filter>Game\7.Component\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="FieldTileObject.cpp">
-      <Filter>Game\GObject\RealObject\TileObject\Field</Filter>
+      <Filter>Game\4.GObject\RealObject\TileObject\Field</Filter>
     </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>Game\2.Manager\KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Game\2.Manager\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="DropItem.cpp">
+      <Filter>Game\4.GObject\RealObject\DropItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryController.cpp">
+      <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="UiManager.cpp">
+      <Filter>Game\2.Manager\UiManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomInventoryCellUi.cpp">
+      <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomInventoryUi.cpp">
+      <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="IItemHolder.cpp" />
   </ItemGroup>
 </Project>

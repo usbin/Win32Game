@@ -26,3 +26,14 @@ void NaturalThing::Render(TileObject* tile_object, ID3D11Device* p_d3d_device) c
 
 	}
 }
+
+void NaturalThing::OnHarvest() const
+{
+	//drop템을 해당 확률로 주위에 생성
+
+}
+
+void NaturalThing::AddDropItem(ITEM_CODE item_code, float drop_rate, UINT amount) 
+{
+	drop_items_.insert(std::make_pair(item_code, TileDropItem{ item_code, drop_rate, amount }));
+}

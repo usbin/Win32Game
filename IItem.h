@@ -18,8 +18,3 @@ public:
 	virtual void UpdateOnHolder(IItemHolder* holder) const  = 0;
 	virtual void RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const = 0;
 };
-
-struct ItemData {
-	const IItem* item;
-	int amount;
-};

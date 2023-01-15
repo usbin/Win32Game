@@ -6,6 +6,7 @@
 #define _INC_MALLOC
 #include <stdlib.h>
 #include <crtdbg.h>	
+#include <time.h>
 
 #define DEBUG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
 
@@ -41,6 +42,7 @@ using namespace DirectX;
 #include <d2d1.h>
 
 typedef std::basic_string<TCHAR> tstring;
+
 #pragma comment(lib, "Msimg32.lib")
 #include "macro.h"
 #include "struct.h"

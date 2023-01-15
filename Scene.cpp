@@ -87,7 +87,7 @@ void Scene::DeleteAllObjects()
 }
 
 
-void Scene::GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObject*& p_out_tile_object)
+void Scene::GetTileObject(const Vector2& pos, Vector2& out_base_pos, TileObject*& out_tile_object)
 {
 	const std::vector<GObject*>& tile_objects = GetGroupObjects(GROUP_TYPE::TILE_OBJECT);
 	for (int i = 0; i < tile_objects.size(); i++) {
@@ -98,16 +98,16 @@ void Scene::GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObjec
 			&& tile_object_pos.y - tile_object_scale.y / 2.f <= pos.y
 			&& tile_object_pos.y + tile_object_scale.y / 2.f > pos.y)
 		{
-			p_out_tile_object = dynamic_cast<TileObject*>(tile_objects[i]);
-			p_out_base_pos.x = p_out_tile_object->get_pos().x;
-			p_out_base_pos.y = p_out_tile_object->get_pos().y;
+			out_tile_object = dynamic_cast<TileObject*>(tile_objects[i]);
+			out_base_pos.x = out_tile_object->get_pos().x;
+			out_base_pos.y = out_tile_object->get_pos().y;
 			return;
 
 		}
 	}
-	p_out_tile_object = nullptr;
-	p_out_base_pos.x = (int)pos.x - ((int)pos.x % (int)TILE_WIDTH) + TILE_WIDTH/2;
-	p_out_base_pos.y = (int)pos.y - ((int)pos.y % (int)TILE_HEIGHT) + TILE_HEIGHT/2;
+	out_tile_object = nullptr;
+	out_base_pos.x = (int)pos.x - ((int)pos.x % (int)TILE_WIDTH) + TILE_WIDTH/2;
+	out_base_pos.y = (int)pos.y - ((int)pos.y % (int)TILE_HEIGHT) + TILE_HEIGHT/2;
 
 
 }

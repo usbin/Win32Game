@@ -6,7 +6,8 @@ class PlayerControlComponent;
 class PhysicsComponent;
 class ISprite;
 class PlayerItemHolder;
-
+class ItemData;
+class Inventory;
 class Player : public RealObject
 {
 public:
@@ -22,8 +23,7 @@ private:
 	float speed_ = 0;
 	PLAYER_STATE state_ = PLAYER_STATE::IDLE;
 	PLAYER_HAND_STATE hand_state_ = PLAYER_HAND_STATE::NONE;
-
-	std::vector<ItemData> inventory_; //[아이템코드, 개수]
+	Inventory* inventory_;
 	
 	virtual void CreateCollider() override;
 	virtual void CreateInteractor() override;
@@ -31,6 +31,7 @@ private:
 	virtual void CreatePhysicsCmp() override;
 	virtual void CreateRenderCmp() override;
 	void CreateItemHolder();
+	void CreateInventory();
 
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
@@ -43,7 +44,7 @@ private:
 	const IItem* GetHoldItem();
 
 public:
-	inline const std::vector<ItemData>& get_inventory() { return inventory_; };
+	inline Inventory* get_inventory() { return inventory_; };
 	
 	friend class PlayerControlComponent;
 	friend class PlayerRenderComponent;

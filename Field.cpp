@@ -47,3 +47,11 @@ void Field::Render(TileObject* tile_object, ID3D11Device* p_d3d_device) const
 	}
 
 }
+
+void Field::OnHarvest() const
+{
+}
+
+void Field::AddDropItem(ITEM_CODE item_code, float drop_rate, UINT amount)
+{
+}

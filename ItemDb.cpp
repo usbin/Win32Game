@@ -32,8 +32,8 @@ void ItemDb::Init()
 	stone->Init((int)ITEM_CODE::STONE, _T("µ¹"));
 	weed->Init((int)ITEM_CODE::WEED, _T("ÀâÃÊ"));
 	wood->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"));
-	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, _T("¼ø¹« ¾¾¾Ñ"));
-	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"), 5);
+	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, (int)ITEM_CODE::PARSNIP, 5, _T("¼ø¹« ¾¾¾Ñ"));
+	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"));
 	hoe->set_scale(Vector2{ 192, 192 });
 	watering_pot->set_scale(Vector2{ 192, 192 });
 	pickaxe->set_scale(Vector2{ 192, 192 });
@@ -41,8 +41,8 @@ void ItemDb::Init()
 	stone->set_scale(Vector2{ 192, 192 });
 	weed->set_scale(Vector2{ 192, 192 });
 	wood->set_scale(Vector2{ 192, 192 });
-	parsnip_seed->set_scale(Vector2{ 192, 192 });
-	parsnip->set_scale(Vector2{ 192, 192 });
+	parsnip_seed->set_scale(Vector2{ 32, 32 });
+	parsnip->set_scale(Vector2{ 32, 32 });
 
 	Texture* tool_texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Tool"), _T("texture\\StardewValley_Tool.png"));
 	Texture* forage_texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley_Forage"), _T("texture\\StardewValley_Forage.png"));
@@ -85,42 +85,49 @@ void ItemDb::Init()
 	parsnip_seed_sprite->set_scale(Vector2{ 16, 16 });
 	parsnip_seed->sprite_ = parsnip_seed_sprite;
 	parsnip_seed_sprite->set_owner(parsnip_seed);
-	ItemSprite* parsnip_sprite0 = DEBUG_NEW ItemSprite();
-	parsnip_sprite0->set_texture(crop_texture);
-	parsnip_sprite0->set_base_pos(Vector2{ 80, 13 });
-	parsnip_sprite0->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite0->set_owner(parsnip);
-	ItemSprite* parsnip_sprite1 = DEBUG_NEW ItemSprite();
-	parsnip_sprite1->set_texture(crop_texture);
-	parsnip_sprite1->set_base_pos(Vector2{ 0, 16 });
-	parsnip_sprite1->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite1->set_owner(parsnip);
-	ItemSprite* parsnip_sprite2 = DEBUG_NEW ItemSprite();
-	parsnip_sprite2->set_texture(crop_texture);
-	parsnip_sprite2->set_base_pos(Vector2{ 16, 16 });
-	parsnip_sprite2->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite2->set_owner(parsnip);
-	ItemSprite* parsnip_sprite3 = DEBUG_NEW ItemSprite();
-	parsnip_sprite3->set_texture(crop_texture);
-	parsnip_sprite3->set_base_pos(Vector2{ 32, 16 });
-	parsnip_sprite3->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite3->set_owner(parsnip);
-	ItemSprite* parsnip_sprite4 = DEBUG_NEW ItemSprite();
-	parsnip_sprite4->set_texture(crop_texture);
-	parsnip_sprite4->set_base_pos(Vector2{ 48, 16 });
-	parsnip_sprite4->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite4->set_owner(parsnip);
-	ItemSprite* parsnip_sprite5 = DEBUG_NEW ItemSprite();
-	parsnip_sprite5->set_texture(crop_texture);
-	parsnip_sprite5->set_base_pos(Vector2{ 80, 16 });
-	parsnip_sprite5->set_scale(Vector2{ 16, 16 });
-	parsnip_sprite5->set_owner(parsnip);
-	parsnip->set_level_sprite(0, parsnip_sprite0);
-	parsnip->set_level_sprite(1, parsnip_sprite1);
-	parsnip->set_level_sprite(2, parsnip_sprite2);
-	parsnip->set_level_sprite(3, parsnip_sprite3);
-	parsnip->set_level_sprite(4, parsnip_sprite4);
-	parsnip->set_level_sprite(5, parsnip_sprite5);
+	ItemSprite* parsnip_seed_sprite0 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite0->set_texture(crop_texture);
+	parsnip_seed_sprite0->set_base_pos(Vector2{ 0, 16 });
+	parsnip_seed_sprite0->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite0->set_owner(parsnip_seed);
+	ItemSprite* parsnip_seed_sprite1 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite1->set_texture(crop_texture);
+	parsnip_seed_sprite1->set_base_pos(Vector2{ 16, 16 });
+	parsnip_seed_sprite1->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite1->set_owner(parsnip_seed);
+	ItemSprite* parsnip_seed_sprite2 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite2->set_texture(crop_texture);
+	parsnip_seed_sprite2->set_base_pos(Vector2{ 32, 16 });
+	parsnip_seed_sprite2->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite2->set_owner(parsnip_seed);
+	ItemSprite* parsnip_seed_sprite3 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite3->set_texture(crop_texture);
+	parsnip_seed_sprite3->set_base_pos(Vector2{ 48, 16 });
+	parsnip_seed_sprite3->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite3->set_owner(parsnip_seed);
+	ItemSprite* parsnip_seed_sprite4 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite4->set_texture(crop_texture);
+	parsnip_seed_sprite4->set_base_pos(Vector2{ 64, 16 });
+	parsnip_seed_sprite4->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite4->set_owner(parsnip_seed);
+	ItemSprite* parsnip_seed_sprite5 = DEBUG_NEW ItemSprite();
+	parsnip_seed_sprite5->set_texture(crop_texture);
+	parsnip_seed_sprite5->set_base_pos(Vector2{ 80, 16 });
+	parsnip_seed_sprite5->set_scale(Vector2{ 16, 16 });
+	parsnip_seed_sprite5->set_owner(parsnip_seed);
+	parsnip_seed->set_level_sprite(0, parsnip_seed_sprite0);
+	parsnip_seed->set_level_sprite(1, parsnip_seed_sprite1);
+	parsnip_seed->set_level_sprite(2, parsnip_seed_sprite2);
+	parsnip_seed->set_level_sprite(3, parsnip_seed_sprite3);
+	parsnip_seed->set_level_sprite(4, parsnip_seed_sprite4);
+	parsnip_seed->set_level_sprite(5, parsnip_seed_sprite5);
+	ItemSprite* parsnip_sprite = DEBUG_NEW ItemSprite();
+	parsnip_sprite->set_texture(crop_texture);
+	parsnip_sprite->set_base_pos(Vector2{ 96, 16 });
+	parsnip_sprite->set_scale(Vector2{ 16, 16 });
+	parsnip_sprite->set_owner(parsnip);
+	parsnip->sprite_ = parsnip_sprite;
+
 
 
 	ItemAnimator* hoe_animator = new ItemAnimator();
@@ -181,7 +188,7 @@ void ItemDb::Init()
 
 }
 
-const IItem* ItemDb::GetItem(int item_code)
+const IItem* ItemDb::get_item(int item_code)
 {
 	auto it = items_.find(item_code);
 	if (it != items_.end()) {

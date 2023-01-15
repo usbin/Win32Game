@@ -12,6 +12,6 @@ private:
 
 public:
 	void Init();
-	const IItem* GetItem(int item_code);
+	const IItem* get_item(int item_code);
 };
 

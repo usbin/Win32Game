@@ -24,13 +24,7 @@ void PlayerControlComponent::Update(RealObject* obj)
 
 			if (KEY_HOLD(KEY::X)) {
 				if (player->get_item_holder()) {
-					const IItem* item = player->GetHoldItem();
-					if (item) {
-						const IUsable* usable_item = dynamic_cast<const IUsable*>(item);
-						if (usable_item) {
-							usable_item->Use(player);
-						}
-					}
+					player->get_item_holder()->UseItem();
 				}
 			}
 

@@ -1,7 +1,7 @@
 #include "Director_Scene_01.h"
 #include "PathManager.h"
 #include "FileManager.h"
-
+#include "Spawner.h"
 
 Director_Scene_01::Director_Scene_01()
 {
@@ -36,5 +36,8 @@ void Director_Scene_01::Update()
         if (GetOpenFileName(&ofn)) {
             FileManager::GetInstance()->LoadMap(file_path);
         }
+    }
+    if (KEY_DOWN(KEY::S)) {
+        Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WOOD, Vector2{ 0, 0 }, Vector2{ 600, 600 }, 5);
     }
 }

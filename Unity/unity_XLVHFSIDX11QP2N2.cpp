@@ -41,6 +41,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_Title.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DropItem.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DXClass.cpp"
 
 
@@ -77,10 +80,19 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObjectSprite.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\IItemHolder.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Interactor.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Inventory.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InventoryController.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWall.cpp"
@@ -114,6 +126,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NaturalThing.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Spawner.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NewGameBtn_Title.cpp"

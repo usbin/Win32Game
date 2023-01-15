@@ -4,9 +4,12 @@
 #include "ItemSprite.h"
 #include "TileObject.h"
 #include "SceneManager.h"
+#include "Inventory.h"
+#include "ItemData.h"
 PlayerItemHolder::PlayerItemHolder()
 {
-	holder_scale_ = Vector2{ 96, 96 };
+	holder_scale_ = Vector2{ 48, 48 };
+	hold_offset_ = Vector2{ 0, 0 };
 }
 
 PlayerItemHolder::~PlayerItemHolder()
@@ -15,8 +18,13 @@ PlayerItemHolder::~PlayerItemHolder()
 
 void PlayerItemHolder::Update()
 {
-	if (item_ && owner_) {
-		item_->UpdateOnHolder(this);
+	if (owner_ && owner_->get_inventory()) {
+		// 아이템 정보 업데이트
+		SetItem(index_);
+
+		// 아이템 업데이트
+		if(item_) item_->UpdateOnHolder(this);
+
 		switch (owner_->get_direction())
 		{
 		case DIRECTION::UP:
@@ -51,16 +59,28 @@ void PlayerItemHolder::Render(ID3D11Device* p_d3d_device)
 	
 }
 
-void PlayerItemHolder::SetItem(const IItem* item)
+void PlayerItemHolder::SetItem(int index)
 {
-	item_ = item;
-	if (owner_) {
+
+	if (owner_ && owner_->get_inventory()) {
+		index_ = index;
+		const ItemData* item_data = owner_->get_inventory()->GetItem(index_);
+		item_ = item_data->item;
 		if (item_) {
-			owner_->OnHold(item);
+			owner_->OnHold(item_);
 			item_->OnHold(owner_);
 		}
 		else owner_->OnUnhold();
 	}
+}
+
+bool PlayerItemHolder::UseItem()
+{
+	if (owner_) {
+
+		return owner_->get_inventory()->UseItem(index_, 1);
+	}
+	return false;
 }
 
 Vector2 PlayerItemHolder::get_target_pos()

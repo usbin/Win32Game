@@ -1,5 +1,5 @@
 #include "FieldTileObject.h"
-#include "Crop.h"
+#include "Seed.h"
 #include "TileObjectRenderComponent.h"
 #include "SceneManager.h"
 FieldTileObject::FieldTileObject()
@@ -85,9 +85,9 @@ void FieldTileObject::Init(TILE_OBJECT_TYPE tile_object_type_)
 
 }
 
-void FieldTileObject::SetCrop(const Crop* crop, UINT level)
+void FieldTileObject::SetSeed(const Seed* seed, UINT level)
 {
-	crop_ = crop;
+	seed_ = seed;
 	level_ = level;
 
 }
@@ -149,9 +149,9 @@ void FieldTileObject::Render(ID3D11Device* p_d3d_device)
 {
 	render_cmp_->Render(this, p_d3d_device);
 	//crop ·»´õ
-	if (crop_) {
-		ItemSprite* item_sprite = crop_->get_level_sprite(level_);
-		crop_->RenderOnField(this, p_d3d_device);
+	if (seed_) {
+		ItemSprite* item_sprite = seed_->get_level_sprite(level_);
+		seed_->RenderOnField(this, p_d3d_device);
 	}
 
 

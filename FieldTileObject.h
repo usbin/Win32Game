@@ -1,7 +1,7 @@
 #pragma once
 #include "global.h"
 #include "TileObject.h"
-class Crop;
+class Seed;
 class FieldTileObject : public TileObject
 {
 public:
@@ -11,11 +11,11 @@ private:
 	bool watered_ = false;
 	int field_connected_ = 0;
 	int water_connected_ = 0;
-	const Crop* crop_ = nullptr;
+	const Seed* seed_ = nullptr;
 	UINT level_ = 0;
 public:
 	void Init(TILE_OBJECT_TYPE tile_object_type_) override;
-	void SetCrop(const Crop* crop, UINT level);
+	void SetSeed(const Seed* seed, UINT level);
 	void Water();
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
