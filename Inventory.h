@@ -6,6 +6,7 @@ class IItem;
 class ItemData;
 class Inventory;
 
+
 struct OnInventoryDataChangedArgs {
 	DWORD_PTR sender;
 	DWORD_PTR param;
@@ -41,7 +42,7 @@ public:
 
 	//데이터 변경 함수
 	bool UseItem(int index, int amount);
-	void AddItem(const IItem* item, int amount);
+	bool AddItem(const IItem* item, int amount);
 	
 
 };

@@ -98,10 +98,13 @@ void Scene::GetTileObject(const Vector2& pos, Vector2& out_base_pos, TileObject*
 			&& tile_object_pos.y - tile_object_scale.y / 2.f <= pos.y
 			&& tile_object_pos.y + tile_object_scale.y / 2.f > pos.y)
 		{
-			out_tile_object = dynamic_cast<TileObject*>(tile_objects[i]);
-			out_base_pos.x = out_tile_object->get_pos().x;
-			out_base_pos.y = out_tile_object->get_pos().y;
-			return;
+			if (!tile_objects[i]->IsDead()) {
+				out_tile_object = dynamic_cast<TileObject*>(tile_objects[i]);
+				out_base_pos.x = out_tile_object->get_pos().x;
+				out_base_pos.y = out_tile_object->get_pos().y;
+				return;
+			}
+			
 
 		}
 	}

@@ -15,8 +15,8 @@ private:
 	ItemSprite* sprite_ = nullptr;
 	ItemAnimator* animator_ = nullptr;
 	Vector2 scale_ = Vector2::Zero();
-	
 	Vector2 target_pos_ = Vector2::Zero();
+	const UINT MAX_STACK = 1;
 
 	virtual IItem* Init(int item_code, tstring name);
 	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
@@ -31,7 +31,7 @@ public:
 	virtual void RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const override;
 
 	virtual Vector2 get_scale() const override { return scale_; };
-
+	virtual UINT get_max_stack() const override { return MAX_STACK; };
 	friend class ItemDb;
 
 

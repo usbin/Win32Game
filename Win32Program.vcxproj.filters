@@ -139,6 +139,9 @@
     <Filter Include="Game\2.Manager\UiManager">
       <UniqueIdentifier>{b6df53de-7787-4538-8810-42a01fe7c48a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\7.Component\ItemLooter">
+      <UniqueIdentifier>{9771f2f0-f0cd-43f4-81ff-36d5a14df6f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -441,6 +444,12 @@
     <ClInclude Include="BottomInventoryUi.h">
       <Filter>Game\8.Inventory</Filter>
     </ClInclude>
+    <ClInclude Include="DropItemRenderComponent.h">
+      <Filter>Game\7.Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemLooter.h">
+      <Filter>Game\7.Component\ItemLooter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -704,5 +713,11 @@
       <Filter>Game\8.Inventory</Filter>
     </ClCompile>
     <ClCompile Include="IItemHolder.cpp" />
+    <ClCompile Include="DropItemRenderComponent.cpp">
+      <Filter>Game\7.Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemLooter.cpp">
+      <Filter>Game\7.Component\ItemLooter</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

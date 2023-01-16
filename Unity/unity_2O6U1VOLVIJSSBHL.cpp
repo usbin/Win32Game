@@ -44,6 +44,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DropItem.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DropItemRenderComponent.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DXClass.cpp"
 
 
@@ -108,6 +111,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemDb.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemLooter.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ItemSprite.cpp"

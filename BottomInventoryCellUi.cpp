@@ -52,8 +52,6 @@ void BottomInventoryCellUi::Select()
 	if (!bottom_inventory_ui_) return;
 	if (!bottom_inventory_ui_->get_owner()) return;
 	if (!bottom_inventory_ui_->get_owner()->get_item_holder()) return;
-	if (!item_data_) return;
-	if (!item_data_->item) return;
 
 	bottom_inventory_ui_->get_owner()->get_item_holder()->SetItem(index_);
 }

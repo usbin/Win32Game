@@ -58,6 +58,7 @@ void BottomInventoryUi::CreateEmptyCells()
 		cells_[i] = cell;
 
 	}
+	UiManager::GetInstance()->SelectTarget(cells_[0]);
 }
 
 void BottomInventoryUi::Update()

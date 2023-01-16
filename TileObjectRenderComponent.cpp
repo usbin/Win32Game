@@ -21,7 +21,6 @@ void TileObjectRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_devic
 
 ISprite* TileObjectRenderComponent::get_sprite()
 {
-	
 	return nullptr;
 }
 

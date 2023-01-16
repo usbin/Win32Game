@@ -6,6 +6,9 @@
 #include "ItemAnimator.h"
 #include "SceneManager.h"
 #include "FieldTileObject.h"
+#include "DropItem.h"
+#include "ItemDb.h"
+#include "Mic.h"
 Equip::~Equip()
 {
 	delete sprite_;
@@ -26,6 +29,26 @@ bool Equip::Use(RealObject* obj) const
 	switch (item_code_) {
 	case (int)ITEM_CODE::HOE: {	//괭이
 		if (obj && obj->get_item_holder()) {
+
+			// 플레이어의 애니메이션 시작.
+			obj->OnUseItem(ITEM_CODE::HOE);
+			// 본인 애니메이션 시작.
+			switch (obj->get_direction())
+			{
+			case DIRECTION::UP:
+				animator_->Play(_T("Use_Hoe_Back"), true);
+				break;
+			case DIRECTION::DOWN:
+				animator_->Play(_T("Use_Hoe_Front"), true);
+				break;
+			case DIRECTION::LEFT:
+				animator_->Play(_T("Use_Hoe_Left"), true);
+				break;
+			case DIRECTION::RIGHT:
+				animator_->Play(_T("Use_Hoe_Right"), true);
+				break;
+			}
+
 			Vector2 target_pos = obj->get_item_holder()->get_target_pos();
 			Vector2 to_base_pos;
 			TileObject* tile_obj = nullptr;
@@ -38,24 +61,7 @@ bool Equip::Use(RealObject* obj) const
 				field_tile_obj->Init(TILE_OBJECT_TYPE::FIELD);
 				CreateGObject(field_tile_obj, GROUP_TYPE::TILE_OBJECT);
 
-				// 플레이어의 애니메이션 시작.
-				obj->OnUseItem(ITEM_CODE::HOE);
-				// 본인 애니메이션 시작.
-				switch (obj->get_direction())
-				{
-				case DIRECTION::UP:
-					animator_->Play(_T("Use_Hoe_Back"), true);
-					break;
-				case DIRECTION::DOWN:
-					animator_->Play(_T("Use_Hoe_Front"), true);
-					break;
-				case DIRECTION::LEFT:
-					animator_->Play(_T("Use_Hoe_Left"), true);
-					break;
-				case DIRECTION::RIGHT:
-					animator_->Play(_T("Use_Hoe_Right"), true);
-					break;
-				}
+				
 				return true;
 			}
 			return false;
@@ -65,6 +71,26 @@ bool Equip::Use(RealObject* obj) const
 
 	} break;
 	case (int)ITEM_CODE::WATERING_POT: { //물뿌리개
+
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::WATERING_POT);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_WateringPot_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_WateringPot_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_WateringPot_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_WateringPot_Right"), true);
+			break;
+		}
+
 		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
 		Vector2 to_base_pos;
 		TileObject* tile_obj = nullptr;
@@ -72,24 +98,7 @@ bool Equip::Use(RealObject* obj) const
 		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
 			FieldTileObject* field_tile_obj = dynamic_cast<FieldTileObject*>(tile_obj);
 			field_tile_obj->Water();
-			// 플레이어의 애니메이션 시작.
-			obj->OnUseItem(ITEM_CODE::WATERING_POT);
-			// 본인 애니메이션 시작.
-			switch (obj->get_direction())
-			{
-			case DIRECTION::UP:
-				animator_->Play(_T("Use_WateringPot_Back"), true);
-				break;
-			case DIRECTION::DOWN:
-				animator_->Play(_T("Use_WateringPot_Front"), true);
-				break;
-			case DIRECTION::LEFT:
-				animator_->Play(_T("Use_WateringPot_Left"), true);
-				break;
-			case DIRECTION::RIGHT:
-				animator_->Play(_T("Use_WateringPot_Right"), true);
-				break;
-			}
+			
 			return true;
 		}
 		return false;
@@ -100,6 +109,25 @@ bool Equip::Use(RealObject* obj) const
 	} break;
 	case (int)ITEM_CODE::PICKAXE: { //곡괭이
 
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::PICKAXE);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_Pickaxe_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_Pickaxe_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_Pickaxe_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_Pickaxe_Right"), true);
+			break;
+		}
+
 		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
 		Vector2 to_base_pos;
 		TileObject* tile_obj = nullptr;
@@ -107,24 +135,7 @@ bool Equip::Use(RealObject* obj) const
 		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
 			delete tile_obj;
 
-			// 플레이어의 애니메이션 시작.
-			obj->OnUseItem(ITEM_CODE::PICKAXE);
-			// 본인 애니메이션 시작.
-			switch (obj->get_direction())
-			{
-			case DIRECTION::UP:
-				animator_->Play(_T("Use_Pickaxe_Back"), true);
-				break;
-			case DIRECTION::DOWN:
-				animator_->Play(_T("Use_Pickaxe_Front"), true);
-				break;
-			case DIRECTION::LEFT:
-				animator_->Play(_T("Use_Pickaxe_Left"), true);
-				break;
-			case DIRECTION::RIGHT:
-				animator_->Play(_T("Use_Pickaxe_Right"), true);
-				break;
-			}
+			
 			return true;
 		}
 		return false;
@@ -133,30 +144,42 @@ bool Equip::Use(RealObject* obj) const
 		
 	} break;
 	case (int)ITEM_CODE::AXE: { //도끼
+
+		// 플레이어의 애니메이션 시작.
+		obj->OnUseItem(ITEM_CODE::AXE);
+		// 본인 애니메이션 시작.
+		switch (obj->get_direction())
+		{
+		case DIRECTION::UP:
+			animator_->Play(_T("Use_Axe_Back"), true);
+			break;
+		case DIRECTION::DOWN:
+			animator_->Play(_T("Use_Axe_Front"), true);
+			break;
+		case DIRECTION::LEFT:
+			animator_->Play(_T("Use_Axe_Left"), true);
+			break;
+		case DIRECTION::RIGHT:
+			animator_->Play(_T("Use_Axe_Right"), true);
+			break;
+		}
+
 		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
 		Vector2 to_base_pos;
 		TileObject* tile_obj = nullptr;
 		SceneManager::GetInstance()->get_current_scene()->GetTileObject(target_pos, to_base_pos, tile_obj);
 		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::WOOD) {
-			delete tile_obj;
-			// 플레이어의 애니메이션 시작.
-			obj->OnUseItem(ITEM_CODE::AXE);
-			// 본인 애니메이션 시작.
-			switch (obj->get_direction())
-			{
-			case DIRECTION::UP:
-				animator_->Play(_T("Use_Axe_Back"), true);
-				break;
-			case DIRECTION::DOWN:
-				animator_->Play(_T("Use_Axe_Front"), true);
-				break;
-			case DIRECTION::LEFT:
-				animator_->Play(_T("Use_Axe_Left"), true);
-				break;
-			case DIRECTION::RIGHT:
-				animator_->Play(_T("Use_Axe_Right"), true);
-				break;
-			}
+			DeleteGObject(tile_obj, GROUP_TYPE::TILE_OBJECT);
+
+			const IItem* wood = ItemDb::GetInstance()->get_item(static_cast<int>(ITEM_CODE::WOOD));
+			DropItem* dropped_wood = DEBUG_NEW DropItem();
+			dropped_wood->Init(wood, 1);
+			dropped_wood->set_pos(to_base_pos);
+			dropped_wood->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+			dropped_wood->set_group_type(GROUP_TYPE::DROP_ITEM);
+			CreateGObject(dropped_wood, GROUP_TYPE::DROP_ITEM);
+
+			
 			return true;
 		}
 		return false;

@@ -69,8 +69,7 @@ void Seed::UpdateOnHolder(IItemHolder* holder) const
 void Seed::RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const
 {
     if (sprite_ && holder && holder->get_owner()) {
-        Vector2 item_hold_offset{ 0, -40 };
-        DrawTexture(p_d3d_device, WorldToRenderPos(holder->get_owner()->get_pos() + holder->get_hold_offset() + item_hold_offset - holder->get_hold_scale()/2.f), holder->get_hold_scale()
+        DrawTexture(p_d3d_device, WorldToRenderPos(holder->get_owner()->get_pos() + holder->get_hold_offset() + item_hold_offset) - item_hold_scale/2.f, item_hold_scale
             , sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture(), RENDER_LAYER::TOP);
     }
 }

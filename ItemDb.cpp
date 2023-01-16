@@ -63,7 +63,7 @@ void ItemDb::Init()
 	axe->sprite_ = axe_sprite;
 	ItemSprite* stone_sprite = DEBUG_NEW ItemSprite();
 	stone_sprite->set_texture(forage_texture);
-	stone_sprite->set_base_pos(Vector2{ 136, 198 });
+	stone_sprite->set_base_pos(Vector2{ 136, 200 });
 	stone_sprite->set_scale(Vector2{ 16, 16 });
 	stone->sprite_ = stone_sprite;
 	stone_sprite->set_owner(stone);
@@ -123,7 +123,7 @@ void ItemDb::Init()
 	parsnip_seed->set_level_sprite(5, parsnip_seed_sprite5);
 	ItemSprite* parsnip_sprite = DEBUG_NEW ItemSprite();
 	parsnip_sprite->set_texture(crop_texture);
-	parsnip_sprite->set_base_pos(Vector2{ 96, 16 });
+	parsnip_sprite->set_base_pos(Vector2{ 96, 8 });
 	parsnip_sprite->set_scale(Vector2{ 16, 16 });
 	parsnip_sprite->set_owner(parsnip);
 	parsnip->sprite_ = parsnip_sprite;

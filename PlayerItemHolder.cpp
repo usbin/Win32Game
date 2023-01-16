@@ -20,6 +20,7 @@ void PlayerItemHolder::Update()
 {
 	if (owner_ && owner_->get_inventory()) {
 		// 아이템 정보 업데이트
+		
 		SetItem(index_);
 
 		// 아이템 업데이트
@@ -64,11 +65,15 @@ void PlayerItemHolder::SetItem(int index)
 
 	if (owner_ && owner_->get_inventory()) {
 		index_ = index;
-		const ItemData* item_data = owner_->get_inventory()->GetItem(index_);
-		item_ = item_data->item;
-		if (item_) {
-			owner_->OnHold(item_);
-			item_->OnHold(owner_);
+		if (index_ >= 0) {
+			const ItemData* item_data = owner_->get_inventory()->GetItem(index_);
+			item_ = item_data->item;
+			if (item_data && item_data->item) {
+				item_ = item_data->item;
+				owner_->OnHold(item_);
+				item_->OnHold(owner_);
+			}
+			else owner_->OnUnhold();
 		}
 		else owner_->OnUnhold();
 	}

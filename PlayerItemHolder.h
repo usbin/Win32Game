@@ -17,7 +17,7 @@ private:
 	Vector2 holder_scale_ = Vector2::Zero();
 
 	Vector2 target_pos_ = Vector2::Zero();
-	int index_ = 0;
+	int index_ = -1;
 public:
 	
 

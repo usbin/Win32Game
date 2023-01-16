@@ -29,8 +29,9 @@ void Spawner::RandomSpawn(TILE_OBJECT_TYPE type, Vector2 left_top, Vector2 botto
 		else {
 			TileObject* tile_object = new TileObject();
 			tile_object->Init(type);
-			tile_object->set_pos(pos + Vector2{ TILE_WIDTH, TILE_HEIGHT }/2.f);
+			tile_object->set_pos(pos);
 			tile_object->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+			tile_object->set_group_type(GROUP_TYPE::TILE_OBJECT);
 			CreateGObject(tile_object, GROUP_TYPE::TILE_OBJECT);
 		}
 

@@ -434,7 +434,7 @@ void PlayerRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_device)
 			if (sprite_) {
 				Vector2 pos = WorldToRenderPos(player->get_pos());
 				Vector2 scale = Vector2{ player->get_scale().x * x_direction, player->get_scale().y };
-				DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture());
+				DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture(), RENDER_LAYER::PLAYER);
 			}
 		}
 		else {

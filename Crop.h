@@ -13,6 +13,9 @@ private:
 	tstring name_;
 	ItemSprite* sprite_ = nullptr;
 	Vector2 scale_ = Vector2{};
+	const Vector2 crop_hold_offset_{ 0, -48 };
+	const Vector2 crop_hold_scale_{ 48, 48 };
+	const UINT MAX_STACK = 99;
 
 	
 	IItem* Init(int item_code, tstring name);
@@ -23,14 +26,14 @@ public:
 	virtual bool Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;
 	virtual ItemSprite* get_sprite() const override { return sprite_; };
+	virtual Vector2 get_scale() const override { return scale_; };
+	virtual UINT get_max_stack() const override { return MAX_STACK; };
 
-
-	friend class ItemDb;
-
-	// IItem을(를) 통해 상속됨
 	virtual void UpdateOnHolder(IItemHolder* holder) const override;
 	virtual void RenderOnHolder(IItemHolder* holder, ID3D11Device* p_d3d_device) const override;
 
-	virtual Vector2 get_scale() const override { return scale_; };
+	friend class ItemDb;
+
+
 };
 

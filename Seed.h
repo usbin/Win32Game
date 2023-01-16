@@ -17,6 +17,10 @@ private:
 	int crop_code_ = 0; //밭에 심으면 되는 작물
 	UINT max_level_ = 0;
 	std::vector<ItemSprite*> sprites_;
+	const UINT MAX_STACK = 99;
+
+	const Vector2 item_hold_offset{ 0, -40 };
+	const Vector2 item_hold_scale{ 48, 48 };
 
 
 	virtual IItem* Init(int item_code, int crop_code, UINT max_level, tstring name);
@@ -38,6 +42,7 @@ public:
 	inline ItemSprite* get_level_sprite(UINT level) const { return max_level_ >= level ? sprites_[level] : nullptr; };
 
 	virtual Vector2 get_scale() const override { return scale_; };
+	virtual UINT get_max_stack() const override { return MAX_STACK; };
 	friend class ItemDb;
 
 

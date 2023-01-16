@@ -168,6 +168,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="DropItem.h" />
+    <ClInclude Include="DropItemRenderComponent.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldTileObject.h" />
     <ClInclude Include="FileSaver1_0_0.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="ItemAnimation.h" />
     <ClInclude Include="ItemAnimator.h" />
     <ClInclude Include="ItemData.h" />
+    <ClInclude Include="ItemLooter.h" />
     <ClInclude Include="ItemSprite.h" />
     <ClInclude Include="ITileObjectInfo.h" />
     <ClInclude Include="IUsable.h" />
@@ -274,6 +276,7 @@
     <ClCompile Include="Director_Scene_01.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="DropItem.cpp" />
+    <ClCompile Include="DropItemRenderComponent.cpp" />
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -296,6 +299,7 @@
     <ClCompile Include="ItemAnimation.cpp" />
     <ClCompile Include="ItemAnimator.cpp" />
     <ClCompile Include="ItemDb.cpp" />
+    <ClCompile Include="ItemLooter.cpp" />
     <ClCompile Include="ItemSprite.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Mic.cpp" />

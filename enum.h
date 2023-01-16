@@ -75,6 +75,7 @@ enum class GROUP_TYPE
 	BACKGROUND3=4,
 	TILE=5,			//툴 씬에서만 사용되는 타일
 	TILE_OBJECT,	//밭, 작물, 돌 등 타일 1개를 차지하는 오브젝트. 전체 NxM의 포인터를 씬 안에서 유지해야함.
+	DROP_ITEM,
 	PLAYER,
 	THING,
 	MISSILE,

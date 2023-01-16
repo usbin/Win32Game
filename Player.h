@@ -8,6 +8,8 @@ class ISprite;
 class PlayerItemHolder;
 class ItemData;
 class Inventory;
+class DropItem;
+class ItemLooter;
 class Player : public RealObject
 {
 public:
@@ -23,7 +25,8 @@ private:
 	float speed_ = 0;
 	PLAYER_STATE state_ = PLAYER_STATE::IDLE;
 	PLAYER_HAND_STATE hand_state_ = PLAYER_HAND_STATE::NONE;
-	Inventory* inventory_;
+	Inventory* inventory_ = nullptr;
+	ItemLooter* item_looter_ = nullptr;
 	
 	virtual void CreateCollider() override;
 	virtual void CreateInteractor() override;
@@ -32,6 +35,7 @@ private:
 	virtual void CreateRenderCmp() override;
 	void CreateItemHolder();
 	void CreateInventory();
+	void CreateItemLooter();
 
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
@@ -42,6 +46,7 @@ private:
 	void OnUnhold();
 	virtual void OnUseItem(ITEM_CODE item_code) override;
 	const IItem* GetHoldItem();
+	void LootItem(DropItem* item);
 
 public:
 	inline Inventory* get_inventory() { return inventory_; };

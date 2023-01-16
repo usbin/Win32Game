@@ -86,20 +86,47 @@ bool Inventory::UseItem(int index, int amount)
 	return false;
 }
 
-void Inventory::AddItem(const IItem* item, int amount)
+bool Inventory::AddItem(const IItem* item, int amount)
 {
-	//빈 자리 찾기
+	//넣을 자리 찾기
+	//1순위: 스택이 가득 차지 않은 같은 아이템
+	int result_i = items_.size();
 	for (int i = 0; i < items_.size(); i++) {
-		if (!items_[i]) {
-			items_[i] = DEBUG_NEW ItemData{ item, amount };
-			//인벤토리 변경 이벤트 핸들러 실행
-			for (int i = 0; i < handlers_.size(); i++) {
-				handlers_[i].handler(this, i, items_[i], handlers_[i].args);
-			}
-			return;
+		if (items_[i] && items_[i]->item == item && items_[i]->item->get_max_stack() >= amount + items_[i]->amount) {
+			result_i = i;
+			break;
 		}
 	}
-	return;
+	//2순위: 빈 자리
+	if (result_i >= items_.size()) {
+		for (int i = 0; i < items_.size(); i++) {
+			if (!items_[i]) {
+				result_i = i;
+				break;
+			}
+		}
+	}
+
+	//자리를 찾지 못했을 경우.
+	if (result_i >= items_.size()) return false;
+	
+
+
+	//찾은 자리가 빈 칸일 경우
+	if (!items_[result_i]) {
+		items_[result_i] = DEBUG_NEW ItemData{ item, amount };
+
+	}
+	//3.찾은 자리에 이미 아이템이 존재할 경우
+	else {
+		items_[result_i]->amount += amount;
+	}
+
+	//인벤토리 변경 이벤트 핸들러 실행
+	for (int j = 0; j < handlers_.size(); j++) {
+		handlers_[j].handler(this, result_i, items_[result_i], handlers_[j].args);
+	}
+	return true;
 }
 
 const std::vector<ItemData*>& Inventory::GetItems()

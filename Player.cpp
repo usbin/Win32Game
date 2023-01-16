@@ -17,6 +17,9 @@
 #include "PlayerItemHolder.h"
 #include "ItemDb.h"
 #include "Inventory.h"
+#include "DropItem.h"
+#include "ItemLooter.h"
+
 Player::Player()
 	: speed_(200.f){
 
@@ -33,16 +36,19 @@ Player::Player()
 	CreateRenderCmp();
 	CreateItemHolder();
 	CreateInventory();
+	CreateItemLooter();
 
 
 }
 Player::~Player()
 {
 	delete inventory_;
+	delete item_looter_;
 }
 void Player::Update()
 {
 	
+	if(item_looter_) item_looter_->Update();
 
 	if (KEY_DOWN(KEY::SPACE)) {
 		
@@ -110,9 +116,17 @@ void Player::CreateItemHolder()
 
 void Player::CreateInventory()
 {
-	Inventory* inventory = new Inventory();
+	Inventory* inventory = DEBUG_NEW Inventory();
 	inventory->Init(this);
 	inventory_ = inventory;
+}
+
+void Player::CreateItemLooter()
+{
+	ItemLooter* item_looter = DEBUG_NEW ItemLooter();
+	item_looter->Init(this, get_collider()->get_pos_offset());
+	item_looter_ = item_looter;
+
 }
 
 void Player::OnCollisionEnter(Collider* collider)
@@ -157,6 +171,13 @@ const IItem* Player::GetHoldItem()
 	if (!item_holder_) return nullptr;
 	else {
 		return item_holder_->get_item();
+	}
+}
+
+void Player::LootItem(DropItem* item)
+{
+	if (inventory_ && item) {
+		inventory_->AddItem(item->get_item(), item->get_amount());
 	}
 }
 
