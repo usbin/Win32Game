@@ -16,16 +16,16 @@ Vector2 RenderToWorldPos(Vector2 render_pos); // Ä«¸Þ¶ó ±âÁØ »ó´ëÁÂÇ¥ -> ¿ùµåÁÂÇ
 //====================
 // ±×¸®±â ÇÔ¼ö
 //====================
-void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, RENDER_LAYER layer = RENDER_LAYER::DEFAULT);
-void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, ARGB plane_color, RENDER_LAYER layer = RENDER_LAYER::DEFAULT);
-void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture, RENDER_LAYER layer = RENDER_LAYER::DEFAULT);
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, UINT width, RENDER_LAYER layer = RENDER_LAYER::GROUND);
+void DrawRectangle(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, ARGB line_color, UINT width, ARGB plane_color, RENDER_LAYER layer = RENDER_LAYER::GROUND);
+void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture, RENDER_LAYER layer = RENDER_LAYER::GROUND);
 void DrawFixedsizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT text_length, 
 	tstring font_name, UINT font_size, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight,
-	DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment);
+	DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment, RENDER_LAYER layer = RENDER_LAYER::GROUND);
 void DrawAutosizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT text_length,
 	tstring font_name, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight,
 	DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment,
-	UINT max_font_size, UINT min_font_size, UINT max_lines);
+	UINT max_font_size, UINT min_font_size, UINT max_lines, RENDER_LAYER layer = RENDER_LAYER::GROUND);
 template <typename T>
 void SafeDeleteVector(std::vector<T>& cont) {
 	for (auto item : cont) {

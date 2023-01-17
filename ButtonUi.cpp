@@ -14,13 +14,11 @@ ButtonUi::~ButtonUi()
 
 void ButtonUi::Render(ID3D11Device* p_d3d_device)
 {
-	Ui::Render(p_d3d_device);
-
 
 	Vector2 pos = get_final_pos();
 	Vector2 scale = get_scale();
 
-	if (!is_static_pos()) pos = WorldToRenderPos(pos);
+	if (!is_static_pos() && !get_parent()) pos = WorldToRenderPos(pos);
 
 	if (get_lbutton_hold()) {
 		if (get_sprite()) {
@@ -32,7 +30,7 @@ void ButtonUi::Render(ID3D11Device* p_d3d_device)
 			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
 		}
 		else {
-			DrawRectangle(p_d3d_device, pos, scale, ARGB(0xffff0000), ARGB(0xffffffff));
+			DrawRectangle(p_d3d_device, pos, scale, ARGB(0xffff0000), 1, ARGB(0xffffffff), RENDER_LAYER::PLAYER);
 		}
 	}
 	else {
@@ -44,11 +42,11 @@ void ButtonUi::Render(ID3D11Device* p_d3d_device)
 			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
 		}
 		else {
-			DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff000000), ARGB(0xffffffff));
+			DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff000000), 1, ARGB(0xffffffff), RENDER_LAYER::PLAYER);
 		}
 	}
 	if (get_selected()) {
-		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff0000ff));
+		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff0000ff), 1, RENDER_LAYER::PLAYER);
 	}
 
 	ChildrenRender(p_d3d_device);

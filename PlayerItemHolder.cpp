@@ -55,7 +55,7 @@ void PlayerItemHolder::Render(ID3D11Device* p_d3d_device)
 			target_pos_
 			, tile_obj_base_pos
 			, p_tile_obj);
-		DrawRectangle(p_d3d_device, WorldToRenderPos(tile_obj_base_pos - Vector2{ TILE_WIDTH, TILE_HEIGHT }/2.f), Vector2{ TILE_WIDTH, TILE_HEIGHT }, ARGB(0xFFFF0000));
+		DrawRectangle(p_d3d_device, WorldToRenderPos(tile_obj_base_pos - Vector2{ TILE_WIDTH, TILE_HEIGHT }/2.f), Vector2{ TILE_WIDTH, TILE_HEIGHT }, ARGB(0xFFFF0000), 1);
 	}
 	
 }

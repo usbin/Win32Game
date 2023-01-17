@@ -142,6 +142,9 @@
     <Filter Include="Game\7.Component\ItemLooter">
       <UniqueIdentifier>{9771f2f0-f0cd-43f4-81ff-36d5a14df6f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\9.Decorator">
+      <UniqueIdentifier>{1250cef4-e1b5-420e-acad-64e6f194e436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -450,6 +453,27 @@
     <ClInclude Include="ItemLooter.h">
       <Filter>Game\7.Component\ItemLooter</Filter>
     </ClInclude>
+    <ClInclude Include="InventoryUi.h">
+      <Filter>Game\8.Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Decorator.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="HorizontalSplitFrame.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleFrame.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="IFrame.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryCellFrame.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryCellUi.h">
+      <Filter>Game\8.Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -718,6 +742,24 @@
     </ClCompile>
     <ClCompile Include="ItemLooter.cpp">
       <Filter>Game\7.Component\ItemLooter</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryUi.cpp">
+      <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Decorator.cpp">
+      <Filter>Game\9.Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalSplitFrame.cpp">
+      <Filter>Game\9.Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleFrame.cpp">
+      <Filter>Game\9.Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryCellFrame.cpp">
+      <Filter>Game\9.Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryCellUi.cpp">
+      <Filter>Game\8.Inventory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

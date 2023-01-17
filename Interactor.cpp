@@ -57,6 +57,6 @@ void Interactor::Render(ID3D11Device* p_d3d_device)
 
 #ifdef _DEBUG
 
-	DrawRectangle(p_d3d_device, render_pos - get_collider()->get_scale() / 2.f, get_collider()->get_scale(), ARGB(0xFF00FFFF)); //노란색
+	DrawRectangle(p_d3d_device, render_pos - get_collider()->get_scale() / 2.f, get_collider()->get_scale(), ARGB(0xFF00FFFF), 1); //노란색
 #endif
 }

@@ -44,7 +44,7 @@ void Collider::Render(ID3D11Device* p_d3d_device)
 
 #ifdef _DEBUG
 
-	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF0000FF));
+	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF0000FF), 1);
 #endif
 	
 }

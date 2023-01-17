@@ -13,7 +13,7 @@ Inventory::~Inventory()
 void Inventory::Init(Player* player)
 {
 	owner_ = player;
-	for (int i = 0; i < MAX_INVENTORY_SIZE; i++) {
+	for (int i = 0; i < CELL_COUNT_MAX; i++) {
 		items_.push_back(nullptr);
 	}
 
@@ -127,6 +127,23 @@ bool Inventory::AddItem(const IItem* item, int amount)
 		handlers_[j].handler(this, result_i, items_[result_i], handlers_[j].args);
 	}
 	return true;
+}
+
+bool Inventory::ChangeItemPos(int index1, int index2)
+{
+	if (index1 >= 0 && items_.size() > index1 && index2 >= 0 && items_.size() > index2) {
+		ItemData* tmp = items_[index1];
+		items_[index1] = items_[index2];
+		items_[index2] = tmp;
+
+		//인벤토리 변경 이벤트 핸들러 실행
+		for (int j = 0; j < handlers_.size(); j++) {
+			handlers_[j].handler(this, index1, items_[index1], handlers_[j].args);
+			handlers_[j].handler(this, index2, items_[index2], handlers_[j].args);
+		}
+	}
+
+	return false;
 }
 
 const std::vector<ItemData*>& Inventory::GetItems()

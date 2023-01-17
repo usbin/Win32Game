@@ -32,7 +32,7 @@ private:
 	IDXGISurface1* p_d2d_rt_ = nullptr;
 	ID2D1RenderTarget* p_text_render_target_ = nullptr;
 	IDWriteTextFormat* p_text_format_ = nullptr;
-	ID2D1BitmapRenderTarget* p_text_bitmap_ = nullptr;		//텍스트 렌더 타겟에 출력하기 전 모아놓고 한 번에 출력
+	ID2D1BitmapRenderTarget* text_bitmaps_[(int)RENDER_LAYER::END] = {};	//텍스트 렌더 타겟에 출력하기 전 모아놓고 한 번에 출력
 	//말줄임표 설정
 	DWRITE_TRIMMING trim_options_ = {
 		DWRITE_TRIMMING_GRANULARITY_CHARACTER
@@ -51,10 +51,10 @@ public:
 	void SetTextFormat(tstring font_name, tstring font_locale, UINT font_size,
 		DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight,
 		DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment);
-	void RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 scale, D2D1::ColorF color);
+	void RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 scale, D2D1::ColorF color, RENDER_LAYER layer);
 
 	void RenderLayer(RENDER_LAYER layer);
-	void RenderTextLayer();
+	void RenderTextLayer(RENDER_LAYER layer);
 
 	void ResetResolution(Vector2 new_resolution);
 
@@ -68,7 +68,7 @@ public:
 	inline const DXGI_FORMAT& get_idx_format() { return idx_format_; }
 	inline ID3D11SamplerState* get_sampler_state() { return p_sampler_linear_; };
 	inline ID2D1RenderTarget* get_text_render_target() { return p_text_render_target_; };
-	inline ID2D1BitmapRenderTarget* get_text_bitmap() { return p_text_bitmap_; };
+	inline ID2D1BitmapRenderTarget* get_text_bitmap(RENDER_LAYER layer) { return text_bitmaps_[(int)layer]; };
 	//
 	void SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size);
 };

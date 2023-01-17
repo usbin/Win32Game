@@ -25,8 +25,8 @@ inline void BottomInventoryCellUi::Init(BottomInventoryUi* bottom_inventory_ui, 
 
 void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 {
-	if(get_selected()) DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFFFF0000), RENDER_LAYER::TOP);
-	else DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), RENDER_LAYER::TOP);
+	if(get_selected()) DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFFFF0000), 1, RENDER_LAYER::TOP);
+	else DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1, RENDER_LAYER::TOP);
 	if (item_data_ && item_data_->item) {
 		const IItem* item = item_data_->item;
 		if (item->get_sprite()) {

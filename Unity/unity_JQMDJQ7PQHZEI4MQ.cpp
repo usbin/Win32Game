@@ -35,6 +35,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Crop.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Decorator.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Director_Scene_01.cpp"
 
 
@@ -83,6 +86,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\GObjectSprite.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\HorizontalSplitFrame.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\IItemHolder.cpp"
 
 
@@ -95,7 +101,16 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Inventory.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InventoryCellFrame.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InventoryCellUi.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InventoryController.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InventoryUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InvisibleWall.cpp"
@@ -132,6 +147,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NaturalThing.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SimpleFrame.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Spawner.cpp"

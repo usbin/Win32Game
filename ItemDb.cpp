@@ -134,7 +134,7 @@ void ItemDb::Init()
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Front"), tool_texture, Vector2{64, 32}, Vector2{64, 64}
 	, Vector2{64, 0}, Vector2{0, 0}, .1f, 5, false, RENDER_LAYER::PLAYER);
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Back"), tool_texture, Vector2{ 64, 160 }, Vector2{ 64, 64 }
-	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::GROUND);
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Right"), tool_texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	hoe_animator->CreateAnimation(_T("Use_Hoe_Left"), tool_texture, Vector2{ 64, 96 }, Vector2{ 64, 64 }
@@ -145,7 +145,7 @@ void ItemDb::Init()
 	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Front"), tool_texture, Vector2{ 64, 608 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Back"), tool_texture, Vector2{ 64, 736 }, Vector2{ 64, 64 }
-	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::GROUND);
 	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Right"), tool_texture, Vector2{ 64, 672 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	watering_pot_animator->CreateAnimation(_T("Use_WateringPot_Left"), tool_texture, Vector2{ 64, 672 }, Vector2{ 64, 64 }
@@ -156,7 +156,7 @@ void ItemDb::Init()
 	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Front"), tool_texture, Vector2{ 64, 224 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Back"), tool_texture, Vector2{ 64, 352 }, Vector2{ 64, 64 }
-	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::GROUND);
 	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Right"), tool_texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	pickaxe_animator->CreateAnimation(_T("Use_Pickaxe_Left"), tool_texture, Vector2{ 64, 288 }, Vector2{ 64, 64 }
@@ -167,7 +167,7 @@ void ItemDb::Init()
 	axe_animator->CreateAnimation(_T("Use_Axe_Front"), tool_texture, Vector2{ 64, 416 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	axe_animator->CreateAnimation(_T("Use_Axe_Back"), tool_texture, Vector2{ 64, 544 }, Vector2{ 64, 64 }
-	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::DEFAULT);
+	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::GROUND);
 	axe_animator->CreateAnimation(_T("Use_Axe_Right"), tool_texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }
 	, Vector2{ 64, 0 }, Vector2{ 0, 0 }, .1f, 5, false, RENDER_LAYER::PLAYER);
 	axe_animator->CreateAnimation(_T("Use_Axe_Left"), tool_texture, Vector2{ 64, 480 }, Vector2{ 64, 64 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GObject.h"
 #include "UiManager.h"
-
+#include "IFrame.h"
 class GObjectSprite;
 
 typedef void (*OnClickHandler)(DWORD_PTR param1, DWORD_PTR param2);
@@ -24,6 +24,7 @@ private:
 
 	GObjectSprite* sprite_ = nullptr;
 	Animator* animator_ = nullptr;
+
 
 	bool mouse_on_check_ = false;				// 위에 다른 ui가 있든 말든 단순 좌표만으로 체크함
 	bool lbutton_hold_ = false;			// 가장 위에서 실제로 이벤트를 받았을 때에만 체크됨.

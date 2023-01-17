@@ -39,6 +39,7 @@ public:
 	inline tstring& get_name() { return name_; };
 	inline bool is_repeat() { return is_repeat_; };
 	inline bool is_finished() { return is_finished_; };
+	inline void set_finished() { is_finished_ = true; };
 	Animator* get_animator() { return animator_; };
 
 };

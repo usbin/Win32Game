@@ -23,8 +23,8 @@ Animator::~Animator()
 
 void Animator::Play(const tstring& name, bool exclusive)
 {
-	if (exclusive) Game::GetInstance()->PlayerFreeze();
 	if (!exclusive_ || is_finished()) {
+		if (exclusive) Game::GetInstance()->PlayerFreeze();
 		Animation* anim = FindAnimation(name);
 		if (anim) {
 			current_anim_ = anim;
@@ -38,8 +38,8 @@ void Animator::Play(const tstring& name, bool exclusive)
 
 void Animator::Stop()
 {
-	if (!exclusive_) {
-		current_anim_ = nullptr;
+	if (!exclusive_ && current_anim_ && !current_anim_->is_finished()) {
+		current_anim_->set_finished();
 	}
 }
 
@@ -61,13 +61,15 @@ bool Animator::is_current_playing(const tstring& name)
 void Animator::Update()
 {
 	if (current_anim_ == nullptr) return;
+
+	current_anim_->Update();
 	if (current_anim_->is_repeat() && current_anim_->is_finished()) {
 		current_anim_->ResetFrame();
 	}
 	if (current_anim_->is_finished() && exclusive_) {
 		Game::GetInstance()->PlayerUnfreeze();
+		exclusive_ = false;
 	}
-	current_anim_->Update();
 }
 
 void Animator::Render(ID3D11Device* p_d3d_device)

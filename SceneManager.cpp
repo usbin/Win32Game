@@ -77,11 +77,11 @@ void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
 	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
 	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
 		context->ClearRenderTargetView(DXClass::GetInstance()->get_render_layer_target((RENDER_LAYER)i), ClearColor);
+		DXClass::GetInstance()->get_text_bitmap((RENDER_LAYER)i)->BeginDraw();
+		DXClass::GetInstance()->get_text_bitmap((RENDER_LAYER)i)->Clear();
+		DXClass::GetInstance()->get_text_bitmap((RENDER_LAYER)i)->EndDraw();
 	}
 
-	DXClass::GetInstance()->get_text_bitmap()->BeginDraw();
-	DXClass::GetInstance()->get_text_bitmap()->Clear();
-	DXClass::GetInstance()->get_text_bitmap()->EndDraw();
 
 
 	context->Release();

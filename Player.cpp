@@ -19,7 +19,8 @@
 #include "Inventory.h"
 #include "DropItem.h"
 #include "ItemLooter.h"
-
+#include "InventoryUi.h"
+#include "Game.h"
 Player::Player()
 	: speed_(200.f){
 
@@ -59,6 +60,10 @@ void Player::Update()
 			obj->OnInteract(this);
 		}
 		
+	}
+	if (KEY_DOWN(KEY::I)) {
+		//인벤토리 열기
+		Game::GetInstance()->ToggleInventory(this);
 	}
 
 

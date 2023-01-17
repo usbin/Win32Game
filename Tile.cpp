@@ -25,7 +25,7 @@ void Tile::Render(ID3D11Device* p_d3d_device)
 	Vector2 scale = get_scale();
 	if (sprite == nullptr) {
 		//스프라이트가 없으면 마젠타 네모 그리기
-		DrawRectangle(p_d3d_device, pos - scale / 2.f, scale, ARGB(0xFFFF00FF));
+		DrawRectangle(p_d3d_device, pos - scale / 2.f, scale, ARGB(0xFFFF00FF), 1);
 		
 	}
 	else {

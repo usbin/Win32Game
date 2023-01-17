@@ -34,13 +34,15 @@ DXClass::~DXClass() {
 	if (p_d2d1_factory_) p_d2d1_factory_->Release();
 	if (p_dwrite_factory_) p_dwrite_factory_->Release();
 	if(p_d2d_rt_) p_d2d_rt_->Release();
-	if(p_text_render_target_) p_text_render_target_->Release();
-	if (p_text_bitmap_) p_text_bitmap_->Release();
+
+	if (p_text_render_target_) p_text_render_target_->Release();
 
 	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
 		if (render_layer_targets_[i]) render_layer_targets_[i]->Release();
 		if (render_layer_textures_[i]) render_layer_textures_[i]->Release();
 		if (render_layer_resource_views_[i]) render_layer_resource_views_[i]->Release();
+		if (text_bitmaps_[i]) text_bitmaps_[i]->Release();
+	
 	}
 };
 
@@ -341,13 +343,13 @@ int DXClass::InitRenderLayers(Vector2 resolution)
 	if (FAILED(p_d3d_device_->CreateShaderResourceView(layer2_texture, &layer_resource_view_desc, &layer2_resource_view))) return E_FAIL;
 	if (FAILED(p_d3d_device_->CreateShaderResourceView(layer3_texture, &layer_resource_view_desc, &layer3_resource_view))) return E_FAIL;
 
-	render_layer_targets_[(int)RENDER_LAYER::DEFAULT] = layer1_target_view;
+	render_layer_targets_[(int)RENDER_LAYER::GROUND] = layer1_target_view;
 	render_layer_targets_[(int)RENDER_LAYER::PLAYER] = layer2_target_view;
 	render_layer_targets_[(int)RENDER_LAYER::TOP] = layer3_target_view;
-	render_layer_textures_[(int)RENDER_LAYER::DEFAULT] = layer1_texture;
+	render_layer_textures_[(int)RENDER_LAYER::GROUND] = layer1_texture;
 	render_layer_textures_[(int)RENDER_LAYER::PLAYER] = layer2_texture;
 	render_layer_textures_[(int)RENDER_LAYER::TOP] = layer3_texture;
-	render_layer_resource_views_[(int)RENDER_LAYER::DEFAULT] = layer1_resource_view;
+	render_layer_resource_views_[(int)RENDER_LAYER::GROUND] = layer1_resource_view;
 	render_layer_resource_views_[(int)RENDER_LAYER::PLAYER] = layer2_resource_view;
 	render_layer_resource_views_[(int)RENDER_LAYER::TOP] = layer3_resource_view;
 
@@ -464,11 +466,11 @@ void DXClass::RenderLayer(RENDER_LAYER layer)
 	p_immediate_context_->DrawIndexed(6, 0, 0);
 }
 
-void DXClass::RenderTextLayer()
+void DXClass::RenderTextLayer(RENDER_LAYER layer)
 {
 	p_text_render_target_->BeginDraw();
 	ID2D1Bitmap* bitmap;
-	p_text_bitmap_->GetBitmap(&bitmap);
+	text_bitmaps_[(int)layer]->GetBitmap(&bitmap);
 	p_text_render_target_->DrawBitmap(bitmap);
 	p_text_render_target_->EndDraw();
 }
@@ -523,6 +525,13 @@ void DXClass::ResetResolution(Vector2 new_resolution)
 	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
 		return;
 	}
+	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
+		D2D1_PIXEL_FORMAT pixel_format;
+		pixel_format.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
+		pixel_format.format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		if (FAILED(p_text_render_target_->CreateCompatibleRenderTarget(p_text_render_target_->GetSize(), p_text_render_target_->GetPixelSize(), pixel_format, &text_bitmaps_[i]))) return;
+
+	}
 
 
 }
@@ -551,15 +560,18 @@ void DXClass::InitD2D1()
 	if (FAILED(p_d2d1_factory_->CreateDxgiSurfaceRenderTarget(p_d2d_rt_, &d2d_rt_props, &p_text_render_target_))) {
 		return;
 	}
-	D2D1_PIXEL_FORMAT pixel_format;
-	pixel_format.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
-	pixel_format.format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	if(FAILED(p_text_render_target_->CreateCompatibleRenderTarget( p_text_render_target_->GetSize(),  p_text_render_target_->GetPixelSize(), pixel_format, &p_text_bitmap_))) return;
+	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
+		D2D1_PIXEL_FORMAT pixel_format;
+		pixel_format.alphaMode = D2D1_ALPHA_MODE_PREMULTIPLIED;
+		pixel_format.format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		if (FAILED(p_text_render_target_->CreateCompatibleRenderTarget(p_text_render_target_->GetSize(), p_text_render_target_->GetPixelSize(), pixel_format, &text_bitmaps_[i]))) return;
 
 
+	}
 	//폰트 기본값 설정
 	SetTextFormat(_T("둥근모꼴"), _T("ko-kr"), 20.0f, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_REGULAR,
 		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+	
 	
 }
 
@@ -601,7 +613,7 @@ void DXClass::SetTextFormat(tstring font_name, tstring font_locale, UINT font_si
 	p_text_format_->SetTrimming(&trim_options_, p_trim_sign_);
 }
 
-void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 scale, D2D1::ColorF color)
+void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 scale, D2D1::ColorF color, RENDER_LAYER layer)
 {
 	D2D1_RECT_F layout_rect;
 
@@ -620,16 +632,16 @@ void DXClass::RenderText(const TCHAR* text, UINT length, Vector2 pos, Vector2 sc
 		static_cast<FLOAT>(pos.x+scale.x) / dpi_scale_x,
 		static_cast<FLOAT>(pos.y+scale.y) / dpi_scale_y
 	);
-	p_text_bitmap_->BeginDraw();
-	p_text_bitmap_->SetTransform(D2D1::IdentityMatrix());
-	p_text_bitmap_->DrawTextW(
+	text_bitmaps_[(int)layer]->BeginDraw();
+	text_bitmaps_[(int)layer]->SetTransform(D2D1::IdentityMatrix());
+	text_bitmaps_[(int)layer]->DrawTextW(
 		text,
 		length,
 		p_text_format_,
 		layout_rect,
 		p_brush
 	);
-	p_text_bitmap_->EndDraw();
+	text_bitmaps_[(int)layer]->EndDraw();
 
 
 	p_brush->Release();

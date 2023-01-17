@@ -36,7 +36,7 @@ void Missile::Render(ID3D11Device* p_d3d_device)
 	RealObject::Render(p_d3d_device);
 
 	Vector2 render_pos = WorldToRenderPos(get_pos());
-	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF000000));
+	DrawRectangle(p_d3d_device, render_pos - get_scale() / 2.f, get_scale(), ARGB(0xFF000000), 1);
 	
 	ComponentRender(p_d3d_device);
 }

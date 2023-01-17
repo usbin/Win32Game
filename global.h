@@ -55,3 +55,11 @@ typedef std::basic_string<TCHAR> tstring;
 
 #define TILE_WIDTH 48
 #define TILE_HEIGHT 48
+
+
+const int CELL_COUNT_INLINE = (static_cast<int>(KEY::KEY_PLUS) - static_cast<int>(KEY::KEY_1) + 1);
+const int CELL_COUNT_MAX = CELL_COUNT_INLINE * 3;
+
+typedef int GAME_STATE;
+const GAME_STATE GAME_STATE_TIME_STOPPED = 0x10;	// 시간 프리징 여부(자유 움직임이 동반되는 이벤트 발생 중일 때 등)
+const GAME_STATE GAME_STATE_PLAYER_FREEZED = 0x1;	// 플레이어 프리징 여부

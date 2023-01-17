@@ -12,7 +12,6 @@ public:
 	~BottomInventoryUi();
 
 private:
-	const float CELL_COUNT = (static_cast<int>(KEY::KEY_PLUS) - static_cast<int>(KEY::KEY_1) + 1);
 	BottomInventoryCellUi* cells_[static_cast<int>(KEY::KEY_PLUS) - static_cast<int>(KEY::KEY_1) + 1]; //1번부터 +까지
 	Player* owner_;
 

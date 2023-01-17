@@ -27,6 +27,7 @@ public:
 	virtual void SetItem(int index) override;
 	virtual bool UseItem() override;
 	virtual const IItem* get_item() override { return item_; };
+	int GetHoldIndex() { return index_; };
 
 	// IItemHolder을(를) 통해 상속됨
 	inline virtual RealObject* get_owner() override { return owner_; };

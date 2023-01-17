@@ -9,7 +9,7 @@ public:
 	virtual ~ItemAnimation();
 private:
 	ItemAnimator* animator_ = nullptr;
-	RENDER_LAYER layer_ = RENDER_LAYER::DEFAULT;
+	RENDER_LAYER layer_ = RENDER_LAYER::GROUND;
 public:
 
 

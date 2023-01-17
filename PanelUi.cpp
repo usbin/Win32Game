@@ -51,11 +51,11 @@ void PanelUi::Render(ID3D11Device* p_d3d_device)
 	if (!is_static_pos()) pos = WorldToRenderPos(pos);
 
 	if (dragging_) {
-		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff00ff00), ARGB(0xffffffff));
+		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff00ff00), 1, ARGB(0xffffffff));
 
 	}
 	else {
-		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff000000), ARGB(0xffffffff));
+		DrawRectangle(p_d3d_device, pos, scale, ARGB(0xff000000), 1, ARGB(0xffffffff));
 	}
 
 	ChildrenRender(p_d3d_device);

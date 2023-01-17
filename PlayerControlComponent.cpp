@@ -13,11 +13,8 @@ void PlayerControlComponent::Update(RealObject* obj)
 	Player* player = dynamic_cast<Player*>(obj);
 	Vector2 v{ 0, 0 };
 	if (player) {
-		switch (Game::GetInstance()->get_game_state())
-		{
-		case GAME_STATE::PLAYING: //플레이어가 움직임
-		case GAME_STATE::TIME_STOPPED:
-		{
+		if(! (Game::GetInstance()->get_game_state() & GAME_STATE_PLAYER_FREEZED) ){
+		
 			float run_speed_2x = 2.f;
 			Vector2 move_direction{ 0, 0 };
 			float calculated_speed = player->speed_;
@@ -28,19 +25,19 @@ void PlayerControlComponent::Update(RealObject* obj)
 				}
 			}
 
-			if (KEY_HOLD(KEY::UP)) {
+			if (KEY_HOLD(KEY::W)) {
 				move_direction.y = -1;
 				player->set_direction(DIRECTION::UP);
 			}
-			else if (KEY_HOLD(KEY::DOWN)) {
+			else if (KEY_HOLD(KEY::S)) {
 				move_direction.y = 1;
 				player->set_direction(DIRECTION::DOWN);
 			}
-			if (KEY_HOLD(KEY::RIGHT)) {
+			if (KEY_HOLD(KEY::D)) {
 				move_direction.x = 1;
 				player->set_direction(DIRECTION::RIGHT);
 			}
-			else if (KEY_HOLD(KEY::LEFT)) {
+			else if (KEY_HOLD(KEY::A)) {
 				move_direction.x = -1;
 				player->set_direction(DIRECTION::LEFT);
 			}
@@ -61,14 +58,9 @@ void PlayerControlComponent::Update(RealObject* obj)
 
 
 		}
-			break;
-		case GAME_STATE::PLAYER_FREEZED: //플레이어 못 움직임
-		case GAME_STATE::FREEZED:
-			break;
-		}
+
 
 		player->set_velocity(v);
-
 		
 	}
 }

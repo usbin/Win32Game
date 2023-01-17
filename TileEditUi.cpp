@@ -445,7 +445,7 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 		if (KEY_HOLD(KEY::LBUTTON) && dragging_) {
 			Vector2 start_pos = WorldToRenderPos(drag_start_pos_);
 			Vector2 end_pos = WorldToRenderPos(prev_drag_pos_);
-			DrawRectangle(p_d3d_device, start_pos, end_pos - start_pos, ARGB(0xFF000000));
+			DrawRectangle(p_d3d_device, start_pos, end_pos - start_pos, ARGB(0xFF000000), 1);
 			
 
 		}

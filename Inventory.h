@@ -20,7 +20,6 @@ struct OnInventoryDataChangedData {
 	OnInventoryDataChangedArgs args;
 };
 
-const int MAX_INVENTORY_SIZE = 30;
 /// <summary>
 /// Player가 소지함.
 /// </summary>
@@ -43,6 +42,8 @@ public:
 	//데이터 변경 함수
 	bool UseItem(int index, int amount);
 	bool AddItem(const IItem* item, int amount);
+	bool ChangeItemPos(int index1, int index2);
+
 	
 
 };
