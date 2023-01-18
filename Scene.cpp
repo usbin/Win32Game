@@ -17,10 +17,7 @@ Scene::Scene(ID3D11Device* p_d3d_device)
 
 Scene::~Scene() {
 	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
-		for (auto gobject : gobjects_[group]) {
-			delete gobject;
-		}
-		gobjects_[group].clear();
+		DeleteGroupObjects(static_cast<GROUP_TYPE>(group));
 	}
 }
 
@@ -74,7 +71,6 @@ void Scene::DeleteGroupObjects(GROUP_TYPE type)
 {
 	for (auto obj : gobjects_[static_cast<UINT>(type)]) {
 		DeleteGObject(obj, type);
-
 	}
 	gobjects_[static_cast<UINT>(type)].clear();
 

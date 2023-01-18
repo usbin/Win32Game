@@ -21,14 +21,20 @@ Ui::Ui(bool is_static_pos)
 
 Ui::~Ui()
 {
-	if (animator_) delete animator_;
-	SafeDeleteVector<Ui*>(children_);
 
+	delete sprite_;
+	delete animator_;
+	for (Ui* child : children_) {
+		if (UiManager::GetInstance()->get_selected_target() == child) {
+			UiManager::GetInstance()->ResetSelection();
+		}
+	}
+	SafeDeleteVector<Ui*>(children_);
 	if (UiManager::GetInstance()->get_selected_target() == this) {
 		UiManager::GetInstance()->ResetSelection();
 	}
+	
 
-	delete sprite_;
 
 }
 

@@ -17,6 +17,7 @@ SceneManager::~SceneManager() {
 	//모든 씬 삭제
 	for (int i = 0; i < static_cast<int>(SCENE_TYPE::END); i++) {
 		delete scenes_[i];
+		scenes_[i] = nullptr;
 	}
 }
 

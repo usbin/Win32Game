@@ -167,6 +167,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="ConsoleFrame.h" />
+    <ClInclude Include="DebugConsoleUi.h" />
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropItemRenderComponent.h" />
@@ -195,6 +197,7 @@
     <ClInclude Include="IItem.h" />
     <ClInclude Include="ImageUi.h" />
     <ClInclude Include="inline.h" />
+    <ClInclude Include="InputUi.h" />
     <ClInclude Include="Interactor.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryCellFrame.h" />
@@ -219,6 +222,7 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="NaturalThing.h" />
+    <ClInclude Include="ShippingBox.h" />
     <ClInclude Include="SimpleFrame.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="NewGameBtn_Title.h" />
@@ -278,8 +282,10 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="ConsoleFrame.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Crop.cpp" />
+    <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="Director_Scene_01.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
@@ -298,8 +304,8 @@
     <ClCompile Include="GObject.cpp" />
     <ClCompile Include="GObjectSprite.cpp" />
     <ClCompile Include="HorizontalSplitFrame.cpp" />
-    <ClCompile Include="IItemHolder.cpp" />
     <ClCompile Include="ImageUi.cpp" />
+    <ClCompile Include="InputUi.cpp" />
     <ClCompile Include="Interactor.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryCellFrame.cpp" />
@@ -318,6 +324,7 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NaturalThing.cpp" />
+    <ClCompile Include="ShippingBox.cpp" />
     <ClCompile Include="SimpleFrame.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="NewGameBtn_Title.cpp" />

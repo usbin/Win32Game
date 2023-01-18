@@ -19,6 +19,6 @@ public:
 	inline void Init(BottomInventoryUi* bottom_inventory_ui, int index, const ItemData* item_data);
 	virtual void Render(ID3D11Device* p_d3d_device) override;
 	inline void Reset(int index, const ItemData* item_data);
-	virtual void Select() override;
+	virtual void LbuttonClick() override;
 };
 

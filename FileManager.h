@@ -1,6 +1,7 @@
 #pragma once
 #include "global.h"
 
+class Core;
 //1. 맵 저장, 불러오기
 class FileManager
 {
@@ -15,5 +16,8 @@ public:
 
 	void SaveTilemapFile(const tstring& file_path);
 	void LoadTilemapFile(const tstring& file_path);
+
+
+	friend class Core;
 };
 

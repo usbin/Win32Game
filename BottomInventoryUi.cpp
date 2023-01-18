@@ -4,14 +4,17 @@
 #include "Game.h"
 #include "ItemData.h"
 #include "Inventory.h"
-
+#include "PlayerItemHolder.h"
 BottomInventoryUi::BottomInventoryUi()
 	: ImageUi(true)
 {
+
 }
 
 BottomInventoryUi::~BottomInventoryUi()
 {
+	if(owner_ && owner_->get_inventory())
+		owner_->get_inventory()->RemoveHandler(this);
 }
 
 void BottomInventoryUi::Init(Player* owner)
@@ -59,7 +62,7 @@ void BottomInventoryUi::CreateEmptyCells()
 		cells_[i] = cell;
 
 	}
-	UiManager::GetInstance()->SelectTarget(cells_[0]);
+	picked_index_ = 0;
 }
 
 void BottomInventoryUi::Update()
@@ -69,22 +72,22 @@ void BottomInventoryUi::Update()
 
 	if (owner_->IsDead()) owner_ = nullptr;
 
+
 	
-	if (! (Game::GetInstance()->get_game_state() & GAME_STATE_PLAYER_FREEZED)) {
-		if (KEY_DOWN(KEY::KEY_1))	UiManager::GetInstance()->SelectTarget(cells_[0]);
-		else if (KEY_DOWN(KEY::KEY_2))	UiManager::GetInstance()->SelectTarget(cells_[1]);
-		else if (KEY_DOWN(KEY::KEY_3))	UiManager::GetInstance()->SelectTarget(cells_[2]);
-		else if (KEY_DOWN(KEY::KEY_4))	UiManager::GetInstance()->SelectTarget(cells_[3]);
-		else if (KEY_DOWN(KEY::KEY_5))	UiManager::GetInstance()->SelectTarget(cells_[4]);
-		else if (KEY_DOWN(KEY::KEY_6))	UiManager::GetInstance()->SelectTarget(cells_[5]);
-		else if (KEY_DOWN(KEY::KEY_7))	UiManager::GetInstance()->SelectTarget(cells_[6]);
-		else if (KEY_DOWN(KEY::KEY_8))	UiManager::GetInstance()->SelectTarget(cells_[7]);
-		else if (KEY_DOWN(KEY::KEY_9))	UiManager::GetInstance()->SelectTarget(cells_[8]);
-		else if (KEY_DOWN(KEY::KEY_0))	UiManager::GetInstance()->SelectTarget(cells_[9]);
-		else if (KEY_DOWN(KEY::KEY_MINUS))	UiManager::GetInstance()->SelectTarget(cells_[10]);
-		else if (KEY_DOWN(KEY::KEY_PLUS))	UiManager::GetInstance()->SelectTarget(cells_[11]);
+	if (! CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED)) {
+		if (KEY_DOWN(KEY::KEY_1))	PickItem(0);
+		else if (KEY_DOWN(KEY::KEY_2))	PickItem(1);
+		else if (KEY_DOWN(KEY::KEY_3))	PickItem(2);
+		else if (KEY_DOWN(KEY::KEY_4))	PickItem(3);
+		else if (KEY_DOWN(KEY::KEY_5))	PickItem(4);
+		else if (KEY_DOWN(KEY::KEY_6))	PickItem(5);
+		else if (KEY_DOWN(KEY::KEY_7))	PickItem(6);
+		else if (KEY_DOWN(KEY::KEY_8))	PickItem(7);
+		else if (KEY_DOWN(KEY::KEY_9))	PickItem(8);
+		else if (KEY_DOWN(KEY::KEY_0))	PickItem(9);
+		else if (KEY_DOWN(KEY::KEY_MINUS))	PickItem(10);
+		else if (KEY_DOWN(KEY::KEY_PLUS))	PickItem(11);
 	}
-	
 	
 	
 
@@ -94,7 +97,18 @@ void BottomInventoryUi::Update()
 void BottomInventoryUi::Render(ID3D11Device* p_d3d_device)
 {
 	ImageUi::Render(p_d3d_device);
+
+
 	DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1);
 
 	ChildrenRender(p_d3d_device);
+}
+
+void BottomInventoryUi::PickItem(int index)
+{
+	picked_index_ = index;
+	if (!owner_) return;
+	if (!owner_->get_item_holder()) return;
+
+	owner_->get_item_holder()->SetItem(index);
 }

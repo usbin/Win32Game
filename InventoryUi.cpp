@@ -17,6 +17,14 @@ InventoryUi::InventoryUi()
 	: Ui(true)
 {
 }
+InventoryUi::~InventoryUi()
+{
+	if (owner_) {
+		Inventory* inventory = owner_->get_inventory();
+		inventory->RemoveHandler(this);
+
+	}
+}
 void InventoryUi::Init(Player* player)
 {
 
@@ -76,12 +84,14 @@ void InventoryUi::Init(Player* player)
 	}
 
 
+
 	//2.Inventory에서 데이터 불러와서 채우고
 	Inventory* inventory = owner_->get_inventory();
 	const std::vector<ItemData*>& items = inventory->GetItems();
 	for (int i = 0; i < CELL_COUNT_MAX; i++) {
 		cells_[i]->Init(this, i, items[i]);
 	}
+
 
 	//3.Inventory에 핸들러 등록
 	OnInventoryDataChangedData handler;

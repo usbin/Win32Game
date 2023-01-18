@@ -1,6 +1,7 @@
 #pragma once
 #include "global.h"
 
+class Core;
 struct Event {
 	EVENT_TYPE type;
 	DWORD_PTR param1;
@@ -19,5 +20,8 @@ private:
 public:
 	void Update();
 	void AddEvent(Event _event);
+
+
+	friend class Core;
 };
 

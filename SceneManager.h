@@ -3,6 +3,7 @@
 #include "Scene.h"
 
 class Scene;
+class Core;
 
 
 class SceneManager
@@ -23,6 +24,8 @@ public:
 
 
 	friend class EventManager;
+
+	friend class Core;
 };
 
 

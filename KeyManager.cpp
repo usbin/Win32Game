@@ -14,6 +14,9 @@ int g_windows_keys[static_cast<int>(KEY::LAST)] = {
 	VK_MENU,//ALT,
 	VK_SPACE, //SPACE
 	VK_TAB,	//TAB
+	VK_BACK, //Backspace
+	VK_RETURN, //Enter
+	0xC0,	//`키(Grave)
 	0x31,	//1
 	0x32,	//2
 	0x33,	//3
@@ -110,14 +113,14 @@ bool KeyManager::Update()
 		ScreenToClient(Core::GetInstance()->get_main_hwnd(), &pt_mouse_pos);
 		Vector2 mouse_pos = Vector2{ pt_mouse_pos };
 		Vector2 resolution = Core::GetInstance()->get_resolution();
-		if (mouse_pos.x > 0 && mouse_pos.y > 0 
+		if (mouse_pos.x > 0 && mouse_pos.y > 0
 			&& mouse_pos.x < resolution.x && mouse_pos.y < resolution.y) {
 			mouse_in_window_ = true;
 		}
 		else {
 			mouse_in_window_ = false;
 		}
-		
+
 		mouse_pos_ = RenderToWorldPos(Vector2{ pt_mouse_pos });
 	}
 	//프로그램이 포커싱되어 있지 않음 -> 자연스럽게 키가 떨어진 것처럼 바꿈
@@ -132,9 +135,10 @@ bool KeyManager::Update()
 				current_key_states_[i].state = KEY_STATE::NONE;
 			}
 			current_key_states_[i].prev_pressed = FALSE;
-			
+
 		}
 	}
+	
 
 
 	

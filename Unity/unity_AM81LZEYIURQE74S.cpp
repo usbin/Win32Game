@@ -29,10 +29,16 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\CollisionManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ConsoleFrame.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Core.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Crop.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DebugConsoleUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Decorator.cpp"
@@ -89,10 +95,10 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\HorizontalSplitFrame.cpp"
 
 
-#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\IItemHolder.cpp"
-
-
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ImageUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\InputUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Interactor.cpp"
@@ -147,6 +153,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NaturalThing.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShippingBox.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SimpleFrame.cpp"

@@ -31,7 +31,7 @@ void Inventory::Init(Player* player)
 	AddItem(item3, 1);
 	AddItem(item4, 1);
 	AddItem(item5, 1);
-	AddItem(item6, 1);
+	AddItem(item6, 5);
 	AddItem(item7, 1);
 	
 }
@@ -39,6 +39,15 @@ void Inventory::Init(Player* player)
 void Inventory::AddHandler(OnInventoryDataChanged handler, OnInventoryDataChangedArgs args)
 {
 	handlers_.push_back(OnInventoryDataChangedData{ handler, args });
+}
+
+void Inventory::RemoveHandler(GObject* sender)
+{
+	for (int i = handlers_.size()-1; i >=0; i--) {
+		if (handlers_[i].args.sender == reinterpret_cast<DWORD_PTR>(sender)) {
+			handlers_.erase(handlers_.begin() + i);
+		}
+	}
 }
 
 const ItemData* Inventory::GetItem(int index)

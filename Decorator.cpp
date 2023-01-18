@@ -5,6 +5,7 @@ Decorator::~Decorator() {
 	delete simple_frame_;
 	delete horizontal_split_frame_;
 	delete inventory_cell_frame_;
+	delete console_frame_;
 };
 
 SimpleFrame* Decorator::GetSimpleFrame()
@@ -30,4 +31,12 @@ InventoryCellFrame* Decorator::GetInventoryCellFrame()
 		inventory_cell_frame_ = DEBUG_NEW InventoryCellFrame();
 	}
 	return inventory_cell_frame_;
+}
+
+ConsoleFrame* Decorator::GetConsoleFrame()
+{
+	if (!console_frame_) {
+		console_frame_ = DEBUG_NEW ConsoleFrame();
+	}
+	return console_frame_;
 }

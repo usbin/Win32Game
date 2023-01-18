@@ -6,6 +6,10 @@ EventManager::EventManager()
 	, dead_objects_{}{}
 
 EventManager::~EventManager() {
+	for (int i = 0; i < dead_objects_.size(); i++) {
+		dead_objects_[i]->Update();
+		dead_objects_[i]->FinalUpdate();
+	}
 	SafeDeleteVector<GObject*>(dead_objects_);
 }
 
@@ -13,6 +17,10 @@ EventManager::~EventManager() {
 void EventManager::Update()
 {
 	//삭제 작업2: 데드 오브젝트 삭제하기
+	for (int i = 0; i < dead_objects_.size(); i++) {
+		dead_objects_[i]->Update();
+		dead_objects_[i]->FinalUpdate();
+	}
 	SafeDeleteVector<GObject*>(dead_objects_);
 
 	//이벤트 일괄 실행(*이벤트 실행 도중 이벤트 대기열이 찰 수 있으므로 foreach 사용x)

@@ -11,6 +11,7 @@ void Spawner::RandomSpawn(TILE_OBJECT_TYPE type, Vector2 left_top, Vector2 botto
 	int max_row = static_cast<int>(bottom_right.y - left_top.y) / TILE_HEIGHT;
 	
 	int failed = 0;
+	std::vector<Vector2> pos_log_;
 	for (int i = 0; i < amount; i++) {
 		int column = rand() % max_column;
 		int row = rand() % max_row;
@@ -18,7 +19,9 @@ void Spawner::RandomSpawn(TILE_OBJECT_TYPE type, Vector2 left_top, Vector2 botto
 		Vector2 out_pos{};
 		TileObject* out_tile_obj = nullptr;
 		SceneManager::GetInstance()->get_current_scene()->GetTileObject(pos, out_pos, out_tile_obj);
-		if (out_tile_obj) {
+		if (out_tile_obj
+			// 중복 위치면 안 됨.(루프문 안에서는 아직 GObject가 생성되기 전 단계라 GetTileObject로 중복 위치 검출 불가.)
+			|| std::find(pos_log_.begin(), pos_log_.end(), Vector2{column, row}) != pos_log_.end()) {
 			//20번 넘게 실패하면 그냥 break;
 			if (failed < 20) {
 				failed++;
@@ -33,6 +36,7 @@ void Spawner::RandomSpawn(TILE_OBJECT_TYPE type, Vector2 left_top, Vector2 botto
 			tile_object->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
 			tile_object->set_group_type(GROUP_TYPE::TILE_OBJECT);
 			CreateGObject(tile_object, GROUP_TYPE::TILE_OBJECT);
+			pos_log_.push_back(Vector2{ column, row });
 		}
 
 	}

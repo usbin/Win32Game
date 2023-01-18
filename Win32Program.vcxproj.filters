@@ -145,6 +145,15 @@
     <Filter Include="Game\9.Decorator">
       <UniqueIdentifier>{1250cef4-e1b5-420e-acad-64e6f194e436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4.GObject\RealObject\Thing">
+      <UniqueIdentifier>{1edcfdfb-2349-455d-8887-a0a75250fdcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\InputUi">
+      <UniqueIdentifier>{7c2923d7-7cf8-4b45-b8d3-b084c9b90e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\2.Manager\SceneManager">
+      <UniqueIdentifier>{bdef9b2f-c7c6-4e95-b6c1-78fb4eb8a3b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -212,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="PathManager.h">
       <Filter>Game\2.Manager\PathManager</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Game\1.Scene</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Game\7.Component\Collider</Filter>
@@ -474,6 +480,19 @@
     <ClInclude Include="InventoryCellUi.h">
       <Filter>Game\8.Inventory</Filter>
     </ClInclude>
+    <ClInclude Include="ShippingBox.h">
+      <Filter>Game\4.GObject\RealObject\Thing</Filter>
+    </ClInclude>
+    <ClInclude Include="InputUi.h">
+      <Filter>Game\4.GObject\Ui\InputUi</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleFrame.h">
+      <Filter>Game\9.Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugConsoleUi.h" />
+    <ClInclude Include="SceneManager.h">
+      <Filter>Game\2.Manager\SceneManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -528,9 +547,6 @@
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
       <Filter>Game\2.Manager\PathManager</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Game\1.Scene</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Game\7.Component\Collider</Filter>
@@ -736,7 +752,6 @@
     <ClCompile Include="BottomInventoryUi.cpp">
       <Filter>Game\8.Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="IItemHolder.cpp" />
     <ClCompile Include="DropItemRenderComponent.cpp">
       <Filter>Game\7.Component\RenderComponent</Filter>
     </ClCompile>
@@ -760,6 +775,19 @@
     </ClCompile>
     <ClCompile Include="InventoryCellUi.cpp">
       <Filter>Game\8.Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="ShippingBox.cpp">
+      <Filter>Game\4.GObject\RealObject\Thing</Filter>
+    </ClCompile>
+    <ClCompile Include="InputUi.cpp">
+      <Filter>Game\4.GObject\Ui\InputUi</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleFrame.cpp">
+      <Filter>Game\9.Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugConsoleUi.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Game\2.Manager\SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

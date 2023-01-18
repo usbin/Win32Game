@@ -35,6 +35,7 @@ private:
 public:
 	void Init(Player* player);
 	void AddHandler(OnInventoryDataChanged handler, OnInventoryDataChangedArgs args);
+	void RemoveHandler(GObject* sender);
 	
 	const ItemData* GetItem(int index);
 	const std::vector<ItemData*>& GetItems();

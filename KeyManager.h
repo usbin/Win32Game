@@ -1,5 +1,6 @@
 #pragma once
 #include "global.h"
+class Core;
 
 struct CurrentKeyState {
 	KEY_STATE state;
@@ -20,5 +21,7 @@ public:
 	inline Vector2 GetMousePos() { return mouse_pos_; };
 	inline bool IsMouseInWindow() { return mouse_in_window_; };
 	void Reset();//키입력 리셋
+
+	friend class Core;
 };
 

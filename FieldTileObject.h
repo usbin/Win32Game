@@ -20,6 +20,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
 	bool is_watered() { return watered_; };
+	const Seed* get_seed() { return seed_; };
 	int get_field_connected() { return field_connected_; };
 	int get_water_connected() { return water_connected_; };
 	void SetConnected(int connected_field);

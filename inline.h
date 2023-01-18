@@ -1,6 +1,6 @@
 #pragma once
 #include "KeyManager.h"
-
+#include "Game.h"
 inline bool KEY_CHECK(KEY key, KEY_STATE state) { return KeyManager::GetInstance()->get_key_states(key) == state; };
 inline bool KEY_DOWN(KEY key) { return KEY_CHECK(key, KEY_STATE::DOWN); };
 inline bool KEY_HOLD(KEY key) { return KEY_CHECK(key, KEY_STATE::HOLD); };
@@ -16,3 +16,5 @@ inline UINT TO_INGAME_TIME(UINT realtime) { return realtime * TIME_RATIO; };
 inline XMFLOAT4 ARGB_TO_XMFLOAT(ARGB argb) {
 	return XMFLOAT4(argb.r / 255.f, argb.g / 255.f, argb.b / 255.f, argb.a / 255.f);
 };
+
+inline int CHECK_GAME_STATE(GAME_STATE state) { return Game::GetInstance()->get_game_state() & state; };

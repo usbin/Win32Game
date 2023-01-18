@@ -1,6 +1,7 @@
 #pragma once
 #include "global.h"
 class Ui;
+class Core;
 //매프레임 모든 Ui를 순회하며 MOUSE_CLICK, MOUSE_ON, MOUSE_UP, MOUSE_DOWN를 체크하고 콜백을 실행시켜주는 매니저
 class UiManager
 {
@@ -19,5 +20,7 @@ public:
 	inline bool focus_nothing() { return !target_ui_ && !prev_downed_target_; };
 	void ResetSelection();
 	void SelectTarget(Ui* target); 
+
+	friend class Core;
 };
 

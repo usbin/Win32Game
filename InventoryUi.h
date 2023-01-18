@@ -26,6 +26,7 @@ private:
 	
 public:
 	InventoryUi();
+	~InventoryUi();
 	void Init(Player* player);
 	void ReloadData(int index, const ItemData* new_data);
 	void Update() override;

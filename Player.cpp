@@ -44,11 +44,15 @@ Player::Player()
 Player::~Player()
 {
 	delete inventory_;
+	inventory_ = nullptr;
 	delete item_looter_;
+	item_looter_ = nullptr;
 }
 void Player::Update()
 {
-	
+	if (IsDead()) {
+		int a = 0;
+	}
 	if(item_looter_) item_looter_->Update();
 
 	if (KEY_DOWN(KEY::SPACE)) {

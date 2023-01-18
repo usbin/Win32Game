@@ -56,6 +56,7 @@ bool Seed::Use(RealObject* obj) const
         if (!tile_object) return false;
         FieldTileObject* field_tile_object = dynamic_cast<FieldTileObject*>(tile_object);
         if (!field_tile_object) return false;
+        if (field_tile_object->get_seed()) return false;
         field_tile_object->SetSeed(this, 0);
         return true;
     }

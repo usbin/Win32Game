@@ -13,7 +13,7 @@ void PlayerControlComponent::Update(RealObject* obj)
 	Player* player = dynamic_cast<Player*>(obj);
 	Vector2 v{ 0, 0 };
 	if (player) {
-		if(! (Game::GetInstance()->get_game_state() & GAME_STATE_PLAYER_FREEZED) ){
+		if( !CHECK_GAME_STATE(GAME_STATE_PLAYER_FREEZED) && !CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED) ){
 		
 			float run_speed_2x = 2.f;
 			Vector2 move_direction{ 0, 0 };
@@ -23,6 +23,9 @@ void PlayerControlComponent::Update(RealObject* obj)
 				if (player->get_item_holder()) {
 					player->get_item_holder()->UseItem();
 				}
+			}
+			if (KEY_HOLD(KEY::Z)) {
+
 			}
 
 			if (KEY_HOLD(KEY::W)) {
