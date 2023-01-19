@@ -28,7 +28,6 @@ public:
 	virtual bool Exit() = 0;//씬이 종료될 때 실행
 
 	void AddGObject(GObject* object, GROUP_TYPE type);
-	void RemoveGObject(GObject* object, GROUP_TYPE type);
 	void DeleteGroupObjects(GROUP_TYPE type);
 	void DeleteAllObjects();
 	inline const std::vector<GObject*>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };

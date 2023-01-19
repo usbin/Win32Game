@@ -2,6 +2,11 @@
 #include "Seed.h"
 #include "TileObjectRenderComponent.h"
 #include "SceneManager.h"
+#include "DropItem.h"
+#include "ItemDb.h"
+#include "Interactor.h"
+#include "Player.h"
+#include "PlayerItemHolder.h"
 FieldTileObject::FieldTileObject()
 {
 }
@@ -82,13 +87,22 @@ void FieldTileObject::Init(TILE_OBJECT_TYPE tile_object_type_)
 		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
 		field_left->SetConnected(FIELD_CONNECTED_RIGHT);
 	}
-
+	CreateInteractor();
 }
 
-void FieldTileObject::SetSeed(const Seed* seed, UINT level)
+void FieldTileObject::CreateInteractor()
+{
+
+	Interactor* interactor = DEBUG_NEW Interactor();
+	interactor->Init(this, Vector2{ 0, 0 }, get_scale());
+	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
+	set_interactor(interactor);
+}
+
+void FieldTileObject::SetSeed(const Seed* seed)
 {
 	seed_ = seed;
-	level_ = level;
+	seed_day_ = Game::GetInstance()->get_day();
 
 }
 
@@ -141,8 +155,40 @@ void FieldTileObject::Water()
 	}
 }
 
+void FieldTileObject::Harvest()
+{
+	//해당 위치의 작물을 DropItem으로 뱉어내고...
+	//본인을 빈 땅으로 초기화
+	DropItem* drop = DEBUG_NEW DropItem();
+	drop->Init(ItemDb::GetInstance()->get_item(seed_->get_item_code()), 1);
+	drop->set_pos(get_pos());
+	drop->set_scale(get_scale());
+	drop->set_name(_T("수확된 순무"));
+	drop->set_group_type(GROUP_TYPE::DROP_ITEM);
+	CreateGObject(drop, GROUP_TYPE::DROP_ITEM);
+
+	SetSeed(nullptr);
+	SetLevel(0);
+}
+
 void FieldTileObject::Update()
 {
+	//날짜가 바뀌었을 때의 동작
+	UINT today = Game::GetInstance()->get_day();
+	if (get_updated_day() < today) {
+		if (watered_) {
+			//현재 날짜를 seed_day_와 비교해 현재 작물 성장 상태를 동기화
+			if (seed_day_ + get_level() < today && get_level() < seed_->get_max_level()) {
+				if (today < seed_day_) return;	//오늘보다 이후에 심어졌을 수는 없음.
+				SetLevel(today - seed_day_);
+			}
+			watered_ = false;
+			water_connected_ = 0;
+		}
+		UpdateDay(today);
+		
+	}
+	
 }
 
 void FieldTileObject::Render(ID3D11Device* p_d3d_device)
@@ -150,7 +196,7 @@ void FieldTileObject::Render(ID3D11Device* p_d3d_device)
 	render_cmp_->Render(this, p_d3d_device);
 	//crop 렌더
 	if (seed_) {
-		ItemSprite* item_sprite = seed_->get_level_sprite(level_);
+		ItemSprite* item_sprite = seed_->get_level_sprite(get_level());
 		seed_->RenderOnField(this, p_d3d_device);
 	}
 
@@ -172,4 +218,16 @@ void FieldTileObject::SetDisconnected(int connected_field)
 void FieldTileObject::SetWaterConnected(int connected_water)
 {
 	water_connected_ |= connected_water;
+}
+
+void FieldTileObject::OnInteract(const GObject* req_obj)
+{
+	//플레이어이고, 맨손이라면 수확
+	if (req_obj->get_group_type() == GROUP_TYPE::PLAYER && seed_ && get_level() >= seed_->get_max_level()) {
+		const Player* player = dynamic_cast<const Player*>(req_obj);
+		if (!player->get_item_holder() || !player->get_item_holder()->GetItemData()) {
+			Harvest();
+		}
+	}
+	
 }

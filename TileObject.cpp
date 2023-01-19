@@ -4,7 +4,7 @@
 #include "TileObjectDb.h"
 TileObject::~TileObject()
 {
-	
+		
 }
 void TileObject::Init(TILE_OBJECT_TYPE type) {
 	tile_object_info_ = TileObjectDb::GetInstance()->get_tile_object_info(type);
@@ -13,9 +13,12 @@ void TileObject::Init(TILE_OBJECT_TYPE type) {
 
 	CreateRenderCmp();
 }
+void TileObject::SetLevel(UINT level) {
+	level_ = level;
+}
 void TileObject::Update()
-{
-	
+{	
+	updated_day_ = Game::GetInstance()->get_day();
 }
 
 void TileObject::CreateRenderCmp()

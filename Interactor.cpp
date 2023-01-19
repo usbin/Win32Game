@@ -43,6 +43,11 @@ void Interactor::OnCollisionExit(Collider* collider)
 	}
 }
 
+inline void Interactor::OnInteract(const GObject* obj)
+{
+	if (owner_) owner_->OnInteract(obj);
+}
+
 
 
 void Interactor::Update()

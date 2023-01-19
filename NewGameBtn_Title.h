@@ -10,7 +10,7 @@ public:
 private:
 	float text_alpha_ = 0;
 	D2D1::ColorF text_color_ = 0x0;
-	EFFECT_STATE effect_state_;
+	EFFECT_STATE effect_state_ = EFFECT_STATE::PREVIOUS;
 public:
 	void StartEffect();
 	virtual void Update();

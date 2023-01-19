@@ -21,7 +21,7 @@ InventoryUi::~InventoryUi()
 {
 	if (owner_) {
 		Inventory* inventory = owner_->get_inventory();
-		inventory->RemoveHandler(this);
+		inventory->RemoveItemHandler(this);
 
 	}
 }
@@ -94,14 +94,14 @@ void InventoryUi::Init(Player* player)
 
 
 	//3.Inventory에 핸들러 등록
-	OnInventoryDataChangedData handler;
-	OnInventoryDataChangedArgs handler_args;
+	OnInventoryItemChangedData handler;
+	OnInventoryItemChangedArgs handler_args;
 	handler_args.sender = reinterpret_cast<DWORD_PTR>(this);
 	handler.args = handler_args;
-	handler.handler = [](Inventory* inventory, int index, ItemData* new_data, OnInventoryDataChangedArgs args) {
+	handler.handler = [](Inventory* inventory, int index, ItemData* new_data, OnInventoryItemChangedArgs args) {
 		reinterpret_cast<InventoryUi*>(args.sender)->ReloadData(index, new_data);
 	};
-	inventory->AddHandler(handler.handler, handler_args);
+	inventory->AddItemHandler(handler.handler, handler_args);
 
 
 }

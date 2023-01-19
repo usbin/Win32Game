@@ -234,24 +234,17 @@ void DrawFixedsizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, cons
 void DrawAutosizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT text_length, tstring font_name, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight, DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment, UINT max_font_size, UINT min_font_size, UINT max_lines, RENDER_LAYER layer)
 {
 	UINT font_size = min_font_size;
-	float font_width_x = 0.5f;	//font의 가로 길이는 font size의 1/2만 차지함.
+	float font_width_x = 0.6f;	//font의 가로 길이는 font size의 1/2만 차지함.
 	//\n의 개수 + 1개가 라인 수
 	UINT line = 1;
 	for (int i = 0; i < text_length; i++) {
 		if (text[i] == '\n') line++;
 	}
-	//CASE 1 : 그리려는 영역이 필요로 하는 영역보다 클 경우 -> 폰트 사이즈 키움
-	if (scale.x > font_size*font_width_x * (text_length) && scale.y > font_size*line) {
-		font_size = min(min(scale.x/(text_length*font_width_x), scale.y), max_font_size);
-	}
-	//CASE 2 : 그리려는 영역이 필요로 하는 영역보다 작을 경우 -> 폰트 사이즈 줄임
-	//			(1) min font 까지 줄이고,
-	//			(2) 그래도 부족하면 줄바꿈.
-	else if (scale.x < font_size*font_width_x * text_length || scale.y < font_size*line) {
-		font_size = max(min(scale.x / (text_length * font_width_x), scale.y), min_font_size);
-		
-	}
-
+	// 가로 scale/(글자수*0.5), 세로 scale 중 더 작은 값 선택
+	font_size = min(scale.x / (text_length * font_width_x), scale.y);
+	// 해당 값이 max보다 작고 min보다 큼을 보장.
+	font_size = max(min(font_size, max_font_size), min_font_size);
+	
 	DXClass::GetInstance()->SetTextFormat(font_name, _T("ko-kr"), font_size, font_style, font_weight, text_alighment, paragraph_alignment);
 	DXClass::GetInstance()->RenderText(text, text_length, base_pos, scale, font_color, layer);
 }

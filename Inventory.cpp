@@ -8,6 +8,7 @@
 Inventory::~Inventory()
 {
 	SafeDeleteVector<ItemData*>(items_);
+
 }
 
 void Inventory::Init(Player* player)
@@ -36,29 +37,45 @@ void Inventory::Init(Player* player)
 	
 }
 
-void Inventory::AddHandler(OnInventoryDataChanged handler, OnInventoryDataChangedArgs args)
+void Inventory::AddItemHandler(OnInventoryItemChanged handler, OnInventoryItemChangedArgs args)
 {
-	handlers_.push_back(OnInventoryDataChangedData{ handler, args });
+	item_handlers_.push_back(OnInventoryItemChangedData{ handler, args });
 }
 
-void Inventory::RemoveHandler(GObject* sender)
+void Inventory::RemoveItemHandler(GObject* sender)
 {
-	for (int i = handlers_.size()-1; i >=0; i--) {
-		if (handlers_[i].args.sender == reinterpret_cast<DWORD_PTR>(sender)) {
-			handlers_.erase(handlers_.begin() + i);
+	for (int i = item_handlers_.size()-1; i >=0; i--) {
+		if (item_handlers_[i].args.sender == reinterpret_cast<DWORD_PTR>(sender)) {
+			item_handlers_.erase(item_handlers_.begin() + i);
+		}
+	}
+}
+
+void Inventory::AddGoldHander(OnInventoryGoldChanged handler, OnInventoryGoldChangedArgs args)
+{
+	gold_handlers_.push_back(OnInventoryGoldChangedData{ handler, args });
+}
+
+void Inventory::RemoveGoldHandler(GObject* sender)
+{
+	for (int i = gold_handlers_.size() - 1; i >= 0; i--) {
+		if (gold_handlers_[i].args.sender == reinterpret_cast<DWORD_PTR>(sender)) {
+			gold_handlers_.erase(gold_handlers_.begin() + i);
 		}
 	}
 }
 
 const ItemData* Inventory::GetItem(int index)
 {
-	if (items_.size() > index && items_[index]) return items_[index];
-	else nullptr;
+	if (index>= 0 &&items_.size() > index && items_[index]) 
+		return items_[index];
+	else 
+		return nullptr;
 }
 
 bool Inventory::UseItem(int index, int amount)
 {
-	if (items_.size() > index && items_[index]) {
+	if (index>=0 && items_.size() > index && items_[index]) {
 		//갖고 있는 아이템의 수가 사용하려는 수보다 작으면 안 됨.
 		if (items_[index]->amount >= amount) {
 
@@ -80,8 +97,8 @@ bool Inventory::UseItem(int index, int amount)
 							items_[index] = nullptr;
 						}
 						//3. 인벤토리 변경 이벤트 핸들러 실행
-						for (int i = 0; i < handlers_.size(); i++) {
-							handlers_[i].handler(this, index, items_[index], handlers_[i].args);
+						for (int i = 0; i < item_handlers_.size(); i++) {
+							item_handlers_[i].handler(this, index, items_[index], item_handlers_[i].args);
 						}
 						return true;
 					}
@@ -132,8 +149,8 @@ bool Inventory::AddItem(const IItem* item, int amount)
 	}
 
 	//인벤토리 변경 이벤트 핸들러 실행
-	for (int j = 0; j < handlers_.size(); j++) {
-		handlers_[j].handler(this, result_i, items_[result_i], handlers_[j].args);
+	for (int j = 0; j < item_handlers_.size(); j++) {
+		item_handlers_[j].handler(this, result_i, items_[result_i], item_handlers_[j].args);
 	}
 	return true;
 }
@@ -146,16 +163,65 @@ bool Inventory::ChangeItemPos(int index1, int index2)
 		items_[index2] = tmp;
 
 		//인벤토리 변경 이벤트 핸들러 실행
-		for (int j = 0; j < handlers_.size(); j++) {
-			handlers_[j].handler(this, index1, items_[index1], handlers_[j].args);
-			handlers_[j].handler(this, index2, items_[index2], handlers_[j].args);
+		for (int j = 0; j < item_handlers_.size(); j++) {
+			item_handlers_[j].handler(this, index1, items_[index1], item_handlers_[j].args);
+			item_handlers_[j].handler(this, index2, items_[index2], item_handlers_[j].args);
 		}
 	}
 
 	return false;
 }
 
+bool Inventory::RemoveItem(int index, int amount)
+{
+	if (index >= 0 && items_.size() > index && items_[index]) {
+		//갖고 있는 아이템의 수가 사용하려는 수보다 작으면 안 됨.
+		if (items_[index]->amount >= amount) {
+
+			const IItem* item = items_[index]->item;
+			if (item) {
+				items_[index]->amount = items_[index]->amount - amount;
+				//	사용 후에 아이템이 0개가 됐을 경우. 인벤토리에서 삭제 처리.
+				if (items_[index]->amount <= 0) {
+					delete items_[index];
+					items_[index] = nullptr;
+				}
+				//3. 인벤토리 변경 이벤트 핸들러 실행
+				for (int i = 0; i < item_handlers_.size(); i++) {
+					item_handlers_[i].handler(this, index, items_[index], item_handlers_[i].args);
+				}
+				return true;
+			}
+		}
+
+
+
+	}
+	return false;
+}
+
 const std::vector<ItemData*>& Inventory::GetItems()
 {
 	return items_;
+}
+
+bool Inventory::AddGold(UINT gold)
+{
+	gold_ += gold;
+
+	for (const OnInventoryGoldChangedData& handler : gold_handlers_) {
+		handler.handler(this, gold_, handler.args);
+	}
+	return true;
+}
+
+bool Inventory::RemoveGold(UINT gold)
+{
+	if (gold_ < gold) return false;
+	
+	gold_ -= gold;
+	for (const OnInventoryGoldChangedData& handler : gold_handlers_) {
+		handler.handler(this, gold_, handler.args);
+	}
+	return true;
 }

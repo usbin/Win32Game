@@ -40,21 +40,19 @@ void Background_Title::Update()
 
 void Background_Title::Render(ID3D11Device* p_d3d_device)
 {
-	if (get_enabled()) {
-		Vector2 pos = get_final_pos();
-		if (!is_static_pos()) pos = WorldToRenderPos(pos);
-		const Vector2& scale = get_scale();
-		if (!IsAnimationDone()) {
-			get_animator()->Render(p_d3d_device);
-		}
-		else {
-			if (get_sprite()) {
+	Vector2 pos = get_final_pos();
+	if (!is_static_pos()) pos = WorldToRenderPos(pos);
+	const Vector2& scale = get_scale();
+	if (!IsAnimationDone()) {
+		get_animator()->Render(p_d3d_device);
+	}
+	else {
+		if (get_sprite()) {
 
-				Texture* texture = get_sprite()->get_texture();
-				const Vector2& sprite_base_pos = get_sprite()->get_base_pos();
-				const Vector2& sprite_scale = get_sprite()->get_scale();
-				DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
-			}
+			Texture* texture = get_sprite()->get_texture();
+			const Vector2& sprite_base_pos = get_sprite()->get_base_pos();
+			const Vector2& sprite_scale = get_sprite()->get_scale();
+			DrawTexture(p_d3d_device, pos, scale, sprite_base_pos, sprite_scale, texture);
 		}
 	}
 

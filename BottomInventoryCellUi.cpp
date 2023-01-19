@@ -30,7 +30,7 @@ void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 		if (item_data_ && item_data_->item) {
 			const IItem* item = item_data_->item;
 			if (item->get_sprite()) {
-				DrawTexture(p_d3d_device, get_final_pos(), get_scale(), item->get_sprite()->get_base_pos(), item->get_sprite()->get_scale(), item->get_sprite()->get_texture());
+				DrawTexture(p_d3d_device, get_final_pos(), get_scale(), item->get_profile_sprite()->get_base_pos(), item->get_profile_sprite()->get_scale(), item->get_profile_sprite()->get_texture());
 				TCHAR amount[5];
 				_stprintf_s(amount, _T("%d"), item_data_->amount);
 				DrawFixedsizeText(p_d3d_device, get_final_pos(), Vector2{ 40, 15 }, amount, _tcslen(amount), _T("µÕ±Ù¸ð²Ã"), 14

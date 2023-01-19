@@ -46,8 +46,7 @@ void TitleText_Title::Render(ID3D11Device* p_d3d_device)
 	Vector2 final_pos = get_final_pos();
 	DrawAutosizeText(p_d3d_device, final_pos, get_scale(),
 		_T("Harvest Moon"), _tcslen(_T("Harvest Moon")), _T("µÕ±Ù¸ð²Ã"), D2D1::ColorF::Black, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_BOLD, 
-		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER, 200, 20, 2);
-
+		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER, 100, 20, 2);
 	ChildrenRender(p_d3d_device);
 }
 

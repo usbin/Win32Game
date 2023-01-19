@@ -35,14 +35,13 @@ bool Scene_Title::Enter()
 	TitleText_Title* title_text = DEBUG_NEW TitleText_Title();	
 	//초기 위치 : 화면 밖
 	Vector2 resolution = Core::GetInstance()->get_resolution();
-	title_text->set_pos(Vector2(resolution.x, resolution.y / 4.f));
+	title_text->set_pos(Vector2(resolution.x, resolution.y / 5.f));
 	title_text->set_scale(Vector2(resolution.x, 200.f));
 	title_text->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(title_text, GROUP_TYPE::UI);
 
 	NewGameBtn_Title* new_game_btn = DEBUG_NEW NewGameBtn_Title();
 	Vector2 scale(150, 50);
-
 	new_game_btn->set_pos(Vector2(resolution.x / 2.f - scale.x / 2.f, resolution.y * 2.f / 4.f));
 	new_game_btn->set_scale(scale);
 	new_game_btn->set_group_type(GROUP_TYPE::UI);

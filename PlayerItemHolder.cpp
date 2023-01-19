@@ -16,15 +16,17 @@ PlayerItemHolder::~PlayerItemHolder()
 {
 }
 
+
 void PlayerItemHolder::Update()
 {
-	if (owner_ && owner_->get_inventory()) {
+	if (owner_ && !owner_->IsDead() && owner_->get_inventory()) {
 		// 아이템 정보 업데이트
 		
 		SetItem(index_);
 
 		// 아이템 업데이트
-		if(item_) item_->UpdateOnHolder(this);
+		const ItemData* item_data = GetItemData();
+		if(item_data) item_data->item->UpdateOnHolder(this);
 
 		switch (owner_->get_direction())
 		{
@@ -47,8 +49,9 @@ void PlayerItemHolder::Update()
 
 void PlayerItemHolder::Render(ID3D11Device* p_d3d_device)
 {
-	if (item_ && owner_) {
-		item_->RenderOnHolder(this, p_d3d_device);
+	const ItemData* item_data = GetItemData();
+	if (item_data) {
+		item_data->item->RenderOnHolder(this, p_d3d_device);
 		Vector2 tile_obj_base_pos{ 0, 0 };
 		TileObject* p_tile_obj = nullptr;
 		SceneManager::GetInstance()->get_current_scene()->GetTileObject(
@@ -60,18 +63,17 @@ void PlayerItemHolder::Render(ID3D11Device* p_d3d_device)
 	
 }
 
+
 void PlayerItemHolder::SetItem(int index)
 {
 
 	if (owner_ && owner_->get_inventory()) {
 		index_ = index;
 		if (index_ >= 0) {
-			const ItemData* item_data = owner_->get_inventory()->GetItem(index_);
-			item_ = item_data->item;
+			const ItemData* item_data = GetItemData();
 			if (item_data && item_data->item) {
-				item_ = item_data->item;
-				owner_->OnHold(item_);
-				item_->OnHold(owner_);
+				owner_->OnHold(item_data->item);
+				item_data->item->OnHold(owner_);
 			}
 			else owner_->OnUnhold();
 		}
@@ -82,10 +84,17 @@ void PlayerItemHolder::SetItem(int index)
 bool PlayerItemHolder::UseItem()
 {
 	if (owner_) {
-
 		return owner_->get_inventory()->UseItem(index_, 1);
 	}
 	return false;
+}
+
+const ItemData* PlayerItemHolder::GetItemData()
+{
+	if (owner_ && owner_->get_inventory()) {
+		return owner_->get_inventory()->GetItem(index_);
+	}
+	return nullptr;
 }
 
 Vector2 PlayerItemHolder::get_target_pos()

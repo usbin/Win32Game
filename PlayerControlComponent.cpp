@@ -7,25 +7,33 @@
 #include "IItemHolder.h"
 #include "IUsable.h"
 #include "Game.h"
+#include "Interactor.h"
 
 void PlayerControlComponent::Update(RealObject* obj)
 {
 	Player* player = dynamic_cast<Player*>(obj);
 	Vector2 v{ 0, 0 };
 	if (player) {
+		float run_speed_2x = 2.f;
+		Vector2 move_direction{ 0, 0 };
+		float calculated_speed = player->speed_;
 		if( !CHECK_GAME_STATE(GAME_STATE_PLAYER_FREEZED) && !CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED) ){
 		
-			float run_speed_2x = 2.f;
-			Vector2 move_direction{ 0, 0 };
-			float calculated_speed = player->speed_;
 
-			if (KEY_HOLD(KEY::X)) {
-				if (player->get_item_holder()) {
+			//아이템 사용: C
+			if (KEY_HOLD(KEY::C)) {
+				if (player->get_item_holder() && player->get_item_holder()->GetItemData()) {
 					player->get_item_holder()->UseItem();
 				}
 			}
-			if (KEY_HOLD(KEY::Z)) {
-
+			//아이템 상호작용: X
+			if (KEY_HOLD(KEY::X)) {
+				if (player->get_interactor()) {
+					const std::vector<Interactor*>& interactors = player->get_interactor()->get_interactors();
+					if (!interactors.empty()) {
+						interactors[0]->OnInteract(player);
+					}
+				}
 			}
 
 			if (KEY_HOLD(KEY::W)) {
@@ -59,6 +67,10 @@ void PlayerControlComponent::Update(RealObject* obj)
 			v.x = static_cast<float>(move_direction.Normalize().x * calculated_speed * Time::GetInstance()->dt_f());
 			v.y = static_cast<float>(move_direction.Normalize().y * calculated_speed * Time::GetInstance()->dt_f());
 
+
+		}
+		else {
+			player->state_ = PLAYER_STATE::IDLE;
 
 		}
 

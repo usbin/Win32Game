@@ -49,7 +49,7 @@ public:
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
 	virtual ISprite* get_sprite() { return render_cmp_ ? dynamic_cast<ISprite*>(render_cmp_->get_sprite()) : nullptr; };
-	inline IItemHolder* get_item_holder() { return item_holder_; };
+	inline IItemHolder* get_item_holder() const { return item_holder_; };
 
 	friend class PhysicsComponent;
 

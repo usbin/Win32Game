@@ -6,12 +6,14 @@
 Mic::~Mic()
 {
     delete sprite_;
+    delete profile_sprite_;
 }
 
-IItem* Mic::Init(int item_code, tstring name)
+IItem* Mic::Init(int item_code, tstring name, UINT price)
 {
     item_code_ = item_code;
     name_ = name;
+    price_ = price;
     switch (item_code) {
     case (int)ITEM_CODE::STONE: {
 

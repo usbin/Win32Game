@@ -32,7 +32,6 @@ private:
 	bool selectable_ = false;			// "선택됨" 상태가 가능한지
 	bool is_selected_ = false;
 
-	bool enabled_ = true;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
 
 
 
@@ -75,9 +74,8 @@ public:
 	inline bool get_is_selectable() { return selectable_; };
 	inline void set_is_selectable(bool b) { selectable_ = b; };
 	inline bool get_selected() { return is_selected_; };
-	inline bool get_enabled() { return enabled_; };
-	inline void set_enabled(bool b) { enabled_ = b; };
 	inline void set_selected(bool b) { is_selected_ = b; };
+	void OnEnabled(bool b) override;
 
 private:
 

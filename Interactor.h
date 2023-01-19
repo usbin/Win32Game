@@ -30,6 +30,7 @@ public:
 	Vector2 get_scale() = delete;
 	inline void set_owner(GObject* owner) { owner_ = owner; };
 	inline GObject* get_owner() { return owner_; };
+	inline void OnInteract(const GObject* obj) override;
 	friend class GObject;
 
 

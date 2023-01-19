@@ -15,20 +15,37 @@
 #include "FileManager.h"
 #include "PathManager.h"
 #include "TileObject.h"
+#include "ShippingBox.h"
 bool Scene_01::Enter()
 {
-
+	// 맵 로드
+	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath() + _T("map\\Farm.map"));
+	// 카메라 설정
 	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 
+	//디렉터 생성
 	Director_Scene_01* director = DEBUG_NEW Director_Scene_01();
 	director->set_group_type(GROUP_TYPE::DIRECTOR);
 	CreateGObject(director, GROUP_TYPE::DIRECTOR);
 
+	//플레이어 생성
 	Player* player = DEBUG_NEW Player();
 	player->set_pos(Vector2{ 500, 500 });
 	player->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(player, GROUP_TYPE::PLAYER);
+	
+	//출하상자 생성
+	ShippingBox* shipping_box = DEBUG_NEW ShippingBox();
+	shipping_box->set_pos(Vector2{3457, 718 });
+	shipping_box->set_scale(Vector2{ 100, 100 });
+	shipping_box->set_group_type(GROUP_TYPE::SHIPPING_BOX);
+	shipping_box->Init();
+	CreateGObject(shipping_box, GROUP_TYPE::SHIPPING_BOX);
 
+
+	//============================
+	// UI 생성
+	//============================
 	TimerUi* timer_ui = DEBUG_NEW TimerUi();
 	timer_ui->set_pos(Vector2(0, 0));
 	timer_ui->set_scale(Vector2(200, 100));
@@ -60,7 +77,6 @@ bool Scene_01::Enter()
 
 
 
-	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath()+_T("map\\Farm.map"));
 
 
 	Camera::GetInstance()->set_target(player);

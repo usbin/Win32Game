@@ -17,7 +17,8 @@ private:
 	Vector2 scale_ = Vector2::Zero();
 	GROUP_TYPE group_type_;
 	bool is_dead_ = false;
-	bool visible_ = false;
+	bool visible_ = true;	//보이지만 않을 뿐, 동작은 그대로.(Render만 제외)
+	bool enabled_ = true;	//false일 땐 어떤 이벤트도 받지 않고 그려지지도 않음.
 	DIRECTION direction_ = DIRECTION::DOWN;		//바라보고 있는 방향
 
 
@@ -37,7 +38,7 @@ public:
 	inline const tstring& get_name() { return name_; };
 	inline void set_name(const tstring& name) { name_ = name; };
 	inline void set_group_type(GROUP_TYPE type) { group_type_ = type; };
-	inline GROUP_TYPE get_group_type() { return group_type_; };
+	inline GROUP_TYPE get_group_type() const { return group_type_; };
 	inline Vector2 get_scale() { return scale_; };
 	inline void set_scale(Vector2 scale) { scale_ = scale; };
 	inline float get_width() { return scale_.x; };
@@ -51,6 +52,9 @@ public:
 	inline bool IsDead() { return is_dead_; };
 	inline void set_visible(bool b) { visible_ = b; };
 	inline bool get_visible() { return visible_; };
+	inline bool get_enabled() { return enabled_; };
+	inline void set_enabled(bool b) { enabled_ = b; OnEnabled(b); };
+	virtual void OnEnabled(bool b) {};
 	inline const DIRECTION get_direction() { return direction_; };
 	inline void set_direction(DIRECTION direction) { direction_ = direction; };
 

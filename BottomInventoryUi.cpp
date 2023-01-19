@@ -14,20 +14,21 @@ BottomInventoryUi::BottomInventoryUi()
 BottomInventoryUi::~BottomInventoryUi()
 {
 	if(owner_ && owner_->get_inventory())
-		owner_->get_inventory()->RemoveHandler(this);
+		owner_->get_inventory()->RemoveItemHandler(this);
 }
 
 void BottomInventoryUi::Init(Player* owner)
 {
 	owner_ = owner;
 	if (owner_ && owner_->get_inventory()) {
-		OnInventoryDataChangedArgs args;
+		OnInventoryItemChangedArgs args;
 		args.sender = reinterpret_cast<DWORD_PTR>(this);
-		owner_->get_inventory()->AddHandler([](Inventory* inventory, int index, ItemData* new_data, OnInventoryDataChangedArgs args) {
+		owner_->get_inventory()->AddItemHandler([](Inventory* inventory, int index, ItemData* new_data, OnInventoryItemChangedArgs args) {
 			BottomInventoryUi* p_self = reinterpret_cast<BottomInventoryUi*>(args.sender);
 			p_self->ReloadData(index, new_data);
 		}, args);
 		CreateEmptyCells();
+		owner_->get_item_holder()->SetItem(0);
 		const std::vector<ItemData*>& items = owner_->get_inventory()->GetItems();
 		for (int i = 0; i < min(items.size(), CELL_COUNT_INLINE); i++) {
 			ReloadData(i, items[i]);

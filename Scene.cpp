@@ -25,7 +25,7 @@ void Scene::Update()
 {
 	for (int group = 0; group < static_cast<int>(GROUP_TYPE::END); group++) {
 		for (auto gobject : gobjects_[group]) {
-			if(!gobject->IsDead())
+			if(!gobject->IsDead() && gobject->get_enabled())
 				gobject->Update();
 		}
 	}
@@ -44,7 +44,8 @@ void Scene::Render(ID3D11Device* p_d3d_device)
 		auto iter = gobjects_[group].begin();
 		while (iter != gobjects_[group].end()) {
 			if (!(*iter)->IsDead()) {
-				(*iter)->Render(p_d3d_device);
+				if((*iter)->get_enabled() && (*iter)->get_visible())
+					(*iter)->Render(p_d3d_device);
 				iter++;
 			}
 			else {
@@ -57,14 +58,6 @@ void Scene::Render(ID3D11Device* p_d3d_device)
 void Scene::AddGObject(GObject* object, GROUP_TYPE type)
 {
 	gobjects_[static_cast<UINT>(type)].push_back(object);
-}
-
-void Scene::RemoveGObject(GObject* object, GROUP_TYPE type)
-{
-	std::vector<GObject*>::iterator iter = find(gobjects_[static_cast<UINT>(type)].begin(), gobjects_[static_cast<UINT>(type)].end(), object);
-	if (iter != gobjects_[static_cast<UINT>(type)].end()) {
-		gobjects_[static_cast<UINT>(type)].erase(iter);
-	}
 }
 
 void Scene::DeleteGroupObjects(GROUP_TYPE type)

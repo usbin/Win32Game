@@ -12,13 +12,14 @@
 Equip::~Equip()
 {
 	delete sprite_;
+	delete profile_sprite_;
 	delete animator_;
 }
-IItem* Equip::Init(int item_code, tstring name)
+IItem* Equip::Init(int item_code, tstring name, UINT price)
 {
 	item_code_ = item_code;
 	name_ = name;
-
+	price_ = price;
 
 	
 	return this;

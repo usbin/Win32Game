@@ -39,7 +39,7 @@ void InputUi::Update()
 	if (KEY_DOWN(KEY::KEY_PLUS)) text_	+= _T("+");
 	if (KEY_DOWN(KEY::KEY_MINUS)) text_ += _T("-");
 	if (KEY_DOWN(KEY::SPACE)) text_		+= _T(" ");
-	if (KEY_DOWN(KEY::BACKSPACE)) text_.erase(text_.end() - 1);
+	if (KEY_DOWN(KEY::BACKSPACE)) if(!text_.empty())text_.erase(text_.end() - 1);
 	if (KEY_DOWN(KEY::ENTER)) {
 		if(callback_)
 			callback_(text_, args_);

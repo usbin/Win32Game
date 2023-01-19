@@ -7,14 +7,15 @@
 Crop::~Crop()
 {
     delete sprite_;
+    delete profile_sprite_;
     sprite_ = nullptr;
 }
 
-IItem* Crop::Init(int item_code, tstring name)
+IItem* Crop::Init(int item_code, tstring name, UINT price)
 {
     item_code_ = item_code;
     name_ = name;
-    
+    price_ = price;
 
     
     return this;

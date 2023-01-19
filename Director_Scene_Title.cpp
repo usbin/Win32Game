@@ -27,7 +27,7 @@ void Director_Scene_Title::Update()
     if (bg_ && bg_->IsAnimationDone()) {
         if (title_ && title_->get_effect_state() == EFFECT_STATE::PREVIOUS) {
             Vector2 resolution = Core::GetInstance()->get_resolution();
-            title_->StartEffect(Vector2(resolution.x / 2.f - title_->get_scale().x / 2.f, resolution.y / 4.f), 1);
+            title_->StartEffect(Vector2(resolution.x / 2.f - title_->get_scale().x / 2.f, resolution.y / 5.f), 1);
         }
         if (new_game_btn_ && new_game_btn_->get_effect_state() == EFFECT_STATE::PREVIOUS) {
             new_game_btn_->StartEffect();

@@ -49,7 +49,7 @@ private:
 	void LootItem(DropItem* item);
 
 public:
-	inline Inventory* get_inventory() { return inventory_; };
+	inline Inventory* get_inventory() const { return inventory_; };
 	
 	friend class PlayerControlComponent;
 	friend class PlayerRenderComponent;

@@ -4,6 +4,7 @@
 #include "Decorator.h"
 #include "Spawner.h"
 #include "Time.h"
+#include "Camera.h"
 void DebugConsoleUi::Init()
 {
 	//1. 자식 항목 만들기
@@ -38,7 +39,6 @@ void DebugConsoleUi::Init()
 void DebugConsoleUi::Update()
 {
 	Ui::Update();
-
 
 }
 
@@ -102,8 +102,27 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 		if (commands[1].empty()) {
 			int s = Game::GetInstance()->get_day_uptime_s();
 			TCHAR buffer[30];
-			_stprintf_s(buffer, _T("%d일차 %02d시 %02d분 %02d초"), Game::GetInstance()->get_day(), s / 60 / 60, s / 60 % 60, s % 60);
+			_stprintf_s(buffer, _T("%d일차 %02d시 %02d분 %02d초"), Game::GetInstance()->get_day(), s / 60 / 60, s / 60 % 60, s%60);
 			PrintConsole(buffer);
+		}
+		else if (commands[1] == _T("FINISHDAY")) {
+			Game::GetInstance()->FinishDay();
+			TCHAR buffer[30];
+			_stprintf_s(buffer, _T("다음날로 넘어감."));
+			PrintConsole(buffer);
+		}
+	}
+	//인게임좌표를 출력해주는 명령어
+	if (commands[0] == _T("POSITION")) {
+		//$ POSITION => 마우스 위치 출력
+		if (commands[1] == _T("MOUSE")) {
+			if (commands[2].empty()) {
+				TCHAR buffer[100];
+				Vector2 world_pos = GET_MOUSE_POS();
+				Vector2 render_pos = WorldToRenderPos(world_pos);
+				_stprintf_s(buffer, _T("[마우스 위치] World (%.4f, %.4f), Render (%.4f, %.4f)"), world_pos.x, world_pos.y, render_pos.x, render_pos.y);
+				PrintConsole(buffer);
+			}
 		}
 	}
 }

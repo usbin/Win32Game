@@ -25,13 +25,12 @@ void UiManager::Dfs(const std::vector<Ui*>& uis, std::vector<Ui*>& ui_heap) {
 void UiManager::FinalUpdate()
 {
 	//선택하고 있던 Ui가 삭제되면 참조 해제
-
-	if (selected_target_ && selected_target_->IsDead()) {
+	if (selected_target_ && (selected_target_->IsDead() || !selected_target_->get_enabled())) {
 		selected_target_->Unselect();
 		selected_target_ = nullptr;
 	}
 	//선택하고 있던 Ui가 선택 불가 상태로 바뀌면 선택해제
-	if (selected_target_ && !selected_target_->get_is_selectable()) {
+	if (selected_target_ && (!selected_target_->get_is_selectable() || !selected_target_->get_enabled())) {
 		selected_target_->Unselect();
 	}
 

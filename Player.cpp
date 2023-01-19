@@ -21,6 +21,7 @@
 #include "ItemLooter.h"
 #include "InventoryUi.h"
 #include "Game.h"
+#include "ItemData.h"
 Player::Player()
 	: speed_(200.f){
 
@@ -50,9 +51,6 @@ Player::~Player()
 }
 void Player::Update()
 {
-	if (IsDead()) {
-		int a = 0;
-	}
 	if(item_looter_) item_looter_->Update();
 
 	if (KEY_DOWN(KEY::SPACE)) {
@@ -179,7 +177,8 @@ const IItem* Player::GetHoldItem()
 {
 	if (!item_holder_) return nullptr;
 	else {
-		return item_holder_->get_item();
+		const ItemData* item_data = item_holder_->GetItemData();
+		if(item_data) return item_data->item;
 	}
 }
 
