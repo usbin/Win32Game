@@ -5,6 +5,15 @@
 #include "Spawner.h"
 #include "Time.h"
 #include "Camera.h"
+#include "SceneManager.h"
+#include "Player.h"
+#include "FieldTileObject.h"
+#include "ItemDb.h"
+#include "Seed.h"
+#include "DayFinishedUi.h"
+#include "Core.h"
+#include "Inventory.h"
+
 void DebugConsoleUi::Init()
 {
 	//1. 자식 항목 만들기
@@ -92,9 +101,33 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 
 	//스폰
 	if (commands[0] == _T("SPAWN")) {
-		//$ SPAWN => 랜덤 나무 스폰
-		Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WOOD, Vector2{ 0, 0 }, Vector2{ 600, 600 }, 5);
-		PrintConsole(_T("(0, 0) ~ (600, 600) 랜덤 나무 소환"));
+		if (commands[1] == _T("WOOD")) {
+			//$ SPAWN WOOD=> 랜덤 나무 스폰
+			Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WOOD, Vector2{ 0, 0 }, Vector2{ 600, 600 }, 5);
+			PrintConsole(_T("(0, 0) ~ (600, 600) 랜덤 나무 소환"));
+
+		}
+		else if (commands[1] == _T("FIELD")) {
+			if (commands[2] == _T("PARSNIP")) {
+				//$ SPAWN FIELD PARSNIP => 다 자란 순무 밭 소환
+
+				Vector2 world_pos = GET_MOUSE_POS();
+				Vector2 tile_pos;
+				SceneManager::GetInstance()->get_current_scene()->GetTilePos(world_pos, tile_pos);
+				FieldTileObject* parsnip = DEBUG_NEW FieldTileObject();
+				parsnip->SetSeed(dynamic_cast<const Seed*>(ItemDb::GetInstance()->get_item((int)ITEM_CODE::PARSNIP_SEED)));
+				parsnip->SetLevel(5);
+				parsnip->set_pos(tile_pos);
+				parsnip->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+				parsnip->Init(TILE_OBJECT_TYPE::FIELD);
+				CreateGObject(parsnip, GROUP_TYPE::TILE_OBJECT);
+				PrintConsole(_T("마우스 위치에 다 자란 순무 밭 소환됨."));
+
+
+			}
+
+		}
+			
 	}
 	//시간 관련
 	if (commands[0] == _T("TIME")) {
@@ -124,5 +157,38 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 				PrintConsole(buffer);
 			}
 		}
+	}
+	// 아이템을 인벤토리에 추가
+	if (commands[0] == _T("ITEM")) {
+		if (commands[1] != _T("")) {
+			int item_code = _ttoi(commands[1].c_str());
+			int amount = 1;
+			if (commands[2] != _T("")) {
+				amount = _ttoi(commands[2].c_str());
+			}
+			const IItem* item = ItemDb::GetInstance()->get_item(item_code);
+			if (item) {
+				const std::vector<GObject*>& gobjs_player = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::PLAYER);
+				if (!gobjs_player.empty()) {
+					Player* player = dynamic_cast<Player*>(gobjs_player[0]);
+					player->get_inventory()->AddItem(item, amount);
+					TCHAR buffer[100];
+					_stprintf_s(buffer, _T("아이템코드 %d (%s) %d개 인벤토리에 추가됨."), item_code, item->get_item_name().c_str(), amount);
+					PrintConsole(buffer);
+				}
+			}
+		}
+
+
+	}
+	if (commands[0] == _T("TEST")) {
+		DayFinishedUi* ui = DEBUG_NEW DayFinishedUi(true);
+		ui->set_pos(Vector2::Zero());
+		ui->set_scale(Core::GetInstance()->get_resolution());
+		ui->set_name(_T("정산 화면 Ui"));
+		ui->set_group_type(GROUP_TYPE::UI);
+		ui->Init();
+		CreateGObject(ui, GROUP_TYPE::UI);
+		
 	}
 }

@@ -57,18 +57,6 @@ void Game::FinishDay()
 	
 }
 
-void Game::PlayerFreeze()
-{
-	game_state_ |= GAME_STATE_PLAYER_FREEZED;
-	player_freeze_count_++;
-}
-
-void Game::PlayerUnfreeze()
-{
-	player_freeze_count_ = max(player_freeze_count_ - 1, 0);
-	if (player_freeze_count_ == 0)
-		game_state_ &= ~GAME_STATE_PLAYER_FREEZED;
-}
 
 void Game::TimeFreeze()
 {

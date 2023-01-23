@@ -7,6 +7,8 @@
 #include "Interactor.h"
 #include "Player.h"
 #include "PlayerItemHolder.h"
+#include "ItemData.h"
+#include "Equip.h"
 FieldTileObject::FieldTileObject()
 {
 }
@@ -15,7 +17,7 @@ FieldTileObject::~FieldTileObject()
 {
 	//4방향 연결 체크
 	//4방향 연결 여부 체크
-	Vector2 tile_base_pos{};
+	/*Vector2 tile_base_pos{};
 	TileObject* target_tile_obj_up = nullptr;
 	TileObject* target_tile_obj_right = nullptr;
 	TileObject* target_tile_obj_down = nullptr;
@@ -44,13 +46,60 @@ FieldTileObject::~FieldTileObject()
 	if (target_tile_obj_left) {
 		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
 		field_left->SetDisconnected(FIELD_CONNECTED_RIGHT);
-	}
+	}*/
+	
 }
 
 void FieldTileObject::Init(TILE_OBJECT_TYPE tile_object_type_)
 {
 	TileObject::Init(tile_object_type_);
 	//4방향 연결 여부 체크
+	CreateInteractor();
+}
+
+void FieldTileObject::CreateInteractor()
+{
+
+	Interactor* interactor = DEBUG_NEW Interactor();
+	interactor->Init(this, Vector2{ 0, 0 }, get_scale());
+	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
+	set_interactor(interactor);
+}
+
+void FieldTileObject::SetSeed(const Seed* seed)
+{
+	seed_ = seed;
+	seed_day_ = Game::GetInstance()->get_day();
+
+}
+
+void FieldTileObject::Water()
+{
+	watered_ = true;
+
+	//4방향 연결 여부 체크
+	CheckWaterConnected();
+}
+
+void FieldTileObject::Harvest()
+{
+	//해당 위치의 작물을 DropItem으로 뱉어내고...
+	//본인을 빈 땅으로 초기화
+	DropItem* drop = DEBUG_NEW DropItem();
+	
+	drop->Init(ItemDb::GetInstance()->get_item(seed_->get_crop_code()), 1);
+	drop->set_pos(get_pos());
+	drop->set_scale(get_scale());
+	drop->set_name(_T("수확된 순무"));
+	drop->set_group_type(GROUP_TYPE::DROP_ITEM);
+	CreateGObject(drop, GROUP_TYPE::DROP_ITEM);
+
+	SetSeed(nullptr);
+	SetLevel(0);
+}
+
+void FieldTileObject::CheckConnected()
+{
 	Vector2 tile_base_pos{};
 	TileObject* target_tile_obj_up = nullptr;
 	TileObject* target_tile_obj_right = nullptr;
@@ -87,30 +136,10 @@ void FieldTileObject::Init(TILE_OBJECT_TYPE tile_object_type_)
 		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
 		field_left->SetConnected(FIELD_CONNECTED_RIGHT);
 	}
-	CreateInteractor();
 }
 
-void FieldTileObject::CreateInteractor()
+void FieldTileObject::CheckWaterConnected()
 {
-
-	Interactor* interactor = DEBUG_NEW Interactor();
-	interactor->Init(this, Vector2{ 0, 0 }, get_scale());
-	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
-	set_interactor(interactor);
-}
-
-void FieldTileObject::SetSeed(const Seed* seed)
-{
-	seed_ = seed;
-	seed_day_ = Game::GetInstance()->get_day();
-
-}
-
-void FieldTileObject::Water()
-{
-	watered_ = true;
-
-	//4방향 연결 여부 체크
 	Vector2 tile_base_pos{};
 	TileObject* target_tile_obj_up = nullptr;
 	TileObject* target_tile_obj_right = nullptr;
@@ -155,22 +184,6 @@ void FieldTileObject::Water()
 	}
 }
 
-void FieldTileObject::Harvest()
-{
-	//해당 위치의 작물을 DropItem으로 뱉어내고...
-	//본인을 빈 땅으로 초기화
-	DropItem* drop = DEBUG_NEW DropItem();
-	drop->Init(ItemDb::GetInstance()->get_item(seed_->get_item_code()), 1);
-	drop->set_pos(get_pos());
-	drop->set_scale(get_scale());
-	drop->set_name(_T("수확된 순무"));
-	drop->set_group_type(GROUP_TYPE::DROP_ITEM);
-	CreateGObject(drop, GROUP_TYPE::DROP_ITEM);
-
-	SetSeed(nullptr);
-	SetLevel(0);
-}
-
 void FieldTileObject::Update()
 {
 	//날짜가 바뀌었을 때의 동작
@@ -188,6 +201,9 @@ void FieldTileObject::Update()
 		UpdateDay(today);
 		
 	}
+
+	CheckConnected();
+	CheckWaterConnected();
 	
 }
 
@@ -222,10 +238,11 @@ void FieldTileObject::SetWaterConnected(int connected_water)
 
 void FieldTileObject::OnInteract(const GObject* req_obj)
 {
-	//플레이어이고, 맨손이라면 수확
+	//플레이어이고, 들고있는 게 도구이거나 맨손이라면 수확
 	if (req_obj->get_group_type() == GROUP_TYPE::PLAYER && seed_ && get_level() >= seed_->get_max_level()) {
 		const Player* player = dynamic_cast<const Player*>(req_obj);
-		if (!player->get_item_holder() || !player->get_item_holder()->GetItemData()) {
+		if (!player->get_item_holder() || !player->get_item_holder()->GetItemData() 
+			|| dynamic_cast<const Equip*>(player->get_item_holder()->GetItemData()->item)) {
 			Harvest();
 		}
 	}

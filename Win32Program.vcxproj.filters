@@ -154,6 +154,15 @@
     <Filter Include="Game\2.Manager\SceneManager">
       <UniqueIdentifier>{bdef9b2f-c7c6-4e95-b6c1-78fb4eb8a3b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\2.Manager\CollisionManager">
+      <UniqueIdentifier>{9270026c-fd9e-4cfc-95c4-82c10f3c7f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\TooltipUi">
+      <UniqueIdentifier>{d6c3639a-a256-4f68-99bb-b7b7098c19c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4.GObject\Ui\GameUis">
+      <UniqueIdentifier>{b4c72351-5ea2-4a52-8522-48af54e8579b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -227,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="SelectGdi.h">
       <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Game\7.Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Game\2.Manager\EventManager</Filter>
@@ -326,9 +332,6 @@
     </ClInclude>
     <ClInclude Include="Interactor.h">
       <Filter>Game\7.Component\Interactor</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerUi.h">
-      <Filter>Game\4.GObject\Ui</Filter>
     </ClInclude>
     <ClInclude Include="IControlComponent.h">
       <Filter>Game\7.Component\ControlComponent</Filter>
@@ -489,9 +492,38 @@
     <ClInclude Include="ConsoleFrame.h">
       <Filter>Game\9.Decorator</Filter>
     </ClInclude>
-    <ClInclude Include="DebugConsoleUi.h" />
     <ClInclude Include="SceneManager.h">
       <Filter>Game\2.Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Game\2.Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInteractor.h">
+      <Filter>Game\7.Component\Interactor</Filter>
+    </ClInclude>
+    <ClInclude Include="TooltipUi.h">
+      <Filter>Game\4.GObject\Ui\TooltipUi</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugConsoleUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedInfoContainerUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDetailImgUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDetailBtn.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDateUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -553,9 +585,6 @@
     </ClCompile>
     <ClCompile Include="SelectGdi.cpp">
       <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Game\7.Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Game\2.Manager\EventManager</Filter>
@@ -649,9 +678,6 @@
     </ClCompile>
     <ClCompile Include="Interactor.cpp">
       <Filter>Game\7.Component\Interactor</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerUi.cpp">
-      <Filter>Game\4.GObject\Ui</Filter>
     </ClCompile>
     <ClCompile Include="PlayerControlComponent.cpp">
       <Filter>Game\7.Component\ControlComponent</Filter>
@@ -785,9 +811,38 @@
     <ClCompile Include="ConsoleFrame.cpp">
       <Filter>Game\9.Decorator</Filter>
     </ClCompile>
-    <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="SceneManager.cpp">
       <Filter>Game\2.Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Game\2.Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInteractor.cpp">
+      <Filter>Game\7.Component\Interactor</Filter>
+    </ClCompile>
+    <ClCompile Include="TooltipUi.cpp">
+      <Filter>Game\4.GObject\Ui\TooltipUi</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugConsoleUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedInfoContainerUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDetailBtn.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDetailImgUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDateUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

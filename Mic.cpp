@@ -9,11 +9,12 @@ Mic::~Mic()
     delete profile_sprite_;
 }
 
-IItem* Mic::Init(int item_code, tstring name, UINT price)
+IItem* Mic::Init(int item_code, tstring name, tstring description, UINT price)
 {
     item_code_ = item_code;
     name_ = name;
     price_ = price;
+    description_ = description;
     switch (item_code) {
     case (int)ITEM_CODE::STONE: {
 

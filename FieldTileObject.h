@@ -19,6 +19,8 @@ public:
 	void SetSeed(const Seed* seed);
 	void Water();
 	void Harvest();
+	void CheckConnected();
+	void CheckWaterConnected();
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override; 
 	bool is_watered() { return watered_; };

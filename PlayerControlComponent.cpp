@@ -17,7 +17,7 @@ void PlayerControlComponent::Update(RealObject* obj)
 		float run_speed_2x = 2.f;
 		Vector2 move_direction{ 0, 0 };
 		float calculated_speed = player->speed_;
-		if( !CHECK_GAME_STATE(GAME_STATE_PLAYER_FREEZED) && !CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED) ){
+		if( !CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED) ){
 		
 
 			//아이템 사용: C
@@ -39,6 +39,7 @@ void PlayerControlComponent::Update(RealObject* obj)
 			if (KEY_HOLD(KEY::W)) {
 				move_direction.y = -1;
 				player->set_direction(DIRECTION::UP);
+				
 			}
 			else if (KEY_HOLD(KEY::S)) {
 				move_direction.y = 1;

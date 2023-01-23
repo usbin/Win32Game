@@ -27,7 +27,6 @@ void FrameSizer::Update()
 		dragging_ = false;
 	}
 
-	ChildrenUpdate();
 }
 
 void FrameSizer::LbuttonDown()

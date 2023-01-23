@@ -53,6 +53,8 @@ inline void Interactor::OnInteract(const GObject* obj)
 void Interactor::Update()
 {
 	set_pos(owner_->get_pos() + pos_offset_);
+
+	
 }
 
 void Interactor::Render(ID3D11Device* p_d3d_device)

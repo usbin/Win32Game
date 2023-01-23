@@ -22,8 +22,6 @@ void TileUi::Update()
 	
 
 
-
-	ChildrenUpdate();
 }
 
 void TileUi::Render(ID3D11Device* p_d3d_device)

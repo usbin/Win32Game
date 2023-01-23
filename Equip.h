@@ -11,6 +11,7 @@ private:
 	~Equip();
 	int item_code_ = 0;
 	tstring name_;
+	tstring description_;
 	
 	ItemSprite* sprite_ = nullptr;
 	ItemSprite* profile_sprite_ = nullptr;
@@ -20,12 +21,14 @@ private:
 	const UINT MAX_STACK = 1;
 	UINT price_ = 0;
 
-	virtual IItem* Init(int item_code, tstring name, UINT price);
+	virtual IItem* Init(int item_code, tstring name, tstring description, UINT price);
 	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
 public:
 	virtual void OnHold(RealObject* owner) const override;
 	virtual bool Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;
+	virtual tstring get_item_name() const override { return name_; };
+	virtual tstring get_item_description() const override { return description_; };
 	virtual ItemSprite* get_sprite() const override { return sprite_; };
 	virtual ItemSprite* get_profile_sprite() const override { return profile_sprite_; };
 

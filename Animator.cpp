@@ -24,7 +24,7 @@ Animator::~Animator()
 void Animator::Play(const tstring& name, bool exclusive)
 {
 	if (!exclusive_ || is_finished()) {
-		if (exclusive) Game::GetInstance()->PlayerFreeze();
+		if (exclusive) Game::GetInstance()->ControlFreeze();
 		Animation* anim = FindAnimation(name);
 		if (anim) {
 			current_anim_ = anim;
@@ -67,7 +67,7 @@ void Animator::Update()
 		current_anim_->ResetFrame();
 	}
 	if (current_anim_->is_finished() && exclusive_) {
-		Game::GetInstance()->PlayerUnfreeze();
+		Game::GetInstance()->ControlUnfreeze();
 		exclusive_ = false;
 	}
 }

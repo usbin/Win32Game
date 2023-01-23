@@ -38,6 +38,21 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Crop.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedDateUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedDetailBtn.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedDetailImgUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedInfoContainerUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedUi.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DebugConsoleUi.cpp"
 
 
@@ -155,6 +170,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\NaturalThing.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\PlayerInteractor.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShippingBox.cpp"
 
 
@@ -264,6 +282,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TitleText_Title.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\TooltipUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Ui.cpp"

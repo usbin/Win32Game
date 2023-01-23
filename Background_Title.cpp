@@ -35,7 +35,6 @@ Background_Title::~Background_Title()
 void Background_Title::Update()
 {
 	Ui::Update();
-	ChildrenUpdate();
 }
 
 void Background_Title::Render(ID3D11Device* p_d3d_device)

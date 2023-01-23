@@ -104,6 +104,13 @@ void Scene::GetTileObject(const Vector2& pos, Vector2& out_base_pos, TileObject*
 
 }
 
+void Scene::GetTilePos(const Vector2& pos, Vector2& out_base_pos)
+{
+	out_base_pos.x = (int)pos.x - ((int)pos.x % (int)TILE_WIDTH) + TILE_WIDTH / 2;
+	out_base_pos.y = (int)pos.y - ((int)pos.y % (int)TILE_HEIGHT) + TILE_HEIGHT / 2;
+
+}
+
 void Scene::ObjectToTop(GROUP_TYPE group_type, GObject* target)
 {
 	auto iter = std::find(gobjects_[static_cast<UINT>(group_type)].begin(), gobjects_[static_cast<UINT>(group_type)].end(), target);

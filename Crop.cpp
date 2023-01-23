@@ -11,12 +11,12 @@ Crop::~Crop()
     sprite_ = nullptr;
 }
 
-IItem* Crop::Init(int item_code, tstring name, UINT price)
+IItem* Crop::Init(int item_code, tstring name, tstring description, UINT price)
 {
     item_code_ = item_code;
     name_ = name;
     price_ = price;
-
+    description_ = description;
     
     return this;
 }

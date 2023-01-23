@@ -17,13 +17,14 @@ Seed::~Seed()
     }
 }
 
-IItem* Seed::Init(int item_code, int crop_code, UINT max_level, tstring name, UINT price)
+IItem* Seed::Init(int item_code, int crop_code, UINT max_level, tstring name, tstring description, UINT price)
 {
     item_code_ = item_code;
     name_ = name;
     crop_code_ = crop_code;
     price_ = price;
     max_level_ = max_level;
+    description_ = description;
     for (int i = 0; i <= max_level; i++) {
         sprites_.push_back(nullptr);
     }

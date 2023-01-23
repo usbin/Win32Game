@@ -32,6 +32,7 @@ public:
 	void DeleteAllObjects();
 	inline const std::vector<GObject*>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };
 	void GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObject*& p_out_tile_object );		//해당 위치의 타일 오브젝트를 찾아 위치와 함께 반환/없으면 nullptr
+	void GetTilePos(const Vector2& pos, Vector2& p_out_base_pos);
 	void ObjectToTop(GROUP_TYPE group_type, GObject* target);
 	void ObjectToPrev(GROUP_TYPE group_type, GObject* target);
 	void ObjectToNext(GROUP_TYPE group_type, GObject* target);

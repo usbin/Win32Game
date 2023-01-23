@@ -24,8 +24,8 @@ public:
 public:
 	virtual void Update() override;
 	virtual void Render(ID3D11Device* p_d3d_device) override;
-	virtual void OnCollisionEnter(Collider* collider) override;
-	virtual void OnCollisionExit(Collider* collider) override;
+	virtual void OnCollisionEnter(Collider* collider) override final;
+	virtual void OnCollisionExit(Collider* collider) override final;
 	void set_scale(Vector2 scale) = delete;
 	Vector2 get_scale() = delete;
 	inline void set_owner(GObject* owner) { owner_ = owner; };

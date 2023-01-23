@@ -11,6 +11,7 @@ private:
 
 	int item_code_ = 0;
 	tstring name_;
+	tstring description_;
 	ItemSprite* profile_sprite_ = nullptr;
 	ItemSprite* sprite_ = nullptr;
 	Vector2 scale_ = Vector2{};
@@ -19,13 +20,15 @@ private:
 	const UINT MAX_STACK = 99;
 	UINT price_ = 0;
 	
-	IItem* Init(int item_code, tstring name, UINT price_);
+	IItem* Init(int item_code, tstring name, tstring description_, UINT price_);
 	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
 
 public:
 	virtual void OnHold(RealObject* owner) const override;
 	virtual bool Use(RealObject* obj) const override;
 	virtual int get_item_code() const override;
+	virtual tstring get_item_name() const override { return name_; };
+	virtual tstring get_item_description() const override { return description_; };
 	virtual ItemSprite* get_sprite() const override { return sprite_; };
 	virtual ItemSprite* get_profile_sprite() const override { return profile_sprite_; };
 	virtual Vector2 get_scale() const override { return scale_; };

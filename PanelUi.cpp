@@ -18,7 +18,6 @@ void PanelUi::Update()
 {
 	Ui::Update();
 
-	ChildrenUpdate();
 }
 
 void PanelUi::FinalUpdate()
@@ -37,7 +36,6 @@ void PanelUi::FinalUpdate()
 		prev_drag_pos_ = GET_MOUSE_POS();
 	}
 
-	ChildrenFinalUpdate();
 }
 
 void PanelUi::Render(ID3D11Device* p_d3d_device)

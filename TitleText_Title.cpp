@@ -17,7 +17,6 @@ void TitleText_Title::Update()
 	Ui::Update();
 
 	
-	ChildrenUpdate();
 }
 
 void TitleText_Title::FinalUpdate()
@@ -38,7 +37,6 @@ void TitleText_Title::FinalUpdate()
 
 	set_pos(current_pos);
 
-	ChildrenFinalUpdate();
 }
 
 void TitleText_Title::Render(ID3D11Device* p_d3d_device)

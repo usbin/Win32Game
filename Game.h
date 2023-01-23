@@ -10,7 +10,7 @@ private:
 	SINGLETON(Game);
 
 	GAME_STATE game_state_ = 0;
-	int player_freeze_count_=0;
+	//int player_freeze_count_=0;
 	int time_stopped_count_=0;
 	int control_freezed_count_ = 0;
 
@@ -32,8 +32,8 @@ public:
 	UINT get_day_uptime_s() { return day_uptime_s_; };	//게임 속 오늘 하루 0시부터 경과한 시간
 	UINT get_day() { return day_; };					//몇일차인가
 	GAME_STATE get_game_state() { return game_state_; };
-	void PlayerFreeze();
-	void PlayerUnfreeze();
+	//void PlayerFreeze();
+	//void PlayerUnfreeze();
 	void TimeFreeze();
 	void TimeUnfreeze();
 	void ControlFreeze();

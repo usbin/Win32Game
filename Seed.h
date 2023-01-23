@@ -11,6 +11,7 @@ private:
 
 	int item_code_ = 0;
 	tstring name_;
+	tstring description_;
 	ItemSprite* sprite_ = nullptr;
 	ItemSprite* profile_sprite_ = nullptr;
 	Vector2 scale_{};
@@ -24,7 +25,7 @@ private:
 	const Vector2 item_hold_scale{ 48, 48 };
 
 
-	virtual IItem* Init(int item_code, int crop_code, UINT max_level, tstring name, UINT price);
+	virtual IItem* Init(int item_code, int crop_code, UINT max_level, tstring name, tstring description, UINT price);
 	virtual void set_scale(Vector2 scale) override { scale_ = scale; };
 	inline void set_level_sprite(UINT level, ItemSprite* sprite) { if (sprites_.size() > level) sprites_[level] = sprite; };
 	virtual ItemSprite* get_profile_sprite() const override { return profile_sprite_; };
@@ -41,6 +42,9 @@ public:
 
 
 	virtual int get_item_code() const override;
+	virtual tstring get_item_name() const override { return name_; };
+	virtual tstring get_item_description() const override { return description_; };
+	int get_crop_code() const { return crop_code_; };
 	virtual ItemSprite* get_sprite() const override { return sprite_; };
 	inline ItemSprite* get_level_sprite(UINT level) const { return max_level_ >= level ? sprites_[level] : nullptr; };
 	virtual Vector2 get_scale() const override { return scale_; };

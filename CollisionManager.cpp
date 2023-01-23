@@ -17,6 +17,7 @@ void CollisionManager::Init()
 	CheckGroupBitmap(GROUP_TYPE::INTERACTOR, GROUP_TYPE::INTERACTOR);
 
 	CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::INVISIBLE_WALL);
+	CheckGroupBitmap(GROUP_TYPE::PLAYER, GROUP_TYPE::SHIPPING_BOX);
 }
 
 void CollisionManager::Update()

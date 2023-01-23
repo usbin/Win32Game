@@ -168,6 +168,11 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ConsoleFrame.h" />
+    <ClInclude Include="DayFinishedDateUi.h" />
+    <ClInclude Include="DayFinishedDetailBtn.h" />
+    <ClInclude Include="DayFinishedDetailImgUi.h" />
+    <ClInclude Include="DayFinishedInfoContainerUi.h" />
+    <ClInclude Include="DayFinishedUi.h" />
     <ClInclude Include="DebugConsoleUi.h" />
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="DropItem.h" />
@@ -222,6 +227,7 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="NaturalThing.h" />
+    <ClInclude Include="PlayerInteractor.h" />
     <ClInclude Include="ShippingBox.h" />
     <ClInclude Include="SimpleFrame.h" />
     <ClInclude Include="Spawner.h" />
@@ -264,6 +270,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="TimerUi.h" />
     <ClInclude Include="TitleText_Title.h" />
+    <ClInclude Include="TooltipUi.h" />
     <ClInclude Include="Ui.h" />
     <ClInclude Include="UiAnimation.h" />
     <ClInclude Include="UiAnimator.h" />
@@ -285,6 +292,11 @@
     <ClCompile Include="ConsoleFrame.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Crop.cpp" />
+    <ClCompile Include="DayFinishedDateUi.cpp" />
+    <ClCompile Include="DayFinishedDetailBtn.cpp" />
+    <ClCompile Include="DayFinishedDetailImgUi.cpp" />
+    <ClCompile Include="DayFinishedInfoContainerUi.cpp" />
+    <ClCompile Include="DayFinishedUi.cpp" />
     <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="Director_Scene_01.cpp" />
@@ -324,6 +336,7 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NaturalThing.cpp" />
+    <ClCompile Include="PlayerInteractor.cpp" />
     <ClCompile Include="ShippingBox.cpp" />
     <ClCompile Include="SimpleFrame.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -361,6 +374,7 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimerUi.cpp" />
     <ClCompile Include="TitleText_Title.cpp" />
+    <ClCompile Include="TooltipUi.cpp" />
     <ClCompile Include="Ui.cpp" />
     <ClCompile Include="UiAnimation.cpp" />
     <ClCompile Include="UiAnimator.cpp" />

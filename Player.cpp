@@ -8,7 +8,7 @@
 #include "Collider.h"
 #include "RealObjectAnimator.h"
 #include "PathManager.h"
-#include "Interactor.h"
+#include "PlayerInteractor.h"
 #include "PlayerControlComponent.h"
 #include "PhysicsComponent.h"
 #include "GObjectSprite.h"
@@ -84,15 +84,15 @@ void Player::CreateCollider()
 	collider->set_owner(this);
 	collider->set_scale(Vector2{ 40, 40 });
 	collider->set_is_physical_collider(true);
-	collider->set_pos_offset(Vector2{ 0, 30 });
+	collider->set_pos_offset(Vector2{ 0, 36 });
 	set_collider(collider);
 }
 
 
 void Player::CreateInteractor()
 {
-	Interactor* interactor = DEBUG_NEW Interactor();
-	interactor->Init(this, Vector2(0, 0), Vector2(100, 100));
+	PlayerInteractor* interactor = DEBUG_NEW PlayerInteractor();
+	interactor->Init(this, Vector2(0, 36), Vector2(40, 40));
 	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
 	set_interactor(interactor);
 	

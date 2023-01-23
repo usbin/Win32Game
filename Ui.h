@@ -33,6 +33,8 @@ private:
 	bool is_selected_ = false;
 
 
+	virtual void ChildrenUpdate() final;
+	virtual void ChildrenFinalUpdate() final;
 
 
 public:
@@ -40,8 +42,6 @@ public:
 	virtual void FinalUpdate() override;
 	virtual void Render(ID3D11Device* p_d3d_device);
 protected:
-	virtual void ChildrenUpdate() final;
-	virtual void ChildrenFinalUpdate() final;
 	virtual void ChildrenRender(ID3D11Device* p_d3d_device) final;
 
 

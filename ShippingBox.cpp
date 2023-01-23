@@ -10,20 +10,39 @@
 #include "RealObjectSprite.h"
 #include "Texture.h"
 #include "ResManager.h"
+#include "Collider.h"
+ShippingBox::~ShippingBox()
+{
+	SafeDeleteVector<const ItemData*>(items_);
+}
 void ShippingBox::Init()
 {
-	render_cmp_ = DEBUG_NEW RealObjectRenderComponent(this);
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Shipping Box"), _T("texture\\StardewValley_ExitBtn.png"));
-	RealObjectSprite* sprite = DEBUG_NEW RealObjectSprite();
-	sprite->QuickSet(texture, this, Vector2{ 0, 0 }, texture->get_size());
-	render_cmp_->ChangeSprite(sprite);
-
+	CreateRenderCmp();
 	CreateInteractor();
+	CreateCollider();
+}
+void ShippingBox::CreateRenderCmp()
+{
+	render_cmp_ = DEBUG_NEW RealObjectRenderComponent(this);
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Stardew Valley Farm Spring"), _T("texture\\StardewValley_FarmSpring.png"));
+	RealObjectSprite* sprite = DEBUG_NEW RealObjectSprite();
+	sprite->QuickSet(texture, this, Vector2{ 192, 224 }, Vector2{ 32, 32 });
+	render_cmp_->ChangeSprite(sprite);
+}
+void ShippingBox::CreateCollider()
+{
+	Collider* collider = DEBUG_NEW Collider();
+	collider->set_is_physical_collider(true);
+	collider->set_pos_offset(Vector2{ 0, 10 });
+	collider->set_scale(get_scale() - Vector2{ 0, 10 });
+	collider->set_owner(this);
+	collider_ = collider;
 }
 void ShippingBox::CreateInteractor()
 {
 	Interactor* interactor = DEBUG_NEW Interactor();
 	interactor->Init(this, Vector2{ 0, 0 }, get_scale());
+	interactor->get_collider()->set_is_physical_collider(true);
 	CreateGObject(interactor, GROUP_TYPE::INTERACTOR);
 	set_interactor(interactor);
 }

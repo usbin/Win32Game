@@ -25,15 +25,15 @@ void ItemDb::Init()
 	Seed* parsnip_seed = DEBUG_NEW Seed();
 	Crop* parsnip = DEBUG_NEW Crop();
 
-	hoe->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"), 500);
-	watering_pot->Init((int)ITEM_CODE::WATERING_POT, _T("¹°»Ñ¸®°³"), 500);
-	pickaxe->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"), 500);
-	axe->Init((int)ITEM_CODE::AXE, _T("µµ³¢"), 500);
-	stone->Init((int)ITEM_CODE::STONE, _T("µ¹"), 5);
-	weed->Init((int)ITEM_CODE::WEED, _T("ÀâÃÊ"), 5);
-	wood->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"), 5);
-	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, (int)ITEM_CODE::PARSNIP, 5, _T("¼ø¹« ¾¾¾Ñ"), 25);
-	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"), 100);
+	hoe->Init((int)ITEM_CODE::HOE, _T("±ªÀÌ"), _T("±ªÀÌ"), 500);
+	watering_pot->Init((int)ITEM_CODE::WATERING_POT, _T("¹°»Ñ¸®°³"), _T("¹°»Ñ¸®°³"), 500);
+	pickaxe->Init((int)ITEM_CODE::PICKAXE, _T("°î±ªÀÌ"), _T("°î±ªÀÌ"), 500);
+	axe->Init((int)ITEM_CODE::AXE, _T("µµ³¢"), _T("µµ³¢"), 500);
+	stone->Init((int)ITEM_CODE::STONE, _T("µ¹"), _T("µ¹"), 5);
+	weed->Init((int)ITEM_CODE::WEED, _T("ÀâÃÊ"), _T("ÀâÃÊ"), 5);
+	wood->Init((int)ITEM_CODE::WOOD, _T("³ª¹«"), _T("³ª¹«"), 5);
+	parsnip_seed->Init((int)ITEM_CODE::PARSNIP_SEED, (int)ITEM_CODE::PARSNIP, 5, _T("¼ø¹« ¾¾¾Ñ"), _T("¼ø¹« ¾¾¾Ñ"), 25);
+	parsnip->Init((int)ITEM_CODE::PARSNIP, _T("¼ø¹«"), _T("¼ø¹«"), 100);
 	hoe->set_scale(Vector2{ 192, 192 });
 	watering_pot->set_scale(Vector2{ 192, 192 });
 	pickaxe->set_scale(Vector2{ 192, 192 });

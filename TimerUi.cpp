@@ -24,7 +24,6 @@ void TimerUi::Update()
 	}
 
 
-	ChildrenUpdate();
 }
 
 void TimerUi::Render(ID3D11Device* p_d3d_device)

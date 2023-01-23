@@ -167,7 +167,6 @@ void InvisibleWallEditFrame::Update()
 	}
 	
 	
-	ChildrenUpdate();
 }
 
 void InvisibleWallEditFrame::FinalUpdate()
@@ -175,7 +174,6 @@ void InvisibleWallEditFrame::FinalUpdate()
 	Ui::FinalUpdate();
 
 	
-	ChildrenFinalUpdate();
 }
 
 void InvisibleWallEditFrame::Render(ID3D11Device* p_d3d_device)

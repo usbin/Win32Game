@@ -29,7 +29,6 @@ Scene_Tool::~Scene_Tool()
 
 bool Scene_Tool::Enter()
 {
-	Game::GetInstance()->PlayerUnfreeze();
 
 	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 	Camera::GetInstance()->set_target(nullptr);

@@ -37,7 +37,7 @@ bool Scene_01::Enter()
 	//출하상자 생성
 	ShippingBox* shipping_box = DEBUG_NEW ShippingBox();
 	shipping_box->set_pos(Vector2{3457, 718 });
-	shipping_box->set_scale(Vector2{ 100, 100 });
+	shipping_box->set_scale(Vector2{ 96, 96 });
 	shipping_box->set_group_type(GROUP_TYPE::SHIPPING_BOX);
 	shipping_box->Init();
 	CreateGObject(shipping_box, GROUP_TYPE::SHIPPING_BOX);

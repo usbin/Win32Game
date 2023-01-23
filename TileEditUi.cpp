@@ -410,7 +410,6 @@ void TileEditUi::Update()
 	}
 
 
-	ChildrenUpdate();
 }
 
 void TileEditUi::Render(ID3D11Device* p_d3d_device)

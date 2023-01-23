@@ -3,14 +3,17 @@
 #include "ButtonUi.h";
 class InventoryUi;
 class ItemData;
+class TooltipUi;
 class InventoryCellUi : public ButtonUi
 {
 private:
 	InventoryUi* inventory_ui_ = nullptr;
 	int index_ = -1;
 	const ItemData* item_data_ = nullptr;
+	TooltipUi* tooltip_ = nullptr;
 public:
 	InventoryCellUi(bool is_static_pos) : ButtonUi(is_static_pos) {};
+	~InventoryCellUi();
 	void Init(InventoryUi* inventory_ui, int index, const ItemData* item_data);
 	void Reset(const ItemData* item_data);
 	void Update() override;

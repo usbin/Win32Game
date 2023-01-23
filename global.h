@@ -74,9 +74,9 @@ const int CELL_COUNT_INLINE = (static_cast<int>(KEY::KEY_PLUS) - static_cast<int
 const int CELL_COUNT_MAX = CELL_COUNT_INLINE * 3;
 
 typedef int GAME_STATE;
-const GAME_STATE GAME_STATE_PLAYER_FREEZED = 0b001;	// 플레이어 프리징 여부
+const GAME_STATE GAME_STATE_CONTROL_FREEZED = 0b001;// 아무 키도 누르지 못하고 지켜봐야 할 때
 const GAME_STATE GAME_STATE_TIME_STOPPED = 0b010;	// 시간 프리징 여부(자유 움직임이 동반되는 이벤트 발생 중일 때 등)
-const GAME_STATE GAME_STATE_CONTROL_FREEZED = 0b100;// 아무 키도 누르지 못하고 지켜봐야 할 때
+//const GAME_STATE GAME_STATE_PLAYER_FREEZED = 0b100;	// 플레이어 프리징 여부
 
 #include "inline.h"
 #include "function.h"

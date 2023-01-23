@@ -33,7 +33,6 @@ void NewGameBtn_Title::Update()
 		}
 	}
 	text_color_.a = text_alpha_;
-	ChildrenUpdate();
 	
 }
 

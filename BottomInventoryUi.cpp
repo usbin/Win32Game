@@ -92,7 +92,6 @@ void BottomInventoryUi::Update()
 	
 	
 
-	ChildrenUpdate();
 }
 
 void BottomInventoryUi::Render(ID3D11Device* p_d3d_device)

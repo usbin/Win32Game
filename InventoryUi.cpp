@@ -123,7 +123,6 @@ void InventoryUi::Update()
 	//	drag_start_cell_ = nullptr;
 	//}
 
-	ChildrenUpdate();
 
 }
 
