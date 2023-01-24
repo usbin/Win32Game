@@ -13,7 +13,7 @@ BottomInventoryCellUi::BottomInventoryCellUi()
 
 BottomInventoryCellUi::~BottomInventoryCellUi()
 {
-	delete tooltip_;
+	DeleteGObject(tooltip_, GROUP_TYPE::UI);
 }
 
 inline void BottomInventoryCellUi::Init(BottomInventoryUi* bottom_inventory_ui, int index, const ItemData* item_data)
@@ -36,7 +36,7 @@ inline void BottomInventoryCellUi::Init(BottomInventoryUi* bottom_inventory_ui, 
 void BottomInventoryCellUi::Update()
 {
 	Ui::Update();
-	if (tooltip_->IsDead()) tooltip_ = nullptr;
+	if (tooltip_&&tooltip_->IsDead()) tooltip_ = nullptr;
 
 	if (tooltip_) {
 		tooltip_->set_enabled(get_mouse_on());
@@ -49,11 +49,11 @@ void BottomInventoryCellUi::Render(ID3D11Device* p_d3d_device)
 
 	if (bottom_inventory_ui_) {
 		if (bottom_inventory_ui_->get_picked_index() == index_) DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFFFF0000), 1, RENDER_LAYER::TOP);
-		else DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1, RENDER_LAYER::TOP);
+		else DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1, RENDER_LAYER::PLAYER);
 		if (item_data_ && item_data_->item) {
 			const IItem* item = item_data_->item;
 			if (item->get_sprite()) {
-				DrawTexture(p_d3d_device, get_final_pos(), get_scale(), item->get_profile_sprite()->get_base_pos(), item->get_profile_sprite()->get_scale(), item->get_profile_sprite()->get_texture());
+				DrawTexture(p_d3d_device, get_final_pos(), get_scale(), item->get_profile_sprite()->get_base_pos(), item->get_profile_sprite()->get_scale(), item->get_profile_sprite()->get_texture(), RENDER_LAYER::PLAYER);
 				TCHAR amount[5];
 				_stprintf_s(amount, _T("%d"), item_data_->amount);
 				DrawFixedsizeText(p_d3d_device, get_final_pos(), Vector2{ 40, 15 }, amount, _tcslen(amount), _T("µÕ±Ù¸ð²Ã"), 14

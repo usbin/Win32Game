@@ -18,6 +18,7 @@ private:
 	RealObject* owner_ = nullptr;
 	RealObjectSprite* sprite_ = nullptr;
 	RealObjectAnimator* animator_ = nullptr;
+	RENDER_LAYER render_layer_ = RENDER_LAYER::GROUND;
 
 public:
 	virtual void Update(GObject* owner);
@@ -28,7 +29,7 @@ public:
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };
-
+	inline void set_render_layer(RENDER_LAYER layer) { render_layer_ = layer; };
 
 	virtual bool is_current_playing(tstring anim_name) override;
 	virtual void PlayItemAnimation(ITEM_CODE item_code) override;

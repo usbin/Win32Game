@@ -22,7 +22,7 @@ public:
 		: hdc_{ 0 } {};
 	Scene(ID3D11Device* p_d3d_device);
 	virtual ~Scene(); //자식 쪽의 상속자 호출을 위함
-	virtual bool Enter() = 0; //씬이 시작할 때 실행
+	virtual bool Enter(SCENE_TYPE from) = 0; //씬이 시작할 때 실행
 	void Update();//매 프레임마다 동작할 구문
 	void Render(ID3D11Device* p_d3d_device);
 	virtual bool Exit() = 0;//씬이 종료될 때 실행
@@ -30,6 +30,8 @@ public:
 	void AddGObject(GObject* object, GROUP_TYPE type);
 	void DeleteGroupObjects(GROUP_TYPE type);
 	void DeleteAllObjects();
+	void EnableAllObjects();
+	void DisableAllObjects();
 	inline const std::vector<GObject*>& GetGroupObjects(GROUP_TYPE group_type) { return gobjects_[static_cast<UINT>(group_type)]; };
 	void GetTileObject(const Vector2& pos, Vector2& p_out_base_pos, TileObject*& p_out_tile_object );		//해당 위치의 타일 오브젝트를 찾아 위치와 함께 반환/없으면 nullptr
 	void GetTilePos(const Vector2& pos, Vector2& p_out_base_pos);

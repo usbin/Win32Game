@@ -21,7 +21,9 @@ InventoryUi::~InventoryUi()
 {
 	if (owner_) {
 		Inventory* inventory = owner_->get_inventory();
-		inventory->RemoveItemHandler(this);
+		if (inventory) {
+			inventory->RemoveItemHandler(this);
+		}
 
 	}
 }
@@ -159,6 +161,7 @@ void InventoryUi::Render(ID3D11Device* p_d3d_device)
 
 	ChildrenRender(p_d3d_device);
 }
+
 
 void InventoryUi::SetDragStart(int index)
 {

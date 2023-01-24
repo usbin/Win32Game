@@ -72,11 +72,11 @@ enum class KEY { //KeyManager.cpp의 g_windows_keys에도 같은 순서로 추가해야함.
 
 enum class GROUP_TYPE
 {
-	DEFAULT=0,
-	BACKGROUND1=2,
-	BACKGROUND2=3,
-	BACKGROUND3=4,
-	TILE=5,			//툴 씬에서만 사용되는 타일
+	DEFAULT = 0,
+	BACKGROUND1 = 2,
+	BACKGROUND2 = 3,
+	BACKGROUND3 = 4,
+	TILE = 5,			//툴 씬에서만 사용되는 타일
 	TILE_OBJECT,	//밭, 작물, 돌 등 타일 1개를 차지하는 오브젝트. 전체 NxM의 포인터를 씬 안에서 유지해야함.
 	DROP_ITEM,
 	SHIPPING_BOX,
@@ -84,6 +84,7 @@ enum class GROUP_TYPE
 	THING,
 	MISSILE,
 	MONSTER,
+	TOPGROUND,
 	DIRECTOR,
 	INTERACTOR = 29,
 	INVISIBLE_WALL = 30,
@@ -94,7 +95,8 @@ enum class GROUP_TYPE
 enum class SCENE_TYPE
 {
 	TITLE,
-	SCENE_01,
+	SCENE_FARM,
+	SCENE_FARMHOUSE,
 	SCENE_TOOL,
 	END
 };
@@ -190,15 +192,3 @@ enum class RENDER_LAYER
 //====================
 // 텍스트 출력용
 //=====================
-enum class TEXT_BRUSHES {
-	BLACK,
-	END
-};
-enum class FONT
-{
-	Arial,
-	DUNGGEONMO,
-	END
-};
-
-

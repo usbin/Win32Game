@@ -1,17 +1,17 @@
-#include "Director_Scene_01.h"
+#include "Director_Scene_Farm.h"
 #include "PathManager.h"
 #include "FileManager.h"
 #include "Core.h"
 
-Director_Scene_01::Director_Scene_01()
+Director_Scene_Farm::Director_Scene_Farm()
 {
 }
 
-Director_Scene_01::~Director_Scene_01()
+Director_Scene_Farm::~Director_Scene_Farm()
 {
 }
 
-void Director_Scene_01::Update()
+void Director_Scene_Farm::Update()
 {
     if (!CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED)) {
         if (KEY_DOWN(KEY::F11)) {

@@ -29,6 +29,7 @@ public:
 	inline void set_animator(RealObjectAnimator* animator) { animator_ = animator; };
 	inline RealObjectAnimator* get_animator() { return animator_; };
 	RealObject* get_owner() { return owner_; };
+	void set_owner(Player* player) { owner_ = player; animator_->set_owner(player); };
 
 	
 	virtual bool is_current_playing(tstring anim_name) override;

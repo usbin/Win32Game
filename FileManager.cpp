@@ -6,16 +6,23 @@
 #include "InvisibleWall.h"
 #include "Core.h"
 #include "resource.h"
-#include "FileSaver1_0_0.h"
-FileManager::FileManager() {};
-FileManager::~FileManager() {};
+#include "FileSaver1_1_0.h"
+FileManager::FileManager() {
+	file_saver_ = DEBUG_NEW FileSaver1_1_0();
+	old_saver_ = DEBUG_NEW FileSaver1_0_0();
+};
+FileManager::~FileManager() {
+	delete file_saver_;
+	delete old_saver_;
+};
+
 void FileManager::SaveMap(const tstring& file_path)
 {
 	FILE* p_file;
 	_tfopen_s(&p_file, file_path.c_str(), _T("wb"));
 	assert(p_file);
 
-	FileSaver1_0_0::GetInstance()->SaveMapToFile(p_file);
+	file_saver_->SaveMapToFile(p_file);
 
 	fclose(p_file);
 	
@@ -30,6 +37,7 @@ void FileManager::LoadMap(const tstring& file_path)
 	EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER1, MF_DISABLED);
 	EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER2, MF_DISABLED);
 	EnableMenuItem(hmenu, IDM_REMOVE_BACKGROUND_LAYER3, MF_DISABLED);
+	EnableMenuItem(hmenu, IDM_REMOVE_TOPGROUND, MF_DISABLED);
 
 
 	FILE* p_file;
@@ -38,7 +46,7 @@ void FileManager::LoadMap(const tstring& file_path)
 		return;
 	}
 
-	FileSaver1_0_0::GetInstance()->LoadMapFromFile(p_file);
+	file_saver_->LoadMapFromFile(p_file);
 
 	fclose(p_file);
 
@@ -59,7 +67,7 @@ void FileManager::SaveWallFile(const tstring& file_path)
 	UINT walls_size = walls.size();
 	fwrite(&walls_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < walls.size(); i++) {
-		FileSaver1_0_0::GetInstance()->SaveWall(p_file, dynamic_cast<InvisibleWall*>(walls[i]));
+		file_saver_->SaveWall(p_file, dynamic_cast<InvisibleWall*>(walls[i]));
 	}
 
 	fclose(p_file);
@@ -78,7 +86,7 @@ void FileManager::LoadWallFile(const tstring& file_path)
 	UINT walls_size;
 	fread(&walls_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < walls_size; i++) {
-		InvisibleWall* wall = FileSaver1_0_0::GetInstance()->LoadWall(p_file);
+		InvisibleWall* wall = file_saver_->LoadWall(p_file);
 		CreateGObject(wall, GROUP_TYPE::INVISIBLE_WALL);
 	}
 
@@ -100,7 +108,7 @@ void FileManager::SaveTilemapFile(const tstring& file_path)
 	UINT tiles_size = tiles.size();
 	fwrite(&tiles_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < tiles.size(); i++) {
-		FileSaver1_0_0::GetInstance()->SaveTile(p_file, dynamic_cast<Tile*>(tiles[i]));
+		file_saver_->SaveTile(p_file, dynamic_cast<Tile*>(tiles[i]));
 
 	}
 	fclose(p_file);
@@ -115,7 +123,7 @@ void FileManager::LoadTilemapFile(const tstring& file_path)
 	UINT tiles_size;
 	fread(&tiles_size, sizeof(UINT), 1, p_file);
 	for (int i = 0; i < tiles_size; i++) {
-		Tile* tile = FileSaver1_0_0::GetInstance()->LoadTile(p_file);
+		Tile* tile = file_saver_->LoadTile(p_file);
 		CreateGObject(tile, GROUP_TYPE::TILE);
 
 	}

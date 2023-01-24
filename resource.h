@@ -62,6 +62,12 @@
 #define IDM_LOAD_WALL                   32839
 #define IDM_DELETE_WALL                 32840
 #define IDM_DELETE_MAP                  32841
+#define ID_32842                        32842
+#define ID_TOP_32843                    32843
+#define ID_TOP_32844                    32844
+#define IDM_LOAD_TOPGROUND              32845
+#define IDM_DELETE_TOPGROUND            32846
+#define IDM_REMOVE_TOPGROUND            32847
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -70,7 +76,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
-#define _APS_NEXT_COMMAND_VALUE         32842
+#define _APS_NEXT_COMMAND_VALUE         32848
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

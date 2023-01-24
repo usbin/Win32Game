@@ -225,6 +225,55 @@ void DrawTexture(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vect
 
 }
 
+void DrawTextureToRenderTarget(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const Vector2& texture_base_pos, const Vector2& texture_scale, Texture* texture, ID3D11RenderTargetView* render_target_view)
+{
+	ID3D11DeviceContext* p_immediate_context;
+	p_immediate_context = DXClass::GetInstance()->get_immediate_context();
+
+	ID3D11ShaderResourceView* p_resource_view = texture->get_resource_view();
+	Vector2 r = texture->get_size();
+	Vector2 normalized_texture_base_pos = texture_base_pos / r;
+	Vector2 normalized_texture_scale = texture_scale / r;
+
+	//점 좌표
+	const int vertice_count = 4;
+	CustomVertex vertices[] =
+	{
+		{ XMFLOAT3(base_pos.x,				base_pos.y,				0.f), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y,				0.f), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y)},
+		{ XMFLOAT3(base_pos.x + scale.x,	base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x + normalized_texture_scale.x, normalized_texture_base_pos.y + normalized_texture_scale.y)},
+		{ XMFLOAT3(base_pos.x,				base_pos.y + scale.y,	0.f), XMFLOAT2(normalized_texture_base_pos.x, normalized_texture_base_pos.y + normalized_texture_scale.y)}
+	};
+	//DX는 반드시 시계방향으로 그려야 함. scale이 음수면 좌우 반전이 된 것이므로 반시계방향으로 그려지게 됨. 따라서 시계방향으로 그려지도록 정점 순서 변경.
+	if (scale.x < 0) {
+		CustomVertex tmp = vertices[1];
+		vertices[1] = vertices[3];
+		vertices[3] = tmp;
+	}
+
+	//면 인덱스
+	const int plane_indices_count = 6;
+	UINT plane_indices[] = {
+		0, 1, 2,
+
+		2, 3, 0
+	};
+	//Vertex Buffer 채우기
+	DXClass::GetInstance()->WriteVertexBuffer(vertices, vertice_count);
+	//Plane Index Buffer 채우기
+	DXClass::GetInstance()->WriteIndexBuffer(plane_indices, plane_indices_count);
+	//Constant Buffer 채우기
+	DXClass::GetInstance()->WriteConstantBufferOnRender(TRUE, XMFLOAT4(0, 0, 0, 0));
+
+	p_immediate_context->PSSetShaderResources(0, 1, &p_resource_view);
+	p_immediate_context->OMSetRenderTargets(1, &render_target_view, NULL);
+
+	// Set primitive topology
+	p_immediate_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	p_immediate_context->DrawIndexed(plane_indices_count, 0, 0);
+
+}
+
 void DrawFixedsizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const Vector2& scale, const TCHAR* text, UINT text_length, tstring font_name, UINT font_size, D2D1::ColorF font_color, DWRITE_FONT_STYLE font_style, DWRITE_FONT_WEIGHT font_weight, DWRITE_TEXT_ALIGNMENT text_alighment, DWRITE_PARAGRAPH_ALIGNMENT paragraph_alignment, RENDER_LAYER layer)
 {
 	DXClass::GetInstance()->SetTextFormat(font_name, _T("ko-kr"), font_size, font_style, font_weight, text_alighment, paragraph_alignment);

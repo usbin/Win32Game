@@ -37,7 +37,10 @@ void Director_Scene_Title::Update()
     }
 
     if (KEY_DOWN(KEY::F2)) {
-        ChangeScene(SCENE_TYPE::SCENE_01);
+        ChangeScene(SCENE_TYPE::SCENE_FARM);
+    }
+    if (KEY_DOWN(KEY::F3)) {
+        ChangeScene(SCENE_TYPE::SCENE_FARMHOUSE);
     }
 	if (KEY_DOWN(KEY::F11)) {
 		ChangeScene(SCENE_TYPE::SCENE_TOOL);

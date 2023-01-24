@@ -159,6 +159,8 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AskSleepBtn.h" />
+    <ClInclude Include="AskSleepUi.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Background_Title.h" />
     <ClInclude Include="BottomInventoryCellUi.h" />
@@ -177,16 +179,20 @@
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropItemRenderComponent.h" />
+    <ClInclude Include="FarmhouseBed.h" />
+    <ClInclude Include="FarmhouseDoor.h" />
+    <ClInclude Include="FarmhouseDoor_Exit.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FieldTileObject.h" />
     <ClInclude Include="FileSaver1_0_0.h" />
+    <ClInclude Include="FileSaver1_1_0.h" />
     <ClInclude Include="IFrame.h" />
     <ClInclude Include="GObjectSprite.h" />
     <ClInclude Include="HorizontalSplitFrame.h" />
     <ClInclude Include="IControlComponent.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Crop.h" />
-    <ClInclude Include="Director_Scene_01.h" />
+    <ClInclude Include="Director_Scene_Farm.h" />
     <ClInclude Include="Director_Scene_Title.h" />
     <ClInclude Include="DXClass.h" />
     <ClInclude Include="enum.h" />
@@ -228,6 +234,8 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="NaturalThing.h" />
     <ClInclude Include="PlayerInteractor.h" />
+    <ClInclude Include="RuntimeData.h" />
+    <ClInclude Include="Scene_Farmhouse.h" />
     <ClInclude Include="ShippingBox.h" />
     <ClInclude Include="SimpleFrame.h" />
     <ClInclude Include="Spawner.h" />
@@ -250,7 +258,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Scene_01.h" />
+    <ClInclude Include="Scene_Farm.h" />
     <ClInclude Include="Scene_Title.h" />
     <ClInclude Include="Scene_Tool.h" />
     <ClInclude Include="Director_Scene_Tool.h" />
@@ -271,6 +279,7 @@
     <ClInclude Include="TimerUi.h" />
     <ClInclude Include="TitleText_Title.h" />
     <ClInclude Include="TooltipUi.h" />
+    <ClInclude Include="Topground.h" />
     <ClInclude Include="Ui.h" />
     <ClInclude Include="UiAnimation.h" />
     <ClInclude Include="UiAnimator.h" />
@@ -281,6 +290,8 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AskSleepBtn.cpp" />
+    <ClCompile Include="AskSleepUi.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Background_Title.cpp" />
     <ClCompile Include="BottomInventoryCellUi.cpp" />
@@ -299,17 +310,21 @@
     <ClCompile Include="DayFinishedUi.cpp" />
     <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="Decorator.cpp" />
-    <ClCompile Include="Director_Scene_01.cpp" />
+    <ClCompile Include="Director_Scene_Farm.cpp" />
     <ClCompile Include="Director_Scene_Title.cpp" />
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropItemRenderComponent.cpp" />
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FarmhouseBed.cpp" />
+    <ClCompile Include="FarmhouseDoor.cpp" />
+    <ClCompile Include="FarmhouseDoor_Exit.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FieldTileObject.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FileSaver1_0_0.cpp" />
+    <ClCompile Include="FileSaver1_1_0.cpp" />
     <ClCompile Include="FrameSizer.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -337,6 +352,8 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="NaturalThing.cpp" />
     <ClCompile Include="PlayerInteractor.cpp" />
+    <ClCompile Include="RuntimeData.cpp" />
+    <ClCompile Include="Scene_Farmhouse.cpp" />
     <ClCompile Include="ShippingBox.cpp" />
     <ClCompile Include="SimpleFrame.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -357,7 +374,7 @@
     <ClCompile Include="ResManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Scene_01.cpp" />
+    <ClCompile Include="Scene_Farm.cpp" />
     <ClCompile Include="Scene_Title.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="Director_Scene_Tool.cpp" />
@@ -375,6 +392,7 @@
     <ClCompile Include="TimerUi.cpp" />
     <ClCompile Include="TitleText_Title.cpp" />
     <ClCompile Include="TooltipUi.cpp" />
+    <ClCompile Include="Topground.cpp" />
     <ClCompile Include="Ui.cpp" />
     <ClCompile Include="UiAnimation.cpp" />
     <ClCompile Include="UiAnimator.cpp" />

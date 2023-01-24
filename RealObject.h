@@ -44,12 +44,18 @@ public:
 	inline Collider* get_collider() { return collider_; };
 	inline void set_interactor(Interactor* interactor) { interactor_ = interactor; };
 	inline Interactor* get_interactor() { return interactor_; };
+	inline void set_control_component(IControlComponent* cmp) { control_cmp_ = cmp; };
+	inline IControlComponent* get_control_component() { return control_cmp_; };
+	inline void set_physics_component(PhysicsComponent* cmp) { physics_cmp_ = cmp; };
+	inline PhysicsComponent* get_physics_component() { return physics_cmp_; };
 	inline IRenderComponent* get_render_component() { return render_cmp_; };
-	inline void set_render_component(RealObjectRenderComponent* cmp) { render_cmp_ = cmp; };
+	inline void set_render_component(IRenderComponent* cmp) { render_cmp_ = cmp; };
 	inline void set_velocity(Vector2 velocity) { velocity_ = velocity; };
 	inline Vector2 get_velocity() { return velocity_; };
 	virtual ISprite* get_sprite() { return render_cmp_ ? dynamic_cast<ISprite*>(render_cmp_->get_sprite()) : nullptr; };
 	inline IItemHolder* get_item_holder() const { return item_holder_; };
+
+	virtual void MoveTo(GObject* gobject) override;
 
 	friend class PhysicsComponent;
 

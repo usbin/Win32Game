@@ -25,5 +25,6 @@ public:
 	inline Player* get_owner() { return owner_; };
 	void PickItem(int index);
 	inline int get_picked_index() { return picked_index_; };
+	void OnDead() override;
 };
 

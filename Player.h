@@ -14,10 +14,6 @@ class Player : public RealObject
 {
 public:
 	Player();
-	//Player(const Player& origin)
-	//	:GObject(origin)
-	//	,//추가로 초기화할것{
-	//}
 	virtual ~Player() override;
 
 
@@ -50,6 +46,7 @@ private:
 
 public:
 	inline Inventory* get_inventory() const { return inventory_; };
+	virtual void MoveTo(GObject* gobject) override;
 	
 	friend class PlayerControlComponent;
 	friend class PlayerRenderComponent;

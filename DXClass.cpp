@@ -695,7 +695,7 @@ void DXClass::SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size)
 
 			RealObjectSprite* tile_sprite = dynamic_cast<RealObjectSprite*>( tile->get_render_component()->get_sprite());
 			if (tile_sprite)
-			DrawTexture(p_d3d_device_, tiles[i]->get_pos() - tiles[i]->get_scale() / 2.f, tiles[i]->get_scale(), tile_sprite->get_base_pos(), tile_sprite->get_scale(), tile_sprite->get_texture());
+			DrawTextureToRenderTarget(p_d3d_device_, tiles[i]->get_pos() - tiles[i]->get_scale() / 2.f, tiles[i]->get_scale(), tile_sprite->get_base_pos(), tile_sprite->get_scale(), tile_sprite->get_texture(), render_target_view_tilemap);
 		}
 	}
 	p_immediate_context_->DrawIndexed(1, 0, 0);

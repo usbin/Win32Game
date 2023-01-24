@@ -77,8 +77,6 @@ void FieldTileObject::Water()
 {
 	watered_ = true;
 
-	//4방향 연결 여부 체크
-	CheckWaterConnected();
 }
 
 void FieldTileObject::Harvest()
@@ -120,69 +118,41 @@ void FieldTileObject::CheckConnected()
 		field_connected_ |= FIELD_CONNECTED_UP;
 		FieldTileObject* field_up = dynamic_cast<FieldTileObject*>(target_tile_obj_up);
 		field_up->SetConnected(FIELD_CONNECTED_DOWN);
-	}
-	if (target_tile_obj_right) {
-		field_connected_ |= FIELD_CONNECTED_RIGHT;
-		FieldTileObject* field_right = dynamic_cast<FieldTileObject*>(target_tile_obj_right);
-		field_right->SetConnected(FIELD_CONNECTED_LEFT);
-	}
-	if (target_tile_obj_down) {
-		field_connected_ |= FIELD_CONNECTED_DOWN;
-		FieldTileObject* field_down = dynamic_cast<FieldTileObject*>(target_tile_obj_down);
-		field_down->SetConnected(FIELD_CONNECTED_UP);
-	}
-	if (target_tile_obj_left) {
-		field_connected_ |= FIELD_CONNECTED_LEFT;
-		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
-		field_left->SetConnected(FIELD_CONNECTED_RIGHT);
-	}
-}
 
-void FieldTileObject::CheckWaterConnected()
-{
-	Vector2 tile_base_pos{};
-	TileObject* target_tile_obj_up = nullptr;
-	TileObject* target_tile_obj_right = nullptr;
-	TileObject* target_tile_obj_down = nullptr;
-	TileObject* target_tile_obj_left = nullptr;
-
-	Vector2 up_pos = get_pos() + Vector2{ 0, -TILE_HEIGHT };
-	Vector2 right_pos = get_pos() + Vector2{ TILE_WIDTH, 0 };
-	Vector2 down_pos = get_pos() + Vector2{ 0, TILE_HEIGHT };
-	Vector2 left_pos = get_pos() + Vector2{ -TILE_WIDTH, 0 };
-	SceneManager::GetInstance()->get_current_scene()->GetTileObject(up_pos, tile_base_pos, target_tile_obj_up);
-	SceneManager::GetInstance()->get_current_scene()->GetTileObject(right_pos, tile_base_pos, target_tile_obj_right);
-	SceneManager::GetInstance()->get_current_scene()->GetTileObject(down_pos, tile_base_pos, target_tile_obj_down);
-	SceneManager::GetInstance()->get_current_scene()->GetTileObject(left_pos, tile_base_pos, target_tile_obj_left);
-	if (target_tile_obj_up) {
-		FieldTileObject* field_up = dynamic_cast<FieldTileObject*>(target_tile_obj_up);
-		if (field_up->is_watered()) {
+		if (is_watered() && field_up->is_watered()) {
 			water_connected_ |= FIELD_CONNECTED_UP;
 			field_up->SetWaterConnected(FIELD_CONNECTED_DOWN);
 		}
 	}
 	if (target_tile_obj_right) {
+		field_connected_ |= FIELD_CONNECTED_RIGHT;
 		FieldTileObject* field_right = dynamic_cast<FieldTileObject*>(target_tile_obj_right);
-		if (field_right->is_watered()) {
+		field_right->SetConnected(FIELD_CONNECTED_LEFT);
+		if (is_watered() && field_right->is_watered()) {
 			water_connected_ |= FIELD_CONNECTED_RIGHT;
 			field_right->SetWaterConnected(FIELD_CONNECTED_LEFT);
 		}
 	}
 	if (target_tile_obj_down) {
+		field_connected_ |= FIELD_CONNECTED_DOWN;
 		FieldTileObject* field_down = dynamic_cast<FieldTileObject*>(target_tile_obj_down);
-		if (field_down->is_watered()) {
+		field_down->SetConnected(FIELD_CONNECTED_UP);
+		if (is_watered() && field_down->is_watered()) {
 			water_connected_ |= FIELD_CONNECTED_DOWN;
 			field_down->SetWaterConnected(FIELD_CONNECTED_UP);
 		}
 	}
 	if (target_tile_obj_left) {
+		field_connected_ |= FIELD_CONNECTED_LEFT;
 		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
-		if (field_left->is_watered()) {
+		field_left->SetConnected(FIELD_CONNECTED_RIGHT);
+		if (is_watered() && field_left->is_watered()) {
 			water_connected_ |= FIELD_CONNECTED_LEFT;
 			field_left->SetWaterConnected(FIELD_CONNECTED_RIGHT);
 		}
 	}
 }
+
 
 void FieldTileObject::Update()
 {
@@ -203,7 +173,6 @@ void FieldTileObject::Update()
 	}
 
 	CheckConnected();
-	CheckWaterConnected();
 	
 }
 

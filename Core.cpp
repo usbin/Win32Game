@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "ItemDb.h"
 #include "TileObjectDb.h"
+#include "RuntimeData.h"
 
 
 Core::Core()
@@ -32,7 +33,8 @@ Core::~Core() {
 
 //윈도우 닫히기 전 리소스 정리작업
 int Core::OnDestroy() {
-	//SceneManager::GetInstance()->get_current_scene()->~Scene();
+	
+	RuntimeData::GetInstance()->OnDestroy();
 	SceneManager::GetInstance()->~SceneManager();	//모든 object dead 이벤트 등록
 	EventManager::GetInstance()->Update();			//dead 이벤트 실행(IsDead 상태)
 	//실제 삭제는 EventManager가 소멸하는 시점에.

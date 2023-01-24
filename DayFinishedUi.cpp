@@ -8,6 +8,7 @@
 #include "ItemData.h"
 #include "IItem.h"
 #include "Inventory.h"
+#include "Core.h"
 void DayFinishedUi::Init()
 {
 	//1. 시간 멈추고, 컨트롤 프리징
@@ -20,9 +21,6 @@ void DayFinishedUi::Init()
 	//3. 정산 화면 생성하기
 	CreateChildUis();
 
-	//4. 프리징 해제
-	Game::GetInstance()->TimeUnfreeze();
-	Game::GetInstance()->ControlUnfreeze();
 }
 
 void DayFinishedUi::Calculate()
@@ -35,7 +33,7 @@ void DayFinishedUi::Calculate()
 	const std::vector<GObject*>& gobjs_player = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::PLAYER);
 	if (!gobjs_player.empty()) {
 		Player* player = dynamic_cast<Player*>(gobjs_player[0]);
-		const std::vector<GObject*>& gobjs_shipping_box = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::SHIPPING_BOX);
+		const std::vector<GObject*>& gobjs_shipping_box = SceneManager::GetInstance()->GetAllShippingBoxes();
 		//모든 출하상자의 아이템 정산
 		for (int i = 0; i < gobjs_shipping_box.size(); i++) {
 			ShippingBox* shipping_box = dynamic_cast<ShippingBox*>(gobjs_shipping_box[i]);
@@ -165,6 +163,18 @@ void DayFinishedUi::CreateChildUis()
 void DayFinishedUi::DayFinish()
 {
 	
-	Game::GetInstance()->FinishDay();
 
+	//4. 창 닫고 프리징 해제
+	DeleteGObject(this, GROUP_TYPE::UI);
+	Game::GetInstance()->TimeUnfreeze();
+	Game::GetInstance()->ControlUnfreeze();
+	Game::GetInstance()->FinishDayProcess();
+	
+
+}
+
+void DayFinishedUi::Render(ID3D11Device* p_d3d_device)
+{
+	DrawRectangle(p_d3d_device, Vector2::Zero(), Core::GetInstance()->get_resolution(), ARGB(0xFF000000), 1, ARGB(0xFF000000), RENDER_LAYER::PLAYER);
+	ChildrenRender(p_d3d_device);
 }

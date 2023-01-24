@@ -15,6 +15,7 @@
 #include "DXClass.h"
 #include "Director_Scene_Tool.h"
 #include "TileEditUi.h"
+#include "Topground.h"
 
 #define MAX_LOADSTRING 100
 #define INITIAL_WINDOW_WIDTH 1024
@@ -491,6 +492,68 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 }
                 EnableMenuItem(hMenu, IDM_REMOVE_BACKGROUND, MF_DISABLED);
             } break;
+            case IDM_LOAD_TOPGROUND: {
+                Scene_Tool* current_scene = dynamic_cast<Scene_Tool*>(SceneManager::GetInstance()->get_current_scene());
+                if (current_scene) {
+                    TCHAR file_path[256] = _T("");
+                    TCHAR initial_path[256];
+                    _tcscpy_s(initial_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+
+                    OPENFILENAME ofn = {};
+                    memset(&ofn, 0, sizeof(OPENFILENAME));
+                    ofn.lStructSize = sizeof(OPENFILENAME);
+                    ofn.hwndOwner = hWnd;
+                    ofn.lpstrFilter = _T("PNG\0*.png\0");
+                    ofn.lpstrFile = file_path;
+                    ofn.nMaxFile = 256;
+                    ofn.lpstrInitialDir = initial_path;
+
+                    if (GetOpenFileName(&ofn)) {
+                        //1. 텍스쳐를 content\texture 폴더로 복사하기
+                        TCHAR file_name[256] = _T("");
+                        for (int i = static_cast<int>(_tcsclen(file_path)) - 1; i >= 0; i--) {
+                            if (file_path[i] == _T('\\')) {
+                                _tcscpy_s(file_name, &file_path[i + 1]);
+                                break;
+                            }
+                        }
+                        TCHAR relative_path[256] = _T("");
+                        _tcscat_s(relative_path, _T("texture\\"));
+                        _tcscat_s(relative_path, file_name);
+
+                        TCHAR dest_path[256] = _T("");
+                        _tcscat_s(dest_path, (PathManager::GetInstance()->GetContentPath()).c_str());
+                        _tcscat_s(dest_path, relative_path);
+                        CopyFile(file_path, dest_path, true);
+                        //2. 복사한 텍스쳐를 불러와서, 이 텍스쳐를 1x1 스프라이트로 가지는 TOPGROUND 오브젝트 생성.
+                        //이미 BACKGROUND 오브젝트가 있다면 스프라이트만 교체
+                        Topground* bg_object;
+                        const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::TOPGROUND);
+                        if (objs.empty()) {
+                            bg_object = DEBUG_NEW Topground();
+                            CreateGObject(bg_object, GROUP_TYPE::TOPGROUND);
+                        }
+                        else bg_object = dynamic_cast<Topground*>(objs[0]);
+                        Texture* texture = ResManager::GetInstance()->LoadTexture(file_name, relative_path);
+                        RealObjectSprite* bg_sprite = DEBUG_NEW RealObjectSprite();
+                        bg_sprite->QuickSet(texture, bg_object, 0, 0, 1, 1);
+                        if (bg_object->get_render_component()) bg_object->get_render_component()->ChangeSprite(bg_sprite);
+                        bg_object->set_group_type(GROUP_TYPE::TOPGROUND);
+                        bg_object->set_pos(Vector2{ texture->get_width(), texture->get_height() } / 2.f);
+                        bg_object->set_scale(Vector2{ texture->get_width(), texture->get_height() });
+                        EnableMenuItem(hMenu, IDM_REMOVE_TOPGROUND, MF_ENABLED);
+                    }
+                }
+
+            }break;
+            case IDM_REMOVE_TOPGROUND: {
+                GObject* bg_object;
+                const std::vector<GObject*> objs = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::TOPGROUND);
+                if (!objs.empty()) {
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TOPGROUND);
+                }
+                EnableMenuItem(hMenu, IDM_REMOVE_TOPGROUND, MF_DISABLED);
+            } break;
             //===============================
             //  맵파일 관리
             //================================
@@ -517,6 +580,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                         //2. 복사한 맵을 불러와서, 이 맵으로 타일 리스트를 로드함.
                         //기존의 배경, 타일, 콜라이더는 전부 지워야함.
                         SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND1);
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND2);
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND3);
+                        SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TOPGROUND);
                         SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TILE);
                         SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::INVISIBLE_WALL);
 
@@ -560,6 +626,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND1);
                     SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND2);
                     SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::BACKGROUND3);
+                    SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TOPGROUND);
                     SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::TILE);
                     SceneManager::GetInstance()->get_current_scene()->DeleteGroupObjects(GROUP_TYPE::INVISIBLE_WALL);
                     

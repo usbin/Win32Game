@@ -18,7 +18,12 @@ void Inventory::Init(Player* player)
 		items_.push_back(nullptr);
 	}
 
+	
+	
+}
 
+void Inventory::AddTmpData()
+{
 	const IItem* item = ItemDb::GetInstance()->get_item((int)ITEM_CODE::HOE);
 	const IItem* item2 = ItemDb::GetInstance()->get_item((int)ITEM_CODE::WATERING_POT);
 	const IItem* item3 = ItemDb::GetInstance()->get_item((int)ITEM_CODE::PICKAXE);
@@ -34,7 +39,6 @@ void Inventory::Init(Player* player)
 	AddItem(item5, 1);
 	AddItem(item6, 5);
 	AddItem(item7, 1);
-	
 }
 
 void Inventory::AddItemHandler(OnInventoryItemChanged handler, OnInventoryItemChangedArgs args)
@@ -169,7 +173,7 @@ bool Inventory::ChangeItemPos(int index1, int index2)
 		}
 	}
 
-	return false;
+	return true;
 }
 
 bool Inventory::RemoveItem(int index, int amount)

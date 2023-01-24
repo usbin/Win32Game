@@ -11,8 +11,6 @@
 #include "Texture.h"
 #include "Collider.h"
 
-FileSaver1_0_0::FileSaver1_0_0() {};
-FileSaver1_0_0::~FileSaver1_0_0() {};
 
 void FileSaver1_0_0::SaveTilemapToFile(FILE* p_file)
 {

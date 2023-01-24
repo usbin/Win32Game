@@ -6,6 +6,7 @@
 #include "ShippingBox.h"
 #include "SceneManager.h"
 #include "Inventory.h"
+#include "DayFinishedUi.h"
 Game::Game()
 	: day_(1)
 	, day_uptime_s_(0){
@@ -24,7 +25,18 @@ void Game::StartGame()
 	day_uptime_s_ = 6 * 60 * 60; //오전 6시로 셋팅
 }
 
-void Game::FinishDay()
+void Game::ShowDayFinishUi()
+{
+	DayFinishedUi* ui = DEBUG_NEW DayFinishedUi(true);
+	ui->set_pos(Vector2::Zero());
+	ui->set_scale(Core::GetInstance()->get_resolution());
+	ui->set_name(_T("정산 화면 Ui"));
+	ui->set_group_type(GROUP_TYPE::UI);
+	ui->Init();
+	CreateGObject(ui, GROUP_TYPE::UI);
+}
+
+void Game::FinishDayProcess()
 {
 	//========================
 	// 날짜 넘기기 프로세스
@@ -35,7 +47,7 @@ void Game::FinishDay()
 	//------------------------
 	// 시간 재설정(기본값 6시)
 	//------------------------
-	
+
 	//출하상자 정산
 	const std::vector<GObject*>& gobjs_player = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::PLAYER);
 	if (!gobjs_player.empty()) {
@@ -54,7 +66,6 @@ void Game::FinishDay()
 	day_++;
 
 	day_uptime_s_ = 6 * 60 * 60;//시간 오전 6시로 셋팅
-	
 }
 
 

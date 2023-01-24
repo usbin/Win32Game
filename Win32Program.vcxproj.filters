@@ -22,9 +22,6 @@
     <Filter Include="Game\1.Scene\Scene_Title">
       <UniqueIdentifier>{0366adc8-47df-4d31-842a-f9913cae05cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\1.Scene\Scene_01">
-      <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\1.Scene\Scene_Tool">
       <UniqueIdentifier>{83cafd75-b0fe-4d8e-8129-c40ec8820069}</UniqueIdentifier>
     </Filter>
@@ -163,6 +160,15 @@
     <Filter Include="Game\4.GObject\Ui\GameUis">
       <UniqueIdentifier>{b4c72351-5ea2-4a52-8522-48af54e8579b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4.GObject\RealObject\Topground">
+      <UniqueIdentifier>{cebe03ad-c236-4c63-8687-cf29356cc1bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\1.Scene\Scene_Farmhouse">
+      <UniqueIdentifier>{d27df718-b464-466a-8166-0e64c4de9ecf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\1.Scene\Scene_Farm">
+      <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -198,8 +204,8 @@
     <ClInclude Include="enum.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_01.h">
-      <Filter>Game\1.Scene\Scene_01</Filter>
+    <ClInclude Include="Scene_Farm.h">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\4.GObject\RealObject\Player</Filter>
@@ -342,8 +348,8 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Game\7.Component\PhysicsComponent</Filter>
     </ClInclude>
-    <ClInclude Include="Director_Scene_01.h">
-      <Filter>Game\1.Scene\Scene_01</Filter>
+    <ClInclude Include="Director_Scene_Farm.h">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
     </ClInclude>
     <ClInclude Include="IUsable.h">
       <Filter>Game\5.Item</Filter>
@@ -483,9 +489,6 @@
     <ClInclude Include="InventoryCellUi.h">
       <Filter>Game\8.Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="ShippingBox.h">
-      <Filter>Game\4.GObject\RealObject\Thing</Filter>
-    </ClInclude>
     <ClInclude Include="InputUi.h">
       <Filter>Game\4.GObject\Ui\InputUi</Filter>
     </ClInclude>
@@ -525,6 +528,34 @@
     <ClInclude Include="DayFinishedDateUi.h">
       <Filter>Game\4.GObject\Ui\GameUis</Filter>
     </ClInclude>
+    <ClInclude Include="Topground.h">
+      <Filter>Game\4.GObject\RealObject\Topground</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSaver1_1_0.h">
+      <Filter>Game\2.Manager\FileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Farmhouse.h">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
+    <ClInclude Include="RuntimeData.h" />
+    <ClInclude Include="FarmhouseDoor.h">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="ShippingBox.h">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmhouseDoor_Exit.h">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmhouseBed.h">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
+    <ClInclude Include="AskSleepUi.h">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
+    <ClInclude Include="AskSleepBtn.h">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -550,8 +581,8 @@
     <ClCompile Include="Scene_Title.cpp">
       <Filter>Game\1.Scene\Scene_Title</Filter>
     </ClCompile>
-    <ClCompile Include="Scene_01.cpp">
-      <Filter>Game\1.Scene\Scene_01</Filter>
+    <ClCompile Include="Scene_Farm.cpp">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\4.GObject\RealObject\Player</Filter>
@@ -685,8 +716,8 @@
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Game\7.Component\PhysicsComponent</Filter>
     </ClCompile>
-    <ClCompile Include="Director_Scene_01.cpp">
-      <Filter>Game\1.Scene\Scene_01</Filter>
+    <ClCompile Include="Director_Scene_Farm.cpp">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
     </ClCompile>
     <ClCompile Include="ItemDb.cpp">
       <Filter>Game\5.Item</Filter>
@@ -802,9 +833,6 @@
     <ClCompile Include="InventoryCellUi.cpp">
       <Filter>Game\8.Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="ShippingBox.cpp">
-      <Filter>Game\4.GObject\RealObject\Thing</Filter>
-    </ClCompile>
     <ClCompile Include="InputUi.cpp">
       <Filter>Game\4.GObject\Ui\InputUi</Filter>
     </ClCompile>
@@ -843,6 +871,34 @@
     </ClCompile>
     <ClCompile Include="DayFinishedDateUi.cpp">
       <Filter>Game\4.GObject\Ui\GameUis</Filter>
+    </ClCompile>
+    <ClCompile Include="Topground.cpp">
+      <Filter>Game\4.GObject\RealObject\Topground</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSaver1_1_0.cpp">
+      <Filter>Game\2.Manager\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Farmhouse.cpp">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClCompile>
+    <ClCompile Include="RuntimeData.cpp" />
+    <ClCompile Include="FarmhouseDoor.cpp">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="ShippingBox.cpp">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmhouseDoor_Exit.cpp">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmhouseBed.cpp">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClCompile>
+    <ClCompile Include="AskSleepBtn.cpp">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClCompile>
+    <ClCompile Include="AskSleepUi.cpp">
+      <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

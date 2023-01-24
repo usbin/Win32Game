@@ -25,7 +25,7 @@ private:
 	Vector2 interval_ = Vector2::Zero();
 	int count_ = 0;
 public:
-	virtual bool Enter() override;
+	virtual bool Enter(SCENE_TYPE from) override;
 	virtual bool Exit() override;
 
 	void CreateEmptyTilemap(UINT column_count, UINT row_count);

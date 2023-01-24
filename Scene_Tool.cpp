@@ -27,11 +27,10 @@ Scene_Tool::~Scene_Tool()
 	
 }
 
-bool Scene_Tool::Enter()
+bool Scene_Tool::Enter(SCENE_TYPE from)
 {
 
-	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
-	Camera::GetInstance()->set_target(nullptr);
+	//Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 
 	Director_Scene_Tool* dst = DEBUG_NEW Director_Scene_Tool();
 	dst->set_group_type(GROUP_TYPE::DIRECTOR);
@@ -49,6 +48,7 @@ bool Scene_Tool::Enter()
 	gobj->set_group_type(GROUP_TYPE::PLAYER);
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
+	Camera::GetInstance()->set_target(gobj);
 
 
 	return true;

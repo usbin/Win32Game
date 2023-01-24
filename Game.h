@@ -27,7 +27,8 @@ private:
 
 public:
 	void StartGame();									//1일차 시작 함수.
-	void FinishDay();									//다음날로 넘기는 함수.(출하상자 정산, 날짜 업데이트, 시간 재설정)
+	void ShowDayFinishUi();
+	void FinishDayProcess();							//다음날로 넘기는 프로세스 시작(출하상자 정산, 날짜 업데이트, 시간 재설정)
 	void SetTime(UINT day, UINT hour, UINT min);		//시간 설정 함수.
 	UINT get_day_uptime_s() { return day_uptime_s_; };	//게임 속 오늘 하루 0시부터 경과한 시간
 	UINT get_day() { return day_; };					//몇일차인가
@@ -43,6 +44,7 @@ public:
 	void ToggleInventory(Player* player);
 	//관리자 윈도우
 	void ToggleDebugConsole();
+
 
 	friend class Core;
 	friend class TimerUi;

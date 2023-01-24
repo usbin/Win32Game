@@ -7,6 +7,7 @@
 #include "TooltipUi.h"
 InventoryCellUi::~InventoryCellUi()
 {
+	DeleteGObject(tooltip_, GROUP_TYPE::UI);
 }
 void InventoryCellUi::Init(InventoryUi* inventory_ui, int index, const ItemData* item_data)
 {

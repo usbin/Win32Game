@@ -53,7 +53,7 @@ public:
 	inline void set_visible(bool b) { visible_ = b; };
 	inline bool get_visible() { return visible_; };
 	inline bool get_enabled() { return enabled_; };
-	inline void set_enabled(bool b) { enabled_ = b; OnEnabled(b); };
+	inline void set_enabled(bool b) { enabled_ = b; OnEnabled(b);};
 	virtual void OnEnabled(bool b) {};
 	inline const DIRECTION get_direction() { return direction_; };
 	inline void set_direction(DIRECTION direction) { direction_ = direction; };
@@ -63,13 +63,13 @@ public:
 		return this->id_ == o.id_;
 	}
 	
-	
+	virtual void MoveTo(GObject* gobject);
 
 
-
+	virtual void OnDead() {};
 
 private:
-	inline void SetDead() { is_dead_ = true; }; //EventManager를 통해서만 호출해야 함. 절대 단독호출x.
+	inline void SetDead() { is_dead_ = true; OnDead(); }; //EventManager를 통해서만 호출해야 함. 절대 단독호출x.
 	//단독호출 할 시 EventManager의 dead_objects_에 추가되지 않고 메인루틴에서도 제외되므로 영원히 삭제되지 않음.
 	friend class EventManager;
 

@@ -34,7 +34,7 @@ void RealObjectRenderComponent::Render(GObject* owner, ID3D11Device* p_d3d_devic
 			if (sprite_) {
 				Vector2 pos = WorldToRenderPos(obj->get_pos());
 				Vector2 scale = obj->get_scale();
-				DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture());
+				DrawTexture(p_d3d_device, pos - scale / 2.f, scale, sprite_->get_base_pos(), sprite_->get_scale(), sprite_->get_texture(), render_layer_);
 			}
 
 		}

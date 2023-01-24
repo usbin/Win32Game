@@ -426,7 +426,7 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 				Vector2 tile_ui_scale = picked_tile_ui_->get_scale();
 				Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
 
-				DrawTexture(p_d3d_device, mouse_pos - tile_ui_scale / 2.f, tile_ui_scale, sprite_base_pos, sprite_size, sprite->get_texture());
+				DrawTexture(p_d3d_device, mouse_pos - tile_ui_scale / 2.f, tile_ui_scale, sprite_base_pos, sprite_size, sprite->get_texture(), RENDER_LAYER::PLAYER);
 			}
 		}
 	}
@@ -435,7 +435,7 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
 		if (texture) {
 			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
-			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture);
+			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture, RENDER_LAYER::PLAYER);
 		}
 		
 	}
@@ -444,7 +444,7 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 		if (KEY_HOLD(KEY::LBUTTON) && dragging_) {
 			Vector2 start_pos = WorldToRenderPos(drag_start_pos_);
 			Vector2 end_pos = WorldToRenderPos(prev_drag_pos_);
-			DrawRectangle(p_d3d_device, start_pos, end_pos - start_pos, ARGB(0xFF000000), 1);
+			DrawRectangle(p_d3d_device, start_pos, end_pos - start_pos, ARGB(0xFF000000), 1, RENDER_LAYER::PLAYER);
 			
 
 		}
@@ -454,7 +454,7 @@ void TileEditUi::Render(ID3D11Device* p_d3d_device)
 		Texture* texture = ResManager::GetInstance()->LoadTexture(_T("Remove Button"), _T("texture\\minus-btn.png"));
 		if (texture) {
 			Vector2 mouse_pos = WorldToRenderPos(GET_MOUSE_POS());
-			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture);
+			DrawTexture(p_d3d_device, mouse_pos, texture->get_size(), Vector2(0, 0), texture->get_size(), texture, RENDER_LAYER::PLAYER);
 			
 		}
 	}

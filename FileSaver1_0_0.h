@@ -12,8 +12,6 @@ class Texture;
 class FileSaver1_0_0 : public IFileSaver
 {
 public:
-	SINGLETON(FileSaver1_0_0);
-public:
 	void SaveGObject(FILE* p_file, GObject* gobject);
 	void LoadGObject(FILE* p_file, GObject*& gobject);
 	void SaveGObjectSprite(FILE* p_file, GObjectSprite* sprite);
@@ -33,7 +31,11 @@ public:
 	virtual void LoadTilemapFromFile(FILE* p_file) override;
 	virtual void SaveWallToFile(FILE* p_file) override;
 	virtual void LoadWallFromFile(FILE* p_file) override;
-	virtual void SaveMapToFile(FILE* p_file) override;
+
+
 	virtual void LoadMapFromFile(FILE* p_file) override;
+
+protected:	//货肺 备泅等 亲格
+	virtual void SaveMapToFile(FILE* p_file) override;
 };
 

@@ -27,7 +27,7 @@ void TileUi::Update()
 void TileUi::Render(ID3D11Device* p_d3d_device)
 {
 	Ui::Render(p_d3d_device);
-	
+	DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0x33FFFFFFFF), 1, RENDER_LAYER::PLAYER);
 
 	ChildrenRender(p_d3d_device);
 }

@@ -139,7 +139,7 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 			PrintConsole(buffer);
 		}
 		else if (commands[1] == _T("FINISHDAY")) {
-			Game::GetInstance()->FinishDay();
+			Game::GetInstance()->FinishDayProcess();
 			TCHAR buffer[30];
 			_stprintf_s(buffer, _T("다음날로 넘어감."));
 			PrintConsole(buffer);
@@ -182,13 +182,7 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 
 	}
 	if (commands[0] == _T("TEST")) {
-		DayFinishedUi* ui = DEBUG_NEW DayFinishedUi(true);
-		ui->set_pos(Vector2::Zero());
-		ui->set_scale(Core::GetInstance()->get_resolution());
-		ui->set_name(_T("정산 화면 Ui"));
-		ui->set_group_type(GROUP_TYPE::UI);
-		ui->Init();
-		CreateGObject(ui, GROUP_TYPE::UI);
+		Game::GetInstance()->ShowDayFinishUi();
 		
 	}
 }

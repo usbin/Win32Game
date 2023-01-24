@@ -71,8 +71,9 @@ void BottomInventoryUi::Update()
 	ImageUi::Update();
 
 
-	if (owner_->IsDead()) owner_ = nullptr;
+	if (owner_ && owner_->IsDead()) owner_ = nullptr;
 
+	
 
 	
 	if (! CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED)) {
@@ -99,7 +100,7 @@ void BottomInventoryUi::Render(ID3D11Device* p_d3d_device)
 	ImageUi::Render(p_d3d_device);
 
 
-	DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1);
+	DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1, RENDER_LAYER::PLAYER);
 
 	ChildrenRender(p_d3d_device);
 }
@@ -111,4 +112,10 @@ void BottomInventoryUi::PickItem(int index)
 	if (!owner_->get_item_holder()) return;
 
 	owner_->get_item_holder()->SetItem(index);
+}
+
+void BottomInventoryUi::OnDead()
+{
+	if (owner_ && owner_->get_inventory())
+		owner_->get_inventory()->RemoveItemHandler(this);
 }

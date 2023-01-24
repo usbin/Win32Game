@@ -26,3 +26,12 @@ GObject::GObject(const GObject& origin) //복사 생성자
 }
 GObject::~GObject(){
 }
+
+void GObject::MoveTo(GObject* gobject)
+{
+	gobject->name_ = name_;
+	gobject->pos_ = pos_;
+	gobject->scale_ = scale_;
+	gobject->group_type_ = group_type_;
+	gobject->visible_ = visible_;
+}

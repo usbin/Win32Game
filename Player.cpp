@@ -41,6 +41,7 @@ Player::Player()
 	CreateItemLooter();
 
 
+
 }
 Player::~Player()
 {
@@ -51,6 +52,7 @@ Player::~Player()
 }
 void Player::Update()
 {
+
 	if(item_looter_) item_looter_->Update();
 
 	if (KEY_DOWN(KEY::SPACE)) {
@@ -125,6 +127,7 @@ void Player::CreateInventory()
 {
 	Inventory* inventory = DEBUG_NEW Inventory();
 	inventory->Init(this);
+	inventory->AddTmpData();
 	inventory_ = inventory;
 }
 
@@ -188,6 +191,36 @@ void Player::LootItem(DropItem* item)
 		inventory_->AddItem(item->get_item(), item->get_amount());
 	}
 }
+
+void Player::MoveTo(GObject* gobject)
+{
+	RealObject::MoveTo(gobject);
+
+	Player* player = dynamic_cast<Player*>(gobject);
+	if (player) {
+		player->speed_ = speed_;
+		player->state_ = PLAYER_STATE::IDLE;
+		player->hand_state_ = hand_state_;
+
+		delete player->inventory_;
+		player->inventory_ = inventory_;
+		inventory_->Init(player);
+		inventory_ = nullptr;
+
+		delete player->item_looter_;
+		player->item_looter_ = item_looter_;
+		item_looter_->Init(player, item_looter_->get_pos_offset());
+		item_looter_ = nullptr;
+
+
+		if (player->render_cmp_) 
+			dynamic_cast<PlayerRenderComponent*>(player->render_cmp_)->set_owner(player);
+
+
+
+	}
+}
+
 
 void Player::OnUseItem(ITEM_CODE item_code) {
 	if (!get_render_component()) return;

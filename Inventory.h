@@ -43,6 +43,7 @@ private:
 
 public:
 	void Init(Player* player);
+	void AddTmpData();
 	void AddItemHandler(OnInventoryItemChanged handler, OnInventoryItemChangedArgs args);
 	void RemoveItemHandler(GObject* sender);
 	void AddGoldHander(OnInventoryGoldChanged handler, OnInventoryGoldChangedArgs args);

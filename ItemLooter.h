@@ -18,5 +18,6 @@ public:
 	void Update();
 	bool Loot(const IItem* item, UINT amount);
 	inline Vector2 get_pos();
+	inline Vector2 get_pos_offset() { return pos_offset_; };
 };
 

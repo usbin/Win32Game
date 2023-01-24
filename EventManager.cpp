@@ -23,6 +23,13 @@ void EventManager::Update()
 	}
 	SafeDeleteVector<GObject*>(dead_objects_);
 
+	//씬 변경 작업2: 예약된 씬으로 지연된 Enter
+	if (change_scene_reserved_) {
+		SceneManager::GetInstance()->ChangeSceneEnter(reserved_scene_);
+		change_scene_reserved_ = false;
+
+	}
+
 	//이벤트 일괄 실행(*이벤트 실행 도중 이벤트 대기열이 찰 수 있으므로 foreach 사용x)
 	for (size_t i = 0; i < events_.size(); i++) {
 		ExecuteEvent(events_[i]);
@@ -65,7 +72,9 @@ void EventManager::ExecuteEvent(Event _event)
 	{
 		//param1: 다음 씬 타입
 		//씬 변경 작업: 다음 씬으로 변경
-		SceneManager::GetInstance()->ChangeScene((SCENE_TYPE)_event.param1);
+		SceneManager::GetInstance()->ChangeSceneExit();
+		change_scene_reserved_ = true;
+		reserved_scene_ = (SCENE_TYPE)_event.param1;
 
 	}
 	break;

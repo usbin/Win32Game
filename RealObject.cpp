@@ -10,6 +10,7 @@
 #include "RealObjectSprite.h"
 #include "Interactor.h"
 #include "IItemHolder.h"
+#include "PlayerRenderComponent.h"
 
 RealObject::RealObject()
 	: GObject()
@@ -20,9 +21,6 @@ RealObject::RealObject()
 	, interactor_(nullptr)
 {
 }
-
-
-
 
 RealObject::~RealObject() {
 
@@ -61,3 +59,37 @@ void RealObject::ComponentRender(ID3D11Device* p_d3d_device)
 	if (item_holder_) item_holder_->Render(p_d3d_device);
 }
 
+void RealObject::MoveTo(GObject* gobject)
+{
+	GObject::MoveTo(gobject);
+
+	RealObject* real_object = dynamic_cast<RealObject*>(gobject);
+	if (real_object) {
+		delete real_object->collider_;
+		collider_->set_owner(real_object);
+		real_object->set_collider(collider_);
+		set_collider(nullptr);
+		
+		//interactor는 GObject라 씬에 종속적. 따라서 자동 생성되는 거 그대로 사용.
+
+		delete real_object->control_cmp_;
+		real_object->set_control_component(control_cmp_);
+		set_control_component(nullptr);
+
+		delete real_object->physics_cmp_;
+		real_object->set_physics_component(physics_cmp_);
+		set_physics_component(nullptr);
+
+		delete real_object->render_cmp_;
+		real_object->set_render_component(render_cmp_);
+		set_render_component(nullptr);
+
+		real_object->set_velocity(Vector2::Zero());
+
+		delete real_object->item_holder_;
+		item_holder_->set_owner(real_object);
+		real_object->item_holder_ = item_holder_;
+		item_holder_ = nullptr;
+
+	}
+}

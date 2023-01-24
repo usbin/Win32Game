@@ -75,6 +75,24 @@ void Scene::DeleteAllObjects()
 	}
 }
 
+void Scene::EnableAllObjects()
+{
+	for (UINT group = 0; group < static_cast<UINT>(GROUP_TYPE::END); group++) {
+		for (auto iter : gobjects_[group]) {
+			iter->set_enabled(true);
+		}
+	}
+}
+
+void Scene::DisableAllObjects()
+{
+	for (UINT group = 0; group < static_cast<UINT>(GROUP_TYPE::END); group++) {
+		for (auto iter : gobjects_[group]) {
+			iter->set_enabled(false);
+		}
+	}
+}
+
 
 void Scene::GetTileObject(const Vector2& pos, Vector2& out_base_pos, TileObject*& out_tile_object)
 {
