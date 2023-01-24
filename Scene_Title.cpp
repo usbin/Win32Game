@@ -55,6 +55,7 @@ bool Scene_Title::Enter(SCENE_TYPE from)
 
 
 	dst->Init(bg, title_text, new_game_btn);
+	Camera::GetInstance()->unset_limit();
 
 	return TRUE;
 }

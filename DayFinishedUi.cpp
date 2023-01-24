@@ -9,6 +9,10 @@
 #include "IItem.h"
 #include "Inventory.h"
 #include "Core.h"
+#include "ItemSprite.h"
+#include "UiSprite.h"
+#include "Texture.h"
+#include "ResManager.h"
 void DayFinishedUi::Init()
 {
 	//1. 시간 멈추고, 컨트롤 프리징
@@ -120,22 +124,34 @@ void DayFinishedUi::CreateChildUis()
 
 
 		if (i < 5) {
-			DayFinishedDetailImgUi* detail_img = DEBUG_NEW DayFinishedDetailImgUi(true);
-			detail_img->set_pos(Vector2{ cont->get_scale().x, 5.f });
-			detail_img->set_scale(Vector2{ 80.f, 80.f });
-			detail_img->set_name(_T("정산 화면 미리보기 이미지"));
-			detail_img->set_group_type(GROUP_TYPE::UI);
-			detail_img->set_parent(cont);
-			cont->AddChild(detail_img);
-			detail_imgs_[i] = detail_img;
+			//각 카테고리의 첫번째 아이템을 미리보기로 등록
+			if (!items_[i].empty()){
+				DayFinishedDetailImgUi* detail_img = DEBUG_NEW DayFinishedDetailImgUi(true);
+				detail_img->set_pos(Vector2{ cont->get_scale().x, 5.f });
+				detail_img->set_scale(Vector2{ 80.f, 80.f });
+				detail_img->set_name(_T("정산 화면 미리보기 이미지"));
+				detail_img->set_group_type(GROUP_TYPE::UI);
+				detail_img->set_parent(cont);
+				cont->AddChild(detail_img);
+				detail_imgs_[i] = detail_img;
 
-			DayFinishedDetailBtn* detail_btn = DEBUG_NEW DayFinishedDetailBtn(true);
-			detail_btn->set_pos(detail_img->get_pos() + Vector2{ detail_img->get_scale().x, detail_img->get_scale().y / 2.f - 15.f });
-			detail_btn->set_scale(Vector2{ 30, 30 });
-			detail_btn->set_name(_T("정산 화면 미리보기 버튼"));
-			detail_btn->set_parent(cont);
-			cont->AddChild(detail_btn);
-			detail_btns_[i] = detail_btn;
+				DayFinishedDetailBtn* detail_btn = DEBUG_NEW DayFinishedDetailBtn(true);
+				detail_btn->set_pos(detail_img->get_pos() + Vector2{ detail_img->get_scale().x, detail_img->get_scale().y / 2.f - 15.f });
+				detail_btn->set_scale(Vector2{ 30, 30 });
+				detail_btn->set_name(_T("정산 화면 미리보기 버튼"));
+				detail_btn->set_parent(cont);
+				detail_btn->set_enabled(false);
+				cont->AddChild(detail_btn);
+				detail_btns_[i] = detail_btn;
+
+				ItemSprite* item_sprite = items_[i][0]->item->get_profile_sprite();
+				UiSprite* ui_sprite = DEBUG_NEW UiSprite();
+				ui_sprite->QuickSet(item_sprite->get_texture(), detail_imgs_[i], item_sprite->get_base_pos(), item_sprite->get_scale());
+				detail_imgs_[i]->ChangeSprite(ui_sprite);
+			}
+			
+
+
 		}
 		
 	}
@@ -146,8 +162,9 @@ void DayFinishedUi::CreateChildUis()
 	info_containers_[MINE]->Init(_T("채광"), gold_sums_[MINE]);
 	info_containers_[ETC]->Init(_T("기타"), gold_sums_[ETC]);
 	info_containers_[TOTAL]->Init(_T("총합"), gold_sums_[TOTAL]);
+	
 
-	ok_btn_ = DEBUG_NEW ButtonUi(true);
+	ok_btn_ = DEBUG_NEW DayFinishedOkBtn(true);
 	ok_btn_->set_pos(info_containers_[5]->get_pos() + Vector2{ info_containers_[5]->get_scale().x+20.f, 20.f });
 	ok_btn_->set_scale(Vector2{ 40, 40 });
 	ok_btn_->AddOnClickHandler([](DWORD_PTR param1, DWORD_PTR param2) {
@@ -156,6 +173,10 @@ void DayFinishedUi::CreateChildUis()
 		DeleteGObject(ui, GROUP_TYPE::UI);
 		}, reinterpret_cast<DWORD_PTR>(this), 0);
 	ok_btn_->set_parent(containters_[5]);
+	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley Ok Btn"), _T("texture\\StardewValley_OkBtn.png"));
+	UiSprite* sprite = DEBUG_NEW UiSprite();
+	sprite->QuickSet(texture, ok_btn_, Vector2{ 0, 0 }, texture->get_size());
+	ok_btn_->ChangeSprite(sprite);
 	containters_[5]->AddChild(ok_btn_);
 
 }
@@ -175,6 +196,6 @@ void DayFinishedUi::DayFinish()
 
 void DayFinishedUi::Render(ID3D11Device* p_d3d_device)
 {
-	DrawRectangle(p_d3d_device, Vector2::Zero(), Core::GetInstance()->get_resolution(), ARGB(0xFF000000), 1, ARGB(0xFF000000), RENDER_LAYER::PLAYER);
+	DrawRectangle(p_d3d_device, Vector2::Zero(), Core::GetInstance()->get_resolution(), ARGB(0xFF000000), 1, ARGB(0xFF000000), RENDER_LAYER::TOP);
 	ChildrenRender(p_d3d_device);
 }

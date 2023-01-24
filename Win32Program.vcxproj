@@ -174,6 +174,7 @@
     <ClInclude Include="DayFinishedDetailBtn.h" />
     <ClInclude Include="DayFinishedDetailImgUi.h" />
     <ClInclude Include="DayFinishedInfoContainerUi.h" />
+    <ClInclude Include="DayFinishedOkBtn.h" />
     <ClInclude Include="DayFinishedUi.h" />
     <ClInclude Include="DebugConsoleUi.h" />
     <ClInclude Include="Decorator.h" />
@@ -307,6 +308,7 @@
     <ClCompile Include="DayFinishedDetailBtn.cpp" />
     <ClCompile Include="DayFinishedDetailImgUi.cpp" />
     <ClCompile Include="DayFinishedInfoContainerUi.cpp" />
+    <ClCompile Include="DayFinishedOkBtn.cpp" />
     <ClCompile Include="DayFinishedUi.cpp" />
     <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="Decorator.cpp" />

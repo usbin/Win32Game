@@ -5,7 +5,7 @@
 #include "DayFinishedDetailImgUi.h"
 #include "DayFinishedInfoContainerUi.h"
 #include "DayFinishedDateUi.h"
-
+#include "DayFinishedOkBtn.h"
 /// <summary>
 /// 하루가 끝나면 나오는 정산 화면.
 /// </summary>

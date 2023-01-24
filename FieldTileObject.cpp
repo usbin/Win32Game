@@ -159,15 +159,15 @@ void FieldTileObject::Update()
 	//날짜가 바뀌었을 때의 동작
 	UINT today = Game::GetInstance()->get_day();
 	if (get_updated_day() < today) {
-		if (watered_) {
+		if (seed_ && watered_) {
 			//현재 날짜를 seed_day_와 비교해 현재 작물 성장 상태를 동기화
 			if (seed_day_ + get_level() < today && get_level() < seed_->get_max_level()) {
 				if (today < seed_day_) return;	//오늘보다 이후에 심어졌을 수는 없음.
 				SetLevel(today - seed_day_);
 			}
-			watered_ = false;
-			water_connected_ = 0;
 		}
+		watered_ = false;
+		water_connected_ = 0;
 		UpdateDay(today);
 		
 	}

@@ -52,7 +52,7 @@ void Game::FinishDayProcess()
 	const std::vector<GObject*>& gobjs_player = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::PLAYER);
 	if (!gobjs_player.empty()) {
 		Player* player = dynamic_cast<Player*>(gobjs_player[0]);
-		const std::vector<GObject*>& gobjs_shipping_box = SceneManager::GetInstance()->get_current_scene()->GetGroupObjects(GROUP_TYPE::SHIPPING_BOX);
+		const std::vector<GObject*>& gobjs_shipping_box = SceneManager::GetInstance()->GetAllShippingBoxes();
 		//모든 출하상자의 아이템 정산
 		UINT gold_sum = 0;
 		for (int i = 0; i < gobjs_shipping_box.size(); i++) {

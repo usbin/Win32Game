@@ -5,6 +5,8 @@
 #include "ItemData.h"
 #include "Inventory.h"
 #include "PlayerItemHolder.h"
+#include "Decorator.h"
+#include "Core.h"
 BottomInventoryUi::BottomInventoryUi()
 	: ImageUi(true)
 {
@@ -19,6 +21,12 @@ BottomInventoryUi::~BottomInventoryUi()
 
 void BottomInventoryUi::Init(Player* owner)
 {
+
+
+	Vector2 resolution = Core::GetInstance()->get_resolution();
+	set_scale(Vector2{ resolution.x * 0.8f, 83.f });
+	set_pos(Vector2{ (resolution.x-get_scale().x)/2.f, resolution.y - 85.f });
+
 	owner_ = owner;
 	if (owner_ && owner_->get_inventory()) {
 		OnInventoryItemChangedArgs args;
@@ -52,8 +60,8 @@ void BottomInventoryUi::CreateEmptyCells()
 		//상하좌우 간격 CELL_DISTANCE_PX, 셀 크기는 남은공간/12 
 		// -> 가로 길이: WIDTH - (2px*(CELL_COUNT+1))/12, 세로 길이: HEIGHT - 4px
 		// -> 가로 위치: CELL_DISTANCE_PX + i*CELL_WIDTH, 세로 위치: CELL_DISTANCE_PXpx
-		Vector2 cell_size{ (get_width() - (CELL_DISTANCE_PX * (CELL_COUNT_INLINE + 1))) / 12.f, get_height() - CELL_DISTANCE_PX*2.f};
-		Vector2 cell_pos{ CELL_DISTANCE_PX + i * (cell_size.x+CELL_DISTANCE_PX), CELL_DISTANCE_PX };
+		Vector2 cell_size{ (get_width() - (CELL_DISTANCE_PX * (CELL_COUNT_INLINE + 1))) / 12.f - 1.6f, get_height() - CELL_DISTANCE_PX*2.f - 22.f};
+		Vector2 cell_pos{ CELL_DISTANCE_PX + i * (cell_size.x+CELL_DISTANCE_PX) + 1.6f*12/2, 10.f + CELL_DISTANCE_PX - 1.f };
 		cell->set_pos(cell_pos);
 		cell->set_scale(cell_size);
 		cell->set_group_type(GROUP_TYPE::UI);
@@ -99,8 +107,7 @@ void BottomInventoryUi::Render(ID3D11Device* p_d3d_device)
 {
 	ImageUi::Render(p_d3d_device);
 
-
-	DrawRectangle(p_d3d_device, get_final_pos(), get_scale(), ARGB(0xFF00FF00), 1, RENDER_LAYER::PLAYER);
+	Decorator::GetInstance()->GetSimpleFrame()->Render(p_d3d_device, this, RENDER_LAYER::PLAYER);
 
 	ChildrenRender(p_d3d_device);
 }

@@ -120,7 +120,8 @@ void Ui::ChildrenFinalUpdate()
 void Ui::ChildrenRender(ID3D11Device* p_d3d_device)
 {
 	for (auto iter = children_.begin(); iter != children_.end(); iter++) {
-		(*iter)->Render(p_d3d_device);
+		if(!(*iter)->IsDead()&&(*iter)->get_enabled())
+			(*iter)->Render(p_d3d_device);
 	}
 }
 

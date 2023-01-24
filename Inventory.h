@@ -52,6 +52,8 @@ public:
 	const ItemData* GetItem(int index);
 	const std::vector<ItemData*>& GetItems();
 
+	UINT GetGold() { return gold_; };
+
 	//데이터 변경 함수(핸들러 실행하지 않음)
 	bool AddGold(UINT gold);
 	bool RemoveGold(UINT gold);

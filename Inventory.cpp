@@ -13,6 +13,10 @@ Inventory::~Inventory()
 
 void Inventory::Init(Player* player)
 {
+	//handler 삭제
+	item_handlers_.clear();
+	gold_handlers_.clear();
+
 	owner_ = player;
 	for (int i = 0; i < CELL_COUNT_MAX; i++) {
 		items_.push_back(nullptr);
@@ -120,42 +124,43 @@ bool Inventory::AddItem(const IItem* item, int amount)
 {
 	//넣을 자리 찾기
 	//1순위: 스택이 가득 차지 않은 같은 아이템
-	int result_i = items_.size();
+	int remain_amount = amount;
 	for (int i = 0; i < items_.size(); i++) {
-		if (items_[i] && items_[i]->item == item && items_[i]->item->get_max_stack() >= amount + items_[i]->amount) {
-			result_i = i;
-			break;
+		if (items_[i] && items_[i]->item == item && items_[i]->item->get_max_stack() > items_[i]->amount) {
+			//여유공간이 얼마나 있는가
+			int space = items_[i]->item->get_max_stack() - items_[i]->amount;
+			
+			items_[i]->amount += min(space, remain_amount);
+			remain_amount -= min(space, remain_amount);
+			//인벤토리 변경 이벤트 핸들러 실행
+			for (int j = 0; j < item_handlers_.size(); j++) {
+				item_handlers_[j].handler(this, i, items_[i], item_handlers_[j].args);
+			}
+
+			if(remain_amount <= 0)
+				break;
 		}
 	}
 	//2순위: 빈 자리
-	if (result_i >= items_.size()) {
+	if (remain_amount>0) {
 		for (int i = 0; i < items_.size(); i++) {
 			if (!items_[i]) {
-				result_i = i;
-				break;
+				int space = item->get_max_stack();
+				items_[i]= DEBUG_NEW ItemData{ item, min(space, remain_amount) };
+				remain_amount -= min(space, remain_amount);
+				//인벤토리 변경 이벤트 핸들러 실행
+				for (int j = 0; j < item_handlers_.size(); j++) {
+					item_handlers_[j].handler(this, i, items_[i], item_handlers_[j].args);
+				}
+				if (remain_amount <= 0) break;
 			}
 		}
 	}
 
-	//자리를 찾지 못했을 경우.
-	if (result_i >= items_.size()) return false;
-	
+	//자리를 찾지 못했을 경우
+	if (remain_amount > 0) return false;
 
 
-	//찾은 자리가 빈 칸일 경우
-	if (!items_[result_i]) {
-		items_[result_i] = DEBUG_NEW ItemData{ item, amount };
-
-	}
-	//3.찾은 자리에 이미 아이템이 존재할 경우
-	else {
-		items_[result_i]->amount += amount;
-	}
-
-	//인벤토리 변경 이벤트 핸들러 실행
-	for (int j = 0; j < item_handlers_.size(); j++) {
-		item_handlers_[j].handler(this, result_i, items_[result_i], item_handlers_[j].args);
-	}
 	return true;
 }
 

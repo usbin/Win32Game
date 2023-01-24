@@ -39,7 +39,6 @@ void Scene_Farmhouse::Initialize()
 	// 맵 로드
 	FileManager::GetInstance()->LoadMap(PathManager::GetInstance()->GetContentPath() + _T("map\\Farmhouse.map"));
 	// 카메라 설정
-	Camera::GetInstance()->set_look_pos(Vector2{ 0, 0 });
 	
 	//침대 생성(닿으면 "잠자기" 띄우기)
 	FarmhouseBed* bed = DEBUG_NEW FarmhouseBed();
@@ -81,6 +80,8 @@ void Scene_Farmhouse::Initialize()
 		player->set_enabled(true);
 	}
 	CreateUis(player);
+	Camera::GetInstance()->set_limit(Vector2{ 35, 0 }, Vector2{ 542, 540 });
+	Camera::GetInstance()->set_look_pos(Vector2{ 300, 400 });
 	Camera::GetInstance()->set_target(player);
 	initialized_ = true;
 }
@@ -96,6 +97,8 @@ void Scene_Farmhouse::Reinitialize()
 		player->set_enabled(true);
 		player->set_pos(Vector2{ 173, 470 });
 		player->set_direction(DIRECTION::UP);
+		Camera::GetInstance()->set_limit(Vector2{ 35, 0 }, Vector2{ 542, 540 });
+		Camera::GetInstance()->set_look_pos(Vector2{ 300, 400 });
 		Camera::GetInstance()->set_target(player);
 		CreateUis(player);
 	}
@@ -104,20 +107,11 @@ void Scene_Farmhouse::Reinitialize()
 void Scene_Farmhouse::CreateUis(Player* player)
 {
 	TimerUi* timer_ui = DEBUG_NEW TimerUi();
-	timer_ui->set_pos(Vector2(0, 0));
-	timer_ui->set_scale(Vector2(200, 100));
 	timer_ui->set_group_type(GROUP_TYPE::UI);
+	timer_ui->Init(player);
 	CreateGObject(timer_ui, GROUP_TYPE::UI);
 
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("TimerUi_Background"), _T("texture\\light-gray.png"));
-	UiSprite* sprite = DEBUG_NEW UiSprite();
-	sprite->QuickSet(texture, timer_ui, timer_ui->get_pos(), timer_ui->get_scale());
-	timer_ui->ChangeSprite(sprite);
-
 	BottomInventoryUi* inventory_ui = DEBUG_NEW BottomInventoryUi();
-	Vector2 resolution = Core::GetInstance()->get_resolution();
-	inventory_ui->set_scale(Vector2{ resolution.x * 0.7f, 60.f });
-	inventory_ui->set_pos(Vector2{ resolution.x * 0.15f, resolution.y - 60.f });
 	inventory_ui->set_group_type(GROUP_TYPE::UI);
 	inventory_ui->Init(player);
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);

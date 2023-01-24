@@ -49,6 +49,7 @@ bool Scene_Tool::Enter(SCENE_TYPE from)
 	CreateGObject(gobj, GROUP_TYPE::PLAYER);
 
 	Camera::GetInstance()->set_target(gobj);
+	Camera::GetInstance()->unset_limit();
 
 
 	return true;

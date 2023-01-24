@@ -36,7 +36,6 @@ bool Scene_Farm::Enter(SCENE_TYPE from)
 
 bool Scene_Farm::Exit()
 {
-	//Scene::DeleteAllObjects();
 	DeleteGroupObjects(GROUP_TYPE::UI);
 	Scene::DisableAllObjects();
 
@@ -90,6 +89,7 @@ void Scene_Farm::Initialize()
 	CreateUis(player);
 
 	Camera::GetInstance()->set_target(player);
+	Camera::GetInstance()->set_limit(Vector2::Zero(), Vector2{ 3835, 3113 });
 	Game::GetInstance()->StartGame();
 	
 	initialized_ = true;
@@ -109,6 +109,7 @@ void Scene_Farm::Reinitialize(SCENE_TYPE from)
 		if (from == SCENE_TYPE::SCENE_FARMHOUSE) {
 			player->set_pos(Vector2{ 3095, 725 });
 		}
+		Camera::GetInstance()->set_limit(Vector2::Zero(), Vector2{ 3835, 3113 });
 
 		//============================
 		// UI »ý¼º
@@ -122,20 +123,12 @@ void Scene_Farm::Reinitialize(SCENE_TYPE from)
 void Scene_Farm::CreateUis(Player* player)
 {
 	TimerUi* timer_ui = DEBUG_NEW TimerUi();
-	timer_ui->set_pos(Vector2(0, 0));
-	timer_ui->set_scale(Vector2(200, 100));
+	timer_ui->Init(player);
 	timer_ui->set_group_type(GROUP_TYPE::UI);
 	CreateGObject(timer_ui, GROUP_TYPE::UI);
 
-	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("TimerUi_Background"), _T("texture\\light-gray.png"));
-	UiSprite* sprite = DEBUG_NEW UiSprite();
-	sprite->QuickSet(texture, timer_ui, timer_ui->get_pos(), timer_ui->get_scale());
-	timer_ui->ChangeSprite(sprite);
-
 	BottomInventoryUi* inventory_ui = DEBUG_NEW BottomInventoryUi();
 	Vector2 resolution = Core::GetInstance()->get_resolution();
-	inventory_ui->set_scale(Vector2{ resolution.x * 0.7f, 60.f });
-	inventory_ui->set_pos(Vector2{ resolution.x * 0.15f, resolution.y - 60.f });
 	inventory_ui->set_group_type(GROUP_TYPE::UI);
 	inventory_ui->Init(player);
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);

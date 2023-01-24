@@ -169,6 +169,9 @@
     <Filter Include="Game\1.Scene\Scene_Farm">
       <UniqueIdentifier>{6018d4ff-bfd0-4b9b-9908-26f8e71c5e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4.GObject\Ui\GameUis\DayFinished">
+      <UniqueIdentifier>{b5b220e6-09c3-4341-bf73-b29dcef61fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -513,21 +516,6 @@
     <ClInclude Include="DebugConsoleUi.h">
       <Filter>Game\4.GObject\Ui\GameUis</Filter>
     </ClInclude>
-    <ClInclude Include="DayFinishedUi.h">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClInclude>
-    <ClInclude Include="DayFinishedInfoContainerUi.h">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClInclude>
-    <ClInclude Include="DayFinishedDetailImgUi.h">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClInclude>
-    <ClInclude Include="DayFinishedDetailBtn.h">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClInclude>
-    <ClInclude Include="DayFinishedDateUi.h">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClInclude>
     <ClInclude Include="Topground.h">
       <Filter>Game\4.GObject\RealObject\Topground</Filter>
     </ClInclude>
@@ -555,6 +543,24 @@
     </ClInclude>
     <ClInclude Include="AskSleepBtn.h">
       <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDateUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDetailBtn.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedDetailImgUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedInfoContainerUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClInclude>
+    <ClInclude Include="DayFinishedOkBtn.h">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -857,21 +863,6 @@
     <ClCompile Include="DebugConsoleUi.cpp">
       <Filter>Game\4.GObject\Ui\GameUis</Filter>
     </ClCompile>
-    <ClCompile Include="DayFinishedUi.cpp">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClCompile>
-    <ClCompile Include="DayFinishedInfoContainerUi.cpp">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClCompile>
-    <ClCompile Include="DayFinishedDetailBtn.cpp">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClCompile>
-    <ClCompile Include="DayFinishedDetailImgUi.cpp">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClCompile>
-    <ClCompile Include="DayFinishedDateUi.cpp">
-      <Filter>Game\4.GObject\Ui\GameUis</Filter>
-    </ClCompile>
     <ClCompile Include="Topground.cpp">
       <Filter>Game\4.GObject\RealObject\Topground</Filter>
     </ClCompile>
@@ -899,6 +890,24 @@
     </ClCompile>
     <ClCompile Include="AskSleepUi.cpp">
       <Filter>Game\1.Scene\Scene_Farmhouse</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDateUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDetailBtn.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedDetailImgUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedInfoContainerUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="DayFinishedOkBtn.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

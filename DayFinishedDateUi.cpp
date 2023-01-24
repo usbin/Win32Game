@@ -9,7 +9,7 @@ void DayFinishedDateUi::Init(UINT year, UINT season, UINT day)
 
 void DayFinishedDateUi::Render(ID3D11Device* p_d3d_device)
 {
-	Decorator::GetInstance()->GetSimpleFrame()->Render(p_d3d_device, this, RENDER_LAYER::PLAYER);
+	Decorator::GetInstance()->GetSimpleFrame()->Render(p_d3d_device, this, RENDER_LAYER::TOP);
 
 
 	TCHAR buffer[30];
@@ -32,6 +32,6 @@ void DayFinishedDateUi::Render(ID3D11Device* p_d3d_device)
 		, buffer, _tcslen(buffer), _T("µÕ±Ù¸ð²Ã"), 30
 		, D2D1::ColorF::Black, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_NORMAL
 		, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER
-		, RENDER_LAYER::PLAYER);
+		, RENDER_LAYER::TOP);
 
 }

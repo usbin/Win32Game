@@ -56,6 +56,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedInfoContainerUi.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedOkBtn.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedUi.cpp"
 
 

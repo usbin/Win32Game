@@ -71,6 +71,7 @@ void RealObject::MoveTo(GObject* gobject)
 		set_collider(nullptr);
 		
 		//interactor는 GObject라 씬에 종속적. 따라서 자동 생성되는 거 그대로 사용.
+		
 
 		delete real_object->control_cmp_;
 		real_object->set_control_component(control_cmp_);

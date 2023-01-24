@@ -21,13 +21,13 @@ void PlayerControlComponent::Update(RealObject* obj)
 		
 
 			//아이템 사용: C
-			if (KEY_HOLD(KEY::C)) {
+			if (KEY_HOLD(KEY::C) || KEY_HOLD(KEY::LBUTTON)) {
 				if (player->get_item_holder() && player->get_item_holder()->GetItemData()) {
 					player->get_item_holder()->UseItem();
 				}
 			}
 			//아이템 상호작용: X
-			if (KEY_HOLD(KEY::X)) {
+			if (KEY_HOLD(KEY::X) || KEY_HOLD(KEY::RBUTTON)) {
 				if (player->get_interactor()) {
 					const std::vector<Interactor*>& interactors = player->get_interactor()->get_interactors();
 					if (!interactors.empty()) {

@@ -9,12 +9,12 @@ void RuntimeData::SavePlayerData(Player* player)
 {
 	if (!player_) {
 		player_ = DEBUG_NEW Player();
+		//인터렉터는 씬에 종속적이므로 저장용 데이터의 것은 그냥 삭제.
+		DeleteGObject(player_->get_interactor(), GROUP_TYPE::INTERACTOR);
+		player_->set_interactor(nullptr);
 	}
 	player->MoveTo(player_);
 
-	//인터렉터는 씬에 종속적이므로 저장하지 않고 삭제.
-	DeleteGObject(player_->get_interactor(), GROUP_TYPE::INTERACTOR);
-	player_->set_interactor(nullptr);
 }
 
 void RuntimeData::LoadPlayerData(Player* player)
