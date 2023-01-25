@@ -20,9 +20,43 @@ void PlayerControlComponent::Update(RealObject* obj)
 		if( !CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED) ){
 		
 
+			
 			//아이템 사용: C
 			if (KEY_HOLD(KEY::C) || KEY_HOLD(KEY::LBUTTON)) {
 				if (player->get_item_holder() && player->get_item_holder()->GetItemData()) {
+
+					//마우스 방향으로 캐릭터 방향 전환
+					if (KEY_HOLD(KEY::LBUTTON)) {
+						//x자 기준, 해당 방향으로 설정
+						Vector2 xy{ GET_MOUSE_POS() - (player->get_collider()->get_pos_offset()+player->get_pos())};
+						xy.y *= -1;//y축 반전(좌표평면과 맞추기)
+						float radian = atan2(xy.y, xy.x);
+						//atan2는 3시방향이 0도, 반시계방향으로 180도, 시계방향으로 -180도
+						//degree는 radian*180/Math.PI
+						int degree = radian * 180.f / std::acos(-1);
+
+						if (degree > 45 && degree < 90 + 45) {
+							player->set_direction(DIRECTION::UP);
+						}
+						else if ((degree > (90 + 45) && degree < 180)
+							||(degree<-90 - 45 && degree > -180)) {
+							player->set_direction(DIRECTION::LEFT);
+						}
+						else if (degree>(-90-45) && degree< -45) {
+							player->set_direction(DIRECTION::DOWN);
+						}
+						else if ((degree > 0 && degree < 45)
+							|| (degree<0 && degree>-45)) {
+							player->set_direction(DIRECTION::RIGHT);
+						}
+						player->get_item_holder()->Update();
+						//degree+45 / 90 이 0일 때 ->위
+						//1일 때 -> 왼
+						//2일 때 -> 밑
+						//3일 때 -> 오
+
+					}
+
 					player->get_item_holder()->UseItem();
 				}
 			}

@@ -9,6 +9,8 @@
 #include "PlayerItemHolder.h"
 #include "ItemData.h"
 #include "Equip.h"
+#include "FmodSound.h"
+#include "ResManager.h"
 FieldTileObject::FieldTileObject()
 {
 }
@@ -94,6 +96,9 @@ void FieldTileObject::Harvest()
 
 	SetSeed(nullptr);
 	SetLevel(0);
+
+	Sound* sound = ResManager::GetInstance()->LoadSound(_T("Harvest_Effect"), _T("sound\\Harvest_Effect.wav"));
+	FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 }
 
 void FieldTileObject::CheckConnected()
@@ -115,41 +120,54 @@ void FieldTileObject::CheckConnected()
 	field_connected_ = 0;
 	water_connected_ = 0;
 	if (target_tile_obj_up) {
-		field_connected_ |= FIELD_CONNECTED_UP;
 		FieldTileObject* field_up = dynamic_cast<FieldTileObject*>(target_tile_obj_up);
-		field_up->SetConnected(FIELD_CONNECTED_DOWN);
+		if (field_up) {
+			field_connected_ |= FIELD_CONNECTED_UP;
+			field_up->SetConnected(FIELD_CONNECTED_DOWN);
 
-		if (is_watered() && field_up->is_watered()) {
-			water_connected_ |= FIELD_CONNECTED_UP;
-			field_up->SetWaterConnected(FIELD_CONNECTED_DOWN);
+			if (is_watered() && field_up->is_watered()) {
+				water_connected_ |= FIELD_CONNECTED_UP;
+				field_up->SetWaterConnected(FIELD_CONNECTED_DOWN);
+			}
 		}
+		
 	}
 	if (target_tile_obj_right) {
-		field_connected_ |= FIELD_CONNECTED_RIGHT;
 		FieldTileObject* field_right = dynamic_cast<FieldTileObject*>(target_tile_obj_right);
-		field_right->SetConnected(FIELD_CONNECTED_LEFT);
-		if (is_watered() && field_right->is_watered()) {
-			water_connected_ |= FIELD_CONNECTED_RIGHT;
-			field_right->SetWaterConnected(FIELD_CONNECTED_LEFT);
+		if (field_right) {
+			field_connected_ |= FIELD_CONNECTED_RIGHT;
+			field_right->SetConnected(FIELD_CONNECTED_LEFT);
+
+			if (is_watered() && field_right->is_watered()) {
+				water_connected_ |= FIELD_CONNECTED_RIGHT;
+				field_right->SetWaterConnected(FIELD_CONNECTED_LEFT);
+			}
 		}
+		
 	}
 	if (target_tile_obj_down) {
-		field_connected_ |= FIELD_CONNECTED_DOWN;
 		FieldTileObject* field_down = dynamic_cast<FieldTileObject*>(target_tile_obj_down);
-		field_down->SetConnected(FIELD_CONNECTED_UP);
-		if (is_watered() && field_down->is_watered()) {
-			water_connected_ |= FIELD_CONNECTED_DOWN;
-			field_down->SetWaterConnected(FIELD_CONNECTED_UP);
+		if (field_down) {
+			field_connected_ |= FIELD_CONNECTED_DOWN;
+			field_down->SetConnected(FIELD_CONNECTED_UP);
+			if (is_watered() && field_down->is_watered()) {
+				water_connected_ |= FIELD_CONNECTED_DOWN;
+				field_down->SetWaterConnected(FIELD_CONNECTED_UP);
+			}
 		}
+		
 	}
 	if (target_tile_obj_left) {
-		field_connected_ |= FIELD_CONNECTED_LEFT;
 		FieldTileObject* field_left = dynamic_cast<FieldTileObject*>(target_tile_obj_left);
-		field_left->SetConnected(FIELD_CONNECTED_RIGHT);
-		if (is_watered() && field_left->is_watered()) {
-			water_connected_ |= FIELD_CONNECTED_LEFT;
-			field_left->SetWaterConnected(FIELD_CONNECTED_RIGHT);
+		if (field_left) {
+			field_connected_ |= FIELD_CONNECTED_LEFT;
+			field_left->SetConnected(FIELD_CONNECTED_RIGHT);
+			if (is_watered() && field_left->is_watered()) {
+				water_connected_ |= FIELD_CONNECTED_LEFT;
+				field_left->SetWaterConnected(FIELD_CONNECTED_RIGHT);
+			}
 		}
+		
 	}
 }
 

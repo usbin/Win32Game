@@ -13,6 +13,8 @@
 #include "UiSprite.h"
 #include "Texture.h"
 #include "ResManager.h"
+#include "FmodSound.h"
+
 void DayFinishedUi::Init()
 {
 	//1. 시간 멈추고, 컨트롤 프리징
@@ -171,6 +173,9 @@ void DayFinishedUi::CreateChildUis()
 		DayFinishedUi* ui = reinterpret_cast<DayFinishedUi*>(param1);
 		ui->DayFinish();
 		DeleteGObject(ui, GROUP_TYPE::UI);
+		Sound* sound = ResManager::GetInstance()->LoadSound(_T("DayFinished Effect"), _T("sound\\DayFinished_Effect.wav"));
+		FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
+
 		}, reinterpret_cast<DWORD_PTR>(this), 0);
 	ok_btn_->set_parent(containters_[5]);
 	Texture* texture = ResManager::GetInstance()->LoadTexture(_T("StardewValley Ok Btn"), _T("texture\\StardewValley_OkBtn.png"));

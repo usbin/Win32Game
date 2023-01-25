@@ -6,6 +6,8 @@
 #include "DropItem.h"
 #include "Inventory.h"
 #include "IItem.h"
+#include "FmodSound.h"
+#include "ResManager.h"
 void ItemLooter::Init(Player* player, Vector2 pos_offset)
 {
 	owner_ = player;
@@ -44,8 +46,11 @@ void ItemLooter::Update()
 bool ItemLooter::Loot(const IItem* item, UINT amount)
 {
 	//인벤에 추가
-	if (owner_->get_inventory())
+	if (owner_->get_inventory()) {
+		Sound* sound = ResManager::GetInstance()->LoadSound(_T("LootItem_Effect"), _T("sound\\LootItem_Effect.wav"));
+		FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 		return owner_->get_inventory()->AddItem(item, amount);
+	}
 	else return false;
 
 }

@@ -172,6 +172,9 @@
     <Filter Include="Game\4.GObject\Ui\GameUis\DayFinished">
       <UniqueIdentifier>{b5b220e6-09c3-4341-bf73-b29dcef61fb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\3.Res\Sound">
+      <UniqueIdentifier>{71f47394-03ec-4833-b323-c43418256910}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -562,6 +565,12 @@
     <ClInclude Include="DayFinishedOkBtn.h">
       <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Game\3.Res\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="FmodSound.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -908,6 +917,12 @@
     </ClCompile>
     <ClCompile Include="DayFinishedOkBtn.cpp">
       <Filter>Game\4.GObject\Ui\GameUis\DayFinished</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Game\3.Res\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="FmodSound.cpp">
+      <Filter>Module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

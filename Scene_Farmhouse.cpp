@@ -10,6 +10,7 @@
 #include "ResManager.h"
 #include "UiSprite.h"
 #include "Core.h"
+#include "FmodSound.h"
 bool Scene_Farmhouse::Enter(SCENE_TYPE from)
 {
 	if (!initialized_) {
@@ -18,6 +19,16 @@ bool Scene_Farmhouse::Enter(SCENE_TYPE from)
 	else {
 		Reinitialize();
 	}
+	if (Game::GetInstance()->get_day_uptime_s() / 60 / 60 < 18) {
+		Sound* ambience = ResManager::GetInstance()->LoadSound(_T("Farm Ambience"), _T("sound\\Farm_SpringDay_Bgm.wav"));
+		FmodSound::GetInstance()->PlayAmbience(ambience);
+	}
+	else {
+		Sound* ambience = ResManager::GetInstance()->LoadSound(_T("Farm Ambience"), _T("sound\\Farm_SpringNight_Bgm.wav"));
+		FmodSound::GetInstance()->PlayAmbience(ambience);
+	}
+	Sound* sound = ResManager::GetInstance()->LoadSound(_T("DoorClose_Effect"), _T("sound\\DoorClose_Effect.wav"));
+	FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 
 	return true;
 }
@@ -31,6 +42,8 @@ bool Scene_Farmhouse::Exit()
 	if (!gobjs.empty()) {
 		RuntimeData::GetInstance()->SavePlayerData(dynamic_cast<Player*>(gobjs[0]));
 	}
+
+	FmodSound::GetInstance()->StopAmbience();
 	return true;
 }
 

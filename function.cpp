@@ -297,3 +297,19 @@ void DrawAutosizeText(ID3D11Device* p_d3d_device, const Vector2& base_pos, const
 	DXClass::GetInstance()->SetTextFormat(font_name, _T("ko-kr"), font_size, font_style, font_weight, text_alighment, paragraph_alignment);
 	DXClass::GetInstance()->RenderText(text, text_length, base_pos, scale, font_color, layer);
 }
+
+std::string TstringToString(tstring src_str)
+{
+
+#ifdef  UNICODE	//tchar가 wchar을 사용하고 있다면
+	char* desc_buffer = DEBUG_NEW char[src_str.size() + 1];
+	WideCharToMultiByte(CP_ACP, 0, src_str.c_str(), -1, desc_buffer, src_str.size() + 1, 0, 0);
+	std::string result(desc_buffer);
+	delete desc_buffer;
+	return result;
+#elif
+	return src_str;
+
+#endif
+	
+}

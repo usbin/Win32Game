@@ -14,22 +14,23 @@ TileObjectDb::~TileObjectDb() {
 
 void TileObjectDb::Init()
 {
-	Texture* nt_texture = ResManager::GetInstance()->LoadTexture(_T("Natural Thing"), _T("texture\\StardewValley_Forage.png"));
+	Texture* wood_texture = ResManager::GetInstance()->LoadTexture(_T("Wood"), _T("texture\\StardewValley_Tree.png"));
+	Texture* stone_weed_texture = ResManager::GetInstance()->LoadTexture(_T("StoneWeed"), _T("texture\\StardewValley_Mine.png"));
 	Texture* field_texture = ResManager::GetInstance()->LoadTexture(_T("Field"), _T("texture\\StardewValley_Field.png"));
 	NaturalThing* wood = DEBUG_NEW NaturalThing();
 	TileObjectSprite* wood_sprite = DEBUG_NEW TileObjectSprite();
-	wood_sprite->QuickSet(nt_texture, nullptr, Vector2{ 72, 200 }, Vector2{ 13, 13 });
+	wood_sprite->QuickSet(wood_texture, nullptr, Vector2{ 49, 123 }, Vector2{ 16, 20 });
 	wood->Init(TILE_OBJECT_TYPE::WOOD, _T("나무"), wood_sprite);
 	
 
 	NaturalThing* stone = DEBUG_NEW NaturalThing();
 	TileObjectSprite* stone_sprite = DEBUG_NEW TileObjectSprite();
-	stone_sprite->QuickSet(nt_texture, nullptr, Vector2{ 136, 200 }, Vector2{ 16, 16 });
+	stone_sprite->QuickSet(stone_weed_texture, nullptr, Vector2{ 365, 1 }, Vector2{ 16, 16 });
 	stone->Init(TILE_OBJECT_TYPE::STONE, _T("돌"), stone_sprite);
 
 	NaturalThing* weed = DEBUG_NEW NaturalThing();
 	TileObjectSprite* weed_sprite = DEBUG_NEW TileObjectSprite();
-	weed_sprite->QuickSet(nt_texture, nullptr, Vector2{ 40, 198 }, Vector2{ 16, 16 });
+	weed_sprite->QuickSet(stone_weed_texture, nullptr, Vector2{ 202, 199 }, Vector2{ 16, 16 });
 	weed->Init(TILE_OBJECT_TYPE::WEED, _T("잡초"), weed_sprite);
 
 	Field* field = DEBUG_NEW Field();

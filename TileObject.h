@@ -15,6 +15,7 @@ private:
 public:
 	virtual void Init(TILE_OBJECT_TYPE tile_object_type_);
 	void CreateRenderCmp();
+	void CreateCollider();
 	void SetLevel(UINT level);
 	// RealObject을(를) 통해 상속
 	virtual void Update() override;

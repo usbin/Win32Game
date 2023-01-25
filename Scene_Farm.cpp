@@ -19,6 +19,9 @@
 #include "RuntimeData.h"
 #include "FarmhouseDoor.h"
 #include "UiSprite.h"
+#include "FmodSound.h"
+#include "Sound.h"
+#include "Spawner.h"
 bool Scene_Farm::Enter(SCENE_TYPE from)
 {
 	if (!initialized_) {
@@ -29,6 +32,9 @@ bool Scene_Farm::Enter(SCENE_TYPE from)
 		//이미 초기화 된 후면 활성화+플레이어 데이터 동기화만
 		Reinitialize(from);
 	}
+
+	//배경음악, 환경음 재생
+	SetBgm();
 	
 	return TRUE;
 }
@@ -43,6 +49,10 @@ bool Scene_Farm::Exit()
 	if (!gobjs.empty()) {
 		RuntimeData::GetInstance()->SavePlayerData(dynamic_cast<Player*>(gobjs[0]));
 	}
+
+	FmodSound::GetInstance()->StopBackground();
+	FmodSound::GetInstance()->StopAmbience();
+
 
 	return TRUE;
 }
@@ -82,6 +92,14 @@ void Scene_Farm::Initialize()
 	door->Init();
 	CreateGObject(door, GROUP_TYPE::THING);
 	
+	//나무, 돌 랜덤생성
+	Spawner::GetInstance()->Lock();
+	Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WOOD, Vector2{ 2000, 883 }, Vector2{ 3334, 2300 }, 20);
+	Spawner::GetInstance()->SetSeed(100);
+	Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::STONE, Vector2{ 2000, 883 }, Vector2{ 3334, 2300 }, 20);
+	Spawner::GetInstance()->SetSeed(200);
+	Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WEED, Vector2{ 2000, 883 }, Vector2{ 3334, 2300 }, 20);
+	Spawner::GetInstance()->Unlock();
 
 	//============================
 	// UI 생성
@@ -132,4 +150,19 @@ void Scene_Farm::CreateUis(Player* player)
 	inventory_ui->set_group_type(GROUP_TYPE::UI);
 	inventory_ui->Init(player);
 	CreateGObject(inventory_ui, GROUP_TYPE::UI);
+}
+
+void Scene_Farm::SetBgm()
+{
+	Sound* sound = ResManager::GetInstance()->LoadSound(_T("Farm Background"), _T("sound\\Farm_Bgm.mp3"));
+	FmodSound::GetInstance()->PlayBackground(sound);
+	//18시 이전이면 낮 환경음
+	if (Game::GetInstance()->get_day_uptime_s() / 60 / 60 < 18) {
+		Sound* ambience = ResManager::GetInstance()->LoadSound(_T("Farm Ambience"), _T("sound\\Farm_SpringDay_Bgm.wav"));
+		FmodSound::GetInstance()->PlayAmbience(ambience);
+	}
+	else {
+		Sound* ambience = ResManager::GetInstance()->LoadSound(_T("Farm Ambience"), _T("sound\\Farm_SpringNight_Bgm.wav"));
+		FmodSound::GetInstance()->PlayAmbience(ambience);
+	}
 }

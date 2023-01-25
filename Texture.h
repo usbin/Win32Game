@@ -13,9 +13,9 @@ private:
 
 	Texture();
 	virtual ~Texture() override;
+	void Load();
 
 public:
-	void Load();
 	inline UINT get_width() { return texture_desc_.Width; };
 	inline UINT get_height() { return texture_desc_.Height; };
 	inline Vector2 get_size() { return Vector2{ get_width(), get_height() }; };

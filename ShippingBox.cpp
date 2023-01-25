@@ -11,6 +11,8 @@
 #include "Texture.h"
 #include "ResManager.h"
 #include "Collider.h"
+#include "Mic.h"
+#include "FmodSound.h"
 ShippingBox::~ShippingBox()
 {
 	SafeDeleteVector<const ItemData*>(items_);
@@ -68,10 +70,15 @@ void ShippingBox::OnInteract(const GObject* req_obj)
 				int index = item_holder->GetHoldIndex();
 				const ItemData* item_data = item_holder->GetItemData();
 				//아이템이 작물일 때
-				if (item_data && dynamic_cast<const Crop*>(item_data->item)) {
+				if (item_data 
+					&& (dynamic_cast<const Crop*>(item_data->item)
+						||dynamic_cast<const Mic*>(item_data->item))) {
 					//출하상자에 넣고 인벤토리에서 제거
 					items_.push_back(DEBUG_NEW ItemData{ item_data->item, item_data->amount });
 					player->get_inventory()->RemoveItem(index, item_data->amount);
+					//효과음 재생
+					Sound* effect = ResManager::GetInstance()->LoadSound(_T("ShippingBox Effect"), _T("sound\\ShippingBox_Effect.wav"));
+					FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), effect, false);
 
 				}
 			}

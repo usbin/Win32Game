@@ -1,6 +1,8 @@
 #include "FarmhouseDoor_Exit.h"
 #include "Collider.h"
 #include "Player.h"
+#include "FmodSound.h"
+#include "ResManager.h"
 void FarmhouseDoor_Exit::Init()
 {
 	CreateCollider();
@@ -24,6 +26,8 @@ void FarmhouseDoor_Exit::OnCollisionEnter(Collider* collider)
 		if (player) {
 			//´êÀº °Ô player¸é ¾À ÀÌµ¿
 			ChangeScene(SCENE_TYPE::SCENE_FARM);
+			Sound* sound = ResManager::GetInstance()->LoadSound(_T("DoorOpen_Effect"), _T("sound\\DoorOpen_Effect.wav"));
+			FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 		}
 	}
 }

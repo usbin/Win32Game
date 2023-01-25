@@ -2,6 +2,7 @@
 #include "TileObjectRenderComponent.h"
 #include "ITileObjectInfo.h"
 #include "TileObjectDb.h"
+#include "Collider.h"
 TileObject::~TileObject()
 {
 		
@@ -12,6 +13,26 @@ void TileObject::Init(TILE_OBJECT_TYPE type) {
 
 
 	CreateRenderCmp();
+
+	switch (tile_object_type_)
+	{
+	case TILE_OBJECT_TYPE::STONE:
+	case TILE_OBJECT_TYPE::WOOD:
+	case TILE_OBJECT_TYPE::WEED:
+		CreateCollider();
+		break;
+	case TILE_OBJECT_TYPE::FIELD:
+		break;
+	}
+}
+void TileObject::CreateCollider()
+{
+	Collider* collider = DEBUG_NEW Collider();
+	collider->set_owner(this);
+	collider->set_is_physical_collider(true);
+	collider->set_scale(get_scale());
+	set_collider(collider);
+
 }
 void TileObject::SetLevel(UINT level) {
 	level_ = level;

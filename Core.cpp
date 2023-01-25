@@ -12,6 +12,7 @@
 #include "ItemDb.h"
 #include "TileObjectDb.h"
 #include "RuntimeData.h"
+#include "FmodSound.h"
 
 
 Core::Core()
@@ -37,6 +38,7 @@ int Core::OnDestroy() {
 	RuntimeData::GetInstance()->OnDestroy();
 	SceneManager::GetInstance()->~SceneManager();	//모든 object dead 이벤트 등록
 	EventManager::GetInstance()->Update();			//dead 이벤트 실행(IsDead 상태)
+	FmodSound::GetInstance()->OnDestroy();
 	//실제 삭제는 EventManager가 소멸하는 시점에.
 
 
@@ -87,7 +89,12 @@ int Core::Init(HWND h_wnd, HINSTANCE hInst, int width, int height) {
 	}
 	DXClass::GetInstance()->InitD2D1();
 
-	//================
+	//=================
+	// FMOD sound 초기화
+	//=================
+	FmodSound::GetInstance()->Init();
+
+	//=================
 	// 후행 초기화 작업
 	//=================
 	SceneManager::GetInstance()->Init(DXClass::GetInstance()->get_d3d_device());
@@ -123,6 +130,7 @@ bool Core::Progress()
 	KeyManager::GetInstance()->Update();
 	Camera::GetInstance()->Update();
 	Game::GetInstance()->Update();
+	FmodSound::GetInstance()->Update();
 
 	//===============
 	//	메인 루틴

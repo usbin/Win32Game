@@ -9,6 +9,7 @@
 #include "DropItem.h"
 #include "ItemDb.h"
 #include "Mic.h"
+#include "FmodSound.h"
 Equip::~Equip()
 {
 	delete sprite_;
@@ -62,6 +63,8 @@ bool Equip::Use(RealObject* obj) const
 				field_tile_obj->Init(TILE_OBJECT_TYPE::FIELD);
 				CreateGObject(field_tile_obj, GROUP_TYPE::TILE_OBJECT);
 
+				Sound* sound = ResManager::GetInstance()->LoadSound(_T("Hoe_Effect"), _T("sound\\Hoe_Effect.wav"));
+				FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 				
 				return true;
 			}
@@ -91,6 +94,8 @@ bool Equip::Use(RealObject* obj) const
 			animator_->Play(_T("Use_WateringPot_Right"), true);
 			break;
 		}
+		Sound* sound = ResManager::GetInstance()->LoadSound(_T("WateringPot_Effect"), _T("sound\\WateringPot_Effect.wav"));
+		FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 
 		Vector2 target_pos = obj->get_item_holder()->get_target_pos();
 		Vector2 to_base_pos;
@@ -99,6 +104,7 @@ bool Equip::Use(RealObject* obj) const
 		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
 			FieldTileObject* field_tile_obj = dynamic_cast<FieldTileObject*>(tile_obj);
 			field_tile_obj->Water();
+
 			
 			return true;
 		}
@@ -134,10 +140,22 @@ bool Equip::Use(RealObject* obj) const
 		TileObject* tile_obj = nullptr;
 		SceneManager::GetInstance()->get_current_scene()->GetTileObject(target_pos, to_base_pos, tile_obj);
 		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::FIELD) {
-			delete tile_obj;
-
+			DeleteGObject(tile_obj, GROUP_TYPE::TILE_OBJECT);
 			
 			return true;
+		}
+		else if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::STONE) {
+			DeleteGObject(tile_obj, GROUP_TYPE::TILE_OBJECT);
+
+			const IItem* stone = ItemDb::GetInstance()->get_item(static_cast<int>(ITEM_CODE::STONE));
+			DropItem* dropped_stone = DEBUG_NEW DropItem();
+			dropped_stone->Init(stone, 1);
+			dropped_stone->set_pos(to_base_pos);
+			dropped_stone->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+			dropped_stone->set_group_type(GROUP_TYPE::DROP_ITEM);
+			CreateGObject(dropped_stone, GROUP_TYPE::DROP_ITEM);
+			Sound* sound = ResManager::GetInstance()->LoadSound(_T("Pickaxe_Effect"), _T("sound\\Pickaxe_Effect.wav"));
+			FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
 		}
 		return false;
 		
@@ -180,7 +198,27 @@ bool Equip::Use(RealObject* obj) const
 			dropped_wood->set_group_type(GROUP_TYPE::DROP_ITEM);
 			CreateGObject(dropped_wood, GROUP_TYPE::DROP_ITEM);
 
+			Sound* sound = ResManager::GetInstance()->LoadSound(_T("Axe_Effect"), _T("sound\\Axe_Effect.wav"));
+			FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
+
 			
+			return true;
+		}
+		if (tile_obj && tile_obj->get_tile_object_type() == TILE_OBJECT_TYPE::WEED) {
+			DeleteGObject(tile_obj, GROUP_TYPE::TILE_OBJECT);
+
+			const IItem* weed = ItemDb::GetInstance()->get_item(static_cast<int>(ITEM_CODE::WEED));
+			DropItem* dropped_weed = DEBUG_NEW DropItem();
+			dropped_weed->Init(weed, 1);
+			dropped_weed->set_pos(to_base_pos);
+			dropped_weed->set_scale(Vector2{ TILE_WIDTH, TILE_HEIGHT });
+			dropped_weed->set_group_type(GROUP_TYPE::DROP_ITEM);
+			CreateGObject(dropped_weed, GROUP_TYPE::DROP_ITEM);
+
+			Sound* sound = ResManager::GetInstance()->LoadSound(_T("Axe_Effect"), _T("sound\\Axe_Effect.wav"));
+			FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
+
+
 			return true;
 		}
 		return false;

@@ -100,19 +100,19 @@ void Game::ControlUnfreeze()
 
 void Game::ToggleInventory(Player* player)
 {
-	if (!CHECK_GAME_STATE(GAME_STATE_CONTROL_FREEZED)) {
-		if (!opened_inventory_ui_) {
-			TimeFreeze();
-			opened_inventory_ui_ = DEBUG_NEW InventoryUi();
-			opened_inventory_ui_->Init(player);
-			opened_inventory_ui_->set_group_type(GROUP_TYPE::UI);
-			CreateGObject(opened_inventory_ui_, GROUP_TYPE::UI);
-		}
-		else {
-			TimeUnfreeze();
-			DeleteGObject(opened_inventory_ui_, GROUP_TYPE::UI);
-			opened_inventory_ui_ = nullptr;
-		}
+	if (!opened_inventory_ui_) {
+		ControlFreeze();
+		TimeFreeze();
+		opened_inventory_ui_ = DEBUG_NEW InventoryUi();
+		opened_inventory_ui_->Init(player);
+		opened_inventory_ui_->set_group_type(GROUP_TYPE::UI);
+		CreateGObject(opened_inventory_ui_, GROUP_TYPE::UI);
+	}
+	else {
+		ControlUnfreeze();
+		TimeUnfreeze();
+		DeleteGObject(opened_inventory_ui_, GROUP_TYPE::UI);
+		opened_inventory_ui_ = nullptr;
 	}
 	
 	

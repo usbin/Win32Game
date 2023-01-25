@@ -16,5 +16,6 @@ public:
 	void Initialize();
 	void Reinitialize(SCENE_TYPE from);
 	void CreateUis(Player* player);
+	void SetBgm();
 };
 

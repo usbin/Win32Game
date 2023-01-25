@@ -1,14 +1,19 @@
 #include "ResManager.h"
 #include "Texture.h"
 #include "DXClass.h"
-
+#include "Sound.h"
 ResManager::ResManager() {}
 
 ResManager::~ResManager() {
-    for (auto it : textures_) {
-        delete it.second;
+    for (auto pair : textures_) {
+        delete pair.second;
     }
     textures_.clear();
+
+    for (auto pair : sounds_) {
+        delete pair.second;
+    }
+    sounds_.clear();
 }
 
 Texture* ResManager::LoadTexture(const tstring& key, const tstring& relative_path)
@@ -26,4 +31,19 @@ Texture* ResManager::LoadTexture(const tstring& key, const tstring& relative_pat
 
     return texture;
 
+}
+
+Sound* ResManager::LoadSound(const tstring& key, const tstring& relative_path)
+{
+    auto it = sounds_.find(key);
+    if (it != sounds_.end()) {
+        return it->second;
+    }
+    Sound* sound = DEBUG_NEW Sound();
+    sound->set_key(key);
+    sound->set_relative_path(relative_path);
+    sound->Load();
+    sounds_.insert(std::make_pair(key, sound));
+
+    return sound;
 }

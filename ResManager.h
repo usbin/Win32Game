@@ -2,7 +2,7 @@
 #include "global.h"
 
 class Texture;
-
+class Sound;
 class ResManager
 {
 	//전체 텍스쳐 map<키, Texture*>로 관리
@@ -11,9 +11,11 @@ class ResManager
 	SINGLETON(ResManager);
 private:
 	std::map<tstring, Texture*> textures_;
+	std::map<tstring, Sound*> sounds_;
 
 public:
 	Texture* LoadTexture(const tstring& key, const tstring& relative_path);
+	Sound* LoadSound(const tstring& key, const tstring& relative_path);
 	
 };
 

@@ -6,6 +6,8 @@
 #include "ItemDb.h"
 #include "Seed.h"
 #include "ItemSprite.h"
+#include "FmodSound.h"
+#include "ResManager.h"
 
 Seed::~Seed()
 {
@@ -60,6 +62,8 @@ bool Seed::Use(RealObject* obj) const
         if (!field_tile_object) return false;
         if (field_tile_object->get_seed()) return false;
         field_tile_object->SetSeed(this);
+        Sound* sound = ResManager::GetInstance()->LoadSound(_T("Seed_Effect"), _T("sound\\Seed_Effect.wav"));
+        FmodSound::GetInstance()->Play(FmodSound::GetInstance()->GetChannel(), sound, false);
         return true;
     }
     return false;

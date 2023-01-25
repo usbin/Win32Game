@@ -43,3 +43,6 @@ void SafeDeleteMap(std::map<T1, T2>& map) {
 	}
 	map.clear();
 }
+
+
+std::string TstringToString(tstring src_str);

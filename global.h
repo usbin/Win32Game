@@ -25,6 +25,7 @@
 #include <memory>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 //Direct3D 11 사용
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "D3DX11.lib")
@@ -44,6 +45,11 @@ using namespace DirectX;
 #include <dwrite.h>
 #include <d2d1.h>
 #pragma comment(lib, "Msimg32.lib")
+//=============================================
+// 사운드 라이브러리 : FMOD
+//=============================================
+#pragma comment(lib, "fmod_vc.lib")
+#include <fmod.hpp>
 
 typedef std::basic_string<TCHAR> tstring;
 
