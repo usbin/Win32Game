@@ -11,6 +11,7 @@
 #include "UiSprite.h"
 #include "Core.h"
 #include "FmodSound.h"
+#include "DayNightDarkness.h"
 bool Scene_Farmhouse::Enter(SCENE_TYPE from)
 {
 	if (!initialized_) {
@@ -92,6 +93,8 @@ void Scene_Farmhouse::Initialize()
 		player->set_direction(DIRECTION::UP);
 		player->set_enabled(true);
 	}
+
+
 	CreateUis(player);
 	Camera::GetInstance()->set_limit(Vector2{ 35, 0 }, Vector2{ 542, 540 });
 	Camera::GetInstance()->set_look_pos(Vector2{ 300, 400 });

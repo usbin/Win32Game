@@ -61,6 +61,7 @@ void ShippingBox::Render(ID3D11Device* p_d3d_device)
 
 void ShippingBox::OnInteract(const GObject* req_obj)
 {
+
 	//req_obj의 아이템 홀더를 가져와, (아이템, 개수)만큼 내부에 집어넣음.
 	if (req_obj) {
 		const Player* player = dynamic_cast<const Player*>(req_obj);

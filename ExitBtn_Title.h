@@ -1,11 +1,10 @@
 #pragma once
 #include "global.h"
 #include "ButtonUi.h"
-class NewGameBtn_Title : public ButtonUi
+class ExitBtn_Title : public ButtonUi
 {
 public:
-	NewGameBtn_Title();
-	~NewGameBtn_Title();
+	ExitBtn_Title(bool is_static_pos) : ButtonUi(is_static_pos) {};
 
 private:
 	bool visible_ = false;

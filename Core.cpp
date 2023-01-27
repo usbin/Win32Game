@@ -148,6 +148,7 @@ bool Core::Progress()
 	//===============
 	SceneManager::GetInstance()->ClearView(DXClass::GetInstance()->get_d3d_device());
 	SceneManager::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
+	Game::GetInstance()->Render(DXClass::GetInstance()->get_d3d_device());
 	//레이어1 렌더링(플레이어 아래)
 	DXClass::GetInstance()->RenderLayer(RENDER_LAYER::GROUND);
 	DXClass::GetInstance()->RenderTextLayer(RENDER_LAYER::GROUND);

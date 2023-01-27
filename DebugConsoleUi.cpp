@@ -144,6 +144,14 @@ void DebugConsoleUi::Excute(std::vector<tstring>& commands)
 			_stprintf_s(buffer, _T("다음날로 넘어감."));
 			PrintConsole(buffer);
 		}
+		else if (commands[1] != _T("0") && _ttoi(commands[1].c_str())!=0) {
+			int hour = _ttoi(commands[1].c_str());
+			Game::GetInstance()->SetTime(Game::GetInstance()->get_day(), hour, 0);
+
+			TCHAR buffer[30];
+			_stprintf_s(buffer, _T("%d시 %d분으로 설정"), hour, 0);
+			PrintConsole(buffer);
+		}
 	}
 	//인게임좌표를 출력해주는 명령어
 	if (commands[0] == _T("POSITION")) {

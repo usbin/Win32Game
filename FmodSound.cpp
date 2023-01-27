@@ -66,6 +66,14 @@ void FmodSound::Play(int channel, Sound* sound, bool repeat)
 	}
 }
 
+void FmodSound::PlayStep(Sound* sound)
+{
+	FMOD_BOOL is_playing = 0;
+	FMOD_Channel_IsPlaying(channels_[CHANNEL_STEP].channel, &is_playing);
+	if(!is_playing)
+		Play(CHANNEL_STEP, sound, false);
+}
+
 void FmodSound::StopBackground()
 {
 	Stop(CHANNEL_BACKGROUND);
@@ -82,7 +90,7 @@ void FmodSound::Stop(int channel)
 
 int FmodSound::GetChannel()
 {
-	for (int i = 2; i < 32; i++) {
+	for (int i = 3; i < 32; i++) {
 		if (!channels_[i].channel) {
 			return i;
 		}

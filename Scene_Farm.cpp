@@ -22,6 +22,10 @@
 #include "FmodSound.h"
 #include "Sound.h"
 #include "Spawner.h"
+#include "DayNightDarkness.h"
+#include "RealObjectRenderComponent.h"
+#include "Texture.h"
+#include "Vender.h"
 bool Scene_Farm::Enter(SCENE_TYPE from)
 {
 	if (!initialized_) {
@@ -101,6 +105,22 @@ void Scene_Farm::Initialize()
 	Spawner::GetInstance()->RandomSpawn(TILE_OBJECT_TYPE::WEED, Vector2{ 2000, 883 }, Vector2{ 3334, 2300 }, 20);
 	Spawner::GetInstance()->Unlock();
 
+	//惑痢 积己
+	Vender* vender = DEBUG_NEW Vender();
+	vender->set_pos(Vector2{ 3645, 736 });
+	vender->set_scale(Vector2{ 48, 48 });
+	vender->set_group_type(GROUP_TYPE::THING);
+	vender->Init();
+	CreateGObject(vender, GROUP_TYPE::THING);
+
+
+	//澜康 积己
+	DayNightDarkness* darkness = DEBUG_NEW DayNightDarkness();
+	darkness->set_group_type(GROUP_TYPE::DARKNESS);
+	darkness->Init();
+	CreateGObject(darkness, GROUP_TYPE::DARKNESS);
+
+
 	//============================
 	// UI 积己
 	//============================
@@ -109,6 +129,7 @@ void Scene_Farm::Initialize()
 	Camera::GetInstance()->set_target(player);
 	Camera::GetInstance()->set_limit(Vector2::Zero(), Vector2{ 3835, 3113 });
 	Game::GetInstance()->StartGame();
+
 	
 	initialized_ = true;
 }

@@ -89,15 +89,62 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 		return E_FAIL;
 	}
 
+	////Stencil View 생성
+	//ID3D11Texture2D* p_stencil = NULL;
+	//ID3D11ShaderResourceView* p_stencil_rv = nullptr;
+	//tstring texture_path = PathManager::GetInstance()->GetContentPath() + _T("texture\\PlayerLightMask.png");
+	//D3DX11_IMAGE_LOAD_INFO texture_info;
+	//ZeroMemory(&texture_info, sizeof(texture_info));
+	//texture_info.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	//texture_info.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	//texture_info.Usage = D3D11_USAGE_DEFAULT;
+	//texture_info.CpuAccessFlags = 0;
+	//texture_info.MiscFlags = 0;
+	//texture_info.MipLevels = 1;
+	//
 
+	//HRESULT hr;
+	//ID3D11Resource* res;
+	//if (FAILED(hr = D3DX11CreateTextureFromFile(p_d3d_device_, texture_path.c_str(), &texture_info, NULL, &res, NULL))) {
+	//	return E_FAIL;
+	//}
+	//res->QueryInterface<ID3D11Texture2D>(&p_stencil);
 
+	//D3D11_DEPTH_STENCIL_DESC stencil_desc;
+	//ZeroMemory(&stencil_desc, sizeof(stencil_desc));
+	////Stencil View 상태 생성
+	//stencil_desc.DepthEnable = false;
+	//stencil_desc.StencilEnable = true;
+	//stencil_desc.StencilReadMask = 0xFF;
+	//stencil_desc.StencilWriteMask = 0xFF;
+	//// Stencil operations if pixel is front-facing
+	//stencil_desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	//stencil_desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	//stencil_desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	//stencil_desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	//// Stencil operations if pixel is back-facing
+	//stencil_desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	//stencil_desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	//stencil_desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	//stencil_desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	//// Create depth stencil state
+	//hr = p_d3d_device_->CreateDepthStencilState(&stencil_desc, &p_stencil_state_);
 
-
-
+	////Stencil View 생성
+	//D3D11_DEPTH_STENCIL_VIEW_DESC stencil_view_desc;
+	//ZeroMemory(&stencil_view_desc, sizeof(stencil_view_desc));
+	//stencil_view_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	//stencil_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	//stencil_view_desc.Texture2D.MipSlice = 0;
+	//// Create the depth stencil view
+	//hr = p_d3d_device_->CreateDepthStencilView(p_stencil, // Depth stencil texture
+	//	&stencil_view_desc, // Depth stencil desc
+	//	&p_stencil_view_);  // [out] Depth stencil view
 
 	p_back_buffer->Release();
 	p_immediate_context_->OMSetRenderTargets(1, &p_render_target_view_, NULL);
 
+	HRESULT hr;
 
 	// Viewport 초기화
 	D3D11_VIEWPORT viewport;
@@ -113,7 +160,6 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	tstring shader_path = PathManager::GetInstance()->GetContentPath() + _T("shader\\SimpleShader.hlsl");
 	ID3DBlob* p_vs_blob;
 	ID3DBlob* p_vs_error_blob;
-	HRESULT hr;
 	if (FAILED(hr = D3DCompileFromFile(shader_path.c_str(), NULL, NULL,
 		"VS", "vs_4_0",
 		D3DCOMPILE_ENABLE_STRICTNESS, 0, &p_vs_blob, &p_vs_error_blob)))
@@ -273,12 +319,12 @@ int DXClass::Init(HWND hwnd, Vector2 resolution)
 	blendStateDesc.AlphaToCoverageEnable = FALSE;
 	blendStateDesc.IndependentBlendEnable = FALSE;							//모든 렌더타겟에 대해 각각 블랜드 설정->FALSE
 	blendStateDesc.RenderTarget[0].BlendEnable = TRUE;
-	blendStateDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendStateDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;		//RGB 혼합 계수
 	blendStateDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	blendStateDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendStateDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;			//RGB 혼합 연산자
+	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;			//A 혼합 계수
 	blendStateDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
-	blendStateDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendStateDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_MAX;		//A 혼합 연산자
 	blendStateDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	if (FAILED(p_d3d_device_->CreateBlendState(&blendStateDesc, &p_blend_state)))
@@ -304,8 +350,6 @@ int DXClass::InitRenderLayers(Vector2 resolution)
 	ID3D11ShaderResourceView* layer1_resource_view;
 	ID3D11ShaderResourceView* layer2_resource_view;
 	ID3D11ShaderResourceView* layer3_resource_view;
-
-
 
 	D3D11_TEXTURE2D_DESC layer_texture_desc;
 	D3D11_RENDER_TARGET_VIEW_DESC layer_target_view_desc;
@@ -352,6 +396,8 @@ int DXClass::InitRenderLayers(Vector2 resolution)
 	render_layer_resource_views_[(int)RENDER_LAYER::GROUND] = layer1_resource_view;
 	render_layer_resource_views_[(int)RENDER_LAYER::PLAYER] = layer2_resource_view;
 	render_layer_resource_views_[(int)RENDER_LAYER::TOP] = layer3_resource_view;
+	
+	
 
 	return S_OK;
 }
@@ -429,7 +475,6 @@ void DXClass::WriteConstantBufferOnRender(BOOL use_texture, XMFLOAT4 mesh_color)
 	p_const_data->mesh_color = mesh_color;
 	p_immediate_context_->Unmap(p_const_buffer_on_render_, NULL);
 }
-
 void DXClass::RenderLayer(RENDER_LAYER layer)
 {
 	ID3D11Texture2D* texture = render_layer_textures_[(int)layer];

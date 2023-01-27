@@ -62,6 +62,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayFinishedUi.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DayNightDarkness.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\DebugConsoleUi.cpp"
 
 
@@ -87,6 +90,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\EventManager.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ExitBtn_Title.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\FarmhouseBed.cpp"
@@ -182,6 +188,9 @@
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\KeyManager.cpp"
 
 
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Loading.cpp"
+
+
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Mic.cpp"
 
 
@@ -204,6 +213,18 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShippingBox.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShopGoldUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShopInventoryUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShopItemCellUi.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\ShopUi.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\SimpleFrame.cpp"
@@ -336,6 +357,9 @@
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\UiSprite.cpp"
+
+
+#include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Vender.cpp"
 
 
 #include "D:\Subs\Visual Studio 2019\Projects\Win32Program\Win32Program.cpp"

@@ -71,6 +71,7 @@ bool SceneManager::Render(ID3D11Device* p_d3d_device) {
 bool SceneManager::ChangeSceneExit()
 {
 	p_current_scene_->Exit();
+	Game::GetInstance()->ShowLoading();
 	return TRUE;
 }
 
@@ -79,13 +80,14 @@ bool SceneManager::ChangeSceneEnter(SCENE_TYPE type)
 	p_current_scene_ = scenes_[static_cast<int>(type)];
 	p_current_scene_->Enter(current_scene_type_);
 	current_scene_type_ = type;
+	Game::GetInstance()->UnshowLoading();
 	return true;
 }
 
 void SceneManager::ClearView(ID3D11Device* p_d3d_device) {
 	ID3D11DeviceContext* context;
 	p_d3d_device->GetImmediateContext(&context);
-	float ClearColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	context->ClearRenderTargetView(DXClass::GetInstance()->get_render_target_view(), ClearColor);
 	for (int i = 0; i < (int)RENDER_LAYER::END; i++) {
 		context->ClearRenderTargetView(DXClass::GetInstance()->get_render_layer_target((RENDER_LAYER)i), ClearColor);

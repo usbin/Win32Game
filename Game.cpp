@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "Inventory.h"
 #include "DayFinishedUi.h"
+#include "Loading.h"
 Game::Game()
 	: day_(1)
 	, day_uptime_s_(0){
@@ -68,6 +69,12 @@ void Game::FinishDayProcess()
 	day_uptime_s_ = 6 * 60 * 60;//시간 오전 6시로 셋팅
 }
 
+void Game::SetTime(UINT day, UINT hour, UINT min)
+{
+	day_ = day;
+	day_uptime_s_ = ((hour) * 60 + min) * 60;
+}
+
 
 void Game::TimeFreeze()
 {
@@ -100,15 +107,17 @@ void Game::ControlUnfreeze()
 
 void Game::ToggleInventory(Player* player)
 {
-	if (!opened_inventory_ui_) {
-		ControlFreeze();
-		TimeFreeze();
-		opened_inventory_ui_ = DEBUG_NEW InventoryUi();
-		opened_inventory_ui_->Init(player);
-		opened_inventory_ui_->set_group_type(GROUP_TYPE::UI);
-		CreateGObject(opened_inventory_ui_, GROUP_TYPE::UI);
+	if (control_freezed_count_ <= 0) {
+		if (!opened_inventory_ui_) {
+			ControlFreeze();
+			TimeFreeze();
+			opened_inventory_ui_ = DEBUG_NEW InventoryUi();
+			opened_inventory_ui_->Init(player);
+			opened_inventory_ui_->set_group_type(GROUP_TYPE::UI);
+			CreateGObject(opened_inventory_ui_, GROUP_TYPE::UI);
+		}
 	}
-	else {
+	else if (opened_inventory_ui_) {
 		ControlUnfreeze();
 		TimeUnfreeze();
 		DeleteGObject(opened_inventory_ui_, GROUP_TYPE::UI);
@@ -142,15 +151,40 @@ void Game::ToggleDebugConsole()
 	}
 }
 
+void Game::ShowLoading()
+{
+	if (!opened_loading_ui_) {
+		ControlFreeze();
+		opened_loading_ui_ = DEBUG_NEW Loading();
+	}
+}
+
+void Game::UnshowLoading()
+{
+	ControlUnfreeze();
+	delete opened_loading_ui_;
+	opened_loading_ui_ = nullptr;
+}
+
 void Game::Update()
 {
 	if (!(game_state_ & GAME_STATE_TIME_STOPPED)) {
-		day_uptime_s_ += DtF();
+		day_uptime_s_ += DtF()*60;//게임 시간이 60배 빨리 감
 	}
-	
+
+
+	if (opened_debug_console_ui_ && opened_debug_console_ui_->IsDead()) opened_debug_console_ui_ = nullptr;
+
+	if (opened_loading_ui_) opened_loading_ui_->Update();
+
 	if (KEY_DOWN(KEY::KEY_GRAVE)) {
 		ToggleDebugConsole();
 	}
-	if (opened_debug_console_ui_ && opened_debug_console_ui_->IsDead()) opened_debug_console_ui_ = nullptr;
+}
 
+void Game::Render(ID3D11Device* p_d3d_device)
+{
+	if (opened_loading_ui_) {
+		opened_loading_ui_->Render(p_d3d_device);
+	}
 }

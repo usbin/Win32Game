@@ -1,5 +1,6 @@
 #include "TitleText_Title.h"
 #include "Core.h"
+#include "UiSprite.h"
 TitleText_Title::TitleText_Title()
 	: Ui(true)
 	, effect_state_(EFFECT_STATE::PREVIOUS)
@@ -42,9 +43,9 @@ void TitleText_Title::FinalUpdate()
 void TitleText_Title::Render(ID3D11Device* p_d3d_device)
 {
 	Vector2 final_pos = get_final_pos();
-	DrawAutosizeText(p_d3d_device, final_pos, get_scale(),
-		_T("Harvest Moon"), _tcslen(_T("Harvest Moon")), _T("µÕ±Ù¸ð²Ã"), D2D1::ColorF::Black, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_WEIGHT_BOLD, 
-		DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER, 100, 20, 2);
+	if (get_sprite()) {
+		DrawTexture(p_d3d_device, get_final_pos(), get_scale(), get_sprite()->get_base_pos(), get_sprite()->get_scale(), get_sprite()->get_texture());
+	}
 	ChildrenRender(p_d3d_device);
 }
 

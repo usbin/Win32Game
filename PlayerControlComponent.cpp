@@ -8,12 +8,14 @@
 #include "IUsable.h"
 #include "Game.h"
 #include "Interactor.h"
+#include "FmodSound.h"
+#include "ResManager.h"
 
 void PlayerControlComponent::Update(RealObject* obj)
 {
 	Player* player = dynamic_cast<Player*>(obj);
 	Vector2 v{ 0, 0 };
-	if (player) {
+	if (player && !player->IsDead()) {
 		float run_speed_2x = 2.f;
 		Vector2 move_direction{ 0, 0 };
 		float calculated_speed = player->speed_;
@@ -70,22 +72,28 @@ void PlayerControlComponent::Update(RealObject* obj)
 				}
 			}
 
+			Sound* sound = ResManager::GetInstance()->LoadSound(_T("FarmStep Effect"), _T("sound\\FarmStep_Effect.wav"));
+
 			if (KEY_HOLD(KEY::W)) {
 				move_direction.y = -1;
 				player->set_direction(DIRECTION::UP);
-				
+
+				FmodSound::GetInstance()->PlayStep(sound);
 			}
 			else if (KEY_HOLD(KEY::S)) {
 				move_direction.y = 1;
 				player->set_direction(DIRECTION::DOWN);
+				FmodSound::GetInstance()->PlayStep(sound);
 			}
 			if (KEY_HOLD(KEY::D)) {
 				move_direction.x = 1;
 				player->set_direction(DIRECTION::RIGHT);
+				FmodSound::GetInstance()->PlayStep(sound);
 			}
 			else if (KEY_HOLD(KEY::A)) {
 				move_direction.x = -1;
 				player->set_direction(DIRECTION::LEFT);
+				FmodSound::GetInstance()->PlayStep(sound);
 			}
 
 			if (move_direction == Vector2{ 0, 0 }) {

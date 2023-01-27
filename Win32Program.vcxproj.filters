@@ -175,6 +175,9 @@
     <Filter Include="Game\3.Res\Sound">
       <UniqueIdentifier>{71f47394-03ec-4833-b323-c43418256910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4.GObject\Ui\GameUis\Shop">
+      <UniqueIdentifier>{f05ab075-d21d-4b75-8c6a-0850c4beeea8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -571,6 +574,28 @@
     <ClInclude Include="FmodSound.h">
       <Filter>Module</Filter>
     </ClInclude>
+    <ClInclude Include="ExitBtn_Title.h">
+      <Filter>Game\1.Scene\Scene_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h" />
+    <ClInclude Include="DayNightDarkness.h">
+      <Filter>Game\4.GObject\RealObject\Thing</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopGoldUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopInventoryUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItemCellUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopUi.h">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Vender.h">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -923,6 +948,28 @@
     </ClCompile>
     <ClCompile Include="FmodSound.cpp">
       <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitBtn_Title.cpp">
+      <Filter>Game\1.Scene\Scene_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="DayNightDarkness.cpp">
+      <Filter>Game\4.GObject\RealObject\Thing</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopGoldUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopInventoryUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItemCellUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopUi.cpp">
+      <Filter>Game\4.GObject\Ui\GameUis\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Vender.cpp">
+      <Filter>Game\1.Scene\Scene_Farm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

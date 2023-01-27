@@ -39,6 +39,7 @@ private:
 	};
 	IDWriteInlineObject* p_trim_sign_ = nullptr;
 
+
 public:
 	int Init(HWND hwnd, Vector2 resolution);
 	int InitRenderLayers(Vector2 resolution);
@@ -69,6 +70,7 @@ public:
 	inline ID3D11SamplerState* get_sampler_state() { return p_sampler_linear_; };
 	inline ID2D1RenderTarget* get_text_render_target() { return p_text_render_target_; };
 	inline ID2D1BitmapRenderTarget* get_text_bitmap(RENDER_LAYER layer) { return text_bitmaps_[(int)layer]; };
+
 	//
 	void SaveMapfileToPng(const std::vector<GObject*>& tiles, Vector2 size);
 };

@@ -16,6 +16,7 @@ int g_windows_keys[static_cast<int>(KEY::LAST)] = {
 	VK_TAB,	//TAB
 	VK_BACK, //Backspace
 	VK_RETURN, //Enter
+	VK_ESCAPE, //ESC
 	0xC0,	//`Ű(Grave)
 	0x31,	//1
 	0x32,	//2

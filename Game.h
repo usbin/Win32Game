@@ -4,6 +4,7 @@
 class Player;
 class InventoryUi;
 class DebugConsoleUi;
+class Loading;
 class Game
 {
 private:
@@ -20,10 +21,11 @@ private:
 	
 	InventoryUi* opened_inventory_ui_;
 	DebugConsoleUi* opened_debug_console_ui_;
-
+	Loading* opened_loading_ui_;
 	
 private:
 	void Update();
+	void Render(ID3D11Device* p_d3d_device);
 
 public:
 	void StartGame();									//1일차 시작 함수.
@@ -44,7 +46,9 @@ public:
 	void ToggleInventory(Player* player);
 	//관리자 윈도우
 	void ToggleDebugConsole();
-
+	//로딩 화면
+	void ShowLoading();
+	void UnshowLoading();
 
 	friend class Core;
 	friend class TimerUi;

@@ -150,6 +150,12 @@ union ARGB {
 		r = _argb >> 16 & 0xFF;
 		a = _argb >> 24 & 0xFF;
 	};
+	ARGB(float _a, float _r, float _g, float _b) {
+		b = (int)(_b*256) & 0xFF;
+		g = (int)(_g*256) & 0xFF;
+		r = (int)(_r*256) & 0xFF;
+		a = (int)(_a*256) & 0xFF;
+	}
 };
 
 

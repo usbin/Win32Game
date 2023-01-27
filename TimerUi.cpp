@@ -37,8 +37,8 @@ void TimerUi::Render(ID3D11Device* p_d3d_device)
 	Ui::Render(p_d3d_device);
 
 	UINT uptime_s = Game::GetInstance()->get_day_uptime_s();
-	UINT hour = uptime_s / 60 / 60;
-	UINT min = uptime_s % 60 - (uptime_s%60%15); //15분 주기로 저장.
+	UINT hour = uptime_s / 60/60;
+	UINT min = uptime_s /60 % 60 - (uptime_s/60%60%15); //15분 주기로 저장.
 
 
 	//날짜 출력

@@ -178,10 +178,12 @@
     <ClInclude Include="DayFinishedInfoContainerUi.h" />
     <ClInclude Include="DayFinishedOkBtn.h" />
     <ClInclude Include="DayFinishedUi.h" />
+    <ClInclude Include="DayNightDarkness.h" />
     <ClInclude Include="DebugConsoleUi.h" />
     <ClInclude Include="Decorator.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropItemRenderComponent.h" />
+    <ClInclude Include="ExitBtn_Title.h" />
     <ClInclude Include="FarmhouseBed.h" />
     <ClInclude Include="FarmhouseDoor.h" />
     <ClInclude Include="FarmhouseDoor_Exit.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="IUsable.h" />
     <ClInclude Include="ItemDb.h" />
     <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="Loading.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Mic.h" />
     <ClInclude Include="Missile.h" />
@@ -241,6 +244,10 @@
     <ClInclude Include="RuntimeData.h" />
     <ClInclude Include="Scene_Farmhouse.h" />
     <ClInclude Include="ShippingBox.h" />
+    <ClInclude Include="ShopGoldUi.h" />
+    <ClInclude Include="ShopInventoryUi.h" />
+    <ClInclude Include="ShopItemCellUi.h" />
+    <ClInclude Include="ShopUi.h" />
     <ClInclude Include="SimpleFrame.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Spawner.h" />
@@ -290,6 +297,7 @@
     <ClInclude Include="UiAnimator.h" />
     <ClInclude Include="UiManager.h" />
     <ClInclude Include="UiSprite.h" />
+    <ClInclude Include="Vender.h" />
     <ClInclude Include="Win32Program.h" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +322,7 @@
     <ClCompile Include="DayFinishedInfoContainerUi.cpp" />
     <ClCompile Include="DayFinishedOkBtn.cpp" />
     <ClCompile Include="DayFinishedUi.cpp" />
+    <ClCompile Include="DayNightDarkness.cpp" />
     <ClCompile Include="DebugConsoleUi.cpp" />
     <ClCompile Include="Decorator.cpp" />
     <ClCompile Include="Director_Scene_Farm.cpp" />
@@ -323,6 +332,7 @@
     <ClCompile Include="DXClass.cpp" />
     <ClCompile Include="Equip.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="ExitBtn_Title.cpp" />
     <ClCompile Include="FarmhouseBed.cpp" />
     <ClCompile Include="FarmhouseDoor.cpp" />
     <ClCompile Include="FarmhouseDoor_Exit.cpp" />
@@ -354,6 +364,7 @@
     <ClCompile Include="ItemLooter.cpp" />
     <ClCompile Include="ItemSprite.cpp" />
     <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="Loading.cpp" />
     <ClCompile Include="Mic.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -362,6 +373,10 @@
     <ClCompile Include="RuntimeData.cpp" />
     <ClCompile Include="Scene_Farmhouse.cpp" />
     <ClCompile Include="ShippingBox.cpp" />
+    <ClCompile Include="ShopGoldUi.cpp" />
+    <ClCompile Include="ShopInventoryUi.cpp" />
+    <ClCompile Include="ShopItemCellUi.cpp" />
+    <ClCompile Include="ShopUi.cpp" />
     <ClCompile Include="SimpleFrame.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -406,6 +421,7 @@
     <ClCompile Include="UiAnimator.cpp" />
     <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="UiSprite.cpp" />
+    <ClCompile Include="Vender.cpp" />
     <ClCompile Include="Win32Program.cpp" />
   </ItemGroup>
   <ItemGroup>
